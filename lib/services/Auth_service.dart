@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:delivery_food/General/Api_Result.dart';
 import 'package:delivery_food/General/constans.dart';
 import 'package:delivery_food/model/Auth_model.dart';
+import 'package:delivery_food/model/Error.dart';
 import 'package:http/http.dart' as http;
 
 class AuthService {
@@ -10,6 +11,7 @@ class AuthService {
     StatusCode statusCode = StatusCode();
     ApiResult apiResult = ApiResult();
     AuthResponse? calendar;
+    ErrorResponse? error;
     AuthStatus? status;
     Uri url = Uri.http(
         '${statusCode.url1}', '/api/public/auth/get-code?phone=965274068');
@@ -33,55 +35,63 @@ class AuthService {
       } else if (response.statusCode == statusCode.BAD_REQUEST) {
         status = AuthStatus.fromJson(responsebode['status']);
 
-        apiResult.errorMassage = status.msg;
+        error = ErrorResponse.fromJson(responsebode['errors']);
+        apiResult.errorMassage = error.msg;
         apiResult.codeError = status.code;
         apiResult.hasError = true;
         print('A bad request Please try again');
       } else if (response.statusCode == statusCode.UNAUTHORIZED) {
         status = AuthStatus.fromJson(responsebode['status']);
 
-        apiResult.errorMassage = status.msg;
+        error = ErrorResponse.fromJson(responsebode['errors']);
+        apiResult.errorMassage = error.msg;
         apiResult.codeError = status.code;
         apiResult.hasError = true;
         print('A bad request Please try again');
       } else if (response.statusCode == statusCode.FORBIDDEN) {
         status = AuthStatus.fromJson(responsebode['status']);
 
-        apiResult.errorMassage = status.msg;
+        error = ErrorResponse.fromJson(responsebode['errors']);
+        apiResult.errorMassage = error.msg;
         apiResult.codeError = status.code;
         apiResult.hasError = true;
         print('A bad request Please try again');
       } else if (response.statusCode == statusCode.NOT_FOUND) {
         status = AuthStatus.fromJson(responsebode['status']);
 
-        apiResult.errorMassage = status.msg;
+        error = ErrorResponse.fromJson(responsebode['errors']);
+        apiResult.errorMassage = error.msg;
         apiResult.codeError = status.code;
         apiResult.hasError = true;
         print('Endpoint not found Please try again');
       } else if (response.statusCode == statusCode.DUPLICATED_ENTRY) {
         status = AuthStatus.fromJson(responsebode['status']);
 
-        apiResult.errorMassage = status.msg;
+        error = ErrorResponse.fromJson(responsebode['errors']);
+        apiResult.errorMassage = error.msg;
         apiResult.codeError = status.code;
         apiResult.hasError = true;
         print('Input error Please try again');
       } else if (response.statusCode == statusCode.VALIDATION_ERROR) {
         status = AuthStatus.fromJson(responsebode['status']);
 
-        apiResult.errorMassage = status.msg;
+        error = ErrorResponse.fromJson(responsebode['errors']);
+        apiResult.errorMassage = error.msg;
         apiResult.codeError = status.code;
         apiResult.hasError = true;
         print('Input error Please try again');
       } else if (response.statusCode == statusCode.INTERNAL_SERVER_ERROR) {
         status = AuthStatus.fromJson(responsebode['status']);
 
-        apiResult.errorMassage = status.msg;
+        error = ErrorResponse.fromJson(responsebode['errors']);
+        apiResult.errorMassage = error.msg;
         apiResult.codeError = status.code;
         apiResult.hasError = true;
         print('Server error Please try again');
       } else {
         status = AuthStatus.fromJson(responsebode['status']);
-        apiResult.errorMassage = status.msg;
+        error = ErrorResponse.fromJson(responsebode['errors']);
+        apiResult.errorMassage = error.msg;
         apiResult.codeError = status.code;
         apiResult.hasError = true;
         print(' error Please try again');
