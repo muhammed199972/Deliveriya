@@ -6,6 +6,7 @@ import 'package:delivery_food/model/Favorite_model.dart';
 import 'package:http/http.dart' as http;
 
 class FavoriteService {
+<<<<<<< HEAD
   static Map<String, String> headers = {
     'Content-Type': 'application/json',
     'Accept': 'application/json'
@@ -21,6 +22,8 @@ class FavoriteService {
     'Accept': 'application/json',
     'Authorization': 'Bearer token'
   };
+=======
+>>>>>>> fbed7192a2a2d8dde1dbac291623248f9286d283
   Future<ApiResult> getfavoriteData() async {
     StatusCode statusCode = StatusCode();
     ApiResult apiResult = ApiResult();
@@ -30,7 +33,12 @@ class FavoriteService {
         '${statusCode.url1}', '/api/private/user/favorite?offset=0&limit=8');
 
     try {
+<<<<<<< HEAD
       var response = await http.get(url);
+=======
+      var response = await http
+          .get(url, headers: {'Authorization': 'Bearer ${statusCode.Token}'});
+>>>>>>> fbed7192a2a2d8dde1dbac291623248f9286d283
       var responsebode = jsonDecode(response.body);
 
       if (response.statusCode == statusCode.OK ||

@@ -7,6 +7,7 @@ import 'package:delivery_food/model/Order_model.dart';
 import 'package:http/http.dart' as http;
 
 class OrderService {
+<<<<<<< HEAD
   static Map<String, String> headers = {
     'Content-Type': 'application/json',
     'Accept': 'application/json'
@@ -22,6 +23,8 @@ class OrderService {
     'Accept': 'application/json',
     'Authorization': 'Bearer token'
   };
+=======
+>>>>>>> fbed7192a2a2d8dde1dbac291623248f9286d283
   Future<ApiResult> getorderData() async {
     StatusCode statusCode = StatusCode();
     ApiResult apiResult = ApiResult();
@@ -30,7 +33,12 @@ class OrderService {
     Uri url = Uri.http('${statusCode.url1}', '/api/private/user/order');
 
     try {
+<<<<<<< HEAD
       var response = await http.get(url);
+=======
+      var response = await http
+          .get(url, headers: {'Authorization': 'Bearer ${statusCode.Token}'});
+>>>>>>> fbed7192a2a2d8dde1dbac291623248f9286d283
       var responsebode = jsonDecode(response.body);
 
       if (response.statusCode == statusCode.OK ||
