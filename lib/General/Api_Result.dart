@@ -1,6 +1,6 @@
 class ApiResult {
-  bool hasError;
-  int codeError;
-  String errorMassage;
+  bool? hasError;
+  int? codeError;
+  String? errorMassage;
   dynamic data;
 }

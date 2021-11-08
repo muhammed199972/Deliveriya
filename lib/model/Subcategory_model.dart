@@ -1,6 +1,6 @@
 class SubcategoryStatus {
-  int code;
-  String msg;
+  int? code;
+  String? msg;
 
   SubcategoryStatus({this.code, this.msg});
 
@@ -18,12 +18,12 @@ class SubcategoryStatus {
 }
 
 class SubcategoryResponse {
-  int id;
-  String avatar;
-  String name;
-  String createdAt;
-  String updatedAt;
-  int categoryId;
+  int? id;
+  String? avatar;
+  String? name;
+  String? createdAt;
+  String? updatedAt;
+  int? categoryId;
 
   SubcategoryResponse(
       {this.id,
