@@ -1,6 +1,6 @@
 class StatusCode {
   String url1 = 'delivery-food12.herokuapp.com';
-
+  var Token = ''; //                        * token
   var OK = 200; //                          * Normal
   var CREATED = 201; //                     * Create new entity
   var UPDATED = 200; //                     * PUT/PATCH Requests

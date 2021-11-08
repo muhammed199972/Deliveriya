@@ -2,28 +2,30 @@ import 'dart:convert';
 import 'dart:io';
 import 'package:delivery_food/General/Api_Result.dart';
 import 'package:delivery_food/General/constans.dart';
-import 'package:delivery_food/model/Ads_model.dart';
+import 'package:delivery_food/model/Favorite_model.dart';
 import 'package:http/http.dart' as http;
 
-class AdsService {
-  Future<ApiResult> getCategoryData() async {
+class FavoriteService {
+  Future<ApiResult> getfavoriteData() async {
     StatusCode statusCode = StatusCode();
     ApiResult apiResult = ApiResult();
-    List<AdsResponse> calendar = [];
-    AdsStatus status;
-    Uri url = Uri.http('${statusCode.url1}', '/api/public/ad');
+    List<FavoriteResponse> calendar = [];
+    FavoriteStatus status;
+    Uri url = Uri.http(
+        '${statusCode.url1}', '/api/private/user/favorite?offset=0&limit=8');
 
     try {
-      var response = await http.get(url);
+      var response = await http
+          .get(url, headers: {'Authorization': 'Bearer ${statusCode.Token}'});
       var responsebode = jsonDecode(response.body);
 
       if (response.statusCode == statusCode.OK ||
           response.statusCode == statusCode.CREATED) {
-        status = AdsStatus.fromJson(responsebode['status']);
+        status = FavoriteStatus.fromJson(responsebode['status']);
 
         if (responsebode['response'] != null) {
           for (var item in responsebode['response']) {
-            calendar.add(AdsResponse.fromJson(item));
+            calendar.add(FavoriteResponse.fromJson(item));
           }
           apiResult.errorMassage = status.msg;
           apiResult.codeError = status.code;
@@ -31,56 +33,56 @@ class AdsService {
           apiResult.data = calendar;
         }
       } else if (response.statusCode == statusCode.BAD_REQUEST) {
-        status = AdsStatus.fromJson(responsebode['status']);
+        status = FavoriteStatus.fromJson(responsebode['status']);
 
         apiResult.errorMassage = status.msg;
         apiResult.codeError = status.code;
         apiResult.hasError = true;
         print('A bad request Please try again');
       } else if (response.statusCode == statusCode.UNAUTHORIZED) {
-        status = AdsStatus.fromJson(responsebode['status']);
+        status = FavoriteStatus.fromJson(responsebode['status']);
 
         apiResult.errorMassage = status.msg;
         apiResult.codeError = status.code;
         apiResult.hasError = true;
         print('A bad request Please try again');
       } else if (response.statusCode == statusCode.FORBIDDEN) {
-        status = AdsStatus.fromJson(responsebode['status']);
+        status = FavoriteStatus.fromJson(responsebode['status']);
 
         apiResult.errorMassage = status.msg;
         apiResult.codeError = status.code;
         apiResult.hasError = true;
         print('A bad request Please try again');
       } else if (response.statusCode == statusCode.NOT_FOUND) {
-        status = AdsStatus.fromJson(responsebode['status']);
+        status = FavoriteStatus.fromJson(responsebode['status']);
 
         apiResult.errorMassage = status.msg;
         apiResult.codeError = status.code;
         apiResult.hasError = true;
         print('Endpoint not found Please try again');
       } else if (response.statusCode == statusCode.DUPLICATED_ENTRY) {
-        status = AdsStatus.fromJson(responsebode['status']);
+        status = FavoriteStatus.fromJson(responsebode['status']);
 
         apiResult.errorMassage = status.msg;
         apiResult.codeError = status.code;
         apiResult.hasError = true;
         print('Input error Please try again');
       } else if (response.statusCode == statusCode.VALIDATION_ERROR) {
-        status = AdsStatus.fromJson(responsebode['status']);
+        status = FavoriteStatus.fromJson(responsebode['status']);
 
         apiResult.errorMassage = status.msg;
         apiResult.codeError = status.code;
         apiResult.hasError = true;
         print('Input error Please try again');
       } else if (response.statusCode == statusCode.INTERNAL_SERVER_ERROR) {
-        status = AdsStatus.fromJson(responsebode['status']);
+        status = FavoriteStatus.fromJson(responsebode['status']);
 
         apiResult.errorMassage = status.msg;
         apiResult.codeError = status.code;
         apiResult.hasError = true;
         print('Server error Please try again');
       } else {
-        status = AdsStatus.fromJson(responsebode['status']);
+        status = FavoriteStatus.fromJson(responsebode['status']);
         apiResult.errorMassage = status.msg;
         apiResult.codeError = status.code;
         apiResult.hasError = true;
