@@ -24,9 +24,8 @@ class AuthService {
           response.statusCode == statusCode.CREATED) {
         status = AuthStatus.fromJson(responsebode['status']);
         if (responsebode['response'] != null) {
-          for (var item in responsebode['response']) {
-            calendar = AuthResponse.fromJson(item);
-          }
+          calendar = AuthResponse.fromJson(responsebode['response']);
+
           apiResult.errorMassage = status.msg;
           apiResult.codeError = status.code;
           apiResult.hasError = false;

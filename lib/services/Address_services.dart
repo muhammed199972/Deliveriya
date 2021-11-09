@@ -132,7 +132,7 @@ class AddressService {
       var response = await http.post(
         url,
         body: body,
-        headers: {'Authorization': 'Bearer $statusCode.token'},
+        headers: {'Authorization': 'Bearer ${statusCode.Token}'},
       );
       var responsebode = jsonDecode(response.body);
 
@@ -241,7 +241,7 @@ class AddressService {
     try {
       var response = await http.delete(
         url,
-        headers: {'Authorization': 'Bearer $statusCode.token'},
+        headers: {'Authorization': 'Bearer${statusCode.Token}'},
       );
       var responsebode = jsonDecode(response.body);
 

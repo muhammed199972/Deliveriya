@@ -7,7 +7,7 @@ import 'package:delivery_food/model/Error.dart';
 import 'package:http/http.dart' as http;
 
 class AdsService {
-  Future<ApiResult> getCategoryData() async {
+  Future<ApiResult> getadsData() async {
     StatusCode statusCode = StatusCode();
     ApiResult apiResult = ApiResult();
     List<AdsResponse> calendar = [];

@@ -1,8 +1,6 @@
 import 'package:delivery_food/General/Api_Result.dart';
 import 'package:delivery_food/model/Cart_model.dart';
-import 'package:delivery_food/model/Favorite_model.dart';
 import 'package:delivery_food/services/Cart_services.dart';
-import 'package:delivery_food/services/Favorite_services.dart';
 import 'package:get/get.dart';
 
 class CartController extends GetxController {
