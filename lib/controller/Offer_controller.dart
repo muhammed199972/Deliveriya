@@ -26,6 +26,9 @@ class OfferController extends GetxController {
         hasError.value = apiResult.hasError!;
         massage.value = apiResult.errorMassage!;
       }
-    } finally {}
+    } finally {
+      hasError.value = apiResult.hasError!;
+      massage.value = apiResult.errorMassage!;
+    }
   }
 }

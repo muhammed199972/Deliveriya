@@ -110,5 +110,6 @@ class OfferService {
       apiResult.hasError = true;
       print('${e}');
     }
+    return apiResult;
   }
 }

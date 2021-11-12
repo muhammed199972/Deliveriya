@@ -56,3 +56,6 @@ class StatusCode {
     },
   };
 }
+class Constans{
+  
+}

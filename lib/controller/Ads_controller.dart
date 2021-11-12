@@ -18,7 +18,7 @@ class AdssController extends GetxController {
 
   getAds() async {
     try {
-      apiResult = await ads.getCategoryData();
+      apiResult = await ads.getAdsData();
       if (!apiResult.hasError!) {
         adss.value = apiResult.data;
         hasError.value = apiResult.hasError!;
