@@ -1,5 +1,6 @@
 // @dart=2.9
 
+import 'package:delivery_food/navbar.dart';
 import 'package:delivery_food/view/Home_page/Home_page.dart';
 import 'package:delivery_food/view/Home_page/component/Statuses.dart';
 import 'package:flutter/material.dart';
@@ -23,7 +24,7 @@ class MyApp extends StatelessWidget {
               theme: ThemeData(
                 primarySwatch: Colors.blue,
               ),
-              home: HomePage(),
+              home: BottomBar(),
               getPages: [GetPage(name: '/home', page: () => HomePage())],
             ));
   }
