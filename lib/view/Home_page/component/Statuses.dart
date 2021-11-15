@@ -35,7 +35,7 @@ class Statuses extends StatelessWidget {
               bottom: 10,
               right: 160,
               child: Center(
-                child: FlatButton(
+                child: TextButton(
                   onPressed: () {},
                   child: Container(
                     height: 60,

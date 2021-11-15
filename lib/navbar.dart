@@ -1,3 +1,8 @@
+import 'package:delivery_food/view/Cart_page/Cart_Page.dart';
+import 'package:delivery_food/view/Favorite_page/Favorite_Page.dart';
+import 'package:delivery_food/view/Home_page/Home_page.dart';
+import 'package:delivery_food/view/Offers_page/Offers_Page.dart';
+import 'package:delivery_food/view/Profile_page/Profile_Page.dart';
 import 'package:flutter/material.dart';
 
 class BottomBar extends StatefulWidget {
@@ -8,8 +13,14 @@ class BottomBar extends StatefulWidget {
 }
 
 class _BottomBarState extends State<BottomBar> {
-  int _currentIndex = 0;
-  // List _screens=[HomePage(),SearchPage(),CategoryPage(),AccountPage()];
+  int _currentIndex = 2;
+  List _screens = [
+    CartView(),
+    FavoriteView(),
+    HomeView(),
+    OffersView(),
+    ProfileView(),
+  ];
 
   void _updateIndex(int value) {
     setState(() {
@@ -20,10 +31,7 @@ class _BottomBarState extends State<BottomBar> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text("Bottom Navigation Bar"),
-      ),
-      // body: _screens[_currentIndex],
+      body: _screens[_currentIndex],
       bottomNavigationBar: BottomNavigationBar(
         type: BottomNavigationBarType.fixed,
         currentIndex: _currentIndex,
