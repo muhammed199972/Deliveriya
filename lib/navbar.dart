@@ -17,7 +17,7 @@ class _BottomBarState extends State<BottomBar> {
   List _screens = [
     CartView(),
     FavoriteView(),
-    HomeView(),
+    HomePage(),
     OffersView(),
     ProfileView(),
   ];

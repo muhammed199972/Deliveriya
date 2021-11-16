@@ -27,7 +27,8 @@ class CategorysController extends GetxController {
         hasError.value = apiResult.hasError!;
         massage.value = apiResult.errorMassage!;
       }
-    } finally {
+    } catch (e) {
+      print(e);
       hasError.value = apiResult.hasError!;
       massage.value = apiResult.errorMassage!;
     }

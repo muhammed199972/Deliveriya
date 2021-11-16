@@ -8,14 +8,25 @@ import 'package:delivery_food/model/Products_model.dart';
 import 'package:http/http.dart' as http;
 
 class ProductService {
-  Future<ApiResult?> getproductsData() async {
+  Future<ApiResult?> getproductsData(
+    String subCategoryId,
+    int offset,
+    int limit,
+    String q,
+  ) async {
+    print('[[[[[[object]]]]]]');
+    print(q);
     StatusCode statusCode = StatusCode();
     ApiResult apiResult = ApiResult();
     List<ProductsResponse> calendar = [];
     ProductsStatus? status;
     ErrorResponse? error;
-    Uri url =
-        Uri.http('${statusCode.url1}', '/api/public/product?subCategoryId=1');
+    Uri url = Uri.http('${statusCode.url1}', '/api/public/product', {
+      'subCategoryId': subCategoryId,
+      'offset': '$offset',
+      'limit': '$limit',
+      'q': q
+    });
     try {
       var response = await http.get(url);
       var responsebody = jsonDecode(response.body);
@@ -111,5 +122,6 @@ class ProductService {
       apiResult.hasError = true;
       print('${e}');
     }
+    return apiResult;
   }
 }

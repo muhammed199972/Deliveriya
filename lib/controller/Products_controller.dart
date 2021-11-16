@@ -4,28 +4,48 @@ import 'package:delivery_food/services/Products_service.dart';
 import 'package:get/state_manager.dart';
 
 class ProductsController extends GetxController {
-  var products = <ProductsStatus>[].obs;
-  var hasError = true.obs;
-  var massage = ''.obs;
+  var products = <ProductsResponse>[];
+  var hasError = true;
+  var massage = '';
   ApiResult apiResult = ApiResult();
   ProductService product = ProductService();
+  // String query = '';
+
   @override
   void onInit() {
-    getproduct();
+    // getproduct('', 0, 8, query);
     super.onInit();
   }
 
-  getproduct() async {
+  getproduct(
+    String subCategoryId,
+    int offset,
+    int limit,
+    String q,
+  ) async {
     try {
-      apiResult = (await product.getproductsData())!;
+      apiResult = (await product.getproductsData(
+        subCategoryId,
+        offset,
+        limit,
+        q,
+      ))!;
       if (!apiResult.hasError!) {
-        products.value = apiResult.data;
-        hasError.value = apiResult.hasError!;
-        print(product);
+        products = apiResult.data;
+        hasError = apiResult.hasError!;
+        update();
+        print(products);
       } else {
-        hasError.value = apiResult.hasError!;
-        massage.value = apiResult.errorMassage!;
+        hasError = apiResult.hasError!;
+        massage = apiResult.errorMassage!;
+        update();
       }
-    } finally {}
+    } catch (e) {
+      hasError = apiResult.hasError!;
+      massage = apiResult.errorMassage!;
+      update();
+
+      print(e);
+    }
   }
 }

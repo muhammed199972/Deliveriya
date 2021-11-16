@@ -24,7 +24,7 @@ class MyApp extends StatelessWidget {
                 primarySwatch: Colors.blue,
               ),
               home: BottomBar(),
-              getPages: [GetPage(name: '/home', page: () => HomeView())],
+              getPages: [GetPage(name: '/home', page: () => HomePage())],
             ));
   }
 }

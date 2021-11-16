@@ -56,6 +56,7 @@ class StatusCode {
     },
   };
 }
-class Constans{
-  
+
+class Constans {
+  List<String> categorySelected = [];
 }

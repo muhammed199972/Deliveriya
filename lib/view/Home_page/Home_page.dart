@@ -1,6 +1,7 @@
 import 'package:delivery_food/view/Home_page/component/Statuses.dart';
+import 'package:delivery_food/view/Home_page/component/category.dart';
+import 'package:delivery_food/view/Home_page/component/Search.dart';
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 
 class HomePage extends StatelessWidget {
   @override
@@ -11,6 +12,7 @@ class HomePage extends StatelessWidget {
         extendBody: true,
         body: ListView(
           children: [
+            CategoryComponent(),
             Container(
               child: FlatButton(
                   onPressed: () {
@@ -21,6 +23,13 @@ class HomePage extends StatelessWidget {
                     );
                   },
                   child: Text('muhammed')),
+            ),
+            Container(
+              child: FlatButton(
+                  onPressed: () {
+                    showSearch(context: context, delegate: Datasesrch());
+                  },
+                  child: Text('asfor')),
             ),
           ],
         ));

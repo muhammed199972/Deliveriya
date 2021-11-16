@@ -28,7 +28,7 @@ dependencies:
   get: ^4.3.8
   http: ^0.13.4
   story_view: ^0.13.1
-
+  filter_list: ^1.0.0
 dev_dependencies:
   flutter_test:
     sdk: flutter
