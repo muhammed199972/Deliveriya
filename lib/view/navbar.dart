@@ -5,6 +5,8 @@ import 'package:delivery_food/view/Offers_page/Offers_Page.dart';
 import 'package:delivery_food/view/Profile_page/Profile_Page.dart';
 import 'package:flutter/material.dart';
 
+import '../General/Constants.dart';
+
 class BottomBar extends StatefulWidget {
   BottomBar({Key? key}) : super(key: key);
 
@@ -17,7 +19,7 @@ class _BottomBarState extends State<BottomBar> {
   List _screens = [
     CartView(),
     FavoriteView(),
-    HomePage(),
+    HomeView(),
     OffersView(),
     ProfileView(),
   ];
@@ -36,9 +38,10 @@ class _BottomBarState extends State<BottomBar> {
         type: BottomNavigationBarType.fixed,
         currentIndex: _currentIndex,
         onTap: _updateIndex,
-        selectedItemColor: Colors.blue[700],
-        selectedFontSize: 13,
+        selectedItemColor: AppColors.mainColor,
+        selectedFontSize: 16,
         unselectedFontSize: 13,
+        selectedIconTheme: IconThemeData(size: 40),
         iconSize: 30,
         items: [
           BottomNavigationBarItem(

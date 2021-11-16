@@ -1,3 +1,5 @@
+import 'package:flutter/material.dart';
+
 class StatusCode {
   String url1 = 'delivery-food12.herokuapp.com';
   var Token = ''; //                        * token
@@ -59,4 +61,16 @@ class StatusCode {
 
 class Constans {
   List<String> categorySelected = [];
+}
+
+class AppColors {
+  static const mainColor = Color(0xFFE73352);
+  static const whiteColor = Color(0xFFFFFFFF);
+  static const greyColor = Color(0xFF757272);
+}
+
+class Styles {}
+
+class Defaults {
+  static const defaultPadding = 20.0;
 }

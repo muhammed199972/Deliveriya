@@ -1,10 +1,9 @@
 // @dart=2.9
 
-import 'package:delivery_food/navbar.dart';
 import 'package:delivery_food/view/Home_page/Home_page.dart';
+import 'package:delivery_food/view/navbar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-
 import 'package:get/get.dart';
 
 void main() {
@@ -24,7 +23,7 @@ class MyApp extends StatelessWidget {
                 primarySwatch: Colors.blue,
               ),
               home: BottomBar(),
-              getPages: [GetPage(name: '/home', page: () => HomePage())],
+              getPages: [GetPage(name: '/home', page: () => HomeView())],
             ));
   }
 }

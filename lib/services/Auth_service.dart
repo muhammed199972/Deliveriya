@@ -1,7 +1,7 @@
 import 'dart:convert';
 import 'dart:io';
 import 'package:delivery_food/General/Api_Result.dart';
-import 'package:delivery_food/General/constans.dart';
+import 'package:delivery_food/General/Constants.dart';
 import 'package:delivery_food/model/Auth_model.dart';
 import 'package:delivery_food/model/Error.dart';
 import 'package:http/http.dart' as http;

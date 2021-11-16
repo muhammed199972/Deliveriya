@@ -1,3 +1,4 @@
+import 'package:delivery_food/General/Constants.dart';
 import 'package:delivery_food/controller/Category_controller.dart';
 import 'package:delivery_food/controller/Products_controller.dart';
 import 'package:delivery_food/view/Home_page/component/Button_category_search.dart';
@@ -13,7 +14,7 @@ class Datasesrch extends SearchDelegate<String> {
       IconButton(
           icon: Icon(
             Icons.clear,
-            color: Colors.red,
+            color: AppColors.mainColor,
           ),
           onPressed: () {
             query = '';
@@ -26,7 +27,7 @@ class Datasesrch extends SearchDelegate<String> {
     return IconButton(
         icon: Icon(
           Icons.arrow_back,
-          color: Colors.red,
+          color: AppColors.mainColor,
         ),
         onPressed: () {
           close(context, '');
