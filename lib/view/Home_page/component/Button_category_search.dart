@@ -25,7 +25,7 @@ class _Button_category_search extends State<Button_category_search> {
           style: TextStyle(fontSize: 20),
         ),
       ),
-      backgroundColor: !Selected ? Colors.grey[300] : Colors.red,
+      backgroundColor: !Selected ? Colors.grey[300] : AppColors.mainColor,
       //  shape: StadiumBorder(side: BorderSide()),
       onSelected: (bool value) {
         setState(() {
