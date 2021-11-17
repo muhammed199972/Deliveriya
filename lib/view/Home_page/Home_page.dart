@@ -1,7 +1,9 @@
 import 'package:delivery_food/General/Constants.dart';
 import 'package:delivery_food/controller/Category_controller.dart';
-import 'package:delivery_food/view/Home_page/component/Home_Widgets.dart';
-import 'package:delivery_food/view/Home_page/component/category.dart';
+import 'package:delivery_food/view/Home_page/component/CategoryCard.dart';
+import 'package:delivery_food/view/Home_page/component/Logo.dart';
+import 'package:delivery_food/view/Home_page/component/Offers_New.dart';
+import 'package:delivery_food/view/Home_page/component/SearchBar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:get/get.dart';
