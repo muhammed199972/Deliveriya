@@ -7,14 +7,14 @@ import 'package:delivery_food/model/Subcategory_model.dart';
 import 'package:http/http.dart' as http;
 
 class SubcategoryService {
-  Future<ApiResult> getsubcategoryData() async {
+  Future<ApiResult> getsubcategoryData(int idcategory) async {
     StatusCode statusCode = StatusCode();
     ApiResult apiResult = ApiResult();
     List<SubcategoryResponse> calendar = [];
     SubcategoryStatus? status;
     ErrorResponse? error;
-    Uri url =
-        Uri.http('${statusCode.url1}', '/api/public/category/1/sub-category');
+    Uri url = Uri.http(
+        '${statusCode.url1}', '/api/public/category/$idcategory/sub-category');
 
     try {
       var response = await http.get(url);

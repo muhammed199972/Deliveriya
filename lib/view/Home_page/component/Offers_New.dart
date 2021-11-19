@@ -1,17 +1,20 @@
 import 'package:delivery_food/General/Constants.dart';
+import 'package:delivery_food/controller/Ads_controller.dart';
+import 'package:delivery_food/controller/Offer_controller.dart';
 import 'package:delivery_food/view/Home_page/component/Statuses.dart';
 import 'package:delivery_food/view/Home_page/component/SearchDelegate.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class Offers_New extends StatelessWidget {
-  const Offers_New({
+  Offers_New({
     Key? key,
     required this.size,
   }) : super(key: key);
 
   final Size size;
-
+  OfferController Offer = Get.put(OfferController());
+  AdssController Adss = Get.put(AdssController());
   @override
   Widget build(BuildContext context) {
     return Row(
@@ -29,19 +32,48 @@ class Offers_New extends StatelessWidget {
                   padding: const EdgeInsets.all(8.0),
                   child: Text('Offers'),
                 ),
-                Container(
-                  height: size.height * 0.07,
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(13),
-                    border: Border.all(
-                      color: AppColors.mainColor,
-                      width: 1,
-                    ),
-                    // image: DecorationImage(
-                    //   fit: BoxFit.cover,
-                    //   image: NetworkImage(controller.categorys[index].avatar!),
-                    // ),
-                  ),
+                InkWell(
+                  highlightColor: Colors.transparent,
+                  onTap: () {
+                    Get.to(() => Statuses(
+                          typeclass: 'Offers',
+                        ));
+                  },
+                  child: Obx(() {
+                    if (Offer.offers.length != 0) {
+                      return Container(
+                        height: size.height * 0.07,
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(13),
+                          border: Border.all(
+                            color: AppColors.mainColor,
+                            width: 1,
+                          ),
+                          image: DecorationImage(
+                            fit: BoxFit.fill,
+                            scale: 1,
+                            image: NetworkImage(Offer
+                                .offers[Offer.offers.length - 1].avatar
+                                .toString()),
+                          ),
+                        ),
+                      );
+                    } else {
+                      return Container(
+                        height: size.height * 0.07,
+                        child: Center(
+                          child: CircularProgressIndicator(),
+                        ),
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(13),
+                          border: Border.all(
+                            color: AppColors.mainColor,
+                            width: 1,
+                          ),
+                        ),
+                      );
+                    }
+                  }),
                 ),
               ],
             ),
@@ -60,19 +92,48 @@ class Offers_New extends StatelessWidget {
                   padding: const EdgeInsets.all(8.0),
                   child: Text('New'),
                 ),
-                Container(
-                  height: size.height * 0.07,
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(13),
-                    border: Border.all(
-                      color: AppColors.mainColor,
-                      width: 1,
-                    ),
-                    // image: DecorationImage(
-                    //   fit: BoxFit.cover,
-                    //   image: NetworkImage(controller.categorys[index].avatar!),
-                    // ),
-                  ),
+                InkWell(
+                  highlightColor: Colors.transparent,
+                  onTap: () {
+                    Get.to(() => Statuses(
+                          typeclass: 'New',
+                        ));
+                  },
+                  child: Obx(() {
+                    if (Adss.adss.length != 0) {
+                      return Container(
+                        height: size.height * 0.07,
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(13),
+                          border: Border.all(
+                            color: AppColors.mainColor,
+                            width: 1,
+                          ),
+                          image: DecorationImage(
+                            fit: BoxFit.fill,
+                            scale: 1,
+                            image: NetworkImage(Adss
+                                .adss[Adss.adss.length - 1].avatar
+                                .toString()),
+                          ),
+                        ),
+                      );
+                    } else {
+                      return Container(
+                        height: size.height * 0.07,
+                        child: Center(
+                          child: CircularProgressIndicator(),
+                        ),
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(13),
+                          border: Border.all(
+                            color: AppColors.mainColor,
+                            width: 1,
+                          ),
+                        ),
+                      );
+                    }
+                  }),
                 ),
               ],
             ),

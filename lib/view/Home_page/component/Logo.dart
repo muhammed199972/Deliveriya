@@ -10,8 +10,11 @@ class LogoStatus extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return InkWell(
+      highlightColor: Colors.transparent,
       onTap: () {
-        Get.to(() => Statuses());
+        Get.to(() => Statuses(
+              typeclass: 'logo',
+            ));
       },
       child: Container(
         decoration: BoxDecoration(

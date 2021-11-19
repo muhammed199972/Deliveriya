@@ -5,6 +5,9 @@ import 'package:get/get.dart';
 import 'package:story_view/story_view.dart';
 
 class Statuses extends StatelessWidget {
+  bool statusebool = true;
+  String? typeclass;
+  Statuses({this.typeclass});
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -14,6 +17,16 @@ class Statuses extends StatelessWidget {
             GetBuilder<StatusesController>(
                 init: StatusesController(),
                 builder: (statuse) {
+                  if (statusebool) {
+                    statusebool = false;
+                    if (typeclass == 'logo') {
+                      statuse.addStatusItems();
+                    } else if (typeclass == 'New') {
+                      statuse.getAds();
+                    } else if (typeclass == 'Offers') {
+                      statuse.getoffers();
+                    }
+                  }
                   if (statuse.statusItems.length != 0) {
                     return Material(
                       type: MaterialType.transparency,

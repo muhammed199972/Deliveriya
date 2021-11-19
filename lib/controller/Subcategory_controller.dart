@@ -9,16 +9,21 @@ class ControllerSubcategorys extends GetxController {
   var massage = ''.obs;
   ApiResult apiResult = ApiResult();
   SubcategoryService subcategory = SubcategoryService();
+  var value = 0.obs;
 
   @override
   void onInit() {
-    getsubcategory();
+    //  getsubcategory(value.value);
     super.onInit();
   }
 
-  getsubcategory() async {
+  changevalue(int v) async {
+    value.value = await v;
+  }
+
+  getsubcategory(int value) async {
     try {
-      apiResult = await subcategory.getsubcategoryData();
+      apiResult = await subcategory.getsubcategoryData(value);
       if (!apiResult.hasError!) {
         subcategorys.value = apiResult.data;
         hasError.value = apiResult.hasError!;

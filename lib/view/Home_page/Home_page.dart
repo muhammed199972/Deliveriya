@@ -9,7 +9,8 @@ import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:get/get.dart';
 
 class HomeView extends StatelessWidget {
-  CategorysController controller = Get.put(CategorysController());
+  CategorysController controller =
+      Get.put(CategorysController(), permanent: true);
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
@@ -44,8 +45,7 @@ class HomeView extends StatelessWidget {
                         itemBuilder: (BuildContext context, int index) =>
                             CategorysCard(
                           controller: controller,
-                          name: controller.categorys[index].name,
-                          img: controller.categorys[index].avatar,
+                          datacontroller: controller.categorys[index],
                         ),
                         staggeredTileBuilder: (int index) =>
                             new StaggeredTile.count(1, 0.6),

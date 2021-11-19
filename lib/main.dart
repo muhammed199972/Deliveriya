@@ -19,8 +19,9 @@ class MyApp extends StatelessWidget {
         builder: () => GetMaterialApp(
               debugShowCheckedModeBanner: false,
               title: 'Flutter Demo',
+              //   color: Colors.transparent,
               theme: ThemeData(
-                primarySwatch: Colors.blue,
+                primarySwatch: Colors.red,
               ),
               home: BottomBar(),
               getPages: [GetPage(name: '/home', page: () => HomeView())],

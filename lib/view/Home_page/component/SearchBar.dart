@@ -13,6 +13,7 @@ class SearchBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return InkWell(
+      highlightColor: Colors.transparent,
       onTap: () {
         showSearch(context: context, delegate: Datasesrch());
       },

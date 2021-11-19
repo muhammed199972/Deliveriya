@@ -23,7 +23,7 @@ class StatusesController extends GetxController {
   @override
   void onInit() {
     controller = StoryController();
-    addStatusItems();
+    //addStatusItems();
     super.onInit();
   }
 
@@ -40,6 +40,15 @@ class StatusesController extends GetxController {
       if (!apiResultOffer.hasError!) {
         offers = apiResultOffer.data;
         hasError = apiResultOffer.hasError!;
+        for (final status in offers) {
+          statusItems.add(StoryItem.pageImage(
+            url: status.avatar!,
+            controller: controller,
+            duration: Duration(
+              milliseconds: (5 * 1000).toInt(),
+            ),
+          ));
+        }
         update();
       } else {
         hasError = apiResultOffer.hasError!;
@@ -56,8 +65,17 @@ class StatusesController extends GetxController {
       apiResultAds = await ads.getAdsData();
       if (!apiResultAds.hasError!) {
         adss = apiResultAds.data;
-
         hasError = apiResultAds.hasError!;
+
+        for (final status in adss) {
+          statusItems.add(StoryItem.pageImage(
+            url: status.avatar!,
+            controller: controller,
+            duration: Duration(
+              milliseconds: (5 * 1000).toInt(),
+            ),
+          ));
+        }
         update();
       } else {
         hasError = apiResultAds.hasError!;
@@ -74,26 +92,6 @@ class StatusesController extends GetxController {
   void addStatusItems() async {
     await getoffers();
     await getAds();
-
-    for (final status in offers) {
-      statusItems.add(StoryItem.pageImage(
-        url: status.avatar!,
-        controller: controller,
-        duration: Duration(
-          milliseconds: (5 * 1000).toInt(),
-        ),
-      ));
-    }
-    for (final status in adss) {
-      statusItems.add(StoryItem.pageImage(
-        url: status.avatar!,
-        controller: controller,
-        duration: Duration(
-          milliseconds: (5 * 1000).toInt(),
-        ),
-      ));
-    }
-    update();
   }
 
   void handleCompleted() {

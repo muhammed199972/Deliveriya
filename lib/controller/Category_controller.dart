@@ -9,11 +9,16 @@ class CategorysController extends GetxController {
   var massage = ''.obs;
   ApiResult apiResult = ApiResult();
   CategoryService category = CategoryService();
+  var value = 0.obs;
 
   @override
   void onInit() {
     getcategory();
     super.onInit();
+  }
+
+  changevalue(int v) async {
+    value.value = await v;
   }
 
   getcategory() async {
@@ -22,7 +27,6 @@ class CategorysController extends GetxController {
       if (!apiResult.hasError!) {
         categorys.value = apiResult.data;
         hasError.value = apiResult.hasError!;
-        print(categorys[0].name);
       } else {
         hasError.value = apiResult.hasError!;
         massage.value = apiResult.errorMassage!;
