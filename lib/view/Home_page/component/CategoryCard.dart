@@ -13,12 +13,15 @@ class CategorysCard extends StatelessWidget {
   var index;
   SubcategorysControllers subcategory = Get.find<SubcategorysControllers>();
   CategorysController controller = Get.find<CategorysController>();
+  var prodController = Get.find<ProductsController>();
 
   @override
   Widget build(BuildContext context) {
     return InkWell(
       highlightColor: Colors.transparent,
       onTap: () {
+        prodController.getproduct(
+            subCategoryId: '0', offset: 0, limit: 8, q: '');
         controller.changevalue(datacontroller.id!);
         controller.changecontrollerscroll(index);
         subcategory.getsubcategory(datacontroller.id);

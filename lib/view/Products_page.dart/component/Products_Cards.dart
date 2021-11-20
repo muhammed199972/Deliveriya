@@ -1,15 +1,17 @@
 import 'package:delivery_food/General/Constants.dart';
+import 'package:delivery_food/model/Products_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 
 class FullCard extends StatelessWidget {
-  const FullCard({
+  FullCard({
     Key? key,
     required this.size,
+    required this.product,
   }) : super(key: key);
 
   final Size size;
-
+  ProductsResponse? product;
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -36,7 +38,7 @@ class FullCard extends StatelessWidget {
               decoration: BoxDecoration(
                 image: DecorationImage(
                     image: AssetImage(
-                      'assets/png/img.png',
+                      product!.avatar!,
                     ),
                     fit: BoxFit.cover),
                 borderRadius: BorderRadius.only(
@@ -64,7 +66,7 @@ class FullCard extends StatelessWidget {
                 children: [
                   Padding(
                     padding: EdgeInsets.only(left: Defaults.defaultPadding / 2),
-                    child: Text('شرحات جاج'),
+                    child: Text(product!.name!),
                   ),
                   SizedBox(height: 20),
                   Padding(
@@ -72,7 +74,7 @@ class FullCard extends StatelessWidget {
                       left: Defaults.defaultPadding / 2,
                       top: Defaults.defaultPadding / 2,
                     ),
-                    child: Text('Available Qty'),
+                    child: Text(product!.type!),
                   ),
                 ],
               ),
@@ -92,7 +94,7 @@ class FullCard extends StatelessWidget {
                       right: Defaults.defaultPadding / 2,
                       top: Defaults.defaultPadding / 2,
                     ),
-                    child: Text('50.000 \$'),
+                    child: Text('${product!.price!}\$'),
                   ),
                 ],
               )

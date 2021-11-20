@@ -40,7 +40,8 @@ class Datasesrch extends SearchDelegate<String> {
         init: ProductsController(),
         builder: (products) {
           if (q != query) {
-            products.getproduct('', 0, 50, query);
+            products.getproduct(
+                subCategoryId: '', offset: 0, limit: 50, q: query);
           }
           q = query;
 
@@ -69,7 +70,8 @@ class Datasesrch extends SearchDelegate<String> {
           init: ProductsController(),
           builder: (products) {
             if (q != query) {
-              products.getproduct('', 0, 50, query);
+              products.getproduct(
+                  subCategoryId: '', offset: 0, limit: 50, q: query);
             }
             q = query;
 

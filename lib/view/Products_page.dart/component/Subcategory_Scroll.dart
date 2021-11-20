@@ -51,6 +51,11 @@ class SubcategoryScroll extends StatelessWidget {
                         return InkWell(
                           onTap: () {
                             subController.changevalue(index);
+                            prodController.getproduct(
+                                subCategoryId: index.toString(),
+                                offset: 0,
+                                limit: 8,
+                                q: '');
                           },
                           child: Row(
                               crossAxisAlignment: CrossAxisAlignment.center,
