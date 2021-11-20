@@ -20,9 +20,17 @@ class CategorysController extends GetxController {
   }
 
   changecontrollerscroll(int index) {
-    print(index);
-    controllerList.value.animateTo(20 * index.toDouble(),
-        duration: Duration(seconds: 2), curve: Curves.fastOutSlowIn);
+    WidgetsBinding.instance!.addPostFrameCallback(
+      (_) {
+        if (controllerList.value.hasClients) {
+          print(index);
+
+          controllerList.value.animateTo(70 * index.toDouble(),
+              duration: Duration(milliseconds: 700),
+              curve: Curves.fastOutSlowIn);
+        }
+      },
+    );
   }
 
   changevalue(int v) async {

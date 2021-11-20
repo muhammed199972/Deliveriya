@@ -14,11 +14,10 @@ class CategorysScroll extends StatelessWidget {
   final Size size;
   int? idcategory;
   var subcategory;
+  CategorysController category = Get.put(CategorysController());
 
   @override
   Widget build(BuildContext context) {
-    CategorysController category = Get.put(CategorysController());
-
     return new Container(
       color: Colors.transparent,
       height: size.height * 0.08,
@@ -64,7 +63,7 @@ class CategorysScroll extends StatelessWidget {
                           children: [
                             Expanded(
                               child: Image.asset(
-                                'assets/png/Meat icon.png',
+                                'assets/png/logo.png',
                                 color: category.value.value ==
                                         category.categorys[index].id
                                     ? AppColors.mainColor
