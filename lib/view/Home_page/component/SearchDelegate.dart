@@ -6,7 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class Datasesrch extends SearchDelegate<String> {
-  CategorysController categorys = Get.put(CategorysController());
+  CategorysController categorys = Get.find<CategorysController>();
   String q = '';
   @override
   List<Widget> buildActions(BuildContext context) {

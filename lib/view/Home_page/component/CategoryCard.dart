@@ -1,17 +1,18 @@
 import 'package:delivery_food/General/Constants.dart';
+import 'package:delivery_food/controller/Category_controller.dart';
+import 'package:delivery_food/controller/Products_controller.dart';
 import 'package:delivery_food/controller/Subcategory_controller.dart';
-import 'package:delivery_food/view/Products_page.dart/Products_page.dart';
 import 'package:delivery_food/view/Products_page.dart/Products_page.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class CategorysCard extends StatelessWidget {
-  CategorysCard({Key? key, this.datacontroller, this.controller, this.index})
-      : super(key: key);
+  CategorysCard({Key? key, this.datacontroller, this.index}) : super(key: key);
 
   var datacontroller;
-  var controller;
   var index;
+  SubcategorysControllers subcategory = Get.find<SubcategorysControllers>();
+  CategorysController controller = Get.find<CategorysController>();
 
   @override
   Widget build(BuildContext context) {
@@ -20,11 +21,9 @@ class CategorysCard extends StatelessWidget {
       onTap: () {
         controller.changevalue(datacontroller.id!);
         controller.changecontrollerscroll(index);
-        ControllerSubcategorys subcategory = Get.put(ControllerSubcategorys());
         subcategory.getsubcategory(datacontroller.id);
-        //subcategory.changevalue(datacontroller.id!);
+
         Get.to(() => ProduvtsView(
-              subcategory: subcategory,
               idcategory: datacontroller.id,
             ));
       },

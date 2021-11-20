@@ -1,5 +1,6 @@
 import 'package:delivery_food/General/Constants.dart';
 import 'package:delivery_food/controller/Category_controller.dart';
+import 'package:delivery_food/controller/Subcategory_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -7,14 +8,15 @@ class CategorysScroll extends StatelessWidget {
   CategorysScroll({
     Key? key,
     this.idcategory,
-    this.subcategory,
+    // this.subcategory,
     required this.size,
   }) : super(key: key);
 
   final Size size;
   int? idcategory;
-  var subcategory;
-  CategorysController category = Get.put(CategorysController());
+  // var subcategory;
+  var subController = Get.find<SubcategorysControllers>();
+  CategorysController category = Get.find<CategorysController>();
 
   @override
   Widget build(BuildContext context) {
@@ -54,7 +56,7 @@ class CategorysScroll extends StatelessWidget {
                   return InkWell(
                       onTap: () {
                         category.changevalue(category.categorys[index].id!);
-                        subcategory
+                        subController
                             .getsubcategory(category.categorys[index].id!);
                       },
                       child: Row(

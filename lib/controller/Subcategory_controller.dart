@@ -3,7 +3,7 @@ import 'package:delivery_food/model/Subcategory_model.dart';
 import 'package:delivery_food/services/Subcategory_services.dart';
 import 'package:get/get.dart';
 
-class ControllerSubcategorys extends GetxController {
+class SubcategorysControllers extends GetxController {
   var subcategorys = <SubcategoryResponse>[].obs;
   var hasError = true.obs;
   var massage = ''.obs;

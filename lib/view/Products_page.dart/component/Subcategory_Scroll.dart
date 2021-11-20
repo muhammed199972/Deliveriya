@@ -1,16 +1,18 @@
 import 'package:delivery_food/General/Constants.dart';
+import 'package:delivery_food/controller/Products_controller.dart';
+import 'package:delivery_food/controller/Subcategory_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class SubcategoryScroll extends StatelessWidget {
   SubcategoryScroll({
     Key? key,
-    this.subcategory,
     required this.size,
   }) : super(key: key);
+  var prodController = Get.find<ProductsController>();
 
   final Size size;
-  var subcategory;
+  var subController = Get.find<SubcategorysControllers>();
   @override
   Widget build(BuildContext context) {
     return new Container(
@@ -19,7 +21,7 @@ class SubcategoryScroll extends StatelessWidget {
       margin: EdgeInsets.only(left: size.width * 0.0245),
       child: Obx(() {
         return ListView.builder(
-            itemCount: subcategory.subcategorys.length,
+            itemCount: subController.subcategorys.length,
             scrollDirection: Axis.horizontal,
             itemBuilder: (BuildContext context, int index) {
               bool even_or_odd = true;
@@ -35,7 +37,7 @@ class SubcategoryScroll extends StatelessWidget {
                       borderRadius: BorderRadius.circular(5.0),
                       color: Colors.white,
                       border: Border.all(
-                        color: subcategory.value.value == index
+                        color: subController.value.value == index
                             ? AppColors.mainColor
                             : AppColors.greyColor,
                         width: 1,
@@ -48,7 +50,7 @@ class SubcategoryScroll extends StatelessWidget {
                       () {
                         return InkWell(
                           onTap: () {
-                            subcategory.changevalue(index);
+                            subController.changevalue(index);
                           },
                           child: Row(
                               crossAxisAlignment: CrossAxisAlignment.center,
@@ -56,10 +58,10 @@ class SubcategoryScroll extends StatelessWidget {
                               children: [
                                 Center(
                                   child: Text(
-                                    subcategory.subcategorys[index].name
+                                    subController.subcategorys[index].name
                                         .toString(),
                                     style: TextStyle(
-                                      color: subcategory.value.value == index
+                                      color: subController.value.value == index
                                           ? AppColors.mainColor
                                           : AppColors.greyColor,
                                     ),

@@ -1,5 +1,6 @@
 // @dart=2.9
 
+import 'package:delivery_food/Binds.dart';
 import 'package:delivery_food/view/Home_page/Home_page.dart';
 import 'package:delivery_food/view/navbar.dart';
 import 'package:flutter/material.dart';
@@ -19,6 +20,7 @@ class MyApp extends StatelessWidget {
     return ScreenUtilInit(
         designSize: Size(411, 683),
         builder: () => GetMaterialApp(
+              initialBinding: Binds(),
               debugShowCheckedModeBanner: false,
               title: 'Flutter Demo',
               //   color: Colors.transparent,

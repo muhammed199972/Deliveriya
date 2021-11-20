@@ -1,4 +1,5 @@
 import 'package:delivery_food/General/Constants.dart';
+import 'package:delivery_food/controller/Products_controller.dart';
 import 'package:delivery_food/view/Products_page.dart/component/Category_Scroll.dart';
 import 'package:delivery_food/view/Products_page.dart/component/SubCategory_Cards.dart';
 import 'package:delivery_food/view/Products_page.dart/component/Subcategory_Scroll.dart';
@@ -8,9 +9,14 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 
 class ProduvtsView extends StatelessWidget {
-  ProduvtsView({Key? key, this.idcategory, this.subcategory}) : super(key: key);
+  ProduvtsView({
+    Key? key,
+    this.idcategory,
+    // this.subcategory,
+  }) : super(key: key);
   int? idcategory;
-  var subcategory;
+  // var subcategory;
+  var prodController = Get.find<ProductsController>();
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
@@ -54,11 +60,11 @@ class ProduvtsView extends StatelessWidget {
                     CategorysScroll(
                       size: size,
                       idcategory: idcategory,
-                      subcategory: subcategory,
+                      // subcategory: subcategory,
                     ),
                     SubcategoryScroll(
                       size: size,
-                      subcategory: subcategory,
+                      // subcategory: subcategory,
                     ),
                   ],
                 ),

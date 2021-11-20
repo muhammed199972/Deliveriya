@@ -13,8 +13,8 @@ class Offers_New extends StatelessWidget {
   }) : super(key: key);
 
   final Size size;
-  OfferController Offer = Get.put(OfferController());
-  AdssController Adss = Get.put(AdssController());
+  OfferController offer = Get.find<OfferController>();
+  AdssController adss = Get.find<AdssController>();
   @override
   Widget build(BuildContext context) {
     return Row(
@@ -30,13 +30,13 @@ class Offers_New extends StatelessWidget {
               children: [
                 Padding(
                   padding: const EdgeInsets.all(8.0),
-                  child: Text('Offers'),
+                  child: Text('offers'),
                 ),
                 InkWell(
                   highlightColor: Colors.transparent,
                   onTap: () {
                     Get.to(() => Statuses(
-                          typeclass: 'Offers',
+                          typeclass: 'offers',
                         ));
                   },
                   child: RippleAnimation(
@@ -47,7 +47,7 @@ class Offers_New extends StatelessWidget {
                     duration: const Duration(milliseconds: 2500),
                     delay: const Duration(milliseconds: 1),
                     child: Obx(() {
-                      if (Offer.offers.length != 0) {
+                      if (offer.offers.length != 0) {
                         return Container(
                           height: size.height * 0.07,
                           decoration: BoxDecoration(
@@ -59,8 +59,8 @@ class Offers_New extends StatelessWidget {
                             image: DecorationImage(
                               fit: BoxFit.fill,
                               scale: 1,
-                              image: NetworkImage(Offer
-                                  .offers[Offer.offers.length - 1].avatar
+                              image: NetworkImage(offer
+                                  .offers[offer.offers.length - 1].avatar
                                   .toString()),
                             ),
                           ),
@@ -115,7 +115,7 @@ class Offers_New extends StatelessWidget {
                     duration: const Duration(milliseconds: 2500),
                     delay: const Duration(milliseconds: 1),
                     child: Obx(() {
-                      if (Adss.adss.length != 0) {
+                      if (adss.adss.length != 0) {
                         return Container(
                           height: size.height * 0.07,
                           decoration: BoxDecoration(
@@ -127,8 +127,8 @@ class Offers_New extends StatelessWidget {
                             image: DecorationImage(
                               fit: BoxFit.fill,
                               scale: 1,
-                              image: NetworkImage(Adss
-                                  .adss[Adss.adss.length - 1].avatar
+                              image: NetworkImage(adss
+                                  .adss[adss.adss.length - 1].avatar
                                   .toString()),
                             ),
                           ),
