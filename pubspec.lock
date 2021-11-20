@@ -78,13 +78,6 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "6.1.2"
-  filter_list:
-    dependency: "direct main"
-    description:
-      name: filter_list
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "1.0.0"
   flutter:
     dependency: "direct main"
     description: flutter
@@ -128,6 +121,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "4.3.8"
+  get_storage:
+    dependency: "direct main"
+    description:
+      name: get_storage
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "2.0.3"
   html:
     dependency: transitive
     description:
@@ -240,6 +240,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "4.2.3"
+  ripple_animation:
+    dependency: "direct main"
+    description:
+      name: ripple_animation
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "0.0.1+2"
   rxdart:
     dependency: transitive
     description:

@@ -1,7 +1,7 @@
+import 'package:delivery_food/General/Constants.dart';
 import 'package:delivery_food/controller/Statuses_all.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-
 import 'package:story_view/story_view.dart';
 
 class Statuses extends StatelessWidget {
@@ -28,6 +28,8 @@ class Statuses extends StatelessWidget {
                     }
                   }
                   if (statuse.statusItems.length != 0) {
+                    // box.write('statuse', statuse.statusItems);
+                    // print(box.read('statuse'));
                     return Material(
                       type: MaterialType.transparency,
                       child: StoryView(

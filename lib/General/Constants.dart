@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get_storage/get_storage.dart';
 
 class StatusCode {
   String url1 = 'delivery-food12.herokuapp.com';
@@ -62,6 +63,8 @@ class StatusCode {
 class Constans {
   List<String> categorySelected = [];
 }
+
+final box = GetStorage();
 
 class AppColors {
   static const mainColor = Color(0xFFE73352);

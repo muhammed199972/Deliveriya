@@ -44,6 +44,7 @@ class HomeView extends StatelessWidget {
                         itemCount: controller.categorys.length,
                         itemBuilder: (BuildContext context, int index) =>
                             CategorysCard(
+                          index: index,
                           controller: controller,
                           datacontroller: controller.categorys[index],
                         ),

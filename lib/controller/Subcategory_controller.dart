@@ -27,7 +27,6 @@ class ControllerSubcategorys extends GetxController {
       if (!apiResult.hasError!) {
         subcategorys.value = apiResult.data;
         hasError.value = apiResult.hasError!;
-        print(subcategorys[0].name);
       } else {
         hasError.value = apiResult.hasError!;
         massage.value = apiResult.errorMassage!;

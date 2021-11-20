@@ -22,7 +22,6 @@ class AdssController extends GetxController {
       if (!apiResult.hasError!) {
         adss.value = apiResult.data;
         hasError.value = apiResult.hasError!;
-        print(adss[0].id);
       } else {
         hasError.value = apiResult.hasError!;
         massage.value = apiResult.errorMassage!;

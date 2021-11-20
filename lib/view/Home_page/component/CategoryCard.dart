@@ -7,14 +7,12 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class CategorysCard extends StatelessWidget {
-  CategorysCard({
-    Key? key,
-    this.datacontroller,
-    this.controller,
-  }) : super(key: key);
+  CategorysCard({Key? key, this.datacontroller, this.controller, this.index})
+      : super(key: key);
 
   var datacontroller;
   var controller;
+  var index;
 
   @override
   Widget build(BuildContext context) {
@@ -22,6 +20,7 @@ class CategorysCard extends StatelessWidget {
       highlightColor: Colors.transparent,
       onTap: () {
         controller.changevalue(datacontroller.id!);
+        controller.changecontrollerscroll(index);
         ControllerSubcategorys subcategory = Get.put(ControllerSubcategorys());
         subcategory.getsubcategory(datacontroller.id);
         //subcategory.changevalue(datacontroller.id!);
