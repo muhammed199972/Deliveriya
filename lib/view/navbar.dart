@@ -4,6 +4,7 @@ import 'package:delivery_food/view/Home_page/Home_page.dart';
 import 'package:delivery_food/view/Offers_page/Offers_Page.dart';
 import 'package:delivery_food/view/Profile_page/Profile_Page.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 
 import '../General/Constants.dart';
 
@@ -46,23 +47,53 @@ class _BottomBarState extends State<BottomBar> {
         items: [
           BottomNavigationBarItem(
             label: "Cart",
-            icon: Icon(Icons.shopping_bag_outlined),
+            icon: SvgPicture.asset(
+              'assets/svg/Cart icon.svg',
+              color: _currentIndex == 0
+                  ? AppColors.mainColor
+                  : AppColors.greyColor,
+              width: _currentIndex == 0 ? 35 : 25,
+            ),
           ),
           BottomNavigationBarItem(
             label: "Favorite",
-            icon: Icon(Icons.favorite_border),
+            icon: SvgPicture.asset(
+              'assets/svg/Favorate icon.svg',
+              color: _currentIndex == 1
+                  ? AppColors.mainColor
+                  : AppColors.greyColor,
+              width: _currentIndex == 1 ? 35 : 25,
+            ),
           ),
           BottomNavigationBarItem(
             label: "Home",
-            icon: Icon(Icons.home_outlined),
+            icon: SvgPicture.asset(
+              'assets/svg/Home icon.svg',
+              color: _currentIndex == 2
+                  ? AppColors.mainColor
+                  : AppColors.greyColor,
+              width: _currentIndex == 2 ? 35 : 25,
+            ),
           ),
           BottomNavigationBarItem(
             label: "Offers",
-            icon: Icon(Icons.local_offer_outlined),
+            icon: SvgPicture.asset(
+              'assets/svg/Offers icon.svg',
+              color: _currentIndex == 3
+                  ? AppColors.mainColor
+                  : AppColors.greyColor,
+              width: _currentIndex == 3 ? 35 : 25,
+            ),
           ),
           BottomNavigationBarItem(
             label: "Profile",
-            icon: Icon(Icons.account_circle_outlined),
+            icon: SvgPicture.asset(
+              'assets/svg/Profile icon.svg',
+              color: _currentIndex == 4
+                  ? AppColors.mainColor
+                  : AppColors.greyColor,
+              width: _currentIndex == 4 ? 35 : 25,
+            ),
           ),
         ],
       ),

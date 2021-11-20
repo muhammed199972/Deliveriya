@@ -23,7 +23,34 @@ class HomeView extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Expanded(
-              child: LogoStatus(),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.end,
+                children: [
+                  Spacer(),
+                  Expanded(flex: 4, child: LogoStatus()),
+                  Expanded(
+                    child: Padding(
+                      padding: const EdgeInsets.only(
+                          bottom: Defaults.defaultPadding * 2),
+                      child: Row(
+                        children: [
+                          Text(
+                            'Help',
+                            style: TextStyle(color: AppColors.blackColor),
+                          ),
+                          SizedBox(
+                            width: 7,
+                          ),
+                          Icon(
+                            Icons.help_sharp,
+                            color: AppColors.greyColor,
+                          )
+                        ],
+                      ),
+                    ),
+                  )
+                ],
+              ),
             ),
             SearchBar(size: size),
             Expanded(
