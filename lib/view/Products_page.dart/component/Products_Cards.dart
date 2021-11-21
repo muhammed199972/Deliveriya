@@ -14,6 +14,8 @@ class FullCard extends StatelessWidget {
   ProductsResponse? product;
   @override
   Widget build(BuildContext context) {
+    print('[[[[[[[[[[[[[[[[[object]]]]]]]]]]]]]]]]]');
+    print(product);
     return Container(
       margin: EdgeInsets.only(top: Defaults.defaultPadding / 2),
       decoration: BoxDecoration(

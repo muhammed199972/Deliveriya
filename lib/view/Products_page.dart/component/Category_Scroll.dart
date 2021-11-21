@@ -8,15 +8,13 @@ class CategorysScroll extends StatelessWidget {
   CategorysScroll({
     Key? key,
     this.idcategory,
-    // this.subcategory,
     required this.size,
   }) : super(key: key);
 
   final Size size;
   int? idcategory;
-  // var subcategory;
-  var subController = Get.find<SubcategorysControllers>();
   CategorysController category = Get.find<CategorysController>();
+  var subController = Get.find<SubcategorysControllers>();
 
   @override
   Widget build(BuildContext context) {

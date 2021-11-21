@@ -1,5 +1,6 @@
 import 'package:delivery_food/General/Constants.dart';
 import 'package:delivery_food/controller/Products_controller.dart';
+import 'package:delivery_food/controller/Subcategory_controller.dart';
 import 'package:delivery_food/view/Products_page.dart/component/Category_Scroll.dart';
 import 'package:delivery_food/view/Products_page.dart/component/Products_Cards.dart';
 import 'package:delivery_food/view/Products_page.dart/component/Subcategory_Scroll.dart';
@@ -12,15 +13,14 @@ class ProduvtsView extends StatelessWidget {
   ProduvtsView({
     Key? key,
     this.idcategory,
-    // this.subcategory,
   }) : super(key: key);
   int? idcategory;
-  // var subcategory;
   var prodController = Get.find<ProductsController>();
+  var subController = Get.find<SubcategorysControllers>();
+
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
-
     return Scaffold(
       backgroundColor: AppColors.whiteColor,
       appBar: AppBar(
@@ -71,19 +71,20 @@ class ProduvtsView extends StatelessWidget {
               )),
           Expanded(
             flex: 5,
-            child: prodController.products == null
+            child: prodController.products.length == 0
                 ? Center(
                     child: CircularProgressIndicator(),
                   )
                 : Container(
                     margin: EdgeInsets.symmetric(
                         horizontal: Defaults.defaultPadding),
-                    child: Obx(() => StaggeredGridView.countBuilder(
-                          shrinkWrap: true,
-                          crossAxisCount: 2,
-                          itemCount: prodController.products.length,
-                          itemBuilder: (BuildContext context, int index) =>
-                              Stack(
+                    child: Obx(() {
+                      return StaggeredGridView.countBuilder(
+                        shrinkWrap: true,
+                        crossAxisCount: 2,
+                        itemCount: prodController.products.length,
+                        itemBuilder: (BuildContext context, int index) {
+                          return Stack(
                             children: [
                               Container(
                                 padding: EdgeInsets.only(
@@ -99,14 +100,16 @@ class ProduvtsView extends StatelessWidget {
                               ),
                               Positioned(right: 0, child: Buttons_plus_minus())
                             ],
-                          ),
-                          staggeredTileBuilder: (int index) =>
-                              new StaggeredTile.count(1, 1.3),
-                          mainAxisSpacing: 25,
-                          crossAxisSpacing: 15,
-                        )),
+                          );
+                        },
+                        staggeredTileBuilder: (int index) =>
+                            new StaggeredTile.count(1, 1.3),
+                        mainAxisSpacing: 25,
+                        crossAxisSpacing: 15,
+                      );
+                    }),
                   ),
-          ),
+          )
         ],
       ),
     );

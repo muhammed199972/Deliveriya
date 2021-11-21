@@ -23,8 +23,6 @@ class CategorysController extends GetxController {
     WidgetsBinding.instance!.addPostFrameCallback(
       (_) {
         if (controllerList.value.hasClients) {
-          print(index);
-
           controllerList.value.animateTo(70 * index.toDouble(),
               duration: Duration(milliseconds: 700),
               curve: Curves.fastOutSlowIn);

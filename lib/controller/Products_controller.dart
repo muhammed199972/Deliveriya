@@ -5,8 +5,8 @@ import 'package:get/state_manager.dart';
 
 class ProductsController extends GetxController {
   var products = <ProductsResponse>[].obs;
-  var hasError = true;
-  var massage = '';
+  var hasError = true.obs;
+  var massage = ''.obs;
   ApiResult apiResult = ApiResult();
   ProductService product = ProductService();
   // String query = '';
@@ -30,20 +30,20 @@ class ProductsController extends GetxController {
         limit!,
         q!,
       ))!;
+      print('[[[[[[[[[[[[[[[[[[[[[[[[[object]]]]]]]]]]]]]]]]]]]]]]]]]');
+
       if (!apiResult.hasError!) {
         products.value = apiResult.data;
-        hasError = apiResult.hasError!;
-        update();
+        hasError.value = apiResult.hasError!;
+        print('[[[[[[[[[[[[[[[[[[[[[[[[[object]]]]]]]]]]]]]]]]]]]]]]]]]');
         print(products);
       } else {
-        hasError = apiResult.hasError!;
-        massage = apiResult.errorMassage!;
-        update();
+        hasError.value = apiResult.hasError!;
+        massage.value = apiResult.errorMassage!;
       }
     } catch (e) {
-      hasError = apiResult.hasError!;
-      massage = apiResult.errorMassage!;
-      update();
+      hasError.value = apiResult.hasError!;
+      massage.value = apiResult.errorMassage!;
 
       print(e);
     }
