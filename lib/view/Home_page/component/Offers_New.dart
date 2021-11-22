@@ -1,6 +1,7 @@
 import 'package:delivery_food/General/Constants.dart';
 import 'package:delivery_food/controller/Ads_controller.dart';
 import 'package:delivery_food/controller/Offer_controller.dart';
+import 'package:delivery_food/controller/Statuses_all.dart';
 import 'package:delivery_food/view/Home_page/component/Statuses.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -15,6 +16,8 @@ class Offers_New extends StatelessWidget {
   final Size size;
   OfferController offer = Get.find<OfferController>();
   AdssController adss = Get.find<AdssController>();
+  StatusesController statuses = Get.find<StatusesController>();
+
   @override
   Widget build(BuildContext context) {
     return Row(
@@ -30,24 +33,19 @@ class Offers_New extends StatelessWidget {
               children: [
                 Padding(
                   padding: const EdgeInsets.all(8.0),
-                  child: Text('offers'),
+                  child: Text('Offers'),
                 ),
                 InkWell(
                   highlightColor: Colors.transparent,
                   onTap: () {
                     Get.to(() => Statuses(
-                          typeclass: 'offers',
+                          typeclass: 'Offers',
                         ));
                   },
-                  child: RippleAnimation(
-                    repeat: true,
-                    color: AppColors.mainColor,
-                    minRadius: 35,
-                    ripplesCount: 2,
-                    duration: const Duration(milliseconds: 2500),
-                    delay: const Duration(milliseconds: 1),
-                    child: Obx(() {
-                      if (offer.offers.length != 0) {
+                  child: Obx(() {
+                    if (offer.offers.length != 0) {
+                      offer.checkStatuses();
+                      if (offer.isOffStatuts.value || statuses.booloff.value) {
                         return Container(
                           height: size.height * 0.07,
                           decoration: BoxDecoration(
@@ -66,22 +64,48 @@ class Offers_New extends StatelessWidget {
                           ),
                         );
                       } else {
-                        return Container(
-                          height: size.height * 0.07,
-                          child: Center(
-                            child: CircularProgressIndicator(),
-                          ),
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(13),
-                            border: Border.all(
-                              color: AppColors.mainColor,
-                              width: 1,
+                        return RippleAnimation(
+                          repeat: true,
+                          color: AppColors.mainColor,
+                          minRadius: 35,
+                          ripplesCount: 2,
+                          duration: const Duration(milliseconds: 2500),
+                          delay: const Duration(milliseconds: 1),
+                          child: Container(
+                            height: size.height * 0.07,
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(13),
+                              border: Border.all(
+                                color: AppColors.mainColor,
+                                width: 1,
+                              ),
+                              image: DecorationImage(
+                                fit: BoxFit.fill,
+                                scale: 1,
+                                image: NetworkImage(offer
+                                    .offers[offer.offers.length - 1].avatar
+                                    .toString()),
+                              ),
                             ),
                           ),
                         );
                       }
-                    }),
-                  ),
+                    } else {
+                      return Container(
+                        height: size.height * 0.07,
+                        child: Center(
+                          child: CircularProgressIndicator(),
+                        ),
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(13),
+                          border: Border.all(
+                            color: AppColors.mainColor,
+                            width: 1,
+                          ),
+                        ),
+                      );
+                    }
+                  }),
                 ),
               ],
             ),
@@ -107,15 +131,10 @@ class Offers_New extends StatelessWidget {
                           typeclass: 'New',
                         ));
                   },
-                  child: RippleAnimation(
-                    repeat: true,
-                    color: AppColors.mainColor,
-                    minRadius: 35,
-                    ripplesCount: 2,
-                    duration: const Duration(milliseconds: 2500),
-                    delay: const Duration(milliseconds: 1),
-                    child: Obx(() {
-                      if (adss.adss.length != 0) {
+                  child: Obx(() {
+                    if (adss.adss.length != 0) {
+                      adss.checkStatuses();
+                      if (adss.isNewStatuts.value || statuses.boolnew.value) {
                         return Container(
                           height: size.height * 0.07,
                           decoration: BoxDecoration(
@@ -134,22 +153,48 @@ class Offers_New extends StatelessWidget {
                           ),
                         );
                       } else {
-                        return Container(
-                          height: size.height * 0.07,
-                          child: Center(
-                            child: CircularProgressIndicator(),
-                          ),
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(13),
-                            border: Border.all(
-                              color: AppColors.mainColor,
-                              width: 1,
+                        return RippleAnimation(
+                          repeat: true,
+                          color: AppColors.mainColor,
+                          minRadius: 35,
+                          ripplesCount: 2,
+                          duration: const Duration(milliseconds: 2500),
+                          delay: const Duration(milliseconds: 1),
+                          child: Container(
+                            height: size.height * 0.07,
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(13),
+                              border: Border.all(
+                                color: AppColors.mainColor,
+                                width: 1,
+                              ),
+                              image: DecorationImage(
+                                fit: BoxFit.fill,
+                                scale: 1,
+                                image: NetworkImage(adss
+                                    .adss[adss.adss.length - 1].avatar
+                                    .toString()),
+                              ),
                             ),
                           ),
                         );
                       }
-                    }),
-                  ),
+                    } else {
+                      return Container(
+                        height: size.height * 0.07,
+                        child: Center(
+                          child: CircularProgressIndicator(),
+                        ),
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(13),
+                          border: Border.all(
+                            color: AppColors.mainColor,
+                            width: 1,
+                          ),
+                        ),
+                      );
+                    }
+                  }),
                 ),
               ],
             ),

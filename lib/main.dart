@@ -1,6 +1,7 @@
 // @dart=2.9
 
 import 'package:delivery_food/Binds.dart';
+import 'package:delivery_food/General/Constants.dart';
 import 'package:delivery_food/view/Home_page/Home_page.dart';
 import 'package:delivery_food/view/navbar.dart';
 import 'package:flutter/material.dart';
@@ -15,8 +16,12 @@ void main() async {
 
 class MyApp extends StatelessWidget {
   // This widget is the root of your application.
+  Constans Constansbox = Constans();
+
   @override
   Widget build(BuildContext context) {
+    Constansbox.box.writeIfNull('New', [1999]);
+    Constansbox.box.writeIfNull('offers', [1999]);
     return ScreenUtilInit(
         designSize: Size(411, 683),
         builder: () => GetMaterialApp(

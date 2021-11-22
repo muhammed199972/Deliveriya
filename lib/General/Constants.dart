@@ -62,6 +62,7 @@ class StatusCode {
 
 class Constans {
   List<String> categorySelected = [];
+  final box = GetStorage();
 }
 
 final box = GetStorage();

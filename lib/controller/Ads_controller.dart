@@ -1,4 +1,5 @@
 import 'package:delivery_food/General/Api_Result.dart';
+import 'package:delivery_food/General/Constants.dart';
 import 'package:delivery_food/model/Ads_model.dart';
 import 'package:delivery_food/services/Ads_services.dart';
 import 'package:get/get.dart';
@@ -9,11 +10,26 @@ class AdssController extends GetxController {
   var massage = ''.obs;
   ApiResult apiResult = ApiResult();
   AdsService ads = AdsService();
-
+  Constans Constansbox = Constans();
+  var isNewStatuts = true.obs;
   @override
-  void onInit() {
+  void onInit() async {
     getAds();
     super.onInit();
+  }
+
+  checkStatuses() {
+    var New = Constansbox.box.read('New');
+    bool? check;
+    for (int i = 0; i < adss.length; i++) {
+      check = New.any((element) => element == adss[i].id ? true : false);
+      if (!check!) {
+        break;
+      }
+      print(New);
+    }
+
+    isNewStatuts.value = check!;
   }
 
   getAds() async {
