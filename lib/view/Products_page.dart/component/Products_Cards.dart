@@ -1,7 +1,9 @@
 import 'package:delivery_food/General/Constants.dart';
+import 'package:delivery_food/controller/Products_controller.dart';
 import 'package:delivery_food/model/Products_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:get/get.dart';
 
 class FullCard extends StatelessWidget {
   FullCard({
@@ -39,7 +41,7 @@ class FullCard extends StatelessWidget {
               width: double.infinity,
               decoration: BoxDecoration(
                 image: DecorationImage(
-                    image: AssetImage(
+                    image: NetworkImage(
                       product!.avatar!,
                     ),
                     fit: BoxFit.cover),
@@ -109,87 +111,96 @@ class FullCard extends StatelessWidget {
 }
 
 class Buttons_plus_minus extends StatelessWidget {
-  const Buttons_plus_minus({
+  Buttons_plus_minus({
     Key? key,
   }) : super(key: key);
+  var prodController = Get.find<ProductsController>();
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-      children: [
-        Container(
-          margin: EdgeInsets.only(bottom: Defaults.defaultPadding / 2),
-          height: 30,
-          width: 30,
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(3.0),
-            color: AppColors.whiteColor,
-            boxShadow: [
-              BoxShadow(
-                color: Colors.black.withOpacity(0.1),
-                spreadRadius: 1,
-                blurRadius: 10,
-                offset: Offset(10, 10), // changes position of shadow
+    return GetBuilder<ProductsController>(builder: (_) {
+      return Column(
+        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+        children: [
+          InkWell(
+            onTap: () => prodController.increaseProductQuantity(),
+            child: Container(
+              margin: EdgeInsets.only(bottom: Defaults.defaultPadding / 2),
+              height: 30,
+              width: 30,
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(3.0),
+                color: AppColors.whiteColor,
+                boxShadow: [
+                  BoxShadow(
+                    color: Colors.black.withOpacity(0.1),
+                    spreadRadius: 1,
+                    blurRadius: 10,
+                    offset: Offset(10, 10), // changes position of shadow
+                  ),
+                ],
               ),
-            ],
-          ),
-          child: Center(
-            child: Text(
-              '+',
-              style: TextStyle(
-                fontWeight: FontWeight.w500,
-                fontSize: 20,
-              ),
-            ),
-          ),
-        ),
-        Container(
-          margin: EdgeInsets.only(bottom: Defaults.defaultPadding / 2),
-          height: 30,
-          width: 30,
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(3.0),
-            color: AppColors.whiteColor,
-            boxShadow: [
-              BoxShadow(
-                color: Colors.black.withOpacity(0.1),
-                spreadRadius: 1,
-                blurRadius: 10,
-                offset: Offset(10, 10), // changes position of shadow
-              ),
-            ],
-          ),
-          child: Center(
-            child: Text('5'),
-          ),
-        ),
-        Container(
-          height: 30,
-          width: 30,
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(3.0),
-            color: AppColors.whiteColor,
-            boxShadow: [
-              BoxShadow(
-                color: Colors.black.withOpacity(0.1),
-                spreadRadius: 1,
-                blurRadius: 10,
-                offset: Offset(10, 10), // changes position of shadow
-              ),
-            ],
-          ),
-          child: Center(
-            child: Text(
-              '-',
-              style: TextStyle(
-                fontWeight: FontWeight.w500,
-                fontSize: 20,
+              child: Center(
+                child: Text(
+                  '+',
+                  style: TextStyle(
+                    fontWeight: FontWeight.w500,
+                    fontSize: 20,
+                  ),
+                ),
               ),
             ),
           ),
-        )
-      ],
-    );
+          Container(
+            margin: EdgeInsets.only(bottom: Defaults.defaultPadding / 2),
+            height: 30,
+            width: 30,
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(3.0),
+              color: AppColors.whiteColor,
+              boxShadow: [
+                BoxShadow(
+                  color: Colors.black.withOpacity(0.1),
+                  spreadRadius: 1,
+                  blurRadius: 10,
+                  offset: Offset(10, 10), // changes position of shadow
+                ),
+              ],
+            ),
+            child: Center(
+              child: Text('${prodController.itemQuantity}'),
+            ),
+          ),
+          InkWell(
+            onTap: () => prodController.decreaseProductQuantity(),
+            child: Container(
+              height: 30,
+              width: 30,
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(3.0),
+                color: AppColors.whiteColor,
+                boxShadow: [
+                  BoxShadow(
+                    color: Colors.black.withOpacity(0.1),
+                    spreadRadius: 1,
+                    blurRadius: 10,
+                    offset: Offset(10, 10), // changes position of shadow
+                  ),
+                ],
+              ),
+              child: Center(
+                child: Text(
+                  '-',
+                  style: TextStyle(
+                    fontWeight: FontWeight.w500,
+                    fontSize: 20,
+                  ),
+                ),
+              ),
+            ),
+          )
+        ],
+      );
+    });
   }
 }

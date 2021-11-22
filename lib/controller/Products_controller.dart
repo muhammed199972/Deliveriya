@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:delivery_food/General/Api_Result.dart';
 import 'package:delivery_food/model/Products_model.dart';
 import 'package:delivery_food/services/Products_service.dart';
@@ -30,13 +32,11 @@ class ProductsController extends GetxController {
         limit!,
         q!,
       ))!;
-      print('[[[[[[[[[[[[[[[[[[[[[[[[[object]]]]]]]]]]]]]]]]]]]]]]]]]');
 
       if (!apiResult.hasError!) {
         products.value = apiResult.data;
         hasError.value = apiResult.hasError!;
-        print('[[[[[[[[[[[[[[[[[[[[[[[[[object]]]]]]]]]]]]]]]]]]]]]]]]]');
-        print(products);
+        log('${subCategoryId}', name: 'sss');
       } else {
         hasError.value = apiResult.hasError!;
         massage.value = apiResult.errorMassage!;
@@ -46,6 +46,31 @@ class ProductsController extends GetxController {
       massage.value = apiResult.errorMassage!;
 
       print(e);
+    }
+  }
+
+  int _quantity = 0;
+
+  int get itemQuantity => _quantity;
+
+  void itemQuantitySet(int value) {
+    _quantity = value;
+    update();
+  }
+
+  ///---------------------------------------------------------------------------
+  void increaseProductQuantity({int maxQuantity = 50}) {
+    if (itemQuantity < maxQuantity) {
+      _quantity++;
+      update();
+    } else
+      print('maxQuantity!!!');
+  }
+
+  void decreaseProductQuantity({int min = 1}) {
+    if (itemQuantity > min) {
+      _quantity--;
+      update();
     }
   }
 }

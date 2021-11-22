@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:developer';
 import 'dart:io';
 
 import 'package:delivery_food/General/Api_Result.dart';
@@ -14,8 +15,6 @@ class ProductService {
     int limit,
     String q,
   ) async {
-    print('[[[[[[object]]]]]]');
-    print(q);
     StatusCode statusCode = StatusCode();
     ApiResult apiResult = ApiResult();
     List<ProductsResponse> calendar = [];
@@ -41,6 +40,7 @@ class ProductService {
           apiResult.codeError = status.code;
           apiResult.hasError = false;
           apiResult.data = calendar;
+          log('$calendar', name: 'Products response ');
         }
       } else if (response.statusCode == statusCode.BAD_REQUEST) {
         status = ProductsStatus.fromJson(responsebody['status']);

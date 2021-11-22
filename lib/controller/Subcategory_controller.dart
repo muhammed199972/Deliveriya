@@ -1,5 +1,6 @@
+import 'dart:developer';
+
 import 'package:delivery_food/General/Api_Result.dart';
-import 'package:delivery_food/controller/Products_controller.dart';
 import 'package:delivery_food/model/Subcategory_model.dart';
 import 'package:delivery_food/services/Subcategory_services.dart';
 import 'package:get/get.dart';
@@ -27,7 +28,8 @@ class SubcategorysControllers extends GetxController {
       apiResult = await subcategory.getsubcategoryData(value);
       if (!apiResult.hasError!) {
         subcategorys.value = apiResult.data;
-        changevalue(subcategorys[0].id!);
+
+        changevalue(subcategorys[0].id ?? 0);
         hasError.value = apiResult.hasError!;
       } else {
         hasError.value = apiResult.hasError!;

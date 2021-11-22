@@ -10,8 +10,6 @@ class ProductsResponse {
     this.avatar,
     this.price,
     this.quantity,
-    this.createdAt,
-    this.updatedAt,
     this.subCategoryId,
   });
 
@@ -21,8 +19,6 @@ class ProductsResponse {
   String? avatar;
   int? price;
   int? quantity;
-  DateTime? createdAt;
-  DateTime? updatedAt;
   int? subCategoryId;
 
   factory ProductsResponse.fromJson(Map<String, dynamic> json) =>
@@ -33,8 +29,6 @@ class ProductsResponse {
         avatar: json["avatar"],
         price: json["price"],
         quantity: json["quantity"] == null ? null : json["quantity"],
-        createdAt: DateTime.parse(json["createdAt"]),
-        updatedAt: DateTime.parse(json["updatedAt"]),
         subCategoryId: json["SubCategoryId"],
       );
 
@@ -45,8 +39,6 @@ class ProductsResponse {
         "avatar": avatar,
         "price": price,
         "quantity": quantity == null ? null : quantity,
-        "createdAt": createdAt!.toIso8601String(),
-        "updatedAt": updatedAt!.toIso8601String(),
         "SubCategoryId": subCategoryId,
       };
 }
