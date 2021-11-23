@@ -69,47 +69,54 @@ class ProduvtsView extends StatelessWidget {
                   ],
                 ),
               )),
-          Expanded(
-            flex: 5,
-            child: prodController.products.length == 0
-                ? Center(
-                    child: CircularProgressIndicator(),
-                  )
-                : Container(
-                    margin: EdgeInsets.symmetric(
-                        horizontal: Defaults.defaultPadding),
-                    child: Obx(() {
-                      return StaggeredGridView.countBuilder(
-                        shrinkWrap: true,
-                        crossAxisCount: 2,
-                        itemCount: prodController.products.length,
-                        itemBuilder: (BuildContext context, int index) {
-                          return Stack(
-                            children: [
-                              Container(
-                                padding: EdgeInsets.only(
-                                    right: Defaults.defaultPadding / 2),
-                                decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(5.0),
-                                  color: Colors.transparent,
+          Obx(() {
+            return Expanded(
+              flex: 5,
+              child: prodController.products.length == 0
+                  ? Center(
+                      child: CircularProgressIndicator(),
+                    )
+                  : Container(
+                      margin: EdgeInsets.symmetric(
+                          horizontal: Defaults.defaultPadding),
+                      child: Obx(() {
+                        return StaggeredGridView.countBuilder(
+                          shrinkWrap: true,
+                          crossAxisCount: 2,
+                          itemCount: prodController.products.length,
+                          itemBuilder: (BuildContext context, int index) {
+                            print(prodController.products[index].id);
+                            return Stack(
+                              children: [
+                                Container(
+                                  padding: EdgeInsets.only(
+                                      right: Defaults.defaultPadding / 2),
+                                  decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(5.0),
+                                    color: Colors.transparent,
+                                  ),
+                                  child: FullCard(
+                                    size: size,
+                                    product: prodController.products[index],
+                                  ),
                                 ),
-                                child: FullCard(
-                                  size: size,
-                                  product: prodController.products[index],
-                                ),
-                              ),
-                              Positioned(right: 0, child: Buttons_plus_minus())
-                            ],
-                          );
-                        },
-                        staggeredTileBuilder: (int index) =>
-                            new StaggeredTile.count(1, 1.3),
-                        mainAxisSpacing: 25,
-                        crossAxisSpacing: 15,
-                      );
-                    }),
-                  ),
-          )
+                                Positioned(
+                                    right: 0,
+                                    child: Buttons_plus_minus(
+                                      id: prodController.products[index].id,
+                                    ))
+                              ],
+                            );
+                          },
+                          staggeredTileBuilder: (int index) =>
+                              new StaggeredTile.count(1, 1.3),
+                          mainAxisSpacing: 25,
+                          crossAxisSpacing: 15,
+                        );
+                      }),
+                    ),
+            );
+          }),
         ],
       ),
     );

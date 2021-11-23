@@ -59,18 +59,17 @@ class ProductsController extends GetxController {
   }
 
   ///---------------------------------------------------------------------------
-  void increaseProductQuantity({int maxQuantity = 50}) {
-    if (itemQuantity < maxQuantity) {
-      _quantity++;
-      update();
-    } else
-      print('maxQuantity!!!');
+  void increaseProductQuantity(int? id) {
+    var gg = products[id!].bb!;
+    gg++;
+    products[id].bb = gg;
+    update();
   }
 
-  void decreaseProductQuantity({int min = 1}) {
-    if (itemQuantity > min) {
-      _quantity--;
-      update();
-    }
+  void decreaseProductQuantity({int? id}) {
+    var gg = products[id!].bb!;
+    gg--;
+    products[id].bb = gg;
+    update();
   }
 }

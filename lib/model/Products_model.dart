@@ -3,15 +3,15 @@
 //     final productsProductsStatus = productsProductsStatusFromJson(jsonString);
 
 class ProductsResponse {
-  ProductsResponse({
-    this.id,
-    this.name,
-    this.type,
-    this.avatar,
-    this.price,
-    this.quantity,
-    this.subCategoryId,
-  });
+  ProductsResponse(
+      {this.id,
+      this.name,
+      this.type,
+      this.avatar,
+      this.price,
+      this.quantity,
+      this.subCategoryId,
+      this.bb});
 
   int? id;
   String? name;
@@ -20,17 +20,18 @@ class ProductsResponse {
   int? price;
   int? quantity;
   int? subCategoryId;
+  int? bb;
 
   factory ProductsResponse.fromJson(Map<String, dynamic> json) =>
       ProductsResponse(
-        id: json["id"],
-        name: json["name"],
-        type: json["type"],
-        avatar: json["avatar"],
-        price: json["price"],
-        quantity: json["quantity"] == null ? null : json["quantity"],
-        subCategoryId: json["SubCategoryId"],
-      );
+          id: json["id"],
+          name: json["name"],
+          type: json["type"],
+          avatar: json["avatar"],
+          price: json["price"],
+          quantity: json["quantity"] == null ? null : json["quantity"],
+          subCategoryId: json["SubCategoryId"],
+          bb: 0);
 
   Map<String, dynamic> toJson() => {
         "id": id,

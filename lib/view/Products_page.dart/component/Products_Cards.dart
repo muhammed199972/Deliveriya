@@ -112,10 +112,13 @@ class FullCard extends StatelessWidget {
 
 class Buttons_plus_minus extends StatelessWidget {
   Buttons_plus_minus({
+    this.bb,
+    this.id,
     Key? key,
   }) : super(key: key);
   var prodController = Get.find<ProductsController>();
-
+  int? bb;
+  int? id;
   @override
   Widget build(BuildContext context) {
     return GetBuilder<ProductsController>(builder: (_) {
@@ -123,7 +126,7 @@ class Buttons_plus_minus extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: [
           InkWell(
-            onTap: () => prodController.increaseProductQuantity(),
+            onTap: () => prodController.increaseProductQuantity(id!),
             child: Container(
               margin: EdgeInsets.only(bottom: Defaults.defaultPadding / 2),
               height: 30,
@@ -167,12 +170,14 @@ class Buttons_plus_minus extends StatelessWidget {
                 ),
               ],
             ),
-            child: Center(
-              child: Text('${prodController.itemQuantity}'),
-            ),
+            child: Obx(() {
+              return Center(
+                child: Text('${prodController.products[id!].bb}'),
+              );
+            }),
           ),
           InkWell(
-            onTap: () => prodController.decreaseProductQuantity(),
+            onTap: () => prodController.decreaseProductQuantity(id: id),
             child: Container(
               height: 30,
               width: 30,
