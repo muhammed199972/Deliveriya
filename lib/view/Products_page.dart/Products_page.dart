@@ -101,10 +101,7 @@ class ProduvtsView extends StatelessWidget {
                                   ),
                                 ),
                                 Positioned(
-                                    right: 0,
-                                    child: Buttons_plus_minus(
-                                      id: prodController.products[index].id,
-                                    ))
+                                    right: 0, child: Buttons_plus_minus())
                               ],
                             );
                           },

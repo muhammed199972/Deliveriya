@@ -11,11 +11,9 @@ class ProductsController extends GetxController {
   var massage = ''.obs;
   ApiResult apiResult = ApiResult();
   ProductService product = ProductService();
-  // String query = '';
 
   @override
   void onInit() {
-    // getproduct('', 0, 8, query);
     super.onInit();
   }
 
@@ -55,21 +53,6 @@ class ProductsController extends GetxController {
 
   void itemQuantitySet(int value) {
     _quantity = value;
-    update();
-  }
-
-  ///---------------------------------------------------------------------------
-  void increaseProductQuantity(int? id) {
-    var gg = products[id!].bb!;
-    gg++;
-    products[id].bb = gg;
-    update();
-  }
-
-  void decreaseProductQuantity({int? id}) {
-    var gg = products[id!].bb!;
-    gg--;
-    products[id].bb = gg;
     update();
   }
 }
