@@ -1,6 +1,6 @@
 import 'package:delivery_food/General/Constants.dart';
+import 'package:delivery_food/controller/Cart_controller.dart';
 import 'package:delivery_food/controller/Products_controller.dart';
-import 'package:delivery_food/controller/Subcategory_controller.dart';
 import 'package:delivery_food/view/Products_page.dart/component/Category_Scroll.dart';
 import 'package:delivery_food/view/Products_page.dart/component/Products_Cards.dart';
 import 'package:delivery_food/view/Products_page.dart/component/Subcategory_Scroll.dart';
@@ -16,7 +16,7 @@ class ProduvtsView extends StatelessWidget {
   }) : super(key: key);
   int? idcategory;
   var prodController = Get.find<ProductsController>();
-  var subController = Get.find<SubcategorysControllers>();
+  var cartController = Get.find<CartController>();
 
   @override
   Widget build(BuildContext context) {
@@ -40,12 +40,47 @@ class ProduvtsView extends StatelessWidget {
           color: AppColors.blackColor,
         ),
         actions: [
-          IconButton(
-            onPressed: () {},
-            icon: SvgPicture.asset(
-              'assets/svg/Cart icon.svg',
-              color: AppColors.mainColor,
-              width: 40,
+          Container(
+            width: 60,
+            child: Stack(
+              children: [
+                Align(
+                  alignment: Alignment.bottomLeft,
+                  child: IconButton(
+                    onPressed: () {},
+                    icon: SvgPicture.asset(
+                      'assets/svg/Cart icon.svg',
+                      color: AppColors.mainColor,
+                      width: 40,
+                    ),
+                  ),
+                ),
+                cartController.carts.length == 0
+                    ? Container()
+                    : Padding(
+                        padding: const EdgeInsets.only(top: 3),
+                        child: Align(
+                            alignment: Alignment.topCenter,
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.end,
+                              children: [
+                                SizedBox(
+                                  width: size.width * 0.03,
+                                ),
+                                CircleAvatar(
+                                  radius: 13,
+                                  backgroundColor: AppColors.mainColor,
+                                  child: Text(
+                                    '${cartController.carts.length}',
+                                    style: TextStyle(
+                                        fontSize: 14,
+                                        color: AppColors.whiteColor),
+                                  ),
+                                ),
+                              ],
+                            )),
+                      )
+              ],
             ),
           )
         ],

@@ -108,9 +108,17 @@ class FullCard extends StatelessWidget {
                               splashColor: Colors.transparent,
                               highlightColor: Colors.transparent,
                               onPressed: () {
-                                cart.value
-                                    ? cart.value = false
-                                    : cart.value = true;
+                                if (cart.value) {
+                                  cartController
+                                      .deletecart(product!.id.toString());
+                                  cart.value = false;
+                                  cartController.getcart();
+                                } else {
+                                  cartController.addTocart(
+                                      counter.value, product!.id.toString());
+                                  cart.value = true;
+                                  cartController.getcart();
+                                }
                               },
                               icon: SvgPicture.asset(
                                 'assets/svg/Cart icon.svg',

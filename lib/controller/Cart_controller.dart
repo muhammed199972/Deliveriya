@@ -75,7 +75,7 @@ class CartController extends GetxController {
     }
   }
 
-  deletecart(Map<String, dynamic> body, id) async {
+  deletecart(id) async {
     try {
       apiResult = await cartService.deletecartData(id);
       if (!apiResult.hasError!) {
