@@ -24,6 +24,7 @@ class ProductsController extends GetxController {
     String? q,
   }) async {
     try {
+      products.value = [];
       apiResult = (await product.getproductsData(
         subCategoryId!,
         offset!,

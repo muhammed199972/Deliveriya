@@ -55,7 +55,8 @@ class SubcategoryScroll extends StatelessWidget {
                             subController.changevalue(
                                 subController.subcategorys[index].id!);
                             prodController.getproduct(
-                                subCategoryId: '${subController.value}',
+                                subCategoryId:
+                                    '${subController.subcategorys[index].id!}',
                                 offset: 0,
                                 limit: 8,
                                 q: '');

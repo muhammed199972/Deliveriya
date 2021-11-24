@@ -16,8 +16,9 @@ class FullCard extends StatelessWidget {
   final Size size;
   var cartController = Get.find<CartController>();
   ProductsResponse? product;
+  var favorite = false.obs;
+  var cart = false.obs;
   var counter = 0.obs;
-
   @override
   Widget build(BuildContext context) {
     return Stack(
@@ -61,14 +62,22 @@ class FullCard extends StatelessWidget {
                       ),
                     ),
                   ),
-                  IconButton(
-                    onPressed: () {},
-                    icon: Icon(
-                      Icons.favorite_border,
-                      color: AppColors.whiteColor,
-                      size: 30,
-                    ),
-                  ),
+                  Obx(() => IconButton(
+                        splashColor: Colors.transparent,
+                        highlightColor: Colors.transparent,
+                        onPressed: () {
+                          favorite.value
+                              ? favorite.value = false
+                              : favorite.value = true;
+                        },
+                        icon: Icon(
+                          favorite.value
+                              ? Icons.favorite
+                              : Icons.favorite_border,
+                          color: AppColors.whiteColor,
+                          size: 30,
+                        ),
+                      ))
                 ]),
                 SizedBox(
                   height: 12,
@@ -95,17 +104,22 @@ class FullCard extends StatelessWidget {
                     ),
                     Column(
                       children: [
-                        IconButton(
-                          onPressed: () {
-                            cartController.addTocart(
-                                counter.value, product!.id.toString());
-                          },
-                          icon: SvgPicture.asset(
-                            'assets/svg/Cart icon.svg',
-                            color: AppColors.greyColor,
-                            width: 40,
-                          ),
-                        ),
+                        Obx(() => IconButton(
+                              splashColor: Colors.transparent,
+                              highlightColor: Colors.transparent,
+                              onPressed: () {
+                                cart.value
+                                    ? cart.value = false
+                                    : cart.value = true;
+                              },
+                              icon: SvgPicture.asset(
+                                'assets/svg/Cart icon.svg',
+                                color: cart.value
+                                    ? AppColors.mainColor
+                                    : AppColors.greyColor,
+                                width: 40,
+                              ),
+                            )),
                         SizedBox(height: 25),
                         Padding(
                           padding: EdgeInsets.only(
