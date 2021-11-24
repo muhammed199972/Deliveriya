@@ -1,5 +1,6 @@
 import 'package:delivery_food/General/Constants.dart';
 import 'package:delivery_food/controller/Category_controller.dart';
+import 'package:delivery_food/controller/Products_controller.dart';
 import 'package:delivery_food/controller/Subcategory_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -15,6 +16,7 @@ class CategorysScroll extends StatelessWidget {
   int? idcategory;
   CategorysController category = Get.find<CategorysController>();
   var subController = Get.find<SubcategorysControllers>();
+  var prodController = Get.find<ProductsController>();
 
   @override
   Widget build(BuildContext context) {
@@ -52,10 +54,15 @@ class CategorysScroll extends StatelessWidget {
                     horizontal: Defaults.defaultPadding / 6),
                 child: Obx(() {
                   return InkWell(
-                      onTap: () {
+                      onTap: () async {
                         category.changevalue(category.categorys[index].id!);
-                        subController
+                        await subController
                             .getsubcategory(category.categorys[index].id!);
+                        prodController.getproduct(
+                            subCategoryId: '${subController.value}',
+                            offset: 0,
+                            limit: 8,
+                            q: '');
                       },
                       child: Row(
                           crossAxisAlignment: CrossAxisAlignment.center,

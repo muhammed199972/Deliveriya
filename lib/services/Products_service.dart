@@ -29,6 +29,8 @@ class ProductService {
     try {
       var response = await http.get(url);
       var responsebody = jsonDecode(response.body);
+      print(subCategoryId);
+      print(responsebody);
       if (response.statusCode == statusCode.OK ||
           response.statusCode == statusCode.CREATED) {
         status = ProductsStatus.fromJson(responsebody['status']);

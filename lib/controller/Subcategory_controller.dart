@@ -29,7 +29,7 @@ class SubcategorysControllers extends GetxController {
       if (!apiResult.hasError!) {
         subcategorys.value = apiResult.data;
 
-        changevalue(subcategorys[0].id ?? 0);
+        await changevalue(subcategorys[0].id!);
         hasError.value = apiResult.hasError!;
       } else {
         hasError.value = apiResult.hasError!;

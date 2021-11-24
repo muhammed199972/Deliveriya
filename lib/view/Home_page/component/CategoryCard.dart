@@ -19,12 +19,15 @@ class CategorysCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return InkWell(
       highlightColor: Colors.transparent,
-      onTap: () {
+      onTap: () async {
         controller.changevalue(datacontroller.id!);
         controller.changecontrollerscroll(index);
-        subcategory.getsubcategory(datacontroller.id);
+        await subcategory.getsubcategory(datacontroller.id);
         prodController.getproduct(
-            subCategoryId: '${subcategory.value}', offset: 0, limit: 8, q: '');
+            subCategoryId: '${subcategory.subcategorys[0].id}',
+            offset: 0,
+            limit: 8,
+            q: '');
 
         Get.to(() => ProduvtsView(
               idcategory: datacontroller.id,

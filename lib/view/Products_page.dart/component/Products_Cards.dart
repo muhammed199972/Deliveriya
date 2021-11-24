@@ -14,10 +14,11 @@ class FullCard extends StatelessWidget {
 
   final Size size;
   ProductsResponse? product;
+  var favorite = false.obs;
+  var cart = false.obs;
+
   @override
   Widget build(BuildContext context) {
-    print('[[[[[[[[[[[[[[[[[object]]]]]]]]]]]]]]]]]');
-    print(product);
     return Container(
       margin: EdgeInsets.only(top: Defaults.defaultPadding / 2),
       decoration: BoxDecoration(
@@ -51,14 +52,20 @@ class FullCard extends StatelessWidget {
                 ),
               ),
             ),
-            IconButton(
-              onPressed: () {},
-              icon: Icon(
-                Icons.favorite_border,
-                color: AppColors.whiteColor,
-                size: 30,
-              ),
-            ),
+            Obx(() => IconButton(
+                  splashColor: Colors.transparent,
+                  highlightColor: Colors.transparent,
+                  onPressed: () {
+                    favorite.value
+                        ? favorite.value = false
+                        : favorite.value = true;
+                  },
+                  icon: Icon(
+                    favorite.value ? Icons.favorite : Icons.favorite_border,
+                    color: AppColors.whiteColor,
+                    size: 30,
+                  ),
+                ))
           ]),
           SizedBox(
             height: 12,
@@ -84,14 +91,20 @@ class FullCard extends StatelessWidget {
               ),
               Column(
                 children: [
-                  IconButton(
-                    onPressed: () {},
-                    icon: SvgPicture.asset(
-                      'assets/svg/Cart icon.svg',
-                      color: AppColors.greyColor,
-                      width: 40,
-                    ),
-                  ),
+                  Obx(() => IconButton(
+                        splashColor: Colors.transparent,
+                        highlightColor: Colors.transparent,
+                        onPressed: () {
+                          cart.value ? cart.value = false : cart.value = true;
+                        },
+                        icon: SvgPicture.asset(
+                          'assets/svg/Cart icon.svg',
+                          color: cart.value
+                              ? AppColors.mainColor
+                              : AppColors.greyColor,
+                          width: 40,
+                        ),
+                      )),
                   SizedBox(height: 25),
                   Padding(
                     padding: EdgeInsets.only(
@@ -119,40 +132,12 @@ class Buttons_plus_minus extends StatelessWidget {
   var counter = 0.obs;
   @override
   Widget build(BuildContext context) {
-    return GetBuilder<ProductsController>(builder: (_) {
-      return Column(
-        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-        children: [
-          InkWell(
-            onTap: () => counter++,
-            child: Container(
-              margin: EdgeInsets.only(bottom: Defaults.defaultPadding / 2),
-              height: 30,
-              width: 30,
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(3.0),
-                color: AppColors.whiteColor,
-                boxShadow: [
-                  BoxShadow(
-                    color: Colors.black.withOpacity(0.1),
-                    spreadRadius: 1,
-                    blurRadius: 10,
-                    offset: Offset(10, 10), // changes position of shadow
-                  ),
-                ],
-              ),
-              child: Center(
-                child: Text(
-                  '+',
-                  style: TextStyle(
-                    fontWeight: FontWeight.w500,
-                    fontSize: 20,
-                  ),
-                ),
-              ),
-            ),
-          ),
-          Container(
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+      children: [
+        InkWell(
+          onTap: () => counter++,
+          child: Container(
             margin: EdgeInsets.only(bottom: Defaults.defaultPadding / 2),
             height: 30,
             width: 30,
@@ -168,46 +153,72 @@ class Buttons_plus_minus extends StatelessWidget {
                 ),
               ],
             ),
-            child: Obx(() {
-              return Center(
-                child: Text('${counter.value}'),
-              );
-            }),
-          ),
-          InkWell(
-            onTap: () {
-              if (counter > 0) {
-                counter--;
-              }
-            },
-            child: Container(
-              height: 30,
-              width: 30,
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(3.0),
-                color: AppColors.whiteColor,
-                boxShadow: [
-                  BoxShadow(
-                    color: Colors.black.withOpacity(0.1),
-                    spreadRadius: 1,
-                    blurRadius: 10,
-                    offset: Offset(10, 10), // changes position of shadow
-                  ),
-                ],
-              ),
-              child: Center(
-                child: Text(
-                  '-',
-                  style: TextStyle(
-                    fontWeight: FontWeight.w500,
-                    fontSize: 20,
-                  ),
+            child: Center(
+              child: Text(
+                '+',
+                style: TextStyle(
+                  fontWeight: FontWeight.w500,
+                  fontSize: 20,
                 ),
               ),
             ),
-          )
-        ],
-      );
-    });
+          ),
+        ),
+        Container(
+          margin: EdgeInsets.only(bottom: Defaults.defaultPadding / 2),
+          height: 30,
+          width: 30,
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(3.0),
+            color: AppColors.whiteColor,
+            boxShadow: [
+              BoxShadow(
+                color: Colors.black.withOpacity(0.1),
+                spreadRadius: 1,
+                blurRadius: 10,
+                offset: Offset(10, 10), // changes position of shadow
+              ),
+            ],
+          ),
+          child: Obx(() {
+            return Center(
+              child: Text('${counter.value}'),
+            );
+          }),
+        ),
+        InkWell(
+          onTap: () {
+            if (counter > 0) {
+              counter--;
+            }
+          },
+          child: Container(
+            height: 30,
+            width: 30,
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(3.0),
+              color: AppColors.whiteColor,
+              boxShadow: [
+                BoxShadow(
+                  color: Colors.black.withOpacity(0.1),
+                  spreadRadius: 1,
+                  blurRadius: 10,
+                  offset: Offset(10, 10), // changes position of shadow
+                ),
+              ],
+            ),
+            child: Center(
+              child: Text(
+                '-',
+                style: TextStyle(
+                  fontWeight: FontWeight.w500,
+                  fontSize: 20,
+                ),
+              ),
+            ),
+          ),
+        )
+      ],
+    );
   }
 }
