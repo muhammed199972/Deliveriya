@@ -1,10 +1,17 @@
 import 'package:delivery_food/General/Api_Result.dart';
 import 'package:delivery_food/model/Cart_model.dart';
+import 'package:delivery_food/model/Delete.dart';
+import 'package:delivery_food/model/Patch_data.dart';
+import 'package:delivery_food/model/Post_data.dart';
 import 'package:delivery_food/services/Cart_services.dart';
 import 'package:get/get.dart';
 
 class CartController extends GetxController {
   var carts = <CartResponse>[].obs;
+  var postCarts = PostResponse().obs;
+  var patchCarts = PatchResponse().obs;
+  var deleteCarts = DeleteResponse().obs;
+
   var hasError = true.obs;
   var massage = ''.obs;
   ApiResult apiResult = ApiResult();
@@ -27,9 +34,61 @@ class CartController extends GetxController {
         hasError.value = apiResult.hasError!;
         massage.value = apiResult.errorMassage!;
       }
-    } finally {
+    } catch (e) {
       hasError.value = apiResult.hasError!;
       massage.value = apiResult.errorMassage!;
+      print(e);
+    }
+  }
+
+  addTocart(int quantity, String id) async {
+    try {
+      apiResult = await cartService.postcartData(quantity, id);
+      if (!apiResult.hasError!) {
+        postCarts.value = apiResult.data;
+        hasError.value = apiResult.hasError!;
+      } else {
+        hasError.value = apiResult.hasError!;
+        massage.value = apiResult.errorMassage!;
+      }
+    } catch (e) {
+      hasError.value = apiResult.hasError!;
+      massage.value = apiResult.errorMassage!;
+      print(e);
+    }
+  }
+
+  patchcart(Map<String, dynamic> body, id) async {
+    try {
+      apiResult = await cartService.patchcartData(body, id);
+      if (!apiResult.hasError!) {
+        patchCarts.value = apiResult.data;
+        hasError.value = apiResult.hasError!;
+      } else {
+        hasError.value = apiResult.hasError!;
+        massage.value = apiResult.errorMassage!;
+      }
+    } catch (e) {
+      hasError.value = apiResult.hasError!;
+      massage.value = apiResult.errorMassage!;
+      print(e);
+    }
+  }
+
+  deletecart(Map<String, dynamic> body, id) async {
+    try {
+      apiResult = await cartService.deletecartData(id);
+      if (!apiResult.hasError!) {
+        deleteCarts.value = apiResult.data;
+        hasError.value = apiResult.hasError!;
+      } else {
+        hasError.value = apiResult.hasError!;
+        massage.value = apiResult.errorMassage!;
+      }
+    } catch (e) {
+      hasError.value = apiResult.hasError!;
+      massage.value = apiResult.errorMassage!;
+      print(e);
     }
   }
 }

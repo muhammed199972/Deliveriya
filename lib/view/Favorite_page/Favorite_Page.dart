@@ -66,27 +66,14 @@ class FavoriteView extends StatelessWidget {
                 crossAxisCount: 2,
                 itemCount: 5,
                 itemBuilder: (BuildContext context, int index) {
-                  return Stack(
-                    children: [
-                      Container(
-                        padding:
-                            EdgeInsets.only(right: Defaults.defaultPadding / 2),
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(5.0),
-                          color: Colors.transparent,
-                        ),
-                        child: FullCard(
-                          size: size,
-                          product: ProductsResponse(
-                              price: 55,
-                              type: 'aaaa',
-                              name: 'test',
-                              avatar:
-                                  'https://res.cloudinary.com/dh5mgn3vy/image/upload/w_600/public/user/default_user_xmbnjy.png'),
-                        ),
-                      ),
-                      Positioned(right: 0, child: Buttons_plus_minus())
-                    ],
+                  return FullCard(
+                    size: size,
+                    product: ProductsResponse(
+                        price: 55,
+                        type: 'aaaa',
+                        name: 'test',
+                        avatar:
+                            'https://res.cloudinary.com/dh5mgn3vy/image/upload/w_600/public/user/default_user_xmbnjy.png'),
                   );
                 },
                 staggeredTileBuilder: (int index) =>

@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:developer';
 import 'dart:io';
 
 import 'package:delivery_food/General/Api_Result.dart';
@@ -121,22 +122,22 @@ class CartService {
     return apiResult;
   }
 
-  Future<ApiResult> postcartData(Map<String, dynamic> body) async {
+  Future<ApiResult> postcartData(int quantity, String id) async {
     StatusCode statusCode = StatusCode();
     ApiResult apiResult = ApiResult();
     PostResponse? calendar;
     CartStatus? status;
     ErrorResponse? error;
-    Uri url = Uri.http('${statusCode.url1}', '/api/private/user/cart/:id');
+    Uri url = Uri.http('${statusCode.url1}', '/api/private/user/cart/:' + id);
 
     try {
       var response = await http.post(
         url,
-        body: body,
+        body: {"quantity": quantity.toString()},
         headers: {'Authorization': 'Bearer ${statusCode.Token}'},
       );
+      log('${response.body}', name: 'postcart response body');
       var responsebode = jsonDecode(response.body);
-
       if (response.statusCode == statusCode.OK ||
           response.statusCode == statusCode.CREATED) {
         status = CartStatus.fromJson(responsebode['status']);
@@ -191,8 +192,8 @@ class CartService {
       } else if (response.statusCode == statusCode.VALIDATION_ERROR) {
         status = CartStatus.fromJson(responsebode['status']);
 
-        error = ErrorResponse.fromJson(responsebode['errors']);
-        apiResult.errorMassage = error.msg;
+        // error = ErrorResponse.fromJson(responsebode['errors']);
+        // apiResult.errorMassage = error.msg;
         apiResult.codeError = status.code;
         apiResult.hasError = true;
         print('Input error Please try again');
@@ -231,13 +232,13 @@ class CartService {
     return apiResult;
   }
 
-  Future<ApiResult> deletecartData(Map<String, dynamic> body) async {
+  Future<ApiResult> deletecartData(id) async {
     StatusCode statusCode = StatusCode();
     ApiResult apiResult = ApiResult();
     DeleteResponse? calendar;
     CartStatus? status;
     ErrorResponse? error;
-    Uri url = Uri.http('${statusCode.url1}', '/api/private/user/cart/:id');
+    Uri url = Uri.http('${statusCode.url1}', '/api/private/user/cart/:' + id);
 
     try {
       var response = await http.delete(
@@ -340,13 +341,13 @@ class CartService {
     return apiResult;
   }
 
-  Future<ApiResult> patchcartData(Map<String, dynamic> body) async {
+  Future<ApiResult> patchcartData(Map<String, dynamic> body, id) async {
     StatusCode statusCode = StatusCode();
     ApiResult apiResult = ApiResult();
     PatchResponse? calendar;
     CartStatus? status;
     ErrorResponse? error;
-    Uri url = Uri.http('${statusCode.url1}', '/api/private/user/cart/:id');
+    Uri url = Uri.http('${statusCode.url1}', '/api/private/user/cart/:' + id);
 
     try {
       var response = await http.delete(
