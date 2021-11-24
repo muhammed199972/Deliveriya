@@ -86,23 +86,9 @@ class ProduvtsView extends StatelessWidget {
                           itemCount: prodController.products.length,
                           itemBuilder: (BuildContext context, int index) {
                             print(prodController.products[index].id);
-                            return Stack(
-                              children: [
-                                Container(
-                                  padding: EdgeInsets.only(
-                                      right: Defaults.defaultPadding / 2),
-                                  decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(5.0),
-                                    color: Colors.transparent,
-                                  ),
-                                  child: FullCard(
-                                    size: size,
-                                    product: prodController.products[index],
-                                  ),
-                                ),
-                                Positioned(
-                                    right: 0, child: Buttons_plus_minus())
-                              ],
+                            return FullCard(
+                              size: size,
+                              product: prodController.products[index],
                             );
                           },
                           staggeredTileBuilder: (int index) =>
