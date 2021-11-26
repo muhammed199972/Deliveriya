@@ -26,8 +26,6 @@ class OfferController extends GetxController {
       if (!check!) {
         break;
       }
-      print('[[[[object]]]]');
-      print(off);
     }
 
     isOffStatuts.value = check!;
@@ -39,7 +37,6 @@ class OfferController extends GetxController {
       if (!apiResult.hasError!) {
         offers.value = apiResult.data;
         hasError.value = apiResult.hasError!;
-        print(offers);
       } else {
         hasError.value = apiResult.hasError!;
         massage.value = apiResult.errorMassage!;

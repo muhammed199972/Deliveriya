@@ -7,12 +7,17 @@ import 'package:delivery_food/services/Cart_services.dart';
 import 'package:get/get.dart';
 
 class CartController extends GetxController {
-  var carts = <CartResponse>[].obs;
+  //
+  var carts = CartResponse().obs;
+  //
   var postCarts = PostResponse().obs;
+  //
   var patchCarts = PatchResponse().obs;
+  //
   var deleteCarts = DeleteResponse().obs;
-
+  //
   var hasError = true.obs;
+  //
   var massage = ''.obs;
   ApiResult apiResult = ApiResult();
   CartService cartService = CartService();
@@ -29,7 +34,7 @@ class CartController extends GetxController {
       if (!apiResult.hasError!) {
         carts.value = apiResult.data;
         hasError.value = apiResult.hasError!;
-        print(carts[0].id);
+        print(carts.value.data![0].id);
       } else {
         hasError.value = apiResult.hasError!;
         massage.value = apiResult.errorMassage!;
@@ -45,8 +50,10 @@ class CartController extends GetxController {
     try {
       apiResult = await cartService.postcartData(quantity, id);
       if (!apiResult.hasError!) {
+        carts.value.data = [];
         postCarts.value = apiResult.data;
         hasError.value = apiResult.hasError!;
+        await getcart();
       } else {
         hasError.value = apiResult.hasError!;
         massage.value = apiResult.errorMassage!;
@@ -58,12 +65,13 @@ class CartController extends GetxController {
     }
   }
 
-  patchcart(Map<String, dynamic> body, id) async {
+  patchcart(int quantity, id) async {
     try {
-      apiResult = await cartService.patchcartData(body, id);
+      apiResult = await cartService.patchcartData(quantity, id);
       if (!apiResult.hasError!) {
         patchCarts.value = apiResult.data;
         hasError.value = apiResult.hasError!;
+        getcart();
       } else {
         hasError.value = apiResult.hasError!;
         massage.value = apiResult.errorMassage!;
@@ -81,6 +89,7 @@ class CartController extends GetxController {
       if (!apiResult.hasError!) {
         deleteCarts.value = apiResult.data;
         hasError.value = apiResult.hasError!;
+        getcart();
       } else {
         hasError.value = apiResult.hasError!;
         massage.value = apiResult.errorMassage!;

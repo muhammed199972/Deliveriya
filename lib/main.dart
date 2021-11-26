@@ -1,5 +1,6 @@
 // @dart=2.9
 
+import 'package:bot_toast/bot_toast.dart';
 import 'package:delivery_food/Binds.dart';
 import 'package:delivery_food/General/Constants.dart';
 import 'package:delivery_food/view/Home_page/Home_page.dart';
@@ -17,7 +18,7 @@ void main() async {
 class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   Constans Constansbox = Constans();
-
+  final botToastBuilder = BotToastInit();
   @override
   Widget build(BuildContext context) {
     Constansbox.box.writeIfNull('New', [1999]);
@@ -25,6 +26,10 @@ class MyApp extends StatelessWidget {
     return ScreenUtilInit(
         designSize: Size(411, 683),
         builder: () => GetMaterialApp(
+              builder: (context, child) {
+                child = botToastBuilder(context, child);
+                return child;
+              },
               initialBinding: Binds(),
               debugShowCheckedModeBanner: false,
               title: 'Flutter Demo',

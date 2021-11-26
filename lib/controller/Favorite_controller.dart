@@ -22,7 +22,6 @@ class FavoriteController extends GetxController {
       if (!apiResult.hasError!) {
         favorites.value = apiResult.data;
         hasError.value = apiResult.hasError!;
-        print(favorites[0].id);
       } else {
         hasError.value = apiResult.hasError!;
         massage.value = apiResult.errorMassage!;

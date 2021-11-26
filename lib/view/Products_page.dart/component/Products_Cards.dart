@@ -1,3 +1,4 @@
+import 'package:bot_toast/bot_toast.dart';
 import 'package:delivery_food/General/Constants.dart';
 import 'package:delivery_food/controller/Cart_controller.dart';
 import 'package:delivery_food/controller/Products_controller.dart';
@@ -7,12 +8,15 @@ import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 
 class FullCard extends StatelessWidget {
-  FullCard({
-    Key? key,
-    required this.size,
-    required this.product,
-  }) : super(key: key);
-
+  FullCard(
+      {Key? key,
+      required this.size,
+      required this.product,
+      required this.isCart})
+      : super(key: key);
+  //
+  bool? isCart;
+  //
   final Size size;
   var cartController = Get.find<CartController>();
   ProductsResponse? product;
@@ -52,8 +56,9 @@ class FullCard extends StatelessWidget {
                     width: double.infinity,
                     decoration: BoxDecoration(
                       image: DecorationImage(
-                          image: NetworkImage(
-                            product!.avatar!,
+                          image: AssetImage(
+                            'assets/png/img.png',
+                            // product!.avatar!,
                           ),
                           fit: BoxFit.cover),
                       borderRadius: BorderRadius.only(
@@ -104,30 +109,36 @@ class FullCard extends StatelessWidget {
                     ),
                     Column(
                       children: [
-                        Obx(() => IconButton(
-                              splashColor: Colors.transparent,
-                              highlightColor: Colors.transparent,
-                              onPressed: () {
-                                if (cart.value) {
-                                  cartController
-                                      .deletecart(product!.id.toString());
-                                  cart.value = false;
-                                  cartController.getcart();
-                                } else {
-                                  cartController.addTocart(
-                                      counter.value, product!.id.toString());
-                                  cart.value = true;
-                                  cartController.getcart();
-                                }
-                              },
-                              icon: SvgPicture.asset(
-                                'assets/svg/Cart icon.svg',
-                                color: cart.value
-                                    ? AppColors.mainColor
-                                    : AppColors.greyColor,
-                                width: 40,
-                              ),
-                            )),
+                        // Obx(() =>
+                        IconButton(
+                          splashColor: Colors.transparent,
+                          highlightColor: Colors.transparent,
+                          onPressed: () {
+                            if (isCart!) {
+                              cartController.deletecart(product!.id.toString());
+                              // cart.value = false;
+                            } else {
+                              if (counter.value == 0) {
+                                BotToast.showText(
+                                  text: 'choose your quantity',
+                                  align: Alignment.center,
+                                );
+                              }
+                              cartController.addTocart(
+                                  counter.value, product!.id.toString());
+                              // cart.value = true;
+                            }
+                          },
+                          icon: SvgPicture.asset(
+                            'assets/svg/Cart icon.svg',
+                            color: isCart!
+                                //  cart.value
+                                ? AppColors.mainColor
+                                : AppColors.greyColor,
+                            width: 40,
+                          ),
+                        ),
+                        // ),
                         SizedBox(height: 25),
                         Padding(
                           padding: EdgeInsets.only(
@@ -144,10 +155,11 @@ class FullCard extends StatelessWidget {
             ),
           ),
         ),
-        Positioned(
-          right: 0,
-          child: GetBuilder<ProductsController>(builder: (_) {
-            return Column(
+        Visibility(
+          visible: !isCart!,
+          child: Positioned(
+            right: 0,
+            child: Column(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
                 InkWell(
@@ -235,8 +247,8 @@ class FullCard extends StatelessWidget {
                   ),
                 )
               ],
-            );
-          }),
+            ),
+          ),
         ),
       ],
     );

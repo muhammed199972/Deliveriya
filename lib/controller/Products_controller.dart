@@ -35,7 +35,6 @@ class ProductsController extends GetxController {
       if (!apiResult.hasError!) {
         products.value = apiResult.data;
         hasError.value = apiResult.hasError!;
-        log('${subCategoryId}', name: 'sss');
       } else {
         hasError.value = apiResult.hasError!;
         massage.value = apiResult.errorMassage!;
@@ -46,14 +45,5 @@ class ProductsController extends GetxController {
 
       print(e);
     }
-  }
-
-  int _quantity = 0;
-
-  int get itemQuantity => _quantity;
-
-  void itemQuantitySet(int value) {
-    _quantity = value;
-    update();
   }
 }

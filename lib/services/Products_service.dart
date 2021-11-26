@@ -29,8 +29,7 @@ class ProductService {
     try {
       var response = await http.get(url);
       var responsebody = jsonDecode(response.body);
-      print(subCategoryId);
-      print(responsebody);
+
       if (response.statusCode == statusCode.OK ||
           response.statusCode == statusCode.CREATED) {
         status = ProductsStatus.fromJson(responsebody['status']);
@@ -42,7 +41,6 @@ class ProductService {
           apiResult.codeError = status.code;
           apiResult.hasError = false;
           apiResult.data = calendar;
-          log('$calendar', name: 'Products response ');
         }
       } else if (response.statusCode == statusCode.BAD_REQUEST) {
         status = ProductsStatus.fromJson(responsebody['status']);

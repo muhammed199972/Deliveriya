@@ -1,6 +1,7 @@
 import 'package:delivery_food/General/Constants.dart';
 import 'package:delivery_food/controller/Cart_controller.dart';
 import 'package:delivery_food/controller/Products_controller.dart';
+import 'package:delivery_food/model/Products_model.dart';
 import 'package:delivery_food/view/Products_page.dart/component/Category_Scroll.dart';
 import 'package:delivery_food/view/Products_page.dart/component/Products_Cards.dart';
 import 'package:delivery_food/view/Products_page.dart/component/Subcategory_Scroll.dart';
@@ -17,6 +18,17 @@ class ProduvtsView extends StatelessWidget {
   int? idcategory;
   var prodController = Get.find<ProductsController>();
   var cartController = Get.find<CartController>();
+  List<ProductsResponse> temp = [];
+  List<int>? list = [];
+  void move() {
+    list = cartController.carts.value.data!
+        .map<int>((element) => element.id!)
+        .toList();
+    list!.forEach((element) {
+      temp = prodController.products.where((p0) => p0.id == element).toList();
+      print(element);
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -55,7 +67,7 @@ class ProduvtsView extends StatelessWidget {
                     ),
                   ),
                 ),
-                cartController.carts.length == 0
+                Obx(() => cartController.carts.value.data!.length == 0
                     ? Container()
                     : Padding(
                         padding: const EdgeInsets.only(top: 3),
@@ -71,7 +83,7 @@ class ProduvtsView extends StatelessWidget {
                                   radius: 13,
                                   backgroundColor: AppColors.mainColor,
                                   child: Text(
-                                    '${cartController.carts.length}',
+                                    '${cartController.carts.value.data!.length}',
                                     style: TextStyle(
                                         fontSize: 14,
                                         color: AppColors.whiteColor),
@@ -79,10 +91,10 @@ class ProduvtsView extends StatelessWidget {
                                 ),
                               ],
                             )),
-                      )
+                      )),
               ],
             ),
-          )
+          ),
         ],
       ),
       body: Column(
@@ -105,6 +117,7 @@ class ProduvtsView extends StatelessWidget {
                 ),
               )),
           Obx(() {
+            move();
             return Expanded(
               flex: 5,
               child: prodController.products.length == 0
@@ -114,24 +127,23 @@ class ProduvtsView extends StatelessWidget {
                   : Container(
                       margin: EdgeInsets.symmetric(
                           horizontal: Defaults.defaultPadding),
-                      child: Obx(() {
-                        return StaggeredGridView.countBuilder(
-                          shrinkWrap: true,
-                          crossAxisCount: 2,
-                          itemCount: prodController.products.length,
-                          itemBuilder: (BuildContext context, int index) {
-                            print(prodController.products[index].id);
-                            return FullCard(
-                              size: size,
-                              product: prodController.products[index],
-                            );
-                          },
-                          staggeredTileBuilder: (int index) =>
-                              new StaggeredTile.count(1, 1.3),
-                          mainAxisSpacing: 25,
-                          crossAxisSpacing: 15,
-                        );
-                      }),
+                      child: StaggeredGridView.countBuilder(
+                        shrinkWrap: true,
+                        crossAxisCount: 2,
+                        itemCount: prodController.products.length,
+                        itemBuilder: (BuildContext context, int index) {
+                          return FullCard(
+                            size: size,
+                            product: prodController.products[index],
+                            isCart: list!
+                                .contains(prodController.products[index].id),
+                          );
+                        },
+                        staggeredTileBuilder: (int index) =>
+                            new StaggeredTile.count(1, 1.3),
+                        mainAxisSpacing: 25,
+                        crossAxisSpacing: 15,
+                      ),
                     ),
             );
           }),
