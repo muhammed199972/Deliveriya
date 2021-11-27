@@ -6,7 +6,7 @@ import 'package:get_storage/get_storage.dart';
 class StatusCode {
   String url1 = 'delivery-food12.herokuapp.com';
   var Token =
-      'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MywiaWF0IjoxNjM3NzUxMTg5LCJleHAiOjE2MzgxODMxODl9.5OzbgInry4aCC7LkV2UcQV5huHqDcqXybAK0FDCyCQU'; //                        * token
+      'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwiaWF0IjoxNjM3OTI3NjQwLCJleHAiOjE2MzgzNTk2NDB9.MCayrJXgMfeTIn58cgIvqNtAMueo-dRPC2O4fIc6fl0'; //                        * token
   var OK = 200; //                          * Normal
   var CREATED = 201; //                     * Create new entity
   var UPDATED = 200; //                     * PUT/PATCH Requests

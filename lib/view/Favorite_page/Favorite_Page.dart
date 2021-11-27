@@ -67,6 +67,7 @@ class FavoriteView extends StatelessWidget {
                 itemCount: 5,
                 itemBuilder: (BuildContext context, int index) {
                   return FullCard(
+                    isCart: true,
                     size: size,
                     product: ProductsResponse(
                         price: 55,

@@ -15,7 +15,7 @@ class CartService {
   Future<ApiResult> getcartData() async {
     StatusCode statusCode = StatusCode();
     ApiResult apiResult = ApiResult();
-    List<CartResponse> calendar = [];
+    CartResponse calendar;
     CartStatus? status;
     ErrorResponse? error;
     Uri url = Uri.http('${statusCode.url1}', '/api/private/user/cart');
@@ -30,9 +30,7 @@ class CartService {
         status = CartStatus.fromJson(responsebode['status']);
 
         if (responsebode['response'] != null) {
-          for (var item in responsebode['response']) {
-            calendar.add(CartResponse.fromJson(item));
-          }
+          calendar = CartResponse.fromJson(responsebode['response']);
           apiResult.errorMassage = status.msg;
           apiResult.codeError = status.code;
           apiResult.hasError = false;
@@ -231,7 +229,7 @@ class CartService {
     return apiResult;
   }
 
-  Future<ApiResult> deletecartData(id) async {
+  Future<ApiResult> deletecartData(String id) async {
     StatusCode statusCode = StatusCode();
     ApiResult apiResult = ApiResult();
     DeleteResponse? calendar;
@@ -242,8 +240,9 @@ class CartService {
     try {
       var response = await http.delete(
         url,
-        headers: {'Authorization': 'Bearer${statusCode.Token}'},
+        headers: {'Authorization': 'Bearer ${statusCode.Token}'},
       );
+      print('response body delete ${response.body}');
       var responsebode = jsonDecode(response.body);
 
       if (response.statusCode == statusCode.OK ||
