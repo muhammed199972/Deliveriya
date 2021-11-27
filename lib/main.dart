@@ -23,6 +23,8 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     Constansbox.box.writeIfNull('New', [1999]);
     Constansbox.box.writeIfNull('offers', [1999]);
+    Constansbox.box.writeIfNull('favorite', [1999]);
+
     return ScreenUtilInit(
         designSize: Size(411, 683),
         builder: () => GetMaterialApp(

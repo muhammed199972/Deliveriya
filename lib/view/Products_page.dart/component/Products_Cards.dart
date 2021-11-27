@@ -2,7 +2,6 @@ import 'package:bot_toast/bot_toast.dart';
 import 'package:delivery_food/General/Constants.dart';
 import 'package:delivery_food/controller/Cart_controller.dart';
 import 'package:delivery_food/controller/Favorite_controller.dart';
-import 'package:delivery_food/model/Products_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
@@ -20,12 +19,18 @@ class FullCard extends StatelessWidget {
   final Size size;
   var cartController = Get.find<CartController>();
   var favoriteController = Get.find<FavoriteController>();
+  Constans Constansbox = Constans();
+
   dynamic product;
+
   var favorite = false.obs;
   var cart = false.obs;
   var counter = 0.obs;
   @override
   Widget build(BuildContext context) {
+    List fav = Constansbox.box.read('favorite');
+    favorite.value = fav.any((element) => element != product.id ? false : true);
+
     return Stack(
       children: [
         Container(
@@ -73,10 +78,16 @@ class FullCard extends StatelessWidget {
                         highlightColor: Colors.transparent,
                         onPressed: () {
                           if (favorite.value) {
-                            favoriteController.deleteFavorites(product!.id);
+                            var fav = Constansbox.box.read('favorite');
 
+                            fav.remove(product!.id);
+                            Constansbox.box.write('favorite', fav);
+                            favoriteController.deleteFavorites(product!.id);
                             favorite.value = false;
                           } else {
+                            var fav = Constansbox.box.read('favorite');
+                            fav.add(product!.id);
+                            Constansbox.box.write('favorite', fav);
                             favoriteController.addFavorite(product!.id);
                             favorite.value = true;
                           }
