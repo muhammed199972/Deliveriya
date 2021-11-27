@@ -40,10 +40,11 @@ class _BottomBarState extends State<BottomBar> {
         currentIndex: _currentIndex,
         onTap: _updateIndex,
         selectedItemColor: AppColors.mainColor,
-        selectedFontSize: 16,
+        selectedFontSize: 13,
         unselectedFontSize: 13,
-        selectedIconTheme: IconThemeData(size: 40),
+        selectedIconTheme: IconThemeData(size: 30),
         iconSize: 30,
+        backgroundColor: Color(0xFFFFFFFF),
         items: [
           BottomNavigationBarItem(
             label: "Cart",

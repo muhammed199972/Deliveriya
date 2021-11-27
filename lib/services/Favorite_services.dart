@@ -9,20 +9,21 @@ import 'package:delivery_food/model/Post_data.dart';
 import 'package:http/http.dart' as http;
 
 class FavoriteService {
-  Future<ApiResult> getfavoriteData() async {
+  Future<ApiResult> getfavoriteData(int offset, int limit) async {
     StatusCode statusCode = StatusCode();
     ApiResult apiResult = ApiResult();
     List<FavoriteResponse> calendar = [];
     FavoriteStatus? status;
     ErrorResponse? error;
-    Uri url = Uri.http(
-        '${statusCode.url1}', '/api/private/user/favorite?offset=0&limit=8');
+    Uri url = Uri.http('${statusCode.url1}', '/api/private/user/favorite', {
+      'offset': '$offset',
+      'limit': '$limit',
+    });
 
     try {
       var response = await http
           .get(url, headers: {'Authorization': 'Bearer ${statusCode.Token}'});
       var responsebode = jsonDecode(response.body);
-
       if (response.statusCode == statusCode.OK ||
           response.statusCode == statusCode.CREATED) {
         status = FavoriteStatus.fromJson(responsebode['status']);
@@ -119,21 +120,21 @@ class FavoriteService {
     return apiResult;
   }
 
-  Future<ApiResult> postfavoriteData(Map<String, dynamic> body) async {
+  Future<ApiResult> postfavoriteData(int id) async {
     StatusCode statusCode = StatusCode();
     ApiResult apiResult = ApiResult();
     PostResponse? calendar;
     FavoriteStatus? status;
     ErrorResponse? error;
-    Uri url = Uri.http('${statusCode.url1}', '/api/private/user/favorite/:id');
+    Uri url = Uri.http('${statusCode.url1}', '/api/private/user/favorite/$id');
 
     try {
       var response = await http.post(
         url,
-        body: body,
         headers: {'Authorization': 'Bearer ${statusCode.Token}'},
       );
       var responsebode = jsonDecode(response.body);
+      print(responsebode);
 
       if (response.statusCode == statusCode.OK ||
           response.statusCode == statusCode.CREATED) {
@@ -229,13 +230,13 @@ class FavoriteService {
     return apiResult;
   }
 
-  Future<ApiResult> deletefavoriteData(Map<String, dynamic> body) async {
+  Future<ApiResult> deletefavoriteData(int id) async {
     StatusCode statusCode = StatusCode();
     ApiResult apiResult = ApiResult();
     DeleteResponse? calendar;
     FavoriteStatus? status;
     ErrorResponse? error;
-    Uri url = Uri.http('${statusCode.url1}', '/api/private/user/favorite/:id');
+    Uri url = Uri.http('${statusCode.url1}', '/api/private/user/favorite/$id');
 
     try {
       var response = await http.delete(
