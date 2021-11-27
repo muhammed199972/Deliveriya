@@ -1,3 +1,4 @@
+import 'package:bot_toast/bot_toast.dart';
 import 'package:delivery_food/General/Api_Result.dart';
 import 'package:delivery_food/model/Cart_model.dart';
 import 'package:delivery_food/model/Delete.dart';
@@ -53,6 +54,7 @@ class CartController extends GetxController {
         carts.value.data = [];
         postCarts.value = apiResult.data;
         hasError.value = apiResult.hasError!;
+        BotToast.showLoading();
         await getcart();
       } else {
         hasError.value = apiResult.hasError!;
@@ -62,6 +64,8 @@ class CartController extends GetxController {
       hasError.value = apiResult.hasError!;
       massage.value = apiResult.errorMassage!;
       print(e);
+    } finally {
+      BotToast.closeAllLoading();
     }
   }
 
@@ -80,6 +84,8 @@ class CartController extends GetxController {
       hasError.value = apiResult.hasError!;
       massage.value = apiResult.errorMassage!;
       print(e);
+    } finally {
+      BotToast.closeAllLoading();
     }
   }
 
@@ -89,7 +95,8 @@ class CartController extends GetxController {
       if (!apiResult.hasError!) {
         deleteCarts.value = apiResult.data;
         hasError.value = apiResult.hasError!;
-        getcart();
+        BotToast.showLoading();
+        await getcart();
       } else {
         hasError.value = apiResult.hasError!;
         massage.value = apiResult.errorMassage!;
@@ -98,6 +105,8 @@ class CartController extends GetxController {
       hasError.value = apiResult.hasError!;
       massage.value = apiResult.errorMassage!;
       print(e);
+    } finally {
+      BotToast.closeAllLoading();
     }
   }
 }

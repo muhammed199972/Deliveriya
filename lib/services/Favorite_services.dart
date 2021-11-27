@@ -241,7 +241,7 @@ class FavoriteService {
     try {
       var response = await http.delete(
         url,
-        headers: {'Authorization': 'Bearer${statusCode.Token}'},
+        headers: {'Authorization': 'Bearer ${statusCode.Token}'},
       );
       var responsebode = jsonDecode(response.body);
 

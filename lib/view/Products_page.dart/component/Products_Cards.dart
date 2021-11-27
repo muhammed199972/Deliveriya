@@ -2,27 +2,27 @@ import 'package:bot_toast/bot_toast.dart';
 import 'package:delivery_food/General/Constants.dart';
 import 'package:delivery_food/controller/Cart_controller.dart';
 import 'package:delivery_food/controller/Favorite_controller.dart';
-import 'package:delivery_food/controller/Products_controller.dart';
 import 'package:delivery_food/model/Products_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 
 class FullCard extends StatelessWidget {
-  FullCard({
-    Key? key,
-    required this.size,
-    required this.product,
-  }) : super(key: key);
+  FullCard(
+      {Key? key,
+      required this.size,
+      required this.product,
+      required this.isCart})
+      : super(key: key);
   //
-  bool? isCart = false;
+  bool? isCart;
   //
   final Size size;
   var cartController = Get.find<CartController>();
   var favoriteController = Get.find<FavoriteController>();
-
   dynamic product;
   var favorite = false.obs;
+  var cart = false.obs;
   var counter = 0.obs;
   @override
   Widget build(BuildContext context) {
@@ -103,7 +103,7 @@ class FullCard extends StatelessWidget {
                               left: Defaults.defaultPadding / 2),
                           child: Text(product!.name!),
                         ),
-                        //  SizedBox(height: 20),
+                        // SizedBox(height: 20),
                         Padding(
                           padding: EdgeInsets.only(
                             left: Defaults.defaultPadding / 2,

@@ -135,8 +135,8 @@ class ProduvtsView extends StatelessWidget {
                           return FullCard(
                             size: size,
                             product: prodController.products[index],
-                            // isCart: list!
-                            //     .contains(prodController.products[index].id),
+                            isCart: list!
+                                .contains(prodController.products[index].id),
                           );
                         },
                         staggeredTileBuilder: (int index) =>

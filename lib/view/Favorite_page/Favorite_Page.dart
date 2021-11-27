@@ -69,7 +69,7 @@ class FavoriteView extends StatelessWidget {
                           itemCount: favoriteController.favorites.length,
                           itemBuilder: (BuildContext context, int index) {
                             return FullCard(
-                                //  isCart: true,
+                                isCart: true,
                                 size: size,
                                 product: favoriteController.favorites[index]);
                           },

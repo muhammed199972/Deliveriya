@@ -351,7 +351,7 @@ class CartService {
       var response = await http.patch(
         url,
         body: {"quantity": quantity.toString()},
-        headers: {'Authorization': 'Bearer${statusCode.Token}'},
+        headers: {'Authorization': 'Bearer ${statusCode.Token}'},
       );
       var responsebode = jsonDecode(response.body);
 
