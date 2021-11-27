@@ -12,7 +12,6 @@ class FavoriteView extends StatelessWidget {
 
   var favoriteController = Get.find<FavoriteController>();
 
-///////
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
