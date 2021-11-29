@@ -18,53 +18,52 @@ publish_to: "none" # Remove this line if you wish to publish to pub.dev
 version: 1.0.0+1
 
 environment:
-  sdk: ">=2.7.0 <3.0.0"
+  sdk: ">=2.12.0 <3.0.0"
 
 dependencies:
   flutter:
     sdk: flutter
-  curved_navigation_bar: ^0.3.7
-  carousel_pro: ^1.0.0
-  cupertino_icons: ^1.0.2
-  image_picker: ^0.7.4
-  multi_image_picker: ^4.8.0
-  carousel_slider: ^3.0.0
-  nuts_activity_indicator: ^0.1.1
-  liquid_pull_to_refresh: ^3.0.0
-  path_provider: ^2.0.1
-  fluttertoast: ^8.0.6
-  http: ^0.13.1
-  #http_parser: ^3.1.4
-  flutter_absolute_path: ^1.0.6
-  google_sign_in: ^5.0.2
-  font_awesome_flutter: ^8.0.0
-  flutter_facebook_login: ^3.0.0
-  # connectivity: ^3.0.3
-  dio: ^4.0.0
-  intl: ^0.16.1
-  get: ^3.24.0
+  # curved_navigation_bar: ^0.3.7
+  # carousel_pro: ^1.0.0
+  # cupertino_icons: ^1.0.2
+  # image_picker: ^0.7.4
+  # multi_image_picker: ^4.8.0
+  # carousel_slider: ^3.0.0
+  # nuts_activity_indicator: ^0.1.1
+  # liquid_pull_to_refresh: ^3.0.0
+  # path_provider: ^2.0.1
+  # fluttertoast: ^8.0.6
+  http: ^0.13.4
+  # #http_parser: ^3.1.4
+  # flutter_absolute_path: ^1.0.6
+  # google_sign_in: ^5.0.2
+  # font_awesome_flutter: ^8.0.0
+  # flutter_facebook_login: ^3.0.0
+  # # connectivity: ^3.0.3
+  # dio: ^4.0.0
+  # intl: ^0.16.1
+  get: ^4.3.8
   flutter_screenutil: ^5.0.0+2
-  #flutter_svg: ^0.19.1
-  #image_form_field: ^0.1.0
-  rounded_loading_button: ^1.0.18
-  flutter_easyloading: ^3.0.0
-  shared_preferences: ^2.0.5
-  image_gallery_saver: ^1.6.9
-  permission_handler: ^7.0.0
-  # flutter_absolute_path: ^1.0.6
-  # firebase_messaging:
-  firebase_core: ^1.4.0
-  firebase_messaging: ^10.0.4
-  flutter_local_notifications: ^5.0.0+1
-  # flutter_absolute_path: ^1.0.6
-  # image_downloader: ^0.20.1
-  url_launcher: ^6.0.3
-  overlay_support: ^1.2.1
-  connectivity: ^3.0.3
-  cached_network_image:
-  tflite: ^1.1.1
+  # #flutter_svg: ^0.19.1
+  # #image_form_field: ^0.1.0
+  # rounded_loading_button: ^1.0.18
+  # flutter_easyloading: ^3.0.0
+  # shared_preferences: ^2.0.5
+  # image_gallery_saver: ^1.6.9
+  # permission_handler: ^7.0.0
+  # # flutter_absolute_path: ^1.0.6
+  # # firebase_messaging:
+  # firebase_core: ^1.4.0
+  # firebase_messaging: ^10.0.4
+  # flutter_local_notifications: ^5.0.0+1
+  # # flutter_absolute_path: ^1.0.6
+  # # image_downloader: ^0.20.1
+  # url_launcher: ^6.0.3
+  # overlay_support: ^1.2.1
+  # connectivity: ^3.0.3
+  # cached_network_image:
+  # tflite: ^1.1.1
 
-  
 dev_dependencies:
   flutter_test:
     sdk: flutter
@@ -79,7 +78,6 @@ flutter:
   uses-material-design: true
   # assets:
   #   - images/
-  
 
   # fonts:
   #   - family: Schyler

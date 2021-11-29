@@ -1,6 +1,6 @@
 class AdsStatus {
-  int code;
-  String msg;
+  int? code;
+  String? msg;
 
   AdsStatus({this.code, this.msg});
 
@@ -18,11 +18,11 @@ class AdsStatus {
 }
 
 class AdsResponse {
-  int id;
-  String avatar;
-  String url;
-  String createdAt;
-  String updatedAt;
+  int? id;
+  String? avatar;
+  String? url;
+  String? createdAt;
+  String? updatedAt;
 
   AdsResponse({this.id, this.avatar, this.url, this.createdAt, this.updatedAt});
 

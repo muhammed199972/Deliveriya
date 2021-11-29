@@ -5,7 +5,7 @@ import 'package:delivery_food/General/constans.dart';
 import 'package:delivery_food/model/Subcategory_model.dart';
 import 'package:http/http.dart' as http;
 
-class Subcategory {
+class SubcategoryService {
   Future<ApiResult> getsubcategoryData() async {
     StatusCode statusCode = StatusCode();
     ApiResult apiResult = ApiResult();

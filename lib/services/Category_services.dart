@@ -5,12 +5,12 @@ import 'package:delivery_food/General/constans.dart';
 import 'package:http/http.dart' as http;
 import 'package:delivery_food/model/Category_model.dart';
 
-class Category {
+class CategoryService {
   Future<ApiResult> getCategoryData() async {
     StatusCode statusCode = StatusCode();
     ApiResult apiResult = ApiResult();
     List<CategoryResponse> calendar = [];
-    CategoryStatus status;
+    CategoryStatus? status;
     Uri url = Uri.http('${statusCode.url1}', '/api/public/category');
 
     try {

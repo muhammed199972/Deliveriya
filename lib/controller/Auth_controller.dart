@@ -1,28 +1,28 @@
 import 'package:delivery_food/General/Api_Result.dart';
-import 'package:delivery_food/services/Category_services.dart';
-import 'package:delivery_food/model/Category_model.dart';
+import 'package:delivery_food/model/Auth_model.dart';
+import 'package:delivery_food/services/Auth_service.dart';
 import 'package:get/get.dart';
 
-class CategorysController extends GetxController {
-  var categorys = <CategoryResponse>[].obs;
+class AuthController extends GetxController {
+  var auth = AuthResponse().obs;
   var hasError = true.obs;
   var massage = ''.obs;
   ApiResult apiResult = ApiResult();
-  CategoryService category = CategoryService();
+  AuthService authservice = AuthService();
 
   @override
   void onInit() {
-    getcategory();
+    getcode();
     super.onInit();
   }
 
-  getcategory() async {
+  getcode() async {
     try {
-      apiResult = await category.getCategoryData();
+      apiResult = await authservice.getauthCode();
       if (!apiResult.hasError!) {
-        categorys.value = apiResult.data;
+        auth.value = apiResult.data;
         hasError.value = apiResult.hasError!;
-        print(categorys[0].name);
+        print(auth.value.code);
       } else {
         hasError.value = apiResult.hasError!;
         massage.value = apiResult.errorMassage!;

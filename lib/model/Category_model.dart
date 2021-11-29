@@ -1,6 +1,6 @@
 class CategoryStatus {
-  int code;
-  String msg;
+  int? code;
+  String? msg;
 
   CategoryStatus({this.code, this.msg});
 
@@ -18,11 +18,11 @@ class CategoryStatus {
 }
 
 class CategoryResponse {
-  int id;
-  String name;
-  String avatar;
-  String createdAt;
-  String updatedAt;
+  int? id;
+  String? name;
+  String? avatar;
+  String? createdAt;
+  String? updatedAt;
 
   CategoryResponse(
       {this.id, this.name, this.avatar, this.createdAt, this.updatedAt});
