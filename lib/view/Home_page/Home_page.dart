@@ -22,33 +22,38 @@ class HomeView extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Expanded(
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.end,
-                children: [
-                  Spacer(),
-                  Expanded(flex: 4, child: LogoStatus()),
-                  Expanded(
-                    child: Padding(
-                      padding: const EdgeInsets.only(
-                          bottom: Defaults.defaultPadding * 2),
-                      child: Row(
-                        children: [
-                          Text(
-                            'Help',
-                            style: TextStyle(color: AppColors.blackColor),
-                          ),
-                          SizedBox(
-                            width: 7,
-                          ),
-                          Icon(
-                            Icons.help_sharp,
-                            color: AppColors.greyColor,
-                          )
-                        ],
+              child: Padding(
+                padding: const EdgeInsets.symmetric(
+                    horizontal: Defaults.defaultPadding * 2),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  children: [
+                    Spacer(),
+                    Expanded(flex: 2, child: LogoStatus()),
+                    Expanded(
+                      child: Padding(
+                        padding: const EdgeInsets.only(
+                          bottom: Defaults.defaultPadding * 2,
+                        ),
+                        child: Row(
+                          children: [
+                            Text(
+                              'help'.tr,
+                              style: TextStyle(color: AppColors.blackColor),
+                            ),
+                            SizedBox(
+                              width: 8,
+                            ),
+                            Icon(
+                              Icons.help_sharp,
+                              color: AppColors.greyColor,
+                            )
+                          ],
+                        ),
                       ),
-                    ),
-                  )
-                ],
+                    )
+                  ],
+                ),
               ),
             ),
             SearchBar(size: size),
@@ -59,7 +64,7 @@ class HomeView extends StatelessWidget {
                   Offers_New(size: size),
                   Padding(
                     padding: const EdgeInsets.all(Defaults.defaultPadding),
-                    child: Text('Category'),
+                    child: Text('category'.tr),
                   ),
                   Container(
                     child: Obx(

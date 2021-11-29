@@ -33,7 +33,7 @@ class Offers_New extends StatelessWidget {
               children: [
                 Padding(
                   padding: const EdgeInsets.all(8.0),
-                  child: Text('Offers'),
+                  child: Text('offers'.tr),
                 ),
                 InkWell(
                   highlightColor: Colors.transparent,
@@ -122,7 +122,7 @@ class Offers_New extends StatelessWidget {
               children: [
                 Padding(
                   padding: const EdgeInsets.all(8.0),
-                  child: Text('New'),
+                  child: Text('new'.tr),
                 ),
                 InkWell(
                   highlightColor: Colors.transparent,
