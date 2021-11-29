@@ -22,6 +22,7 @@ environment:
 
 dependencies:
   bot_toast: ^4.0.1
+  otp_text_field:
   filter_list: ^1.0.0
   flutter:
     sdk: flutter

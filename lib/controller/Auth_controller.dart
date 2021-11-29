@@ -9,19 +9,19 @@ class AuthController extends GetxController {
   var massage = ''.obs;
   ApiResult apiResult = ApiResult();
   AuthService authservice = AuthService();
-
+  var sendcode = false.obs;
   @override
   void onInit() {
-    getcode();
     super.onInit();
   }
 
-  getcode() async {
+  getcode(String phone) async {
     try {
-      apiResult = await authservice.getauthCode();
+      apiResult = await authservice.getauthCode(phone);
       if (!apiResult.hasError!) {
         auth.value = apiResult.data;
         hasError.value = apiResult.hasError!;
+        sendcode.value = true;
         print(auth.value.code);
       } else {
         hasError.value = apiResult.hasError!;

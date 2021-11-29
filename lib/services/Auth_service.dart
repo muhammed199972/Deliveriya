@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:developer';
 import 'dart:io';
 import 'package:delivery_food/General/Api_Result.dart';
 import 'package:delivery_food/General/Constants.dart';
@@ -7,17 +8,18 @@ import 'package:delivery_food/model/Error.dart';
 import 'package:http/http.dart' as http;
 
 class AuthService {
-  Future<ApiResult> getauthCode() async {
+  Future<ApiResult> getauthCode(String phone) async {
     StatusCode statusCode = StatusCode();
     ApiResult apiResult = ApiResult();
     AuthResponse? calendar;
     ErrorResponse? error;
     AuthStatus? status;
-    Uri url = Uri.http(
-        '${statusCode.url1}', '/api/public/auth/get-code?phone=965274068');
+    Uri url =
+        Uri.http('${statusCode.url1}', '/api/public/auth/get-code?$phone');
 
     try {
       var response = await http.get(url);
+      log('${response.body}', name: 'response body auth ');
       var responsebode = jsonDecode(response.body);
 
       if (response.statusCode == statusCode.OK ||
