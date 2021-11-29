@@ -1,18 +1,20 @@
 import 'dart:convert';
 import 'dart:io';
 import 'package:delivery_food/General/Api_Result.dart';
-import 'package:delivery_food/General/constans.dart';
+import 'package:delivery_food/General/Constants.dart';
+import 'package:delivery_food/model/Error.dart';
 import 'package:delivery_food/model/Subcategory_model.dart';
 import 'package:http/http.dart' as http;
 
 class SubcategoryService {
-  Future<ApiResult> getsubcategoryData() async {
+  Future<ApiResult> getsubcategoryData(int idcategory) async {
     StatusCode statusCode = StatusCode();
     ApiResult apiResult = ApiResult();
     List<SubcategoryResponse> calendar = [];
-    SubcategoryStatus status;
-    Uri url =
-        Uri.http('${statusCode.url1}', '/api/public/category/1/sub-category');
+    SubcategoryStatus? status;
+    ErrorResponse? error;
+    Uri url = Uri.http(
+        '${statusCode.url1}', '/api/public/category/$idcategory/sub-category');
 
     try {
       var response = await http.get(url);
@@ -34,55 +36,63 @@ class SubcategoryService {
       } else if (response.statusCode == statusCode.BAD_REQUEST) {
         status = SubcategoryStatus.fromJson(responsebode['status']);
 
-        apiResult.errorMassage = status.msg;
+        error = ErrorResponse.fromJson(responsebode['errors']);
+        apiResult.errorMassage = error.msg;
         apiResult.codeError = status.code;
         apiResult.hasError = true;
         print('A bad request Please try again');
       } else if (response.statusCode == statusCode.UNAUTHORIZED) {
         status = SubcategoryStatus.fromJson(responsebode['status']);
 
-        apiResult.errorMassage = status.msg;
+        error = ErrorResponse.fromJson(responsebode['errors']);
+        apiResult.errorMassage = error.msg;
         apiResult.codeError = status.code;
         apiResult.hasError = true;
         print('A bad request Please try again');
       } else if (response.statusCode == statusCode.FORBIDDEN) {
         status = SubcategoryStatus.fromJson(responsebode['status']);
 
-        apiResult.errorMassage = status.msg;
+        error = ErrorResponse.fromJson(responsebode['errors']);
+        apiResult.errorMassage = error.msg;
         apiResult.codeError = status.code;
         apiResult.hasError = true;
         print('A bad request Please try again');
       } else if (response.statusCode == statusCode.NOT_FOUND) {
         status = SubcategoryStatus.fromJson(responsebode['status']);
 
-        apiResult.errorMassage = status.msg;
+        error = ErrorResponse.fromJson(responsebode['errors']);
+        apiResult.errorMassage = error.msg;
         apiResult.codeError = status.code;
         apiResult.hasError = true;
         print('Endpoint not found Please try again');
       } else if (response.statusCode == statusCode.DUPLICATED_ENTRY) {
         status = SubcategoryStatus.fromJson(responsebode['status']);
 
-        apiResult.errorMassage = status.msg;
+        error = ErrorResponse.fromJson(responsebode['errors']);
+        apiResult.errorMassage = error.msg;
         apiResult.codeError = status.code;
         apiResult.hasError = true;
         print('Input error Please try again');
       } else if (response.statusCode == statusCode.VALIDATION_ERROR) {
         status = SubcategoryStatus.fromJson(responsebode['status']);
 
-        apiResult.errorMassage = status.msg;
+        error = ErrorResponse.fromJson(responsebode['errors']);
+        apiResult.errorMassage = error.msg;
         apiResult.codeError = status.code;
         apiResult.hasError = true;
         print('Input error Please try again');
       } else if (response.statusCode == statusCode.INTERNAL_SERVER_ERROR) {
         status = SubcategoryStatus.fromJson(responsebode['status']);
 
-        apiResult.errorMassage = status.msg;
+        error = ErrorResponse.fromJson(responsebode['errors']);
+        apiResult.errorMassage = error.msg;
         apiResult.codeError = status.code;
         apiResult.hasError = true;
         print('Server error Please try again');
       } else {
         status = SubcategoryStatus.fromJson(responsebode['status']);
-        apiResult.errorMassage = status.msg;
+        error = ErrorResponse.fromJson(responsebode['errors']);
+        apiResult.errorMassage = error.msg;
         apiResult.codeError = status.code;
         apiResult.hasError = true;
         print(' error Please try again');

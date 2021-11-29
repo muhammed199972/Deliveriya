@@ -1,6 +1,12 @@
+// ignore_for_file: non_constant_identifier_names
+
+import 'package:flutter/material.dart';
+import 'package:get_storage/get_storage.dart';
+
 class StatusCode {
   String url1 = 'delivery-food12.herokuapp.com';
-
+  var Token =
+      'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MywiaWF0IjoxNjM3OTk4NTgwLCJleHAiOjE2Mzg0MzA1ODB9.eVKTqw68PAb4zImUCdLv-VHirc1HOEZRbV_IjYxO9Bw';
   var OK = 200; //                          * Normal
   var CREATED = 201; //                     * Create new entity
   var UPDATED = 200; //                     * PUT/PATCH Requests
@@ -55,4 +61,24 @@ class StatusCode {
       'msg': 'Non Supported File Type',
     },
   };
+}
+
+class Constans {
+  List<String> categorySelected = [];
+  final box = GetStorage();
+}
+
+final box = GetStorage();
+
+class AppColors {
+  static const mainColor = Color(0xFFE73352);
+  static const whiteColor = Color(0xFFFFFFFF);
+  static const greyColor = Color(0xFF757272);
+  static const blackColor = Color(0xFF000000);
+}
+
+class Styles {}
+
+class Defaults {
+  static const defaultPadding = 20.0;
 }

@@ -1,32 +1,30 @@
-import 'package:delivery_food/controller/Subcategory_controller.dart';
-import 'package:flutter/material.dart';
-import 'package:get/get.dart';
+// import 'package:delivery_food/General/Constants.dart';
+// import 'package:delivery_food/controller/Category_controller.dart';
+// import 'package:flutter/material.dart';
+// import 'package:get/get.dart';
 
-class Category extends StatelessWidget {
-  final ControllerSubcategorys categorys = Get.put(ControllerSubcategorys());
+// class CategoryComponentyyy extends StatelessWidget {
+//   CategorysController categorys =
+//       Get.put(CategorysController(), permanent: true);
 
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-        extendBodyBehindAppBar: true,
-        resizeToAvoidBottomInset: true,
-        extendBody: true,
-        body: Obx(() {
-          if (categorys.subcategorys.length != 0) {
-            print(categorys.subcategorys[0].name.toString());
+//   @override
+//   Widget build(BuildContext context) {
+//     return Obx(() {
+//       if (categorys.categorys.length != 0) {
+//         print(categorys.categorys[0].name.toString());
 
-            return ListView.builder(
-              itemCount: categorys.subcategorys.length,
-              itemBuilder: (context, index) {
-                return Container(
-                    child: Text(categorys.subcategorys[index].name.toString()));
-              },
-            );
-          } else {
-            return Center(
-              child: CircularProgressIndicator(),
-            );
-          }
-        }));
-  }
-}
+//         return ListView.builder(
+//           itemCount: categorys.categorys.length,
+//           itemBuilder: (context, index) {
+//             return Container(
+//                 child: Text(categorys.categorys[index].name.toString()));
+//           },
+//         );
+//       } else {
+//         return Center(
+//           child: CircularProgressIndicator(),
+//         );
+//       }
+//     });
+//   }
+// }
