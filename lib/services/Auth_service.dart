@@ -115,4 +115,113 @@ class AuthService {
     }
     return apiResult;
   }
+
+  Future<ApiResult> postcode(String phone, String code) async {
+    StatusCode statusCode = StatusCode();
+    ApiResult apiResult = ApiResult();
+    SignUpResponse? calendar;
+    AuthStatus? status;
+    ErrorResponse? error;
+    Uri url = Uri.http('${statusCode.url1}', '/api/public/auth/signup');
+
+    try {
+      var response = await http.post(
+        url,
+        body: {"code": code, 'phone': phone},
+      );
+      log('${response.body}', name: 'postcodeNumber response body');
+      var responsebode = jsonDecode(response.body);
+      if (response.statusCode == statusCode.OK ||
+          response.statusCode == statusCode.CREATED) {
+        status = AuthStatus.fromJson(responsebode['status']);
+
+        if (responsebode['response'] != null) {
+          calendar = SignUpResponse.fromJson(responsebode['response']);
+
+          apiResult.errorMassage = status.msg;
+          apiResult.codeError = status.code;
+          apiResult.hasError = false;
+          apiResult.data = calendar;
+        }
+      } else if (response.statusCode == statusCode.BAD_REQUEST) {
+        status = AuthStatus.fromJson(responsebode['status']);
+        error = ErrorResponse.fromJson(responsebode['errors'][0]);
+        apiResult.errorMassage = error.msg;
+        apiResult.codeError = status.code;
+        apiResult.hasError = true;
+        print('A bad request Please try again');
+      } else if (response.statusCode == statusCode.UNAUTHORIZED) {
+        status = AuthStatus.fromJson(responsebode['status']);
+
+        error = ErrorResponse.fromJson(responsebode['errors'][0]);
+        apiResult.errorMassage = error.msg;
+        apiResult.codeError = status.code;
+        apiResult.hasError = true;
+        print('A bad request Please try again');
+      } else if (response.statusCode == statusCode.FORBIDDEN) {
+        status = AuthStatus.fromJson(responsebode['status']);
+
+        error = ErrorResponse.fromJson(responsebode['errors'][0]);
+        apiResult.errorMassage = error.msg;
+        apiResult.codeError = status.code;
+        apiResult.hasError = true;
+        print('A bad request Please try again');
+      } else if (response.statusCode == statusCode.NOT_FOUND) {
+        status = AuthStatus.fromJson(responsebode['status']);
+
+        error = ErrorResponse.fromJson(responsebode['errors'][0]);
+        apiResult.errorMassage = error.msg;
+        apiResult.codeError = status.code;
+        apiResult.hasError = true;
+        print('Endpoint not found Please try again');
+      } else if (response.statusCode == statusCode.DUPLICATED_ENTRY) {
+        status = AuthStatus.fromJson(responsebode['status']);
+
+        error = ErrorResponse.fromJson(responsebode['errors'][0]);
+        apiResult.errorMassage = error.msg;
+        apiResult.codeError = status.code;
+        apiResult.hasError = true;
+        print('Input error Please try again');
+      } else if (response.statusCode == statusCode.VALIDATION_ERROR) {
+        status = AuthStatus.fromJson(responsebode['status']);
+
+        // error = ErrorResponse.fromJson(responsebode['errors'][0]);
+        // apiResult.errorMassage = error.msg;
+        apiResult.codeError = status.code;
+        apiResult.hasError = true;
+        print('Input error Please try again');
+      } else if (response.statusCode == statusCode.INTERNAL_SERVER_ERROR) {
+        status = AuthStatus.fromJson(responsebode['status']);
+
+        error = ErrorResponse.fromJson(responsebode['errors'][0]);
+        apiResult.errorMassage = error.msg;
+        apiResult.codeError = status.code;
+        apiResult.hasError = true;
+        print('Server error Please try again');
+      } else {
+        status = AuthStatus.fromJson(responsebode['status']);
+        error = ErrorResponse.fromJson(responsebode['errors'][0]);
+        apiResult.errorMassage = error.msg;
+        apiResult.codeError = status.code;
+        apiResult.hasError = true;
+        print(' error Please try again');
+      }
+    } on SocketException {
+      apiResult.errorMassage = 'Make sure you are connected to the internet';
+      apiResult.codeError = statusCode.connection;
+      apiResult.hasError = true;
+      print('Make sure you are connected to the internet');
+    } on FormatException {
+      apiResult.errorMassage = 'There is a problem with the admin';
+      apiResult.codeError = statusCode.parsing;
+      apiResult.hasError = true;
+      print('There is a problem with the admin');
+    } catch (e) {
+      apiResult.errorMassage = '${e}';
+      apiResult.codeError = statusCode.connection;
+      apiResult.hasError = true;
+      print('${e}');
+    }
+    return apiResult;
+  }
 }

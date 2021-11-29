@@ -73,12 +73,10 @@ class SigninPage extends StatelessWidget {
                         Visibility(
                           visible: controller.sendcode.value,
                           child: OTPTextField(
-                            width:
-                                size.width, //The Width is the all the screen.
-                            length: 6, //4 Numbers will be Enterd
+                            width: size.width,
+                            length: 6,
                             textFieldAlignment: MainAxisAlignment.spaceAround,
                             fieldStyle: FieldStyle.underline,
-                            //keyboardType: TextInputType.text,
                             outlineBorderRadius: 4,
                             fieldWidth: 40,
                             style: TextStyle(color: Colors.black),
@@ -87,9 +85,10 @@ class SigninPage extends StatelessWidget {
                               disabledBorderColor: Colors.black,
                               enabledBorderColor: Colors.black,
                             ),
-
+                            onChanged: (k) {},
                             onCompleted: (n) {
-                              Get.offAll(HomeView());
+                              controller.postcodeNumber(
+                                  _phoneController.text, n);
                             },
                           ),
                         ),
