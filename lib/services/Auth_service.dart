@@ -14,8 +14,8 @@ class AuthService {
     AuthResponse? calendar;
     ErrorResponse? error;
     AuthStatus? status;
-    Uri url =
-        Uri.http('${statusCode.url1}', '/api/public/auth/get-code?$phone');
+    Uri url = Uri.http(
+        '${statusCode.url1}', '/api/public/auth/get-code', {'phone': phone});
 
     try {
       var response = await http.get(url);

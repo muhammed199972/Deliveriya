@@ -1,5 +1,6 @@
 import 'package:delivery_food/General/Constants.dart';
 import 'package:delivery_food/controller/Auth_controller.dart';
+import 'package:delivery_food/view/Home_page/Home_page.dart';
 import 'package:delivery_food/view/Signin_Page/Component/TextField.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -74,21 +75,21 @@ class SigninPage extends StatelessWidget {
                           child: OTPTextField(
                             width:
                                 size.width, //The Width is the all the screen.
-                            length: 4, //4 Numbers will be Enterd
+                            length: 6, //4 Numbers will be Enterd
                             textFieldAlignment: MainAxisAlignment.spaceAround,
                             fieldStyle: FieldStyle.underline,
-                            keyboardType: TextInputType.number,
+                            //keyboardType: TextInputType.text,
                             outlineBorderRadius: 4,
-                            fieldWidth: 50,
+                            fieldWidth: 40,
                             style: TextStyle(color: Colors.black),
                             otpFieldStyle: OtpFieldStyle(
-                              backgroundColor: Colors.white,
+                              backgroundColor: Colors.grey.shade50,
                               disabledBorderColor: Colors.black,
                               enabledBorderColor: Colors.black,
                             ),
 
                             onCompleted: (n) {
-                              // Get.offAll(Home());
+                              Get.offAll(HomeView());
                             },
                           ),
                         ),
