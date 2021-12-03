@@ -25,6 +25,8 @@ class MyApp extends StatelessWidget {
     Constansbox.box.writeIfNull('New', [1999]);
     Constansbox.box.writeIfNull('offers', [1999]);
     Constansbox.box.writeIfNull('favorite', [1999]);
+    Constansbox.box.writeIfNull('accessToken', '');
+    Constansbox.box.writeIfNull('refreshToken', '');
 
     return ScreenUtilInit(
         designSize: Size(411, 683),
@@ -40,8 +42,8 @@ class MyApp extends StatelessWidget {
               theme: ThemeData(
                 primarySwatch: Colors.red,
               ),
-              home: SigninPage(),
-              // getPages: [GetPage(name: '/home', page: () => SigninPage())],
+              home: BottomBar(),
+              getPages: [GetPage(name: '/home', page: () => HomeView())],
             ));
   }
 }

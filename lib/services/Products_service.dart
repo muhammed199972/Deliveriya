@@ -27,9 +27,16 @@ class ProductService {
       'q': q
     });
     try {
-      var response = await http.get(url);
-      var responsebody = jsonDecode(response.body);
+      var response;
+      if (statusCode.Token != '') {
+        response = await http
+            .get(url, headers: {'Authorization': 'Bearer ${statusCode.Token}'});
+      } else {
+        response = await http.get(url);
+      }
 
+      var responsebody = jsonDecode(response.body);
+      print(responsebody);
       if (response.statusCode == statusCode.OK ||
           response.statusCode == statusCode.CREATED) {
         status = ProductsStatus.fromJson(responsebody['status']);

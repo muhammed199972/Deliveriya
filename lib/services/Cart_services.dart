@@ -24,7 +24,6 @@ class CartService {
       var response = await http
           .get(url, headers: {'Authorization': 'Bearer ${statusCode.Token}'});
       var responsebode = jsonDecode(response.body);
-
       if (response.statusCode == statusCode.OK ||
           response.statusCode == statusCode.CREATED) {
         status = CartStatus.fromJson(responsebode['status']);
