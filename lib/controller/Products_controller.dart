@@ -3,6 +3,7 @@ import 'dart:developer';
 import 'package:delivery_food/General/Api_Result.dart';
 import 'package:delivery_food/model/Products_model.dart';
 import 'package:delivery_food/services/Products_service.dart';
+import 'package:flutter/material.dart';
 import 'package:get/state_manager.dart';
 
 class ProductsController extends GetxController {
@@ -46,4 +47,41 @@ class ProductsController extends GetxController {
       print(e);
     }
   }
+
+  //====================infinty scroll=====================
+  // var scrollController = new ScrollController().obs;
+
+  // int currentPage = 1;
+
+  // bool onNotificatin(
+  //   ScrollNotification notification,
+  //   String? subCategoryId,
+  //   int? offset,
+  //   int? limit,
+  //   String? q,
+  // ) {
+  //   if (notification is ScrollUpdateNotification) {
+  //     if (scrollController.value.position.maxScrollExtent >
+  //             scrollController.value.offset &&
+  //         scrollController.value.position.maxScrollExtent -
+  //                 scrollController.value.offset <=
+  //             10) {
+  //       print('End Scroll');
+  //       product
+  //           .getproductsData(
+  //         subCategoryId!,
+  //         offset!,
+  //         limit!,
+  //         q!,
+  //       )
+  //           .then((val) {
+  //         currentPage ++;
+
+  //           products.addAll(val.data?);
+  //         });
+  //       });
+  //     }
+  //   }
+  //   return true;
+  // }
 }

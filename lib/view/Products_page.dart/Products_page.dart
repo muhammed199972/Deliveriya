@@ -21,9 +21,10 @@ class ProduvtsView extends StatelessWidget {
   List<ProductsResponse> temp = [];
   List<int>? list = [];
   void move() {
-    list = cartController.carts.value.data!
-        .map<int>((element) => element.id!)
-        .toList();
+    if (cartController.carts.value.data?.isNotEmpty ?? false)
+      list = cartController.carts.value.data!
+          .map<int>((element) => element.id!)
+          .toList();
     list!.forEach((element) {
       temp = prodController.products.where((p0) => p0.id == element).toList();
       print(element);
@@ -67,7 +68,7 @@ class ProduvtsView extends StatelessWidget {
                     ),
                   ),
                 ),
-                Obx(() => cartController.carts.value.data!.length == 0
+                Obx(() => cartController.carts.value.data?.length == 0
                     ? Container()
                     : Padding(
                         padding: const EdgeInsets.only(top: 3),
@@ -83,7 +84,7 @@ class ProduvtsView extends StatelessWidget {
                                   radius: 13,
                                   backgroundColor: AppColors.mainColor,
                                   child: Text(
-                                    '${cartController.carts.value.data!.length}',
+                                    '${cartController.carts.value.data?.length ?? 0}',
                                     style: TextStyle(
                                         fontSize: 14,
                                         color: AppColors.whiteColor),
