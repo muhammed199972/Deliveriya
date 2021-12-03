@@ -22,7 +22,7 @@ environment:
 
 dependencies:
   bot_toast: ^4.0.1
-  connectivity_plus: ^2.1.0
+  # connectivity_plus: ^2.1.0
   filter_list: ^1.0.0
   flutter:
     sdk: flutter

@@ -1,20 +1,21 @@
 import 'package:delivery_food/General/Constants.dart';
 import 'package:delivery_food/controller/Auth_controller.dart';
-import 'package:delivery_food/view/Home_page/Home_page.dart';
 import 'package:delivery_food/view/Signin_Page/Component/TextField.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:otp_text_field/otp_field.dart';
 import 'package:otp_text_field/otp_field_style.dart';
 import 'package:otp_text_field/style.dart';
 
 class SigninPage extends StatelessWidget {
-  SigninPage({Key? key}) : super(key: key);
+  SigninPage({Key? key, required this.txtButton}) : super(key: key);
+  String txtButton;
   final _phoneController = TextEditingController();
   final _codeController = TextEditingController();
   var formkey = GlobalKey<FormState>();
-  var controller = Get.put(AuthController());
+  var controller = Get.find<AuthController>();
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
@@ -29,7 +30,7 @@ class SigninPage extends StatelessWidget {
               Padding(
                 padding:
                     const EdgeInsets.only(top: Defaults.defaultPadding * 4),
-                child: Image.asset('assets/png/logo.png'),
+                child: SvgPicture.asset('assets/svg/mainlogo.svg'),
               ),
               Spacer(
                 flex: 2,
@@ -62,14 +63,6 @@ class SigninPage extends StatelessWidget {
                         SizedBox(
                           height: 20,
                         ),
-                        // TextFieldwidget(
-                        //   controller: _codeController,
-                        //   lebel: 'Code',
-                        //   icon: Icon(
-                        //     Icons.message,
-                        //     color: AppColors.greyColor,
-                        //   ),
-                        // ),
                         Visibility(
                           visible: controller.sendcode.value,
                           child: OTPTextField(
@@ -88,7 +81,9 @@ class SigninPage extends StatelessWidget {
                             onChanged: (k) {},
                             onCompleted: (n) {
                               controller.postcodeNumber(
-                                  _phoneController.text, n);
+                                _phoneController.text,
+                                n,
+                              );
                             },
                           ),
                         ),
@@ -109,9 +104,7 @@ class SigninPage extends StatelessWidget {
                               side: BorderSide(
                                   color: AppColors.mainColor, width: 2),
                             ),
-                            child: Text('Sign in',
-                                style: TextStyle(
-                                    color: AppColors.mainColor, fontSize: 16)),
+                            child: Text(txtButton, style: Styles.buttonStyle),
                           ),
                         ),
                       ],

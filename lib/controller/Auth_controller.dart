@@ -11,9 +11,10 @@ class AuthController extends GetxController {
   var signUpResponse = SignUpResponse().obs;
   var hasError = true.obs;
   var massage = ''.obs;
+  var sendcode = false.obs;
+  var authType = ''.obs;
   ApiResult apiResult = ApiResult();
   AuthService authservice = AuthService();
-  var sendcode = false.obs;
   @override
   void onInit() {
     super.onInit();
@@ -40,7 +41,7 @@ class AuthController extends GetxController {
   postcodeNumber(String phone, String code) async {
     try {
       BotToast.showLoading();
-      apiResult = await authservice.postcode(phone, code);
+      apiResult = await authservice.postcode(phone, code, authType.value);
       if (!apiResult.hasError!) {
         signUpResponse.value = apiResult.data;
         hasError.value = apiResult.hasError!;
