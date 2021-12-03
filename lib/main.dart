@@ -4,7 +4,6 @@ import 'package:bot_toast/bot_toast.dart';
 import 'package:delivery_food/Binds.dart';
 import 'package:delivery_food/General/Constants.dart';
 import 'package:delivery_food/view/Home_page/Home_page.dart';
-import 'package:delivery_food/view/Signin_Page/Sign_in_page.dart';
 import 'package:delivery_food/view/navbar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -40,7 +39,7 @@ class MyApp extends StatelessWidget {
               theme: ThemeData(
                 primarySwatch: Colors.red,
               ),
-              home: SigninPage(),
+              home: BottomBar(),
               // getPages: [GetPage(name: '/home', page: () => SigninPage())],
             ));
   }

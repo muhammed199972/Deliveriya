@@ -22,7 +22,7 @@ environment:
 
 dependencies:
   bot_toast: ^4.0.1
-  otp_text_field:
+  connectivity_plus: ^2.1.0
   filter_list: ^1.0.0
   flutter:
     sdk: flutter
@@ -32,6 +32,7 @@ dependencies:
   get: ^4.3.8
   get_storage: ^2.0.3
   http: ^0.13.4
+  otp_text_field: null
   ripple_animation: ^0.0.1+2
   story_view: ^0.13.1
 
