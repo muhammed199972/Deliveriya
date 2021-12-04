@@ -18,9 +18,10 @@ class FavoriteView extends StatelessWidget {
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
     if (statusCode.Token == '') {
-      List fav = Constansbox.box.read('favorite');
-      print(fav);
-      prodController.getListproduct(limit: 8, offset: 0, Listproduct: fav);
+      List<dynamic> fav = Constansbox.box.read('favorite');
+      List<int> favo = [];
+      fav.forEach((e) => favo.add(e));
+      prodController.getListproduct(limit: 8, offset: 0, Listproduct: favo);
     } else {
       favoriteController.getfavorite(0, 8);
     }
@@ -59,41 +60,46 @@ class FavoriteView extends StatelessWidget {
                     ])
           ],
         ),
-        body: Obx(() {
-          return favoriteController.favorites.length != 0
-              ? Column(
-                  children: [
-                    Expanded(
-                      flex: 5,
-                      child: Container(
-                        margin: EdgeInsets.symmetric(
-                            horizontal: Defaults.defaultPadding),
-                        child:
-                            //  Obx(() {
-                            //   return
-                            StaggeredGridView.countBuilder(
-                          shrinkWrap: true,
-                          crossAxisCount: 2,
-                          itemCount: favoriteController.favorites.length,
-                          itemBuilder: (BuildContext context, int index) {
-                            return FullCard(
-                                isCart: true,
-                                size: size,
-                                product: favoriteController.favorites[index]);
-                          },
-                          staggeredTileBuilder: (int index) =>
-                              new StaggeredTile.count(1, 1.3),
-                          mainAxisSpacing: 25,
-                          crossAxisSpacing: 15,
-                        ),
-                        // }),
-                      ),
-                    )
-                  ],
-                )
-              : Center(
-                  child: CircularProgressIndicator(),
-                );
-        }));
+        body: Constansbox.box.read('favorite').isNotEmpty
+            ? Obx(() {
+                return favoriteController.favorites.length != 0
+                    ? Column(
+                        children: [
+                          Expanded(
+                            flex: 5,
+                            child: Container(
+                              margin: EdgeInsets.symmetric(
+                                  horizontal: Defaults.defaultPadding),
+                              child:
+                                  //  Obx(() {
+                                  //   return
+                                  StaggeredGridView.countBuilder(
+                                shrinkWrap: true,
+                                crossAxisCount: 2,
+                                itemCount: favoriteController.favorites.length,
+                                itemBuilder: (BuildContext context, int index) {
+                                  return FullCard(
+                                      isCart: true,
+                                      size: size,
+                                      product:
+                                          favoriteController.favorites[index]);
+                                },
+                                staggeredTileBuilder: (int index) =>
+                                    new StaggeredTile.count(1, 1.3),
+                                mainAxisSpacing: 25,
+                                crossAxisSpacing: 15,
+                              ),
+                              // }),
+                            ),
+                          )
+                        ],
+                      )
+                    : Center(
+                        child: CircularProgressIndicator(),
+                      );
+              })
+            : Center(
+                child: Text('Favorites list is empty .....'),
+              ));
   }
 }

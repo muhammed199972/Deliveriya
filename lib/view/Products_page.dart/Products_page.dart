@@ -119,7 +119,7 @@ class ProduvtsView extends StatelessWidget {
                 ),
               )),
           Obx(() {
-            move();
+            // move();
             return Expanded(
               flex: 5,
               child: prodController.products.length == 0

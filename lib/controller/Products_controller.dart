@@ -50,7 +50,7 @@ class ProductsController extends GetxController {
   getListproduct({
     int? offset,
     int? limit,
-    List<dynamic>? Listproduct,
+    List<int>? Listproduct,
   }) async {
     try {
       products.value = [];

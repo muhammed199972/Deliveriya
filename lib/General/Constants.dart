@@ -7,7 +7,7 @@ Constans Constansbox = Constans();
 
 class StatusCode {
   String url1 = 'delivery-food12.herokuapp.com';
-  var Token = Constansbox.box.read('accessToken');
+  var Token = '';
   var RefreshToken = Constansbox.box.read('refreshToken');
 
   var OK = 200; //                          * Normal
