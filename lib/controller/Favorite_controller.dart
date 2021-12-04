@@ -11,6 +11,7 @@ class FavoriteController extends GetxController {
   var massage = ''.obs;
   var postFavorite = PostResponse().obs;
   var deleteFavorite = DeleteResponse().obs;
+  var isLoading = true.obs;
 
   ApiResult apiResult = ApiResult();
   FavoriteService favoriteService = FavoriteService();
@@ -28,6 +29,7 @@ class FavoriteController extends GetxController {
         favorites.value = apiResult.data;
         hasError.value = apiResult.hasError!;
         print(favorites.value);
+        isLoading.value = false;
       } else {
         hasError.value = apiResult.hasError!;
         massage.value = apiResult.errorMassage!;

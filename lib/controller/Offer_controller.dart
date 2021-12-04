@@ -12,6 +12,8 @@ class OfferController extends GetxController {
   OfferService offer = OfferService();
   Constans Constansbox = Constans();
   var isOffStatuts = true.obs;
+  var isLoading = true.obs;
+
   @override
   void onInit() {
     getoffers();
@@ -37,6 +39,7 @@ class OfferController extends GetxController {
       if (!apiResult.hasError!) {
         offers.value = apiResult.data;
         hasError.value = apiResult.hasError!;
+        isLoading.value = false;
       } else {
         hasError.value = apiResult.hasError!;
         massage.value = apiResult.errorMassage!;

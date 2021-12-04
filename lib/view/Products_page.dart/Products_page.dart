@@ -1,4 +1,5 @@
 import 'package:delivery_food/General/Constants.dart';
+import 'package:delivery_food/Shimmer_loading.dart';
 import 'package:delivery_food/controller/Cart_controller.dart';
 import 'package:delivery_food/controller/Products_controller.dart';
 import 'package:delivery_food/model/Products_model.dart';
@@ -121,10 +122,8 @@ class ProduvtsView extends StatelessWidget {
             move();
             return Expanded(
               flex: 5,
-              child: prodController.products.length == 0
-                  ? Center(
-                      child: CircularProgressIndicator(),
-                    )
+              child: prodController.isLoading.value
+                  ? ShimmerWidget.productsLoading()
                   : Container(
                       margin: EdgeInsets.symmetric(
                           horizontal: Defaults.defaultPadding),

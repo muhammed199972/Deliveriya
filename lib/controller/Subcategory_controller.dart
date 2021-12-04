@@ -9,6 +9,8 @@ class SubcategorysControllers extends GetxController {
   var subcategorys = <SubcategoryResponse>[].obs;
   var hasError = true.obs;
   var massage = ''.obs;
+  var isLoading = true.obs;
+
   ApiResult apiResult = ApiResult();
   SubcategoryService subcategory = SubcategoryService();
   var value = 0.obs;
@@ -31,6 +33,7 @@ class SubcategorysControllers extends GetxController {
 
         await changevalue(subcategorys[0].id!);
         hasError.value = apiResult.hasError!;
+        isLoading.value = false;
       } else {
         hasError.value = apiResult.hasError!;
         massage.value = apiResult.errorMassage!;

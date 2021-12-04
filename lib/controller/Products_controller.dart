@@ -10,6 +10,8 @@ class ProductsController extends GetxController {
   var products = <ProductsResponse>[].obs;
   var hasError = true.obs;
   var massage = ''.obs;
+  var isLoading = true.obs;
+
   ApiResult apiResult = ApiResult();
   ProductService product = ProductService();
 
@@ -36,6 +38,7 @@ class ProductsController extends GetxController {
       if (!apiResult.hasError!) {
         products.value = apiResult.data;
         hasError.value = apiResult.hasError!;
+        isLoading.value = false;
       } else {
         hasError.value = apiResult.hasError!;
         massage.value = apiResult.errorMassage!;

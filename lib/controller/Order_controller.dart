@@ -7,6 +7,8 @@ class OrderController extends GetxController {
   var orders = <FavoriteResponse>[].obs;
   var hasError = true.obs;
   var massage = ''.obs;
+  var isLoading = true.obs;
+
   ApiResult apiResult = ApiResult();
   OrderService orderService = OrderService();
 
@@ -22,6 +24,7 @@ class OrderController extends GetxController {
       if (!apiResult.hasError!) {
         orders.value = apiResult.data;
         hasError.value = apiResult.hasError!;
+        isLoading.value = false;
       } else {
         hasError.value = apiResult.hasError!;
         massage.value = apiResult.errorMassage!;

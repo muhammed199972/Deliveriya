@@ -7,6 +7,7 @@ class AddressController extends GetxController {
   var address = <AddressResponse>[].obs;
   var hasError = true.obs;
   var massage = ''.obs;
+  var isLoading = true.obs;
   ApiResult apiResult = ApiResult();
   AddressService addressService = AddressService();
 
@@ -22,6 +23,7 @@ class AddressController extends GetxController {
       if (!apiResult.hasError!) {
         address.value = apiResult.data;
         hasError.value = apiResult.hasError!;
+        isLoading.value = false;
         print(address[0].id);
       } else {
         hasError.value = apiResult.hasError!;

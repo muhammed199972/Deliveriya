@@ -20,6 +20,7 @@ class CartController extends GetxController {
   var hasError = true.obs;
   //
   var massage = ''.obs;
+  var isLoading = true.obs;
   ApiResult apiResult = ApiResult();
   CartService cartService = CartService();
 
@@ -36,6 +37,7 @@ class CartController extends GetxController {
         carts.value = apiResult.data;
         hasError.value = apiResult.hasError!;
         print(carts.value.data![0].id);
+        isLoading.value = false;
       } else {
         hasError.value = apiResult.hasError!;
         massage.value = apiResult.errorMassage!;
