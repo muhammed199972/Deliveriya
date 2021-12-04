@@ -11,11 +11,19 @@ class FavoriteView extends StatelessWidget {
   FavoriteView({Key? key}) : super(key: key);
 
   var favoriteController = Get.find<FavoriteController>();
+  var prodController = Get.find<ProductsController>();
+  StatusCode statusCode = StatusCode();
 
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
-    favoriteController.getfavorite(0, 8);
+    if (statusCode.Token == '') {
+      List fav = Constansbox.box.read('favorite');
+      print(fav);
+      prodController.getListproduct(limit: 8, offset: 0, Listproduct: fav);
+    } else {
+      favoriteController.getfavorite(0, 8);
+    }
 
     return Scaffold(
         backgroundColor: AppColors.whiteColor,

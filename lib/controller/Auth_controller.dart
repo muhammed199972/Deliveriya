@@ -69,7 +69,7 @@ class AuthController extends GetxController {
     }
   }
 
-  postrefreshToken(String phone, String code) async {
+  postrefreshToken() async {
     try {
       BotToast.showLoading();
       apiResult = await authservice.postrefreshToken();

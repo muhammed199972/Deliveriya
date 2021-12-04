@@ -46,4 +46,32 @@ class ProductsController extends GetxController {
       print(e);
     }
   }
+
+  getListproduct({
+    int? offset,
+    int? limit,
+    List<dynamic>? Listproduct,
+  }) async {
+    try {
+      products.value = [];
+      apiResult = (await product.getListproductsData(
+        offset!,
+        limit!,
+        Listproduct!,
+      ))!;
+
+      if (!apiResult.hasError!) {
+        products.value = apiResult.data;
+        hasError.value = apiResult.hasError!;
+      } else {
+        hasError.value = apiResult.hasError!;
+        massage.value = apiResult.errorMassage!;
+      }
+    } catch (e) {
+      hasError.value = apiResult.hasError!;
+      massage.value = apiResult.errorMassage!;
+
+      print(e);
+    }
+  }
 }

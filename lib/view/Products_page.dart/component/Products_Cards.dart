@@ -16,17 +16,14 @@ class FullCard extends StatelessWidget {
       : super(key: key);
   //
   bool? isCart;
-  //
+
   final Size size;
   var cartController = Get.find<CartController>();
   var favoriteController = Get.find<FavoriteController>();
   StatusCode statusCode = StatusCode();
   Constans Constansbox = Constans();
-
   dynamic product;
-
   var favorite = false.obs;
-  var cart = false.obs;
   var counter = 0.obs;
   @override
   Widget build(BuildContext context) {
@@ -34,6 +31,10 @@ class FullCard extends StatelessWidget {
       List fav = Constansbox.box.read('favorite');
       favorite.value =
           fav.any((element) => element != product.id ? false : true);
+    } else {
+      if (product.favorites != null) {
+        favorite.value = true;
+      }
     }
 
     return Stack(

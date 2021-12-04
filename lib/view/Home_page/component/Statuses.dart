@@ -67,7 +67,7 @@ class Statuses extends StatelessWidget {
                           borderRadius: BorderRadius.circular(100),
                           // shape: BoxShape.circle,
                           border: Border.all(
-                              color: Colors.green,
+                              color: Colors.red,
                               width: 3.0,
                               style: BorderStyle.solid
                               // Color color = const Color(0xFF000000),
@@ -76,7 +76,7 @@ class Statuses extends StatelessWidget {
                               )),
                       child: Icon(
                         Icons.add_shopping_cart_rounded,
-                        color: Colors.green,
+                        color: Colors.red,
                         size: 40,
                       ),
                       // tooltip: 'Increase volume by 10',

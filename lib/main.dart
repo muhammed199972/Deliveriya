@@ -22,9 +22,11 @@ class MyApp extends StatelessWidget {
   final botToastBuilder = BotToastInit();
   @override
   Widget build(BuildContext context) {
-    Constansbox.box.writeIfNull('New', [1999]);
-    Constansbox.box.writeIfNull('offers', [1999]);
-    Constansbox.box.writeIfNull('favorite', [1999]);
+    Constansbox.box.writeIfNull('New', []);
+    Constansbox.box.writeIfNull('offers', []);
+    Constansbox.box.writeIfNull('favorite', []);
+    Constansbox.box.writeIfNull('carts', []);
+
     Constansbox.box.writeIfNull('accessToken', '');
     Constansbox.box.writeIfNull('refreshToken', '');
 
