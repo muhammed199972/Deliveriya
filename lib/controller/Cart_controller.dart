@@ -1,5 +1,6 @@
 import 'package:bot_toast/bot_toast.dart';
 import 'package:delivery_food/General/Api_Result.dart';
+import 'package:delivery_food/General/Dialogs.dart';
 import 'package:delivery_food/model/Cart_model.dart';
 import 'package:delivery_food/model/Delete.dart';
 import 'package:delivery_food/model/Patch_data.dart';
@@ -41,11 +42,22 @@ class CartController extends GetxController {
       } else {
         hasError.value = apiResult.hasError!;
         massage.value = apiResult.errorMassage!;
+        DialogsUtils.showdialog(
+            m: massage.value,
+            onPressed: () {
+              Get.back();
+              Get.back();
+            });
       }
     } catch (e) {
       hasError.value = apiResult.hasError!;
       massage.value = apiResult.errorMassage!;
-      print(e);
+      DialogsUtils.showdialog(
+          m: 'حدث خطأ غير متوقع',
+          onPressed: () {
+            Get.back();
+            Get.back();
+          });
     }
   }
 
@@ -61,11 +73,20 @@ class CartController extends GetxController {
       } else {
         hasError.value = apiResult.hasError!;
         massage.value = apiResult.errorMassage!;
+        DialogsUtils.showdialog(
+            m: massage.value,
+            onPressed: () {
+              Get.back();
+            });
       }
     } catch (e) {
       hasError.value = apiResult.hasError!;
       massage.value = apiResult.errorMassage!;
-      print(e);
+      DialogsUtils.showdialog(
+          m: 'حدث خطأ غير متوقع',
+          onPressed: () {
+            Get.back();
+          });
     } finally {
       BotToast.closeAllLoading();
     }
@@ -81,6 +102,11 @@ class CartController extends GetxController {
       } else {
         hasError.value = apiResult.hasError!;
         massage.value = apiResult.errorMassage!;
+        DialogsUtils.showdialog(
+            m: massage.value,
+            onPressed: () {
+              Get.back();
+            });
       }
     } catch (e) {
       hasError.value = apiResult.hasError!;
@@ -102,11 +128,20 @@ class CartController extends GetxController {
       } else {
         hasError.value = apiResult.hasError!;
         massage.value = apiResult.errorMassage!;
+        DialogsUtils.showdialog(
+            m: massage.value,
+            onPressed: () {
+              Get.back();
+            });
       }
     } catch (e) {
       hasError.value = apiResult.hasError!;
       massage.value = apiResult.errorMassage!;
-      print(e);
+      DialogsUtils.showdialog(
+          m: 'حدث خطأ غير متوقع',
+          onPressed: () {
+            Get.back();
+          });
     } finally {
       BotToast.closeAllLoading();
     }

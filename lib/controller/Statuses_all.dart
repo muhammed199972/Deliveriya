@@ -1,5 +1,6 @@
 import 'package:delivery_food/General/Api_Result.dart';
 import 'package:delivery_food/General/Constants.dart';
+import 'package:delivery_food/General/Dialogs.dart';
 import 'package:delivery_food/controller/Offer_controller.dart';
 import 'package:delivery_food/model/Ads_model.dart';
 import 'package:delivery_food/model/Offer_model.dart';
@@ -153,10 +154,20 @@ class StatusesController extends GetxController {
       } else {
         hasError = apiResultOffer.hasError!;
         massage = apiResultOffer.errorMassage!;
+        DialogsUtils.showdialog(
+            m: massage,
+            onPressed: () {
+              Get.back();
+            });
         update();
       }
     } catch (e) {
-      print(e);
+      DialogsUtils.showdialog(
+          m: 'حدث خطأ غير متوقع',
+          onPressed: () {
+            Get.back();
+            Get.back();
+          });
     }
   }
 
@@ -180,6 +191,12 @@ class StatusesController extends GetxController {
       } else {
         hasError = apiResultAds.hasError!;
         massage = apiResultAds.errorMassage!;
+        DialogsUtils.showdialog(
+            m: massage,
+            onPressed: () {
+              Get.back();
+              Get.back();
+            });
         update();
       }
     } catch (e) {

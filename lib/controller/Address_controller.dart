@@ -1,4 +1,5 @@
 import 'package:delivery_food/General/Api_Result.dart';
+import 'package:delivery_food/General/Dialogs.dart';
 import 'package:delivery_food/model/Address.dart';
 import 'package:delivery_food/services/Address_services.dart';
 import 'package:get/get.dart';
@@ -28,10 +29,20 @@ class AddressController extends GetxController {
       } else {
         hasError.value = apiResult.hasError!;
         massage.value = apiResult.errorMassage!;
+        DialogsUtils.showdialog(
+            m: massage.value,
+            onPressed: () {
+              Get.back();
+            });
       }
-    } finally {
+    } catch (e) {
       hasError.value = apiResult.hasError!;
       massage.value = apiResult.errorMassage!;
+      DialogsUtils.showdialog(
+          m: 'حدث خطأ غير متوقع',
+          onPressed: () {
+            Get.back();
+          });
     }
   }
 }

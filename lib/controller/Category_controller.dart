@@ -1,4 +1,5 @@
 import 'package:delivery_food/General/Api_Result.dart';
+import 'package:delivery_food/General/Dialogs.dart';
 import 'package:delivery_food/services/Category_services.dart';
 import 'package:delivery_food/model/Category_model.dart';
 import 'package:flutter/material.dart';
@@ -46,11 +47,20 @@ class CategorysController extends GetxController {
       } else {
         hasError.value = apiResult.hasError!;
         massage.value = apiResult.errorMassage!;
+        DialogsUtils.showdialog(
+            m: massage.value,
+            onPressed: () {
+              Get.back();
+            });
       }
     } catch (e) {
-      print(e);
       hasError.value = apiResult.hasError!;
       massage.value = apiResult.errorMassage!;
+      DialogsUtils.showdialog(
+          m: 'حدث خطأ غير متوقع',
+          onPressed: () {
+            Get.back();
+          });
     }
   }
 }

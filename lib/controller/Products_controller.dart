@@ -1,10 +1,8 @@
-import 'dart:developer';
-
 import 'package:delivery_food/General/Api_Result.dart';
+import 'package:delivery_food/General/Dialogs.dart';
 import 'package:delivery_food/model/Products_model.dart';
 import 'package:delivery_food/services/Products_service.dart';
-import 'package:flutter/material.dart';
-import 'package:get/state_manager.dart';
+import 'package:get/get.dart';
 
 class ProductsController extends GetxController {
   var products = <ProductsResponse>[].obs;
@@ -42,12 +40,22 @@ class ProductsController extends GetxController {
       } else {
         hasError.value = apiResult.hasError!;
         massage.value = apiResult.errorMassage!;
+        DialogsUtils.showdialog(
+            m: massage.value,
+            onPressed: () {
+              Get.back();
+              Get.back();
+            });
       }
     } catch (e) {
       hasError.value = apiResult.hasError!;
       massage.value = apiResult.errorMassage!;
-
-      print(e);
+      DialogsUtils.showdialog(
+          m: 'حدث خطأ غير متوقع',
+          onPressed: () {
+            Get.back();
+            Get.back();
+          });
     }
   }
 
