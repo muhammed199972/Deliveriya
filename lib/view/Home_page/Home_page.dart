@@ -1,4 +1,5 @@
 import 'package:delivery_food/General/Constants.dart';
+import 'package:delivery_food/Shimmer_loading.dart';
 import 'package:delivery_food/controller/Category_controller.dart';
 import 'package:delivery_food/view/Home_page/component/CategoryCard.dart';
 import 'package:delivery_food/view/Home_page/component/Logo.dart';
@@ -59,33 +60,36 @@ class HomeView extends StatelessWidget {
             SearchBar(size: size),
             Expanded(
               flex: 3,
-              child: ListView(
-                children: [
-                  Offers_New(size: size),
-                  Padding(
-                    padding: const EdgeInsets.all(Defaults.defaultPadding),
-                    child: Text('category'.tr),
-                  ),
-                  Container(
-                    child: Obx(
-                      () => StaggeredGridView.countBuilder(
-                        shrinkWrap: true,
-                        physics: NeverScrollableScrollPhysics(),
-                        crossAxisCount: 3,
-                        itemCount: controller.categorys.length,
-                        itemBuilder: (BuildContext context, int index) =>
-                            CategorysCard(
-                          index: index,
-                          datacontroller: controller.categorys[index],
-                        ),
-                        staggeredTileBuilder: (int index) =>
-                            new StaggeredTile.count(1, 0.6),
-                        mainAxisSpacing: 5,
+              child: Obx(() => ListView(
+                    children: [
+                      !controller.isLoading.value
+                          ? Offers_New(size: size)
+                          : ShimmerWidget.offersNewLoading(),
+                      Padding(
+                        padding: const EdgeInsets.all(Defaults.defaultPadding),
+                        child: Text('Category'),
                       ),
-                    ),
-                  ),
-                ],
-              ),
+                      Container(
+                        child: !controller.isLoading.value
+                            ? StaggeredGridView.countBuilder(
+                                shrinkWrap: true,
+                                physics: NeverScrollableScrollPhysics(),
+                                crossAxisCount: 3,
+                                itemCount: controller.categorys.length,
+                                itemBuilder:
+                                    (BuildContext context, int index) =>
+                                        CategorysCard(
+                                  index: index,
+                                  datacontroller: controller.categorys[index],
+                                ),
+                                staggeredTileBuilder: (int index) =>
+                                    new StaggeredTile.count(1, 0.6),
+                                mainAxisSpacing: 5,
+                              )
+                            : ShimmerWidget.categoryLoading(),
+                      ),
+                    ],
+                  )),
             ),
           ],
         ));

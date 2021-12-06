@@ -1,4 +1,5 @@
 import 'package:delivery_food/General/Constants.dart';
+import 'package:delivery_food/Shimmer_loading.dart';
 import 'package:delivery_food/controller/Cart_controller.dart';
 import 'package:delivery_food/controller/Products_controller.dart';
 import 'package:delivery_food/model/Products_model.dart';
@@ -21,9 +22,10 @@ class ProduvtsView extends StatelessWidget {
   List<ProductsResponse> temp = [];
   List<int>? list = [];
   void move() {
-    list = cartController.carts.value.data!
-        .map<int>((element) => element.id!)
-        .toList();
+    if (cartController.carts.value.data?.isNotEmpty ?? false)
+      list = cartController.carts.value.data!
+          .map<int>((element) => element.id!)
+          .toList();
     list!.forEach((element) {
       temp = prodController.products.where((p0) => p0.id == element).toList();
       print(element);
@@ -67,7 +69,7 @@ class ProduvtsView extends StatelessWidget {
                     ),
                   ),
                 ),
-                Obx(() => cartController.carts.value.data!.length == 0
+                Obx(() => cartController.carts.value.data?.length == 0
                     ? Container()
                     : Padding(
                         padding: const EdgeInsets.only(top: 3),
@@ -83,7 +85,7 @@ class ProduvtsView extends StatelessWidget {
                                   radius: 13,
                                   backgroundColor: AppColors.mainColor,
                                   child: Text(
-                                    '${cartController.carts.value.data!.length}',
+                                    '${cartController.carts.value.data?.length ?? 0}',
                                     style: TextStyle(
                                         fontSize: 14,
                                         color: AppColors.whiteColor),
@@ -122,10 +124,8 @@ class ProduvtsView extends StatelessWidget {
             // move();
             return Expanded(
               flex: 5,
-              child: prodController.products.length == 0
-                  ? Center(
-                      child: CircularProgressIndicator(),
-                    )
+              child: prodController.isLoading.value
+                  ? ShimmerWidget.productsLoading()
                   : Container(
                       margin: EdgeInsets.symmetric(
                           horizontal: Defaults.defaultPadding),

@@ -4,16 +4,16 @@ import 'package:get/get.dart';
 
 class DialogsUtils {
   /// Show related to storage service dialogs
-  static showGuestLogInDialog(String m) {
+  static showdialog({String? m, Function()? onPressed}) {
     Get.dialog(
       AlertDialog(
         contentPadding: EdgeInsets.symmetric(horizontal: 14.0, vertical: 6.0),
         title: Text(
-          "تسجيل الدخول مطلوب",
+          'error',
           textAlign: TextAlign.center,
         ),
         content: Text(
-          m,
+          m!,
           textAlign: TextAlign.center,
         ),
         actions: <Widget>[
@@ -22,9 +22,7 @@ class DialogsUtils {
               "OK",
               style: TextStyle(color: AppColors.mainColor),
             ),
-            onPressed: () {
-              Get.back();
-            },
+            onPressed: onPressed,
           )
         ],
       ),

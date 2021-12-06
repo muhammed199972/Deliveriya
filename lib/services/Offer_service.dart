@@ -105,7 +105,7 @@ class OfferService {
       apiResult.hasError = true;
       print('There is a problem with the admin');
     } catch (e) {
-      apiResult.errorMassage = '${e}';
+      apiResult.errorMassage = 'حدث خطأ غير متوقع';
       apiResult.codeError = statusCode.connection;
       apiResult.hasError = true;
       print('${e}');

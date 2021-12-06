@@ -1,6 +1,7 @@
 import 'package:bot_toast/bot_toast.dart';
 import 'package:delivery_food/General/Api_Result.dart';
 import 'package:delivery_food/General/Constants.dart';
+import 'package:delivery_food/General/Dialogs.dart';
 import 'package:delivery_food/model/Auth_model.dart';
 import 'package:delivery_food/services/Auth_service.dart';
 import 'package:delivery_food/view/Home_page/Home_page.dart';
@@ -16,7 +17,6 @@ class AuthController extends GetxController {
   var authType = ''.obs;
   ApiResult apiResult = ApiResult();
   AuthService authservice = AuthService();
-  var sendcode = false.obs;
   Constans Constansbox = Constans();
 
   @override
@@ -35,10 +35,20 @@ class AuthController extends GetxController {
       } else {
         hasError.value = apiResult.hasError!;
         massage.value = apiResult.errorMassage!;
+        DialogsUtils.showdialog(
+            m: massage.value,
+            onPressed: () {
+              Get.back();
+            });
       }
-    } finally {
+    } catch (e) {
       hasError.value = apiResult.hasError!;
       massage.value = apiResult.errorMassage!;
+      DialogsUtils.showdialog(
+          m: 'حدث خطأ غير متوقع',
+          onPressed: () {
+            Get.back();
+          });
     }
   }
 

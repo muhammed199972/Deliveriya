@@ -1,7 +1,6 @@
 import 'package:delivery_food/General/Constants.dart';
 import 'package:delivery_food/controller/Favorite_controller.dart';
 import 'package:delivery_food/controller/Products_controller.dart';
-import 'package:delivery_food/model/Products_model.dart';
 import 'package:delivery_food/view/Products_page.dart/component/Products_Cards.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';

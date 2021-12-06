@@ -1,4 +1,3 @@
-import 'package:delivery_food/model/InfoOrder_model.dart';
 import 'package:delivery_food/model/Products_model.dart';
 
 class ShoppingCartModel {

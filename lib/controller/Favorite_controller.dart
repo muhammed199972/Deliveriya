@@ -1,4 +1,5 @@
 import 'package:delivery_food/General/Api_Result.dart';
+import 'package:delivery_food/General/Dialogs.dart';
 import 'package:delivery_food/model/Delete.dart';
 import 'package:delivery_food/model/Favorite_model.dart';
 import 'package:delivery_food/model/Post_data.dart';
@@ -11,6 +12,7 @@ class FavoriteController extends GetxController {
   var massage = ''.obs;
   var postFavorite = PostResponse().obs;
   var deleteFavorite = DeleteResponse().obs;
+  var isLoading = true.obs;
 
   ApiResult apiResult = ApiResult();
   FavoriteService favoriteService = FavoriteService();
@@ -28,13 +30,26 @@ class FavoriteController extends GetxController {
         favorites.value = apiResult.data;
         hasError.value = apiResult.hasError!;
         print(favorites.value);
+        isLoading.value = false;
       } else {
         hasError.value = apiResult.hasError!;
         massage.value = apiResult.errorMassage!;
+        DialogsUtils.showdialog(
+            m: massage.value,
+            onPressed: () {
+              Get.back();
+              Get.back();
+            });
       }
-    } finally {
+    } catch (e) {
       hasError.value = apiResult.hasError!;
       massage.value = apiResult.errorMassage!;
+      DialogsUtils.showdialog(
+          m: 'حدث خطأ غير متوقع',
+          onPressed: () {
+            Get.back();
+            Get.back();
+          });
     }
   }
 
@@ -47,11 +62,20 @@ class FavoriteController extends GetxController {
       } else {
         hasError.value = apiResult.hasError!;
         massage.value = apiResult.errorMassage!;
+        DialogsUtils.showdialog(
+            m: massage.value,
+            onPressed: () {
+              Get.back();
+            });
       }
     } catch (e) {
       hasError.value = apiResult.hasError!;
       massage.value = apiResult.errorMassage!;
-      print(e);
+      DialogsUtils.showdialog(
+          m: 'حدث خطأ غير متوقع',
+          onPressed: () {
+            Get.back();
+          });
     }
   }
 
@@ -66,11 +90,20 @@ class FavoriteController extends GetxController {
       } else {
         hasError.value = apiResult.hasError!;
         massage.value = apiResult.errorMassage!;
+        DialogsUtils.showdialog(
+            m: massage.value,
+            onPressed: () {
+              Get.back();
+            });
       }
     } catch (e) {
       hasError.value = apiResult.hasError!;
       massage.value = apiResult.errorMassage!;
-      print(e);
+      DialogsUtils.showdialog(
+          m: 'حدث خطأ غير متوقع',
+          onPressed: () {
+            Get.back();
+          });
     }
   }
 }
