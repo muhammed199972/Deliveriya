@@ -81,7 +81,12 @@ class AppColors {
   static const lightgreyColor = Color(0xFFC4C4C4);
 }
 
-class Styles {}
+class Styles {
+  static const buttonStyle =
+      TextStyle(color: AppColors.mainColor, fontSize: 16);
+  static const buttonStyle2 =
+      TextStyle(color: AppColors.whiteColor, fontSize: 16);
+}
 
 class Defaults {
   static const defaultPadding = 20.0;

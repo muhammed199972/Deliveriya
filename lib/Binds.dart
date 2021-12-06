@@ -11,6 +11,7 @@ import 'package:get/get.dart';
 class Binds extends Bindings {
   @override
   void dependencies() {
+    // Get.lazyPut<CheckNetWorkController>(() => CheckNetWorkController());
     Get.put(CategorysController(), permanent: true);
     Get.put(SubcategorysControllers());
     Get.put(CartController());

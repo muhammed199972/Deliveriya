@@ -116,13 +116,13 @@ class AuthService {
     return apiResult;
   }
 
-  Future<ApiResult> postcode(String phone, String code) async {
+  Future<ApiResult> postcode(String phone, String code, String auth) async {
     StatusCode statusCode = StatusCode();
     ApiResult apiResult = ApiResult();
     SignUpResponse? calendar;
     AuthStatus? status;
     ErrorResponse? error;
-    Uri url = Uri.http('${statusCode.url1}', '/api/public/auth/signup');
+    Uri url = Uri.http('${statusCode.url1}', '/api/public/auth/$auth');
 
     try {
       var response = await http.post(
