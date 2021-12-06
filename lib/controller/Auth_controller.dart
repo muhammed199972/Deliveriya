@@ -76,6 +76,11 @@ class AuthController extends GetxController {
       hasError.value = apiResult.hasError!;
       massage.value = apiResult.errorMassage!;
       print(e);
+      DialogsUtils.showdialog(
+          m: 'حدث خطأ غير متوقع',
+          onPressed: () {
+            Get.back();
+          });
     } finally {
       BotToast.closeAllLoading();
     }
@@ -105,6 +110,11 @@ class AuthController extends GetxController {
       hasError.value = apiResult.hasError!;
       massage.value = apiResult.errorMassage!;
       print(e);
+      DialogsUtils.showdialog(
+          m: 'حدث خطأ غير متوقع',
+          onPressed: () {
+            Get.back();
+          });
     } finally {
       BotToast.closeAllLoading();
     }

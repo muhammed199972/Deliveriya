@@ -78,12 +78,59 @@ class ProductsController extends GetxController {
       } else {
         hasError.value = apiResult.hasError!;
         massage.value = apiResult.errorMassage!;
+        DialogsUtils.showdialog(
+            m: massage.value,
+            onPressed: () {
+              Get.back();
+              Get.back();
+            });
       }
     } catch (e) {
       hasError.value = apiResult.hasError!;
       massage.value = apiResult.errorMassage!;
-
-      print(e);
+      DialogsUtils.showdialog(
+          m: 'حدث خطأ غير متوقع',
+          onPressed: () {
+            Get.back();
+            Get.back();
+          });
     }
   }
+
+  //====================infinty scroll=====================
+  // var scrollController = new ScrollController().obs;
+
+  // int currentPage = 1;
+
+  // bool onNotificatin(
+  //   ScrollNotification notification,
+  //   String? subCategoryId,
+  //   int? offset,
+  //   int? limit,
+  //   String? q,
+  // ) {
+  //   if (notification is ScrollUpdateNotification) {
+  //     if (scrollController.value.position.maxScrollExtent >
+  //             scrollController.value.offset &&
+  //         scrollController.value.position.maxScrollExtent -
+  //                 scrollController.value.offset <=
+  //             10) {
+  //       print('End Scroll');
+  //       product
+  //           .getproductsData(
+  //         subCategoryId!,
+  //         offset!,
+  //         limit!,
+  //         q!,
+  //       )
+  //           .then((val) {
+  //         currentPage ++;
+
+  //           products.addAll(val.data?);
+  //         });
+  //       });
+  //     }
+  //   }
+  //   return true;
+  // }
 }
