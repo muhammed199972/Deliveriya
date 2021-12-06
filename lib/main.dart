@@ -3,6 +3,7 @@
 import 'package:bot_toast/bot_toast.dart';
 import 'package:delivery_food/Binds.dart';
 import 'package:delivery_food/General/Constants.dart';
+import 'package:delivery_food/lang/traranslation.dart';
 import 'package:delivery_food/view/Home_page/Home_page.dart';
 import 'package:delivery_food/view/Signin_Page/Sign_in_page.dart';
 import 'package:delivery_food/view/navbar.dart';
@@ -31,21 +32,26 @@ class MyApp extends StatelessWidget {
     Constansbox.box.writeIfNull('refreshToken', '');
 
     return ScreenUtilInit(
-        designSize: Size(411, 683),
-        builder: () => GetMaterialApp(
-              builder: (context, child) {
-                child = botToastBuilder(context, child);
-                return child;
-              },
-              initialBinding: Binds(),
-              debugShowCheckedModeBanner: false,
-              title: 'Flutter Demo',
-              //   color: Colors.transparent,
-              theme: ThemeData(
-                primarySwatch: Colors.red,
-              ),
-              home: BottomBar(),
-              getPages: [GetPage(name: '/home', page: () => HomeView())],
-            ));
+      designSize: Size(411, 683),
+      builder: () => GetMaterialApp(
+        builder: (context, child) {
+          child = botToastBuilder(context, child);
+          return child;
+        },
+        initialBinding: Binds(),
+        debugShowCheckedModeBanner: false,
+        title: 'Flutter Demo',
+        //   color: Colors.transparent,
+        theme: ThemeData(
+          primarySwatch: Colors.red,
+        ),
+
+        home: BottomBar(),
+        translations: Translation(),
+        locale: Locale("ar"),
+        fallbackLocale: Locale('ar'),
+      ),
+      // getPages: [GetPage(name: '/home', page: () => SigninPage())],
+    );
   }
 }
