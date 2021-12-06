@@ -33,25 +33,21 @@ class CategorysCard extends StatelessWidget {
               idcategory: datacontroller.id,
             ));
       },
-      child: new Container(
-        margin: EdgeInsets.symmetric(horizontal: Defaults.defaultPadding),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
+      child: Container(
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(5),
+          border: Border.all(
+            color: AppColors.greyColor,
+            width: 1,
+          ),
+        ),
+        child: Row(
+          crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             Expanded(
-              flex: 2,
-              child: Container(
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(5),
-                  border: Border.all(
-                    color: AppColors.mainColor,
-                    width: 2,
-                  ),
-                  image: DecorationImage(
-                    fit: BoxFit.cover,
-                    image: NetworkImage(datacontroller.avatar),
-                  ),
-                ),
+              child: Image.network(
+                datacontroller.avatar,
+                fit: BoxFit.contain,
               ),
             ),
             Expanded(

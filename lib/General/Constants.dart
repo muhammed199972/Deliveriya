@@ -75,6 +75,7 @@ final box = GetStorage();
 
 class AppColors {
   static const mainColor = Color(0xFFE73352);
+  static const lightmainColor = Color(0xFFFFE8EC);
   static const whiteColor = Color(0xFFFFFFFF);
   static const greyColor = Color(0xFF757272);
   static const blackColor = Color(0xFF000000);
@@ -86,6 +87,10 @@ class Styles {
       TextStyle(color: AppColors.mainColor, fontSize: 16);
   static const buttonStyle2 =
       TextStyle(color: AppColors.whiteColor, fontSize: 16);
+  static const categoryStyle = TextStyle(
+    color: AppColors.whiteColor,
+    fontSize: 16,
+  );
 }
 
 class Defaults {

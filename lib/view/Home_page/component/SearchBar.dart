@@ -24,10 +24,10 @@ class SearchBar extends StatelessWidget {
           ),
           margin: EdgeInsets.symmetric(horizontal: Defaults.defaultPadding),
           decoration: BoxDecoration(
-            color: AppColors.mainColor.withOpacity(0.2),
+            color: AppColors.lightmainColor,
             borderRadius: BorderRadius.circular(5),
             border: Border.all(
-              color: AppColors.greyColor,
+              color: AppColors.lightgreyColor,
               width: 1,
             ),
           ),
@@ -35,7 +35,7 @@ class SearchBar extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Text(
-                'Search',
+                'Let us help you find',
                 style: TextStyle(color: AppColors.greyColor),
               ),
               Icon(Icons.search, color: AppColors.greyColor)

@@ -47,11 +47,11 @@ class Offers_New extends StatelessWidget {
                       offer.checkStatuses();
                       if (offer.isOffStatuts.value || statuses.booloff.value) {
                         return Container(
-                          height: size.height * 0.07,
+                          height: size.height * 0.09,
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(13),
                             border: Border.all(
-                              color: AppColors.mainColor,
+                              color: AppColors.lightmainColor,
                               width: 1,
                             ),
                             image: DecorationImage(
@@ -72,11 +72,11 @@ class Offers_New extends StatelessWidget {
                           duration: const Duration(milliseconds: 2500),
                           delay: const Duration(milliseconds: 1),
                           child: Container(
-                            height: size.height * 0.07,
+                            height: size.height * 0.09,
                             decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(13),
                               border: Border.all(
-                                color: AppColors.mainColor,
+                                color: AppColors.lightmainColor,
                                 width: 1,
                               ),
                               image: DecorationImage(
@@ -92,14 +92,14 @@ class Offers_New extends StatelessWidget {
                       }
                     } else {
                       return Container(
-                        height: size.height * 0.07,
+                        height: size.height * 0.09,
                         child: Center(
                           child: CircularProgressIndicator(),
                         ),
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(13),
                           border: Border.all(
-                            color: AppColors.mainColor,
+                            color: AppColors.lightmainColor,
                             width: 1,
                           ),
                         ),
@@ -136,11 +136,11 @@ class Offers_New extends StatelessWidget {
                       adss.checkStatuses();
                       if (adss.isNewStatuts.value || statuses.boolnew.value) {
                         return Container(
-                          height: size.height * 0.07,
+                          height: size.height * 0.09,
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(13),
                             border: Border.all(
-                              color: AppColors.mainColor,
+                              color: AppColors.lightmainColor,
                               width: 1,
                             ),
                             image: DecorationImage(
@@ -161,11 +161,11 @@ class Offers_New extends StatelessWidget {
                           duration: const Duration(milliseconds: 2500),
                           delay: const Duration(milliseconds: 1),
                           child: Container(
-                            height: size.height * 0.07,
+                            height: size.height * 0.09,
                             decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(13),
                               border: Border.all(
-                                color: AppColors.mainColor,
+                                color: AppColors.lightmainColor,
                                 width: 1,
                               ),
                               image: DecorationImage(
@@ -181,7 +181,7 @@ class Offers_New extends StatelessWidget {
                       }
                     } else {
                       return Container(
-                        height: size.height * 0.07,
+                        height: size.height * 0.09,
                         child: Center(
                           child: CircularProgressIndicator(),
                         ),
