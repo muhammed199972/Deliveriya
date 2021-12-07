@@ -2,6 +2,7 @@ import 'package:delivery_food/General/Constants.dart';
 import 'package:delivery_food/controller/Auth_controller.dart';
 import 'package:delivery_food/view/Signin_Page/Component/Buttons.dart';
 import 'package:delivery_food/view/Signin_Page/Sign_in_page.dart';
+import 'package:delivery_food/view/navbar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
@@ -17,6 +18,11 @@ class ChoseSign extends StatelessWidget {
       body: Container(
         width: size.width,
         height: size.height,
+        decoration: BoxDecoration(
+          image: DecorationImage(
+            image: AssetImage('assets/png/background.png'),
+          ),
+        ),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
@@ -24,9 +30,7 @@ class ChoseSign extends StatelessWidget {
               padding: const EdgeInsets.only(top: Defaults.defaultPadding * 4),
               child: SvgPicture.asset('assets/svg/mainlogo.svg'),
             ),
-            Spacer(
-              flex: 2,
-            ),
+            Spacer(),
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 40),
               child: Column(
@@ -41,17 +45,20 @@ class ChoseSign extends StatelessWidget {
                           ));
                     },
                   ),
-                  Padding(
-                    padding: const EdgeInsets.symmetric(
-                        vertical: Defaults.defaultPadding),
-                    child: Text('OR'),
-                  ),
                   ButtonWidget(
                     size: size,
                     txt: 'Sign In',
                     onTap: () {
                       controller.authType.value = 'login';
                       Get.to(() => SigninPage(txtButton: 'Sign in'));
+                    },
+                  ),
+                  ButtonWidget(
+                    size: size,
+                    txt: 'Guest',
+                    onTap: () {
+                      controller.authType.value = 'login';
+                      Get.to(() => BottomBar());
                     },
                   ),
                 ],
