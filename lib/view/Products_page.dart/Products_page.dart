@@ -131,7 +131,7 @@ class ProduvtsView extends StatelessWidget {
                           horizontal: Defaults.defaultPadding),
                       child: StaggeredGridView.countBuilder(
                         shrinkWrap: true,
-                        crossAxisCount: 2,
+                        crossAxisCount: 3,
                         itemCount: prodController.products.length,
                         itemBuilder: (BuildContext context, int index) {
                           return FullCard(
@@ -142,7 +142,7 @@ class ProduvtsView extends StatelessWidget {
                           );
                         },
                         staggeredTileBuilder: (int index) =>
-                            new StaggeredTile.count(1, 1.3),
+                            new StaggeredTile.count(1, 1.31),
                         mainAxisSpacing: 25,
                         crossAxisSpacing: 15,
                       ),

@@ -91,6 +91,8 @@ class Styles {
     color: AppColors.whiteColor,
     fontSize: 16,
   );
+  static const priceStyle =
+      TextStyle(color: AppColors.blackColor, fontSize: 12);
 }
 
 class Defaults {
