@@ -60,46 +60,92 @@ class FavoriteView extends StatelessWidget {
                     ])
           ],
         ),
-        body: Constansbox.box.read('favorite').isNotEmpty
-            ? Obx(() {
-                return favoriteController.favorites.length != 0
-                    ? Column(
-                        children: [
-                          Expanded(
-                            flex: 5,
-                            child: Container(
-                              margin: EdgeInsets.symmetric(
-                                  horizontal: Defaults.defaultPadding),
-                              child:
-                                  //  Obx(() {
-                                  //   return
-                                  StaggeredGridView.countBuilder(
-                                shrinkWrap: true,
-                                crossAxisCount: 2,
-                                itemCount: favoriteController.favorites.length,
-                                itemBuilder: (BuildContext context, int index) {
-                                  return FullCard(
-                                      isCart: true,
-                                      size: size,
-                                      product:
-                                          favoriteController.favorites[index]);
-                                },
-                                staggeredTileBuilder: (int index) =>
-                                    new StaggeredTile.count(1, 1.3),
-                                mainAxisSpacing: 25,
-                                crossAxisSpacing: 15,
-                              ),
-                              // }),
-                            ),
+        body: statusCode.Token != ''
+            ? Constansbox.box.read('favorite').isNotEmpty
+                ? Obx(() {
+                    return favoriteController.favorites.length != 0
+                        ? Column(
+                            children: [
+                              Expanded(
+                                flex: 5,
+                                child: Container(
+                                  margin: EdgeInsets.symmetric(
+                                      horizontal: Defaults.defaultPadding),
+                                  child:
+                                      //  Obx(() {
+                                      //   return
+                                      StaggeredGridView.countBuilder(
+                                    shrinkWrap: true,
+                                    crossAxisCount: 2,
+                                    itemCount:
+                                        favoriteController.favorites.length,
+                                    itemBuilder:
+                                        (BuildContext context, int index) {
+                                      return FullCard(
+                                          isCart: true,
+                                          size: size,
+                                          product: favoriteController
+                                              .favorites[index]);
+                                    },
+                                    staggeredTileBuilder: (int index) =>
+                                        new StaggeredTile.count(1, 1.3),
+                                    mainAxisSpacing: 25,
+                                    crossAxisSpacing: 15,
+                                  ),
+                                  // }),
+                                ),
+                              )
+                            ],
                           )
-                        ],
-                      )
-                    : Center(
-                        child: CircularProgressIndicator(),
-                      );
-              })
-            : Center(
-                child: Text('Favorites list is empty .....'),
-              ));
+                        : Center(
+                            child: CircularProgressIndicator(),
+                          );
+                  })
+                : Center(
+                    child: Text('Favorites list is empty .....'),
+                  )
+            : Constansbox.box.read('favorite').isNotEmpty
+                ? Obx(() {
+                    print(prodController.products.length);
+                    return prodController.products.length != 0
+                        ? Column(
+                            children: [
+                              Expanded(
+                                flex: 5,
+                                child: Container(
+                                  margin: EdgeInsets.symmetric(
+                                      horizontal: Defaults.defaultPadding),
+                                  child:
+                                      //  Obx(() {
+                                      //   return
+                                      StaggeredGridView.countBuilder(
+                                    shrinkWrap: true,
+                                    crossAxisCount: 2,
+                                    itemCount: prodController.products.length,
+                                    itemBuilder:
+                                        (BuildContext context, int index) {
+                                      return FullCard(
+                                          isCart: true,
+                                          size: size,
+                                          product:
+                                              prodController.products[index]);
+                                    },
+                                    staggeredTileBuilder: (int index) =>
+                                        new StaggeredTile.count(1, 1.3),
+                                    mainAxisSpacing: 25,
+                                    crossAxisSpacing: 15,
+                                  ),
+                                  // }),
+                                ),
+                              )
+                            ],
+                          )
+                        : Center(
+                            child: CircularProgressIndicator(),
+                          );
+                  })
+                : Center(
+                    child: Text('Favorites list is empty .....'),
+                  ));
   }
 }

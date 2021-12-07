@@ -150,92 +150,90 @@ class ProductService {
 
     try {
       var response;
-      try {
-        response = await dio.post(
-            'http://' + statusCode.url1 + '/api/public/product',
-            data: {"ids": Listproduct});
-      } on DioError catch (e) {
-        print(e.response!.statusCode);
 
-        if (e.response!.statusCode == statusCode.OK ||
-            e.response!.statusCode == statusCode.CREATED) {
-          status = ProductsStatus.fromJson(response['status']);
-          if (response['response'] != null) {
-            for (var item in response['response']) {
-              calendar.add(ProductsResponse.fromJson(item));
-            }
-            apiResult.errorMassage = status.msg;
-            apiResult.codeError = status.code;
-            apiResult.hasError = false;
-            apiResult.data = calendar;
+      response = await dio.post(
+          'http://' + statusCode.url1 + '/api/public/product',
+          data: {"ids": Listproduct});
+
+      if (response!.statusCode == statusCode.OK ||
+          response!.statusCode == statusCode.CREATED) {
+        print('[[[[[[object]]]]]]');
+        status = ProductsStatus.fromJson(response.data['status']);
+        if (response.data['response'] != null) {
+          for (var item in response.data['response']) {
+            calendar.add(ProductsResponse.fromJson(item));
           }
-        } else if (e.response!.statusCode == statusCode.BAD_REQUEST) {
-          status = ProductsStatus.fromJson(response['status']);
-          error = ErrorResponse.fromJson(response['errors']);
-          apiResult.errorMassage = error.msg;
+          apiResult.errorMassage = status.msg;
           apiResult.codeError = status.code;
-          apiResult.hasError = true;
+          apiResult.hasError = false;
           apiResult.data = calendar;
-          print('A bad request Please try again');
-        } else if (e.response!.statusCode == statusCode.UNAUTHORIZED) {
-          status = ProductsStatus.fromJson(response['status']);
-
-          error = ErrorResponse.fromJson(response['errors']);
-          apiResult.errorMassage = error.msg;
-          apiResult.codeError = status.code;
-          apiResult.hasError = true;
-          await authController.postrefreshToken();
-          getListproductsData(offset, limit, Listproduct);
-
-          print('A bad request Please try again');
-        } else if (e.response!.statusCode == statusCode.FORBIDDEN) {
-          status = ProductsStatus.fromJson(response['status']);
-
-          error = ErrorResponse.fromJson(response['errors']);
-          apiResult.errorMassage = error.msg;
-          apiResult.codeError = status.code;
-          apiResult.hasError = true;
-          print('A bad request Please try again');
-        } else if (e.response!.statusCode == statusCode.NOT_FOUND) {
-          status = ProductsStatus.fromJson(response['status']);
-
-          error = ErrorResponse.fromJson(response['errors']);
-          apiResult.errorMassage = error.msg;
-          apiResult.codeError = status.code;
-          apiResult.hasError = true;
-          print('Endpoint not found Please try again');
-        } else if (e.response!.statusCode == statusCode.DUPLICATED_ENTRY) {
-          status = ProductsStatus.fromJson(response['status']);
-
-          error = ErrorResponse.fromJson(response['errors']);
-          apiResult.errorMassage = error.msg;
-          apiResult.codeError = status.code;
-          apiResult.hasError = true;
-          print('Input error Please try again');
-        } else if (e.response!.statusCode == statusCode.VALIDATION_ERROR) {
-          status = ProductsStatus.fromJson(response['status']);
-
-          error = ErrorResponse.fromJson(response['errors']);
-          apiResult.errorMassage = error.msg;
-          apiResult.codeError = status.code;
-          apiResult.hasError = true;
-          print('Input error Please try again');
-        } else if (e.response!.statusCode == statusCode.INTERNAL_SERVER_ERROR) {
-          status = ProductsStatus.fromJson(response['status']);
-
-          error = ErrorResponse.fromJson(response['errors']);
-          apiResult.errorMassage = error.msg;
-          apiResult.codeError = status.code;
-          apiResult.hasError = true;
-          print('Server error Please try again');
-        } else {
-          status = ProductsStatus.fromJson(response['status']);
-          error = ErrorResponse.fromJson(response['errors']);
-          apiResult.errorMassage = error.msg;
-          apiResult.codeError = status.code;
-          apiResult.hasError = true;
-          print(' error Please try again');
         }
+      } else if (response!.statusCode == statusCode.BAD_REQUEST) {
+        status = ProductsStatus.fromJson(response.data['status']);
+        error = ErrorResponse.fromJson(response.data['errors']);
+        apiResult.errorMassage = error.msg;
+        apiResult.codeError = status.code;
+        apiResult.hasError = true;
+        apiResult.data = calendar;
+        print('A bad request Please try again');
+      } else if (response!.statusCode == statusCode.UNAUTHORIZED) {
+        status = ProductsStatus.fromJson(response.data['status']);
+
+        error = ErrorResponse.fromJson(response.data['errors']);
+        apiResult.errorMassage = error.msg;
+        apiResult.codeError = status.code;
+        apiResult.hasError = true;
+        await authController.postrefreshToken();
+        getListproductsData(offset, limit, Listproduct);
+
+        print('A bad request Please try again');
+      } else if (response!.statusCode == statusCode.FORBIDDEN) {
+        status = ProductsStatus.fromJson(response.data['status']);
+
+        error = ErrorResponse.fromJson(response.data['errors']);
+        apiResult.errorMassage = error.msg;
+        apiResult.codeError = status.code;
+        apiResult.hasError = true;
+        print('A bad request Please try again');
+      } else if (response!.statusCode == statusCode.NOT_FOUND) {
+        status = ProductsStatus.fromJson(response.data['status']);
+
+        error = ErrorResponse.fromJson(response.data['errors']);
+        apiResult.errorMassage = error.msg;
+        apiResult.codeError = status.code;
+        apiResult.hasError = true;
+        print('Endpoint not found Please try again');
+      } else if (response!.statusCode == statusCode.DUPLICATED_ENTRY) {
+        status = ProductsStatus.fromJson(response.data['status']);
+
+        error = ErrorResponse.fromJson(response.data['errors']);
+        apiResult.errorMassage = error.msg;
+        apiResult.codeError = status.code;
+        apiResult.hasError = true;
+        print('Input error Please try again');
+      } else if (response!.statusCode == statusCode.VALIDATION_ERROR) {
+        status = ProductsStatus.fromJson(response.data['status']);
+
+        error = ErrorResponse.fromJson(response.data['errors']);
+        apiResult.errorMassage = error.msg;
+        apiResult.codeError = status.code;
+        apiResult.hasError = true;
+        print('Input error Please try again');
+      } else if (response!.statusCode == statusCode.INTERNAL_SERVER_ERROR) {
+        status = ProductsStatus.fromJson(response.data['status']);
+
+        error = ErrorResponse.fromJson(response.data['errors']);
+        apiResult.errorMassage = error.msg;
+        apiResult.codeError = status.code;
+        apiResult.hasError = true;
+        print('Server error Please try again');
+      } else {
+        status = ProductsStatus.fromJson(response.data['status']);
+        error = ErrorResponse.fromJson(response.data['errors']);
+        apiResult.errorMassage = error.msg;
+        apiResult.codeError = status.code;
+        apiResult.hasError = true;
+        print(' error Please try again');
       }
     } on SocketException {
       apiResult.errorMassage = 'Make sure you are connected to the internet';
