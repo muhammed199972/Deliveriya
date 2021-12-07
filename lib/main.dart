@@ -46,8 +46,8 @@ class MyApp extends StatelessWidget {
 
         home: BottomBar(),
         translations: Translation(),
-        locale: Locale("ar"),
-        fallbackLocale: Locale('ar'),
+        locale: Locale("en"),
+        fallbackLocale: Locale('en'),
       ),
       // getPages: [GetPage(name: '/home', page: () => SigninPage())],
     );

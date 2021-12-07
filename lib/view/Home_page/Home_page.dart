@@ -67,7 +67,7 @@ class HomeView extends StatelessWidget {
                           : ShimmerWidget.offersNewLoading(),
                       Padding(
                         padding: const EdgeInsets.all(Defaults.defaultPadding),
-                        child: Text('Category'),
+                        child: Text('category'.tr),
                       ),
                       Container(
                         child: !controller.isLoading.value
@@ -83,8 +83,9 @@ class HomeView extends StatelessWidget {
                                   datacontroller: controller.categorys[index],
                                 ),
                                 staggeredTileBuilder: (int index) =>
-                                    new StaggeredTile.count(1, 0.6),
-                                mainAxisSpacing: 5,
+                                    new StaggeredTile.count(1, 0.43),
+                                mainAxisSpacing: 11,
+                                crossAxisSpacing: 11,
                               )
                             : ShimmerWidget.categoryLoading(),
                       ),

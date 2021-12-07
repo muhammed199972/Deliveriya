@@ -18,25 +18,28 @@ class LogoStatus extends StatelessWidget {
               typeclass: 'logo',
             ));
       },
-      child: Stack(
-        children: [
-          RippleAnimation(
-            repeat: true,
-            color: AppColors.mainColor,
-            minRadius: 20,
-            ripplesCount: 10,
-            duration: const Duration(milliseconds: 3000),
-            delay: const Duration(milliseconds: 5),
-            child: Container(),
-          ),
-          Center(
-              child: Container(
-                  decoration: BoxDecoration(
-                    shape: BoxShape.circle,
-                    color: Colors.white,
-                  ),
-                  child: Image.asset('assets/png/logo.png'))),
-        ],
+      child: Padding(
+        padding: const EdgeInsets.only(top: Defaults.defaultPadding),
+        child: Stack(
+          children: [
+            RippleAnimation(
+              repeat: true,
+              color: AppColors.mainColor,
+              minRadius: 35,
+              ripplesCount: 7,
+              duration: const Duration(milliseconds: 3000),
+              delay: const Duration(milliseconds: 5),
+              child: Container(),
+            ),
+            Center(
+                child: Container(
+                    decoration: BoxDecoration(
+                      shape: BoxShape.circle,
+                      color: Colors.white,
+                    ),
+                    child: Image.asset('assets/png/logo.png'))),
+          ],
+        ),
       ),
     );
   }
