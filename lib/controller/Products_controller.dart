@@ -86,8 +86,6 @@ class ProductsController extends GetxController {
             });
       }
     } catch (e) {
-      hasError.value = apiResult.hasError!;
-      massage.value = apiResult.errorMassage!;
       DialogsUtils.showdialog(
           m: 'حدث خطأ غير متوقع',
           onPressed: () {

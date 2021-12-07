@@ -28,6 +28,10 @@ class MyApp extends StatelessWidget {
 
     Constansbox.box.writeIfNull('accessToken', '');
     Constansbox.box.writeIfNull('refreshToken', '');
+//  Constansbox.box.remove('New');
+//     Constansbox.box.remove('offers');
+//     Constansbox.box.remove('favorite');
+//     Constansbox.box.remove('carts');
 
     return ScreenUtilInit(
       designSize: Size(411, 683),
@@ -46,8 +50,8 @@ class MyApp extends StatelessWidget {
 
         home: BottomBar(),
         translations: Translation(),
-        locale: Locale("ar"),
-        fallbackLocale: Locale('ar'),
+        locale: Locale("en"),
+        fallbackLocale: Locale('en'),
       ),
       // getPages: [GetPage(name: '/home', page: () => SigninPage())],
     );
