@@ -14,7 +14,7 @@ class CategorysCard extends StatelessWidget {
   SubcategorysControllers subcategory = Get.find<SubcategorysControllers>();
   CategorysController controller = Get.find<CategorysController>();
   var prodController = Get.find<ProductsController>();
-
+  StatusCode statusCode = StatusCode();
   @override
   Widget build(BuildContext context) {
     return InkWell(
@@ -46,7 +46,7 @@ class CategorysCard extends StatelessWidget {
           children: [
             Expanded(
               child: Image.network(
-                datacontroller.avatar,
+                statusCode.urlimage + datacontroller.avatar,
                 fit: BoxFit.contain,
               ),
             ),

@@ -30,12 +30,16 @@ class HomeView extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.end,
                   children: [
                     Spacer(),
-                    Expanded(flex: 2, child: LogoStatus()),
                     Expanded(
+                        flex: 2,
+                        child: Padding(
+                            padding: EdgeInsets.only(top: 20),
+                            child: LogoStatus())),
+                    Expanded(
+                      flex: 1,
                       child: Padding(
                         padding: const EdgeInsets.only(
-                          bottom: Defaults.defaultPadding * 2,
-                        ),
+                            bottom: Defaults.defaultPadding * 2, right: 2),
                         child: Row(
                           children: [
                             Text(

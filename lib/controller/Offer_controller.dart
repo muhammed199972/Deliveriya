@@ -23,15 +23,15 @@ class OfferController extends GetxController {
 
   checkStatuses() {
     var off = Constansbox.box.read('offers');
-    bool? check;
+    bool check = true;
     for (int i = 0; i < offers.length; i++) {
       check = off.any((element) => element == offers[i].id ? true : false);
-      if (!check!) {
+      if (!check) {
+        isOffStatuts.value = check;
+
         break;
       }
     }
-
-    isOffStatuts.value = check!;
   }
 
   getoffers() async {

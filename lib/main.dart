@@ -4,6 +4,7 @@ import 'package:bot_toast/bot_toast.dart';
 import 'package:delivery_food/Binds.dart';
 import 'package:delivery_food/General/Constants.dart';
 import 'package:delivery_food/lang/traranslation.dart';
+import 'package:delivery_food/view/Home_page/Home_page.dart';
 import 'package:delivery_food/view/Signin_Page/Choose_Page.dart';
 import 'package:delivery_food/view/navbar.dart';
 import 'package:flutter/material.dart';
@@ -49,7 +50,7 @@ class MyApp extends StatelessWidget {
           primarySwatch: Colors.red,
         ),
 
-        home: ChoseSign(),
+        home: BottomBar(),
         translations: Translation(),
         locale: Locale("en"),
         fallbackLocale: Locale('en'),
