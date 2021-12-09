@@ -77,9 +77,10 @@ class AppColors {
   static const mainColor = Color(0xFFE73352);
   static const lightmainColor = Color(0xFFFFE8EC);
   static const whiteColor = Color(0xFFFFFFFF);
-  static const greyColor = Color(0xFF757272);
   static const blackColor = Color(0xFF000000);
+  static const greyColor = Color(0xFF757272);
   static const lightgreyColor = Color(0xFFC4C4C4);
+  static const lightgrey2Color = Color(0xFFEFEFEF);
 }
 
 class Styles {

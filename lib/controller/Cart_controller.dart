@@ -6,6 +6,7 @@ import 'package:delivery_food/model/Delete.dart';
 import 'package:delivery_food/model/Patch_data.dart';
 import 'package:delivery_food/model/Post_data.dart';
 import 'package:delivery_food/services/Cart_services.dart';
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class CartController extends GetxController {
@@ -24,10 +25,19 @@ class CartController extends GetxController {
   var isLoading = true.obs;
   ApiResult apiResult = ApiResult();
   CartService cartService = CartService();
+  ScrollController listScrollController = ScrollController();
+  var maxscroll = false.obs;
 
   @override
   void onInit() {
     // getcart();
+    listScrollController.addListener(() {
+      if (listScrollController.position.pixels ==
+          listScrollController.position.maxScrollExtent) {
+        maxscroll.value = true;
+      } else
+        maxscroll.value = false;
+    });
     super.onInit();
   }
 
@@ -145,5 +155,18 @@ class CartController extends GetxController {
     } finally {
       BotToast.closeAllLoading();
     }
+  }
+
+  changecontrollerscroll() {
+    WidgetsBinding.instance!.addPostFrameCallback(
+      (_) {
+        if (listScrollController.hasClients) {
+          listScrollController.animateTo(
+              listScrollController.position.pixels + 185,
+              duration: Duration(milliseconds: 1000),
+              curve: Curves.fastOutSlowIn);
+        }
+      },
+    );
   }
 }

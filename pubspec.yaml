@@ -22,7 +22,8 @@ environment:
 
 dependencies:
   bot_toast: ^4.0.1
-  # connectivity_plus: ^2.1.0
+  dio: ^4.0.4
+  expandable: ^5.0.1
   filter_list: ^1.0.0
   flutter:
     sdk: flutter
@@ -36,8 +37,7 @@ dependencies:
   ripple_animation: ^0.0.1+2
   shimmer: ^2.0.0
   story_view: ^0.13.1
-  dio: ^4.0.4
-  
+
 dev_dependencies:
   flutter_test:
     sdk: flutter
