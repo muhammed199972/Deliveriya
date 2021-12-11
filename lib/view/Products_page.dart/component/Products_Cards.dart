@@ -39,7 +39,7 @@ class FullCard extends StatelessWidget {
     return Stack(
       children: [
         Container(
-          height: size.height * 0.17,
+          height: size.height * 0.18,
           padding: EdgeInsets.only(right: Defaults.defaultPadding / 2),
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(5.0),
@@ -115,7 +115,7 @@ class FullCard extends StatelessWidget {
                             color: isCart!
                                 //  cart.value
                                 ? AppColors.mainColor
-                                : AppColors.greyColor,
+                                : Colors.grey[800],
                             width: 20,
                           ),
                         ),
