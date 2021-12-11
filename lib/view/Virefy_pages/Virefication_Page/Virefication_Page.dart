@@ -1,6 +1,6 @@
 import 'package:delivery_food/General/Constants.dart';
 import 'package:delivery_food/controller/Auth_controller.dart';
-import 'package:delivery_food/view/Signin_Page/Component/TextField.dart';
+import 'package:delivery_food/view/Virefy_pages/Component/TextField.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_svg/svg.dart';
@@ -9,8 +9,8 @@ import 'package:otp_text_field/otp_field.dart';
 import 'package:otp_text_field/otp_field_style.dart';
 import 'package:otp_text_field/style.dart';
 
-class SigninPage extends StatelessWidget {
-  SigninPage({Key? key, required this.txtButton}) : super(key: key);
+class VerificationPage extends StatelessWidget {
+  VerificationPage({Key? key, required this.txtButton}) : super(key: key);
   String txtButton;
   final _phoneController = TextEditingController();
   final _codeController = TextEditingController();
@@ -24,6 +24,11 @@ class SigninPage extends StatelessWidget {
         child: Container(
           width: size.width,
           height: size.height,
+          decoration: BoxDecoration(
+            image: DecorationImage(
+              image: AssetImage('assets/png/background.png'),
+            ),
+          ),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [

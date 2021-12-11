@@ -1,7 +1,8 @@
 import 'package:delivery_food/General/Constants.dart';
 import 'package:delivery_food/controller/Auth_controller.dart';
-import 'package:delivery_food/view/Signin_Page/Component/Buttons.dart';
-import 'package:delivery_food/view/Signin_Page/Sign_in_page.dart';
+import 'package:delivery_food/view/Virefy_pages/Component/Buttons.dart';
+import 'package:delivery_food/view/Virefy_pages/Signin_Page/Sign_in_page.dart';
+import 'package:delivery_food/view/Virefy_pages/Signup_Page/Sign_up_page.dart';
 import 'package:delivery_food/view/navbar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
@@ -40,7 +41,7 @@ class ChoseSign extends StatelessWidget {
                     txt: 'Sign Up',
                     onTap: () {
                       controller.authType.value = 'signup';
-                      Get.to(() => SigninPage(
+                      Get.to(() => SignupPage(
                             txtButton: 'Sign Up',
                           ));
                     },

@@ -15,6 +15,7 @@ class AuthController extends GetxController {
   var massage = ''.obs;
   var sendcode = false.obs;
   var authType = ''.obs;
+  var ispass = false.obs;
   ApiResult apiResult = ApiResult();
   AuthService authservice = AuthService();
   Constans Constansbox = Constans();
