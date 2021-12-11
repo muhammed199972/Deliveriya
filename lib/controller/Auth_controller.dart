@@ -5,6 +5,7 @@ import 'package:delivery_food/General/Dialogs.dart';
 import 'package:delivery_food/model/Auth_model.dart';
 import 'package:delivery_food/services/Auth_service.dart';
 import 'package:delivery_food/view/Home_page/Home_page.dart';
+import 'package:delivery_food/view/Virefy_pages/Signup_Page/Sign_up_page.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -64,7 +65,9 @@ class AuthController extends GetxController {
         Constansbox.box
             .write('refreshToken', signUpResponse.value.data!.refreshToken);
         hasError.value = apiResult.hasError!;
-        Get.offAll(HomeView());
+        Get.offAll(SignupPage(
+          txtButton: 'Sign Up',
+        ));
       } else {
         hasError.value = apiResult.hasError!;
         massage.value = apiResult.errorMassage!;
