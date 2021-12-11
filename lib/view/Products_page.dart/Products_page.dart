@@ -142,7 +142,7 @@ class ProduvtsView extends StatelessWidget {
                           );
                         },
                         staggeredTileBuilder: (int index) =>
-                            new StaggeredTile.count(1, 1.31),
+                            new StaggeredTile.count(1, 1.13),
                         mainAxisSpacing: 25,
                         crossAxisSpacing: 15,
                       ),
