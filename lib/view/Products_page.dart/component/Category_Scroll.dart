@@ -11,6 +11,7 @@ class CategorysScroll extends StatelessWidget {
     this.iSfavorite,
     required this.size,
   }) : super(key: key);
+  StatusCode statusCode = StatusCode();
 
   final Size size;
   bool? iSfavorite;
@@ -77,8 +78,9 @@ class CategorysScroll extends StatelessWidget {
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
                             Expanded(
-                              child: Image.asset(
-                                'assets/png/logo.png',
+                              child: Image.network(
+                                statusCode.urlimage +
+                                    category.categorys[index].icon!,
                                 color: category.value.value ==
                                         category.categorys[index].id
                                     ? AppColors.mainColor

@@ -53,7 +53,8 @@ class CategorysCard extends StatelessWidget {
             Expanded(
               child: Padding(
                 padding: const EdgeInsets.all(Defaults.defaultPadding / 2 - 5),
-                child: Text(datacontroller.name),
+                child: FittedBox(
+                    fit: BoxFit.scaleDown, child: Text(datacontroller.name)),
               ),
             )
           ],

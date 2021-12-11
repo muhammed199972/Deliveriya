@@ -73,25 +73,28 @@ class HomeView extends StatelessWidget {
                         padding: const EdgeInsets.all(Defaults.defaultPadding),
                         child: Text('category'.tr),
                       ),
-                      Container(
-                        child: !controller.isLoading.value
-                            ? StaggeredGridView.countBuilder(
-                                shrinkWrap: true,
-                                physics: NeverScrollableScrollPhysics(),
-                                crossAxisCount: 3,
-                                itemCount: controller.categorys.length,
-                                itemBuilder:
-                                    (BuildContext context, int index) =>
-                                        CategorysCard(
-                                  index: index,
-                                  datacontroller: controller.categorys[index],
-                                ),
-                                staggeredTileBuilder: (int index) =>
-                                    new StaggeredTile.count(1, 0.43),
-                                mainAxisSpacing: 11,
-                                crossAxisSpacing: 11,
-                              )
-                            : ShimmerWidget.categoryLoading(),
+                      Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Container(
+                          child: !controller.isLoading.value
+                              ? StaggeredGridView.countBuilder(
+                                  shrinkWrap: true,
+                                  physics: NeverScrollableScrollPhysics(),
+                                  crossAxisCount: 3,
+                                  itemCount: controller.categorys.length,
+                                  itemBuilder:
+                                      (BuildContext context, int index) =>
+                                          CategorysCard(
+                                    index: index,
+                                    datacontroller: controller.categorys[index],
+                                  ),
+                                  staggeredTileBuilder: (int index) =>
+                                      new StaggeredTile.count(1, 0.43),
+                                  mainAxisSpacing: 11,
+                                  crossAxisSpacing: 11,
+                                )
+                              : ShimmerWidget.categoryLoading(),
+                        ),
                       ),
                     ],
                   )),
