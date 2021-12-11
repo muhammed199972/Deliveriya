@@ -23,9 +23,9 @@ class FavoriteController extends GetxController {
     super.onInit();
   }
 
-  getfavorite(int offset, int limit) async {
+  getfavorite() async {
     try {
-      apiResult = await favoriteService.getfavoriteData(offset, limit);
+      apiResult = await favoriteService.getfavoriteData();
       if (!apiResult.hasError!) {
         favorites.value = apiResult.data;
         hasError.value = apiResult.hasError!;

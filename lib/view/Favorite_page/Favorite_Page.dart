@@ -25,7 +25,7 @@ class FavoriteView extends StatelessWidget {
       fav.forEach((e) => favo.add(e));
       prodController.getListproduct(limit: 8, offset: 0, Listproduct: favo);
     } else {
-      favoriteController.getfavorite(0, 8);
+      favoriteController.getfavorite();
     }
 
     return Scaffold(
