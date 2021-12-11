@@ -16,12 +16,12 @@ enum MediaType { image, video, text }
 class Story {
   final MediaType? mediaType;
   final String? media;
-  final String? caption;
+  final String? color;
 
   Story({
     this.mediaType,
     this.media,
-    this.caption,
+    this.color,
   });
 }
 
@@ -41,6 +41,7 @@ class StatusesController extends GetxController {
   OfferController? off;
   var boolnew = false.obs;
   var booloff = false.obs;
+  var boollogo = true.obs;
 
   var date = '';
 
@@ -75,7 +76,7 @@ class StatusesController extends GetxController {
   mediastatuse(var statuse) {
     final res = statuse.map<Story>((it) {
       return Story(
-          caption: it.caption,
+          color: it.color,
           media: it.media,
           mediaType: _translateType(it.mediaType));
     }).toList();
@@ -94,14 +95,10 @@ class StatusesController extends GetxController {
       }
 
       if (story.mediaType == MediaType.image) {
-        print('[[[[[[[[[[[object]]]]]]]]]]]');
-        print('https://' + statusCode.url1 + '/' + story.media);
-        print('[[[[[[[[[[[object]]]]]]]]]]]');
-
         statusItems.add(StoryItem.pageImage(
           url: statusCode.urlimage + story.media!,
           controller: controller,
-          caption: story.caption,
+          // caption: story.caption,
           duration: Duration(
             milliseconds: (5 * 1000).toInt(),
           ),
@@ -113,8 +110,9 @@ class StatusesController extends GetxController {
           StoryItem.pageVideo(
             statusCode.urlimage + story.media!,
             controller: controller,
+
             duration: Duration(milliseconds: (5 * 1000).toInt()),
-            caption: story.caption,
+            // caption: 'lllllllll',
           ),
         );
       }
@@ -123,11 +121,9 @@ class StatusesController extends GetxController {
 
   storeStatuses(var items, String typeclass) {
     if (typeclass == 'logo') {
-      print(ilogo);
-      print(offers.length);
-
       if (ilogo < offers.length) {
-        print(';;;;;;;;');
+        print(boollogo.value);
+        boollogo.value = true;
         var off = Constansbox.box.read('offers');
         for (int i = ioffers; i < offers.length; i++) {
           var bo = off.any((element) => element != offers[i].id ? false : true);
@@ -148,8 +144,10 @@ class StatusesController extends GetxController {
 
         // print(Constansbox.box.read('offers'));
       } else {
-        var New = Constansbox.box.read('New');
+        print(boollogo.value);
 
+        boollogo.value = false;
+        var New = Constansbox.box.read('New');
         for (int i = iNew; i < adss.length; i++) {
           var bo = New.any((element) => element != adss[i].id ? false : true);
           if (!bo) {
@@ -171,6 +169,8 @@ class StatusesController extends GetxController {
     // print(Constansbox.box.read('New'));
 
     if (typeclass == 'New') {
+      boollogo.value = false;
+
       var New = Constansbox.box.read('New');
 
       for (int i = iNew; i < adss.length; i++) {
@@ -190,6 +190,8 @@ class StatusesController extends GetxController {
     }
 
     if (typeclass == 'Offers') {
+      boollogo.value = true;
+
       var off = Constansbox.box.read('offers');
       for (int i = ioffers; i < offers.length; i++) {
         var bo = off.any((element) => element != offers[i].id ? false : true);
@@ -245,7 +247,16 @@ class StatusesController extends GetxController {
         adss = apiResultAds.data;
         hasError = apiResultAds.hasError!;
         statusItems = [];
-        mediastatuse(adss);
+        var ads = [];
+        print('[[[[[[[[[object]]]]]]]]]');
+        adss.forEach((ad) {
+          print(ad.type);
+          if (ad.type == 'ad') {
+            ads.add(ad);
+          }
+        });
+
+        mediastatuse(ads);
 
         update();
       } else {

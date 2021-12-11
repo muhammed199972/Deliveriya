@@ -4,7 +4,7 @@ class OffersResponse {
   int? beforePrice;
   String? media;
   String? mediaType;
-  String? caption;
+  String? color;
   String? name;
   String? createdAt;
   String? updatedAt;
@@ -15,7 +15,7 @@ class OffersResponse {
       this.beforePrice,
       this.media,
       this.mediaType,
-      this.caption,
+      this.color,
       this.name,
       this.createdAt,
       this.updatedAt});
@@ -26,7 +26,7 @@ class OffersResponse {
     beforePrice = json['beforePrice'];
     media = json['media'];
     mediaType = json['mediaType'];
-    caption = json['caption'];
+    color = json['color'];
     name = json['name'];
     createdAt = json['createdAt'];
     updatedAt = json['updatedAt'];
@@ -39,7 +39,7 @@ class OffersResponse {
     data['beforePrice'] = this.beforePrice;
     data['media'] = this.media;
     data['mediaType'] = this.mediaType;
-    data['caption'] = this.caption;
+    data['color'] = this.color;
     data['name'] = this.name;
     data['createdAt'] = this.createdAt;
     data['updatedAt'] = this.updatedAt;

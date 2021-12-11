@@ -21,8 +21,8 @@ class AdsResponse {
   int? id;
   String? media;
   String? mediaType;
-  String? caption;
-  String? url;
+  String? color;
+  String? type;
   String? createdAt;
   String? updatedAt;
 
@@ -30,8 +30,8 @@ class AdsResponse {
       {this.id,
       this.media,
       this.mediaType,
-      this.caption,
-      this.url,
+      this.color,
+      this.type,
       this.createdAt,
       this.updatedAt});
 
@@ -39,8 +39,8 @@ class AdsResponse {
     id = json['id'];
     media = json['media'];
     mediaType = json['mediaType'];
-    caption = json['caption'];
-    url = json['url'];
+    color = json['color'];
+    type = json['type'];
     createdAt = json['createdAt'];
     updatedAt = json['updatedAt'];
   }
@@ -50,8 +50,8 @@ class AdsResponse {
     data['id'] = this.id;
     data['media'] = this.media;
     data['mediaType'] = this.mediaType;
-    data['caption'] = this.caption;
-    data['url'] = this.url;
+    data['color'] = this.color;
+    data['type'] = this.type;
     data['createdAt'] = this.createdAt;
     data['updatedAt'] = this.updatedAt;
     return data;

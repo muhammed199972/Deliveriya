@@ -165,18 +165,19 @@ class Offers_New extends StatelessWidget {
                           child: Carousel(
                             images: [
                               for (int i = 0; i < adss.adss.length; i++)
-                                GestureDetector(
-                                  onTap: () async {
-                                    Get.to(() => Statuses(
-                                          typeclass: 'New',
-                                        ));
-                                  },
-                                  child: Image.network(
-                                    statusCode.urlimage +
-                                        adss.adss[i].media.toString(),
-                                    fit: BoxFit.fill,
+                                if (adss.adss[i].type == 'ad')
+                                  GestureDetector(
+                                    onTap: () async {
+                                      Get.to(() => Statuses(
+                                            typeclass: 'New',
+                                          ));
+                                    },
+                                    child: Image.network(
+                                      statusCode.urlimage +
+                                          adss.adss[i].media.toString(),
+                                      fit: BoxFit.fill,
+                                    ),
                                   ),
-                                ),
                             ],
                             dotSize: 4.0,
                             dotSpacing: 25.0,
