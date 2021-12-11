@@ -39,6 +39,7 @@ class FullCard extends StatelessWidget {
     return Stack(
       children: [
         Container(
+          height: size.height * 0.17,
           padding: EdgeInsets.only(right: Defaults.defaultPadding / 2),
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(5.0),
@@ -80,91 +81,93 @@ class FullCard extends StatelessWidget {
                   ),
                 ]),
                 SizedBox(
-                  height: 12,
+                  height: 5,
                 ),
                 Text(product!.name!),
-                Row(
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    // Obx(() =>
-                    Expanded(
-                      child: InkWell(
-                        splashColor: Colors.transparent,
-                        highlightColor: Colors.transparent,
-                        onTap: () {
-                          if (isCart!) {
-                            cartController.deletecart(product!.id.toString());
-                            // cart.value = false;
-                          } else {
-                            if (counter.value == 0) {
-                              BotToast.showText(
-                                text: 'choose your quantity',
-                                align: Alignment.center,
-                              );
-                            } else {
-                              cartController.addTocart(
-                                  counter.value, product!.id.toString());
-                            }
-
-                            // cart.value = true;
-                          }
-                        },
-                        child: SvgPicture.asset(
-                          'assets/svg/Cart icon.svg',
-                          color: isCart!
-                              //  cart.value
-                              ? AppColors.mainColor
-                              : AppColors.greyColor,
-                          width: 20,
-                        ),
-                      ),
-                    ),
-                    Expanded(
-                      child: Obx(
-                        () => IconButton(
+                Container(
+                  height: size.height * 0.039,
+                  child: Row(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      Expanded(
+                        child: InkWell(
                           splashColor: Colors.transparent,
                           highlightColor: Colors.transparent,
-                          onPressed: () {
-                            if (favorite.value) {
-                              if (statusCode.Token != '') {
-                                favoriteController.deleteFavorites(product!.id);
-                                favorite.value = false;
-                              } else {
-                                var fav = Constansbox.box.read('favorite');
-                                fav.remove(product!.id);
-                                Constansbox.box.write('favorite', fav);
-                                favorite.value = false;
-                              }
+                          onTap: () {
+                            if (isCart!) {
+                              cartController.deletecart(product!.id.toString());
+                              // cart.value = false;
                             } else {
-                              if (statusCode.Token != '') {
-                                favoriteController.addFavorite(product!.id);
-                                favorite.value = true;
+                              if (counter.value == 0) {
+                                BotToast.showText(
+                                  text: 'choose your quantity',
+                                  align: Alignment.center,
+                                );
                               } else {
-                                var fav = Constansbox.box.read('favorite');
-                                fav.add(product!.id);
-                                Constansbox.box.write('favorite', fav);
-                                favorite.value = true;
+                                cartController.addTocart(
+                                    counter.value, product!.id.toString());
                               }
+
+                              // cart.value = true;
                             }
                           },
-                          icon: Icon(
-                            favorite.value
-                                ? Icons.favorite
-                                : Icons.favorite_border,
-                            color: AppColors.mainColor,
-                            size: 20,
+                          child: SvgPicture.asset(
+                            'assets/svg/Cart icon.svg',
+                            color: isCart!
+                                //  cart.value
+                                ? AppColors.mainColor
+                                : AppColors.greyColor,
+                            width: 20,
                           ),
                         ),
                       ),
-                    ),
-
-                    Expanded(
-                      child: Text(
-                        '${product!.price!}\$',
-                        style: Styles.priceStyle,
+                      Expanded(
+                        child: Obx(
+                          () => IconButton(
+                            splashColor: Colors.transparent,
+                            highlightColor: Colors.transparent,
+                            onPressed: () {
+                              if (favorite.value) {
+                                if (statusCode.Token != '') {
+                                  favoriteController
+                                      .deleteFavorites(product!.id);
+                                  favorite.value = false;
+                                } else {
+                                  var fav = Constansbox.box.read('favorite');
+                                  fav.remove(product!.id);
+                                  Constansbox.box.write('favorite', fav);
+                                  favorite.value = false;
+                                }
+                              } else {
+                                if (statusCode.Token != '') {
+                                  favoriteController.addFavorite(product!.id);
+                                  favorite.value = true;
+                                } else {
+                                  var fav = Constansbox.box.read('favorite');
+                                  fav.add(product!.id);
+                                  Constansbox.box.write('favorite', fav);
+                                  favorite.value = true;
+                                }
+                              }
+                            },
+                            icon: Icon(
+                              favorite.value
+                                  ? Icons.favorite
+                                  : Icons.favorite_border,
+                              color: AppColors.mainColor,
+                              size: 20,
+                            ),
+                          ),
+                        ),
                       ),
-                    ),
-                  ],
+                      Expanded(
+                        child: Text(
+                          '${product!.price!}\$',
+                          style: Styles.priceStyle,
+                        ),
+                      ),
+                    ],
+                  ),
                 ),
               ],
             ),
