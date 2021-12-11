@@ -6,9 +6,24 @@ import 'package:delivery_food/model/Ads_model.dart';
 import 'package:delivery_food/model/Offer_model.dart';
 import 'package:delivery_food/services/Ads_services.dart';
 import 'package:delivery_food/services/Offer_service.dart';
+import 'package:flutter/material.dart';
 import 'package:get/get_navigation/src/extension_navigation.dart';
 import 'package:get/state_manager.dart';
 import 'package:story_view/story_view.dart';
+
+enum MediaType { image, video, text }
+
+class Story {
+  final MediaType? mediaType;
+  final String? media;
+  final String? color;
+
+  Story({
+    this.mediaType,
+    this.media,
+    this.color,
+  });
+}
 
 class StatusesController extends GetxController {
   var offers = <OffersResponse>[];
@@ -22,9 +37,11 @@ class StatusesController extends GetxController {
   var statusItems = <StoryItem>[];
   late StoryController controller;
   Constans Constansbox = Constans();
+  StatusCode statusCode = StatusCode();
   OfferController? off;
   var boolnew = false.obs;
   var booloff = false.obs;
+  var boollogo = true.obs;
 
   var date = '';
 
@@ -43,16 +60,70 @@ class StatusesController extends GetxController {
   int iNew = 0;
   int ioffers = 0;
   int ilogo = 0;
+
+  static MediaType _translateType(String? type) {
+    if (type == "image") {
+      return MediaType.image;
+    }
+
+    if (type == "video") {
+      return MediaType.video;
+    }
+
+    return MediaType.text;
+  }
+
+  mediastatuse(var statuse) {
+    final res = statuse.map<Story>((it) {
+      return Story(
+          color: it.color,
+          media: it.media,
+          mediaType: _translateType(it.mediaType));
+    }).toList();
+
+    res!.forEach((story) {
+      if (story.mediaType == MediaType.text) {
+        statusItems.add(
+          StoryItem.text(
+            title: story.caption!,
+            backgroundColor: Colors.red,
+            duration: Duration(
+              milliseconds: (5 * 1000).toInt(),
+            ),
+          ),
+        );
+      }
+
+      if (story.mediaType == MediaType.image) {
+        statusItems.add(StoryItem.pageImage(
+          url: statusCode.urlimage + story.media!,
+          controller: controller,
+          // caption: story.caption,
+          duration: Duration(
+            milliseconds: (5 * 1000).toInt(),
+          ),
+        ));
+      }
+
+      if (story.mediaType == MediaType.video) {
+        statusItems.add(
+          StoryItem.pageVideo(
+            statusCode.urlimage + story.media!,
+            controller: controller,
+
+            duration: Duration(milliseconds: (5 * 1000).toInt()),
+            // caption: 'lllllllll',
+          ),
+        );
+      }
+    });
+  }
+
   storeStatuses(var items, String typeclass) {
-    // box.remove('New');
-    // box.remove('offers');
-
     if (typeclass == 'logo') {
-      print(ilogo);
-      print(offers.length);
-
       if (ilogo < offers.length) {
-        print(';;;;;;;;');
+        print(boollogo.value);
+        boollogo.value = true;
         var off = Constansbox.box.read('offers');
         for (int i = ioffers; i < offers.length; i++) {
           var bo = off.any((element) => element != offers[i].id ? false : true);
@@ -73,8 +144,10 @@ class StatusesController extends GetxController {
 
         // print(Constansbox.box.read('offers'));
       } else {
-        var New = Constansbox.box.read('New');
+        print(boollogo.value);
 
+        boollogo.value = false;
+        var New = Constansbox.box.read('New');
         for (int i = iNew; i < adss.length; i++) {
           var bo = New.any((element) => element != adss[i].id ? false : true);
           if (!bo) {
@@ -96,6 +169,8 @@ class StatusesController extends GetxController {
     // print(Constansbox.box.read('New'));
 
     if (typeclass == 'New') {
+      boollogo.value = false;
+
       var New = Constansbox.box.read('New');
 
       for (int i = iNew; i < adss.length; i++) {
@@ -115,6 +190,8 @@ class StatusesController extends GetxController {
     }
 
     if (typeclass == 'Offers') {
+      boollogo.value = true;
+
       var off = Constansbox.box.read('offers');
       for (int i = ioffers; i < offers.length; i++) {
         var bo = off.any((element) => element != offers[i].id ? false : true);
@@ -141,15 +218,7 @@ class StatusesController extends GetxController {
         offers = apiResultOffer.data;
         hasError = apiResultOffer.hasError!;
         statusItems = [];
-        for (final status in offers) {
-          statusItems.add(StoryItem.pageImage(
-            url: status.avatar!,
-            controller: controller,
-            duration: Duration(
-              milliseconds: (5 * 1000).toInt(),
-            ),
-          ));
-        }
+        mediastatuse(offers);
         update();
       } else {
         hasError = apiResultOffer.hasError!;
@@ -178,15 +247,17 @@ class StatusesController extends GetxController {
         adss = apiResultAds.data;
         hasError = apiResultAds.hasError!;
         statusItems = [];
-        for (final status in adss) {
-          statusItems.add(StoryItem.pageImage(
-            url: status.avatar!,
-            controller: controller,
-            duration: Duration(
-              milliseconds: (5 * 1000).toInt(),
-            ),
-          ));
-        }
+        var ads = [];
+        print('[[[[[[[[[object]]]]]]]]]');
+        adss.forEach((ad) {
+          print(ad.type);
+          if (ad.type == 'ad') {
+            ads.add(ad);
+          }
+        });
+
+        mediastatuse(ads);
+
         update();
       } else {
         hasError = apiResultAds.hasError!;
@@ -216,24 +287,10 @@ class StatusesController extends GetxController {
         adss = apiResultAds.data;
         hasError = apiResultOffer.hasError!;
         statusItems = [];
-        for (final status in offers) {
-          statusItems.add(StoryItem.pageImage(
-            url: status.avatar!,
-            controller: controller,
-            duration: Duration(
-              milliseconds: (5 * 1000).toInt(),
-            ),
-          ));
-        }
-        for (final status in adss) {
-          statusItems.add(StoryItem.pageImage(
-            url: status.avatar!,
-            controller: controller,
-            duration: Duration(
-              milliseconds: (5 * 1000).toInt(),
-            ),
-          ));
-        }
+        mediastatuse(offers);
+
+        mediastatuse(adss);
+
         update();
       } else {
         hasError = apiResultOffer.hasError!;

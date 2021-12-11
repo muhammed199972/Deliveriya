@@ -39,7 +39,7 @@ class ProduvtsView extends StatelessWidget {
       backgroundColor: AppColors.whiteColor,
       appBar: AppBar(
         elevation: 0,
-        backgroundColor: AppColors.whiteColor,
+        backgroundColor: AppColors.greyColor,
         title: Center(
           child: Text(
             'Products',
@@ -106,11 +106,12 @@ class ProduvtsView extends StatelessWidget {
           Expanded(
               flex: 1,
               child: Container(
+                color: AppColors.greyColor,
                 child: Column(
                   children: [
                     CategorysScroll(
                       size: size,
-                      idcategory: idcategory,
+                      iSfavorite: false,
                       // subcategory: subcategory,
                     ),
                     SubcategoryScroll(

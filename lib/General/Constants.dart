@@ -7,6 +7,8 @@ Constans Constansbox = Constans();
 
 class StatusCode {
   String url1 = 'delivery-food12.herokuapp.com';
+
+  var urlimage = 'https://delivery-food12.herokuapp.com/';
   var Token = '';
   var RefreshToken = Constansbox.box.read('refreshToken');
 
@@ -77,8 +79,11 @@ class AppColors {
   static const mainColor = Color(0xFFE73352);
   static const lightmainColor = Color(0xFFFFE8EC);
   static const whiteColor = Color(0xFFFFFFFF);
+  static const greyColor = Color(0xB7FAFAFA);
+  static const darkgreyColor = Color(0x27464242);
+  static const darkgreytextColor = Color(0xA2000000);
+
   static const blackColor = Color(0xFF000000);
-  static const greyColor = Color(0xFF757272);
   static const lightgreyColor = Color(0xFFC4C4C4);
   static const lightgrey2Color = Color(0xFFEFEFEF);
 }

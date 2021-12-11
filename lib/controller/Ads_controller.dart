@@ -22,16 +22,16 @@ class AdssController extends GetxController {
 
   checkStatuses() {
     var New = Constansbox.box.read('New');
-    bool? check;
+    bool check = true;
     for (int i = 0; i < adss.length; i++) {
       check = New.any((element) => element == adss[i].id ? true : false);
-      if (!check!) {
+      if (!check) {
+        isNewStatuts.value = check;
+
         break;
       }
       print(New);
     }
-
-    isNewStatuts.value = check!;
   }
 
   getAds() async {

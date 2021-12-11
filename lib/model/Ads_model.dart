@@ -19,17 +19,28 @@ class AdsStatus {
 
 class AdsResponse {
   int? id;
-  String? avatar;
-  String? url;
+  String? media;
+  String? mediaType;
+  String? color;
+  String? type;
   String? createdAt;
   String? updatedAt;
 
-  AdsResponse({this.id, this.avatar, this.url, this.createdAt, this.updatedAt});
+  AdsResponse(
+      {this.id,
+      this.media,
+      this.mediaType,
+      this.color,
+      this.type,
+      this.createdAt,
+      this.updatedAt});
 
   AdsResponse.fromJson(Map<String, dynamic> json) {
     id = json['id'];
-    avatar = json['avatar'];
-    url = json['url'];
+    media = json['media'];
+    mediaType = json['mediaType'];
+    color = json['color'];
+    type = json['type'];
     createdAt = json['createdAt'];
     updatedAt = json['updatedAt'];
   }
@@ -37,8 +48,10 @@ class AdsResponse {
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
     data['id'] = this.id;
-    data['avatar'] = this.avatar;
-    data['url'] = this.url;
+    data['media'] = this.media;
+    data['mediaType'] = this.mediaType;
+    data['color'] = this.color;
+    data['type'] = this.type;
     data['createdAt'] = this.createdAt;
     data['updatedAt'] = this.updatedAt;
     return data;
