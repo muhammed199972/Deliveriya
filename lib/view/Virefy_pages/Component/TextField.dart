@@ -11,6 +11,10 @@ class TextFieldwidget extends StatelessWidget {
     this.prefixtxt,
     this.inputFormatters,
     this.validator,
+    this.suffixIcon,
+    this.suffixPressed,
+    this.ispassword,
+    this.txttype,
   });
 
   TextEditingController controller;
@@ -19,13 +23,18 @@ class TextFieldwidget extends StatelessWidget {
   Widget? icon;
   List<TextInputFormatter>? inputFormatters;
   String? Function(String?)? validator;
+  IconData? suffixIcon;
+  bool? ispassword = false;
+  VoidCallback? suffixPressed;
+  TextInputType? txttype;
   @override
   Widget build(BuildContext context) {
     return TextFormField(
       validator: validator,
       //Text Field which accepts input.
+
       inputFormatters: inputFormatters,
-      keyboardType: TextInputType.number,
+      keyboardType: txttype,
       decoration: InputDecoration(
         fillColor: AppColors.lightgreyColor.withOpacity(0.5),
         filled: true,
@@ -41,8 +50,12 @@ class TextFieldwidget extends StatelessWidget {
         border: OutlineInputBorder(
           borderRadius: BorderRadius.circular(5),
         ),
+        suffixIcon: suffixIcon != null
+            ? IconButton(icon: Icon(suffixIcon), onPressed: suffixPressed)
+            : null,
       ),
       controller: controller,
+      obscureText: ispassword ?? false,
     );
   }
 }
