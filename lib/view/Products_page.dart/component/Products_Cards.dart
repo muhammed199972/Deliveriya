@@ -68,9 +68,8 @@ class FullCard extends StatelessWidget {
                     width: double.infinity,
                     decoration: BoxDecoration(
                       image: DecorationImage(
-                          image: AssetImage(
-                            'assets/png/img.png',
-                            // product!.avatar!,
+                          image: NetworkImage(
+                            statusCode.urlimage + product!.avatar!,
                           ),
                           fit: BoxFit.cover),
                       borderRadius: BorderRadius.only(

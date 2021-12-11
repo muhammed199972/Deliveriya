@@ -38,15 +38,15 @@ class LogoStatus extends StatelessWidget {
                 height: size.height * 0.17,
                 decoration: BoxDecoration(
                   shape: BoxShape.circle,
-                  // border: Border.all(
-                  //   //   color: Colors.grey[600]!,
-                  //   width: 4,
-                  // ),
+                  border: Border.all(
+                    color: AppColors.mainColor,
+                    width: 2,
+                  ),
                 ),
                 child: Center(
                     child: Container(
                   //  width: double.infinity,
-                  margin: EdgeInsets.all(4),
+                  //  margin: EdgeInsets.all(4),
                   decoration: BoxDecoration(
                       shape: BoxShape.circle,
                       color: Colors.white,

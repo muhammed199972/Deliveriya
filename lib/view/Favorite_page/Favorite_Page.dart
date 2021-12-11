@@ -11,7 +11,6 @@ import 'package:get/get.dart';
 
 class FavoriteView extends StatelessWidget {
   FavoriteView({Key? key}) : super(key: key);
-
   var favoriteController = Get.find<FavoriteController>();
   var prodController = Get.find<ProductsController>();
   StatusCode statusCode = StatusCode();
