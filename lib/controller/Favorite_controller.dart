@@ -14,6 +14,9 @@ class FavoriteController extends GetxController {
   var deleteFavorite = DeleteResponse().obs;
   var isLoading = true.obs;
 
+  var idcategory = 0.obs;
+  var idsupcategory = 0.obs;
+
   ApiResult apiResult = ApiResult();
   FavoriteService favoriteService = FavoriteService();
 
@@ -29,7 +32,6 @@ class FavoriteController extends GetxController {
       if (!apiResult.hasError!) {
         favorites.value = apiResult.data;
         hasError.value = apiResult.hasError!;
-        print(favorites.value);
         isLoading.value = false;
       } else {
         hasError.value = apiResult.hasError!;
