@@ -84,82 +84,94 @@ class FullCard extends StatelessWidget {
                 ),
                 Text(product!.name!),
                 Container(
-                  height: size.height * 0.039,
+                  height: size.height * 0.04,
                   child: Row(
                     mainAxisSize: MainAxisSize.min,
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
                       Expanded(
-                        child: InkWell(
-                          splashColor: Colors.transparent,
-                          highlightColor: Colors.transparent,
-                          onTap: () {
-                            if (isCart!) {
-                              cartController.deletecart(product!.id.toString());
-                              // cart.value = false;
-                            } else {
-                              if (counter.value == 0) {
-                                BotToast.showText(
-                                  text: 'choose your quantity',
-                                  align: Alignment.center,
-                                );
-                              } else {
-                                cartController.addTocart(
-                                    counter.value, product!.id.toString());
-                              }
-
-                              // cart.value = true;
-                            }
-                          },
-                          child: SvgPicture.asset(
-                            'assets/svg/Cart icon.svg',
-                            color: isCart!
-                                //  cart.value
-                                ? AppColors.mainColor
-                                : Colors.grey[800],
-                            width: 20,
-                          ),
-                        ),
-                      ),
-                      Expanded(
-                        child: Obx(
-                          () => IconButton(
+                        flex: 1,
+                        child: Container(
+                          child: InkWell(
                             splashColor: Colors.transparent,
                             highlightColor: Colors.transparent,
-                            onPressed: () {
-                              if (favorite.value) {
-                                if (statusCode.Token != '') {
-                                  favoriteController
-                                      .deleteFavorites(product!.id);
-                                  favorite.value = false;
-                                } else {
-                                  var fav = Constansbox.box.read('favorite');
-                                  fav.remove(product!.id);
-                                  Constansbox.box.write('favorite', fav);
-                                  favorite.value = false;
-                                }
+                            onTap: () {
+                              if (isCart!) {
+                                cartController
+                                    .deletecart(product!.id.toString());
+                                // cart.value = false;
                               } else {
-                                if (statusCode.Token != '') {
-                                  favoriteController.addFavorite(product!.id);
-                                  favorite.value = true;
+                                if (counter.value == 0) {
+                                  BotToast.showText(
+                                    text: 'choose your quantity',
+                                    align: Alignment.center,
+                                  );
                                 } else {
-                                  var fav = Constansbox.box.read('favorite');
-                                  fav.add(product!.id);
-                                  Constansbox.box.write('favorite', fav);
-                                  favorite.value = true;
+                                  cartController.addTocart(
+                                      counter.value, product!.id.toString());
                                 }
+
+                                // cart.value = true;
                               }
                             },
-                            icon: Icon(
-                              favorite.value
-                                  ? Icons.favorite
-                                  : Icons.favorite_border,
-                              color: AppColors.mainColor,
-                              size: 20,
+                            child: SvgPicture.asset(
+                              'assets/svg/Cart icon.svg',
+                              color: isCart!
+                                  //  cart.value
+                                  ? AppColors.mainColor
+                                  : Colors.grey[800],
+                              width: 20,
                             ),
                           ),
                         ),
                       ),
+                      Obx(
+                        () => Expanded(
+                          flex: 1,
+                          child: Padding(
+                            padding: const EdgeInsets.only(top: 2.0),
+                            child: InkWell(
+                              splashColor: Colors.transparent,
+                              highlightColor: Colors.transparent,
+                              onTap: () {
+                                if (favorite.value) {
+                                  if (statusCode.Token != '') {
+                                    favoriteController
+                                        .deleteFavorites(product!.id);
+                                    favorite.value = false;
+                                  } else {
+                                    var fav = Constansbox.box.read('favorite');
+                                    fav.remove(product!.id);
+                                    Constansbox.box.write('favorite', fav);
+                                    favorite.value = false;
+                                  }
+                                } else {
+                                  if (statusCode.Token != '') {
+                                    favoriteController.addFavorite(product!.id);
+                                    favorite.value = true;
+                                  } else {
+                                    var fav = Constansbox.box.read('favorite');
+                                    fav.add(product!.id);
+                                    Constansbox.box.write('favorite', fav);
+                                    favorite.value = true;
+                                  }
+                                }
+                              },
+                              child: Icon(
+                                favorite.value
+                                    ? Icons.favorite
+                                    : Icons.favorite_border,
+                                color: AppColors.mainColor,
+                                size: 20,
+                              ),
+                            ),
+                          ),
+                        ),
+                      ),
+                      Spacer(),
                       Expanded(
+                        flex: 2,
                         child: Text(
                           '${product!.price!}\$',
                           style: Styles.priceStyle,
@@ -183,9 +195,9 @@ class FullCard extends StatelessWidget {
                   onTap: () => counter++,
                   child: Container(
                     margin:
-                        EdgeInsets.only(bottom: Defaults.defaultPadding / 2),
-                    height: 25,
-                    width: 25,
+                        EdgeInsets.only(bottom: Defaults.defaultPadding / 3.5),
+                    height: 20,
+                    width: 20,
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(3.0),
                       color: AppColors.whiteColor,
@@ -210,9 +222,10 @@ class FullCard extends StatelessWidget {
                   ),
                 ),
                 Container(
-                  margin: EdgeInsets.only(bottom: Defaults.defaultPadding / 2),
-                  height: 25,
-                  width: 25,
+                  margin:
+                      EdgeInsets.only(bottom: Defaults.defaultPadding / 3.5),
+                  height: 20,
+                  width: 20,
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(3.0),
                     color: AppColors.whiteColor,
@@ -238,8 +251,8 @@ class FullCard extends StatelessWidget {
                     }
                   },
                   child: Container(
-                    height: 25,
-                    width: 25,
+                    height: 20,
+                    width: 20,
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(3.0),
                       color: AppColors.whiteColor,

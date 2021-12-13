@@ -35,19 +35,21 @@ class CategorysCard extends StatelessWidget {
       },
       child: Container(
         decoration: BoxDecoration(
+          color: AppColors.whiteColor,
           borderRadius: BorderRadius.circular(5),
           border: Border.all(
-            color: AppColors.greyColor,
+            color: AppColors.darkgreyColor,
             width: 1,
           ),
         ),
-        child: Row(
+        child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             Expanded(
+              flex: 2,
               child: Image.network(
                 statusCode.urlimage + datacontroller.avatar,
-                fit: BoxFit.contain,
+                fit: BoxFit.cover,
               ),
             ),
             Expanded(

@@ -19,87 +19,98 @@ class HomeView extends StatelessWidget {
         extendBodyBehindAppBar: true,
         resizeToAvoidBottomInset: true,
         extendBody: true,
-        body: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Expanded(
-              child: Padding(
-                padding: const EdgeInsets.symmetric(
-                    horizontal: Defaults.defaultPadding * 2),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.end,
-                  children: [
-                    Spacer(),
-                    Expanded(
-                        flex: 2,
+        body: Container(
+          width: size.width,
+          height: size.height,
+          decoration: BoxDecoration(
+            image: DecorationImage(
+              image: AssetImage('assets/png/background.png'),
+            ),
+          ),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Expanded(
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(
+                      horizontal: Defaults.defaultPadding * 2),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    children: [
+                      Spacer(),
+                      Expanded(
+                          flex: 2,
+                          child: Padding(
+                              padding: EdgeInsets.only(top: 20),
+                              child: LogoStatus())),
+                      Expanded(
+                        flex: 1,
                         child: Padding(
-                            padding: EdgeInsets.only(top: 20),
-                            child: LogoStatus())),
-                    Expanded(
-                      flex: 1,
-                      child: Padding(
-                        padding: const EdgeInsets.only(
-                            bottom: Defaults.defaultPadding * 2, right: 2),
-                        child: Row(
-                          children: [
-                            Text(
-                              'help'.tr,
-                              style: TextStyle(color: AppColors.blackColor),
-                            ),
-                            SizedBox(
-                              width: 8,
-                            ),
-                            Icon(
-                              Icons.help_sharp,
-                              color: AppColors.greyColor,
-                            )
-                          ],
+                          padding: const EdgeInsets.only(
+                              bottom: Defaults.defaultPadding * 2, right: 2),
+                          child: Row(
+                            children: [
+                              Text(
+                                'help'.tr,
+                                style: TextStyle(color: AppColors.blackColor),
+                              ),
+                              SizedBox(
+                                width: 8,
+                              ),
+                              Icon(
+                                Icons.help_sharp,
+                                color: AppColors.darkgreytextColor,
+                              )
+                            ],
+                          ),
                         ),
-                      ),
-                    )
-                  ],
+                      )
+                    ],
+                  ),
                 ),
               ),
-            ),
-            SearchBar(size: size),
-            Expanded(
-              flex: 3,
-              child: Obx(() => ListView(
-                    children: [
-                      !controller.isLoading.value
-                          ? Offers_New(size: size)
-                          : ShimmerWidget.offersNewLoading(),
-                      Padding(
-                        padding: const EdgeInsets.all(Defaults.defaultPadding),
-                        child: Text('category'.tr),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: Container(
-                          child: !controller.isLoading.value
-                              ? StaggeredGridView.countBuilder(
-                                  shrinkWrap: true,
-                                  physics: NeverScrollableScrollPhysics(),
-                                  crossAxisCount: 3,
-                                  itemCount: controller.categorys.length,
-                                  itemBuilder:
-                                      (BuildContext context, int index) =>
-                                          CategorysCard(
-                                    index: index,
-                                    datacontroller: controller.categorys[index],
-                                  ),
-                                  staggeredTileBuilder: (int index) =>
-                                      new StaggeredTile.count(1, 0.43),
-                                  mainAxisSpacing: 11,
-                                  crossAxisSpacing: 11,
-                                )
-                              : ShimmerWidget.categoryLoading(),
+              SearchBar(size: size),
+              Expanded(
+                flex: 3,
+                child: Obx(() => ListView(
+                      children: [
+                        !controller.isLoading.value
+                            ? Offers_New(size: size)
+                            : ShimmerWidget.offersNewLoading(),
+                        Padding(
+                          padding:
+                              const EdgeInsets.all(Defaults.defaultPadding),
+                          child: Text('category'.tr),
                         ),
-                      ),
-                    ],
-                  )),
-            ),
-          ],
+                        Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Container(
+                            child: !controller.isLoading.value
+                                ? StaggeredGridView.countBuilder(
+                                    shrinkWrap: true,
+                                    physics: NeverScrollableScrollPhysics(),
+                                    crossAxisCount: 3,
+                                    itemCount: controller.categorys.length,
+                                    itemBuilder:
+                                        (BuildContext context, int index) =>
+                                            CategorysCard(
+                                      index: index,
+                                      datacontroller:
+                                          controller.categorys[index],
+                                    ),
+                                    staggeredTileBuilder: (int index) =>
+                                        new StaggeredTile.count(1, 1),
+                                    mainAxisSpacing: 11,
+                                    crossAxisSpacing: 11,
+                                  )
+                                : ShimmerWidget.categoryLoading(),
+                          ),
+                        ),
+                      ],
+                    )),
+              ),
+            ],
+          ),
         ));
   }
 }
