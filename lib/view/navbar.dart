@@ -68,7 +68,7 @@ class _BottomBarState extends State<BottomBar> {
               'assets/svg/Cart icon.svg',
               color: _currentIndex == 0
                   ? AppColors.mainColor
-                  : AppColors.greyColor,
+                  : AppColors.darkgreytextColor,
               width: _currentIndex == 0 ? 35 : 25,
             ),
           ),
@@ -78,7 +78,7 @@ class _BottomBarState extends State<BottomBar> {
               'assets/svg/Favorate icon.svg',
               color: _currentIndex == 1
                   ? AppColors.mainColor
-                  : AppColors.greyColor,
+                  : AppColors.darkgreytextColor,
               width: _currentIndex == 1 ? 35 : 25,
             ),
           ),
@@ -88,7 +88,7 @@ class _BottomBarState extends State<BottomBar> {
               'assets/svg/Home icon.svg',
               color: _currentIndex == 2
                   ? AppColors.mainColor
-                  : AppColors.greyColor,
+                  : AppColors.darkgreytextColor,
               width: _currentIndex == 2 ? 35 : 25,
             ),
           ),
@@ -98,7 +98,7 @@ class _BottomBarState extends State<BottomBar> {
               'assets/svg/Offers icon.svg',
               color: _currentIndex == 3
                   ? AppColors.mainColor
-                  : AppColors.greyColor,
+                  : AppColors.darkgreytextColor,
               width: _currentIndex == 3 ? 35 : 25,
             ),
           ),
@@ -108,7 +108,7 @@ class _BottomBarState extends State<BottomBar> {
               'assets/svg/Profile icon.svg',
               color: _currentIndex == 4
                   ? AppColors.mainColor
-                  : AppColors.greyColor,
+                  : AppColors.darkgreytextColor,
               width: _currentIndex == 4 ? 35 : 25,
             ),
           ),

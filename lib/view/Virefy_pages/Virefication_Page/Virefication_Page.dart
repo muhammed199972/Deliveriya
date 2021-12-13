@@ -61,7 +61,7 @@ class VerificationPage extends StatelessWidget {
                             prefixtxt: '+963',
                             icon: Icon(
                               Icons.phone_android,
-                              color: AppColors.greyColor,
+                              color: AppColors.darkgreytextColor,
                             ),
                           ),
                         ),

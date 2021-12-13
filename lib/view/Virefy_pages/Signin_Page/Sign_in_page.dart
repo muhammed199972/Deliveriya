@@ -55,7 +55,7 @@ class SigninPage extends StatelessWidget {
                         prefixtxt: '+963',
                         icon: Icon(
                           Icons.phone_android,
-                          color: AppColors.greyColor,
+                          color: AppColors.darkgreytextColor,
                         ),
                       ),
                       SizedBox(
@@ -69,7 +69,7 @@ class SigninPage extends StatelessWidget {
                             prefixtxt: '',
                             icon: Icon(
                               Icons.vpn_key_outlined,
-                              color: AppColors.greyColor,
+                              color: AppColors.darkgreytextColor,
                             ),
                             ispassword: controller.ispass.value,
                             suffixIcon: controller.ispass.value

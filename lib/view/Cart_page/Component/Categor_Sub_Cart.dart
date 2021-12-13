@@ -1,5 +1,7 @@
 import 'package:delivery_food/General/Constants.dart';
+import 'package:delivery_food/General/Dialogs.dart';
 import 'package:delivery_food/controller/Cart_controller.dart';
+import 'package:delivery_food/view/Cart_page/Component/ButtonScroll.dart';
 import 'package:delivery_food/view/Cart_page/Component/ButtonUpdate.dart';
 import 'package:delivery_food/view/Cart_page/Component/ListProducts_Cart.dart';
 import 'package:flutter/material.dart';
@@ -88,7 +90,17 @@ class CategoryCart extends StatelessWidget {
                             Text('55 \$'),
                             IconButton(
                               splashColor: Colors.transparent,
-                              onPressed: () {},
+                              onPressed: () {
+                                DialogsUtils.showdialogConfirm(
+                                  m: 'Proceed ?',
+                                  onPressedCancel: () {
+                                    Get.back();
+                                  },
+                                  onPressedOk: () {
+                                    Get.back();
+                                  },
+                                );
+                              },
                               icon: Image.asset(
                                 'assets/png/remove.png',
                                 width: 50,
@@ -158,30 +170,5 @@ class CategoryCart extends StatelessWidget {
             ),
           );
         });
-  }
-}
-
-class ButtonScroll extends StatelessWidget {
-  const ButtonScroll({
-    Key? key,
-    required this.controller,
-  }) : super(key: key);
-
-  final CartController controller;
-
-  @override
-  Widget build(BuildContext context) {
-    return IconButton(
-      onPressed: () {
-        controller.changecontrollerscroll();
-      },
-      icon: Obx(() => Icon(
-            Icons.keyboard_arrow_down_outlined,
-            color: controller.maxscroll.value
-                ? AppColors.greyColor
-                : AppColors.mainColor,
-            size: 25,
-          )),
-    );
   }
 }

@@ -71,11 +71,12 @@ class ProduvtsView extends StatelessWidget {
                     ),
                   ),
                 ),
-                Obx(() => cartController.carts.value.data?.length == 0
-                    ? Container()
-                    : Padding(
-                        padding: const EdgeInsets.only(top: 3),
-                        child: Align(
+                Obx(
+                  () => cartController.carts.value.data?.length == 0
+                      ? Container()
+                      : Padding(
+                          padding: const EdgeInsets.only(top: 5, right: 5),
+                          child: Align(
                             alignment: Alignment.topCenter,
                             child: Row(
                               mainAxisAlignment: MainAxisAlignment.end,
@@ -94,65 +95,76 @@ class ProduvtsView extends StatelessWidget {
                                   ),
                                 ),
                               ],
-                            )),
-                      )),
+                            ),
+                          ),
+                        ),
+                ),
               ],
             ),
           ),
         ],
       ),
-      body: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        mainAxisAlignment: MainAxisAlignment.start,
-        children: [
-          Expanded(
-              flex: 1,
-              child: Container(
-                color: AppColors.greyColor,
-                child: Column(
-                  children: [
-                    CategorysScroll(
-                      size: size,
-                      iSfavorite: false,
-                      // subcategory: subcategory,
-                    ),
-                    SubcategoryScroll(
-                      size: size,
-                      // subcategory: subcategory,
-                    ),
-                  ],
-                ),
-              )),
-          Obx(() {
-            // move();
-            return Expanded(
-              flex: 5,
-              child: prodController.isLoading.value
-                  ? ShimmerWidget.productsLoading()
-                  : Container(
-                      margin: EdgeInsets.symmetric(
-                          horizontal: Defaults.defaultPadding),
-                      child: StaggeredGridView.countBuilder(
-                        shrinkWrap: true,
-                        crossAxisCount: 3,
-                        itemCount: prodController.products.length,
-                        itemBuilder: (BuildContext context, int index) {
-                          return FullCard(
-                            size: size,
-                            product: prodController.products[index],
-                            isCart: list!
-                                .contains(prodController.products[index].id),
-                          );
-                        },
-                        staggeredTileBuilder: (int index) =>
-                            new StaggeredTile.count(1, 1.13),
-                        mainAxisSpacing: 25,
-                        crossAxisSpacing: 15,
+      body: Container(
+        width: size.width,
+        height: size.height,
+        decoration: BoxDecoration(
+          image: DecorationImage(
+            image: AssetImage('assets/png/background.png'),
+          ),
+        ),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          mainAxisAlignment: MainAxisAlignment.start,
+          children: [
+            Expanded(
+                flex: 1,
+                child: Container(
+                  color: AppColors.greyColor,
+                  child: Column(
+                    children: [
+                      CategorysScroll(
+                        size: size,
+                        iSfavorite: false,
+                        // subcategory: subcategory,
                       ),
-                    ),
-            );
-          }),
-        ],
+                      SubcategoryScroll(
+                        size: size,
+                        // subcategory: subcategory,
+                      ),
+                    ],
+                  ),
+                )),
+            Obx(() {
+              // move();
+              return Expanded(
+                flex: 5,
+                child: prodController.isLoading.value
+                    ? ShimmerWidget.productsLoading()
+                    : Container(
+                        margin: EdgeInsets.symmetric(
+                            horizontal: Defaults.defaultPadding),
+                        child: StaggeredGridView.countBuilder(
+                          shrinkWrap: true,
+                          crossAxisCount: 3,
+                          itemCount: prodController.products.length,
+                          itemBuilder: (BuildContext context, int index) {
+                            return FullCard(
+                              size: size,
+                              product: prodController.products[index],
+                              isCart: list!
+                                  .contains(prodController.products[index].id),
+                            );
+                          },
+                          staggeredTileBuilder: (int index) =>
+                              new StaggeredTile.count(1, 1.13),
+                          mainAxisSpacing: 25,
+                          crossAxisSpacing: 15,
+                        ),
+                      ),
+              );
+            }),
+          ],
+        ),
       ),
     );
   }

@@ -36,9 +36,9 @@ class SearchBar extends StatelessWidget {
             children: [
               Text(
                 'Let us help you find',
-                style: TextStyle(color: AppColors.greyColor),
+                style: TextStyle(color: AppColors.darkgreytextColor),
               ),
-              Icon(Icons.search, color: AppColors.greyColor)
+              Icon(Icons.search, color: AppColors.darkgreytextColor)
             ],
           )),
     );
