@@ -21,14 +21,14 @@ environment:
   sdk: ">=2.12.0 <3.0.0"
 
 dependencies:
+  bot_toast: ^4.0.1
+  carousel_pro: ^1.0.0
+  dio: ^4.0.4
+
+  expandable: ^5.0.1
+  filter_list: ^1.0.0
   flutter:
     sdk: flutter
-  bot_toast: ^4.0.1
-  dio: ^4.0.4
-  expandable: ^5.0.1
-  # connectivity_plus: ^2.1.0
-  carousel_pro: ^1.0.0
-  filter_list: ^1.0.0
   flutter_screenutil: ^5.0.0+2
   flutter_staggered_grid_view: ^0.4.1
   flutter_svg: ^0.23.0+1
