@@ -9,26 +9,42 @@ import 'package:flutter_svg/svg.dart';
 import '../General/Constants.dart';
 
 class BottomBar extends StatefulWidget {
-  BottomBar({Key? key}) : super(key: key);
-
+  BottomBar({this.fu, Key? key}) : super(key: key);
+  var intid;
+  var fu;
   @override
   _BottomBarState createState() => _BottomBarState();
 }
 
 class _BottomBarState extends State<BottomBar> {
   int _currentIndex = 2;
-  List _screens = [
-    CartView(),
-    FavoriteView(),
-    HomeView(),
-    OffersView(),
-    ProfileView(),
-  ];
+  List _screens = [];
 
   void _updateIndex(int value) {
     setState(() {
+      if (value != 2)
+        _screens = [
+          CartView(),
+          FavoriteView(),
+          HomeView(),
+          OffersView(),
+          ProfileView(),
+        ];
+
       _currentIndex = value;
     });
+  }
+
+  @override
+  void initState() {
+    _screens = [
+      CartView(),
+      FavoriteView(),
+      widget.fu,
+      OffersView(),
+      ProfileView(),
+    ];
+    super.initState();
   }
 
   @override

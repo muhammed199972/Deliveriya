@@ -3,6 +3,7 @@ import 'package:delivery_food/controller/Category_controller.dart';
 import 'package:delivery_food/controller/Products_controller.dart';
 import 'package:delivery_food/controller/Subcategory_controller.dart';
 import 'package:delivery_food/view/Products_page.dart/Products_page.dart';
+import 'package:delivery_food/view/navbar.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -28,10 +29,14 @@ class CategorysCard extends StatelessWidget {
             offset: 0,
             limit: 8,
             q: '');
-
-        Get.to(() => ProduvtsView(
+        Get.back();
+        Get.to(() => BottomBar(
+                fu: ProduvtsView(
               idcategory: datacontroller.id,
-            ));
+            )));
+        // ProduvtsView(
+        //       idcategory: datacontroller.id,
+        //     ));
       },
       child: Container(
         decoration: BoxDecoration(

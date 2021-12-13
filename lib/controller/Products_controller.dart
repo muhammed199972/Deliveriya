@@ -1,11 +1,13 @@
 import 'package:delivery_food/General/Api_Result.dart';
 import 'package:delivery_food/General/Dialogs.dart';
+import 'package:delivery_food/model/Favorite_model.dart';
 import 'package:delivery_food/model/Products_model.dart';
 import 'package:delivery_food/services/Products_service.dart';
 import 'package:get/get.dart';
 
 class ProductsController extends GetxController {
   var products = <ProductsResponse>[].obs;
+  var prods = <FavoriteResponse>[].obs;
   var hasError = true.obs;
   var massage = ''.obs;
   var isLoading = true.obs;
@@ -60,20 +62,15 @@ class ProductsController extends GetxController {
   }
 
   getListproduct({
-    int? offset,
-    int? limit,
     List<int>? Listproduct,
   }) async {
     try {
-      products.value = [];
       apiResult = (await product.getListproductsData(
-        offset!,
-        limit!,
         Listproduct!,
       ))!;
 
       if (!apiResult.hasError!) {
-        products.value = apiResult.data;
+        prods.value = apiResult.data;
         hasError.value = apiResult.hasError!;
       } else {
         hasError.value = apiResult.hasError!;

@@ -21,6 +21,7 @@ class FavoriteService {
       var response = await http
           .get(url, headers: {'Authorization': 'Bearer ${statusCode.Token}'});
       var responsebode = jsonDecode(response.body);
+
       if (response.statusCode == statusCode.OK ||
           response.statusCode == statusCode.CREATED) {
         status = FavoriteStatus.fromJson(responsebode['status']);
@@ -29,6 +30,8 @@ class FavoriteService {
           for (var item in responsebode['response']) {
             calendar.add(FavoriteResponse.fromJson(item));
           }
+          print('muhammmed');
+          print(calendar[1].subCategories);
           apiResult.errorMassage = status.msg;
           apiResult.codeError = status.code;
           apiResult.hasError = false;
