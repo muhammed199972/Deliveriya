@@ -13,7 +13,7 @@ class FavoriteController extends GetxController {
   var postFavorite = PostResponse().obs;
   var deleteFavorite = DeleteResponse().obs;
   var isLoading = true.obs;
-
+  var opensearch = false.obs;
   var idcategory = 0.obs;
   var idsupcategory = 0.obs;
 

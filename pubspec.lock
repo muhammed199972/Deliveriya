@@ -323,7 +323,7 @@ packages:
       name: rxdart
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.26.0"
+    version: "0.27.3"
   shimmer:
     dependency: "direct main"
     description:
@@ -370,7 +370,7 @@ packages:
       name: story_view
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.13.1"
+    version: "0.13.2"
   stream_channel:
     dependency: transitive
     description:
