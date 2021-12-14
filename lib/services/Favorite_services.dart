@@ -9,33 +9,40 @@ import 'package:delivery_food/model/Post_data.dart';
 import 'package:http/http.dart' as http;
 
 class FavoriteService {
-  Future<ApiResult> getfavoriteData() async {
+  Future<ApiResult> getfavoriteData(String q) async {
     StatusCode statusCode = StatusCode();
     ApiResult apiResult = ApiResult();
     List<FavoriteResponse> calendar = [];
     FavoriteStatus? status;
     ErrorResponse? error;
-    Uri url = Uri.http('${statusCode.url1}', '/api/private/user/favorite');
+    Uri url =
+        Uri.http('${statusCode.url1}', '/api/private/user/favorite', {'q': q});
 
     try {
       var response = await http
           .get(url, headers: {'Authorization': 'Bearer ${statusCode.Token}'});
+      print(response);
       var responsebode = jsonDecode(response.body);
 
       if (response.statusCode == statusCode.OK ||
           response.statusCode == statusCode.CREATED) {
         status = FavoriteStatus.fromJson(responsebode['status']);
-
         if (responsebode['response'] != null) {
           for (var item in responsebode['response']) {
             calendar.add(FavoriteResponse.fromJson(item));
           }
-          print('muhammmed');
-          print(calendar[1].subCategories);
+          apiResult.isEmpty = false;
+
           apiResult.errorMassage = status.msg;
           apiResult.codeError = status.code;
           apiResult.hasError = false;
           apiResult.data = calendar;
+        } else {
+          calendar = [];
+          apiResult.hasError = false;
+        }
+        if (responsebode['response'].isEmpty) {
+          apiResult.isEmpty = true;
         }
       } else if (response.statusCode == statusCode.BAD_REQUEST) {
         status = FavoriteStatus.fromJson(responsebode['status']);

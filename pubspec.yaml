@@ -38,6 +38,7 @@ dependencies:
   otp_text_field: null
   ripple_animation: ^0.0.1+2
   shimmer: ^2.0.0
+  animated_text_kit: ^4.2.1
   story_view: ^0.13.1
 
 dev_dependencies:

@@ -11,6 +11,7 @@ class ProductsController extends GetxController {
   var hasError = true.obs;
   var massage = ''.obs;
   var isLoading = true.obs;
+  var isEmpty = false.obs;
 
   ApiResult apiResult = ApiResult();
   ProductService product = ProductService();
@@ -63,13 +64,12 @@ class ProductsController extends GetxController {
 
   getListproduct({
     List<int>? Listproduct,
+    String? q,
   }) async {
     try {
-      apiResult = (await product.getListproductsData(
-        Listproduct!,
-      ))!;
-
+      apiResult = (await product.getListproductsData(Listproduct!, q!))!;
       if (!apiResult.hasError!) {
+        isEmpty.value = apiResult.isEmpty;
         prods.value = apiResult.data;
         hasError.value = apiResult.hasError!;
       } else {

@@ -3,7 +3,9 @@ import 'package:delivery_food/controller/Favorite_controller.dart';
 import 'package:delivery_food/controller/Products_controller.dart';
 import 'package:delivery_food/view/Favorite_page/Component/Category_favorite.dart';
 import 'package:delivery_food/view/Favorite_page/Component/Subcategory_favorite.dart';
+import 'package:delivery_food/view/Home_page/Home_page.dart';
 import 'package:delivery_food/view/Products_page.dart/component/Products_Cards.dart';
+import 'package:delivery_food/view/navbar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:flutter_svg/svg.dart';
@@ -24,18 +26,27 @@ class _FavoriteViewState extends State<FavoriteView> {
   var _searchController = TextEditingController();
   var opensearch = false;
   StatusCode statusCode = StatusCode();
-
   @override
-  Widget build(BuildContext context) {
-    Size size = MediaQuery.of(context).size;
+  void initState() {
     if (statusCode.Token == '') {
       List<dynamic> fav = Constansbox.box.read('favorite');
       List<int> favo = [];
       fav.forEach((e) => favo.add(e));
-      prodController.getListproduct(Listproduct: favo);
+      if (favo.length != 0)
+        prodController.getListproduct(Listproduct: favo, q: '');
+      else
+        prodController.isEmpty.value = true;
     } else {
-      favoriteController.getfavorite();
+      favoriteController.getfavorite('');
     }
+    super.initState();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    Size size = MediaQuery.of(context).size;
+    List Se = Constansbox.box.read('Search');
+    List Search = new List.from(Se.reversed);
 
     return Scaffold(
         appBar: AppBar(
@@ -45,10 +56,6 @@ class _FavoriteViewState extends State<FavoriteView> {
           title: Text(
             'Favorite',
             style: TextStyle(color: Colors.black),
-          ),
-          leading: Icon(
-            Icons.arrow_back_rounded,
-            color: Colors.transparent,
           ),
           actions: [
             !opensearch
@@ -100,7 +107,23 @@ class _FavoriteViewState extends State<FavoriteView> {
                             InkWell(
                                 splashColor: Colors.transparent,
                                 highlightColor: Colors.transparent,
-                                onTap: () {},
+                                onTap: () {
+                                  setState(() {
+                                    opensearch = !opensearch;
+                                    if (statusCode.Token == '') {
+                                      List<dynamic> fav =
+                                          Constansbox.box.read('favorite');
+                                      List<int> favo = [];
+                                      fav.forEach((e) => favo.add(e));
+                                      prodController.getListproduct(
+                                          Listproduct: favo,
+                                          q: _searchController.text);
+                                    } else {
+                                      favoriteController
+                                          .getfavorite(_searchController.text);
+                                    }
+                                  });
+                                },
                                 child: Text('This Week')),
                             Divider(
                               color: AppColors.darkgreytextColor,
@@ -182,7 +205,29 @@ class _FavoriteViewState extends State<FavoriteView> {
                               child: InkWell(
                                 onTap: () {
                                   setState(() {
+                                    List Search =
+                                        Constansbox.box.read('Search');
+                                    var sh = Search.any((e) {
+                                      return e == _searchController.text;
+                                    });
+                                    if (!sh) {
+                                      Search.add(_searchController.text);
+                                      Constansbox.box.write('Search', Search);
+                                    }
+
                                     opensearch = !opensearch;
+                                    if (statusCode.Token == '') {
+                                      List<dynamic> fav =
+                                          Constansbox.box.read('favorite');
+                                      List<int> favo = [];
+                                      fav.forEach((e) => favo.add(e));
+                                      prodController.getListproduct(
+                                          Listproduct: favo,
+                                          q: _searchController.text);
+                                    } else {
+                                      favoriteController
+                                          .getfavorite(_searchController.text);
+                                    }
                                   });
                                 },
                                 splashColor: Colors.transparent,
@@ -202,7 +247,7 @@ class _FavoriteViewState extends State<FavoriteView> {
                           height: 40,
                           child: ListView.builder(
                             scrollDirection: Axis.horizontal,
-                            itemCount: 4,
+                            itemCount: Search.length > 4 ? 4 : Search.length,
                             itemBuilder: (context, int index) => Container(
                               height: size.height * 0.027,
                               width: size.width * 0.1505,
@@ -218,7 +263,12 @@ class _FavoriteViewState extends State<FavoriteView> {
                                   left: Defaults.defaultPadding / 4,
                                   right: Defaults.defaultPadding / 1.5),
                               child: InkWell(
-                                onTap: () {},
+                                onTap: () {
+                                  setState(() {
+                                    _searchController = TextEditingController(
+                                        text: Search[index]);
+                                  });
+                                },
                                 child: Row(
                                     crossAxisAlignment:
                                         CrossAxisAlignment.center,
@@ -226,7 +276,7 @@ class _FavoriteViewState extends State<FavoriteView> {
                                     children: [
                                       Center(
                                         child: Text(
-                                          'lklklkl',
+                                          Search[index],
                                         ),
                                       ),
                                     ]),
@@ -242,193 +292,275 @@ class _FavoriteViewState extends State<FavoriteView> {
         backgroundColor: AppColors.whiteColor,
         body: Obx(() {
           return statusCode.Token != ''
-              ? favoriteController.favorites.length != 0
-                  ? Container(
-                      width: size.width,
-                      height: size.height,
-                      decoration: BoxDecoration(
-                          image: DecorationImage(
-                              image: AssetImage('assets/png/background.png'))),
-                      child: Padding(
-                        padding: EdgeInsets.only(top: 10),
-                        child: Row(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          children: [
-                            CategorysFavorite(
-                              size: size,
-                              favoriteController: favoriteController
-                                  .favorites, // subcategory: subcategory,
-                            ),
-                            Container(
-                              height: double.infinity,
-                              width: size.width / 1.51,
-                              padding: EdgeInsets.only(top: 20),
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                mainAxisAlignment: MainAxisAlignment.start,
-                                children: [
-                                  Expanded(
-                                    flex: 0,
-                                    child: Container(
-                                        color: AppColors.greyColor,
-                                        child: SubcategoryFavorite(
-                                          favoriteController: favoriteController
-                                              .favorites[favoriteController
-                                                  .idcategory.value]
-                                              .subCategories,
-                                          size: size,
-                                          // subcategory: subcategory,
-                                        )),
-                                  ),
-                                  Expanded(
-                                    flex: 11,
-                                    child: Container(
-                                      margin: EdgeInsets.symmetric(
-                                          horizontal: Defaults.defaultPadding),
-                                      child: StaggeredGridView.countBuilder(
-                                        shrinkWrap: true,
-                                        crossAxisCount: 2,
-                                        itemCount: favoriteController
-                                            .favorites[favoriteController
-                                                .idcategory.value]
-                                            .subCategories[favoriteController
-                                                .idsupcategory.value]
-                                            .products
-                                            .length,
-                                        itemBuilder:
-                                            (BuildContext context, int index) {
-                                          return FullCard(
-                                            size: size,
-                                            product: favoriteController
+              ? !favoriteController.isEmpty.value
+                  ? favoriteController.favorites.length != 0
+                      ? Container(
+                          width: size.width,
+                          height: size.height,
+                          decoration: BoxDecoration(
+                              image: DecorationImage(
+                                  image:
+                                      AssetImage('assets/png/background.png'))),
+                          child: Padding(
+                            padding: EdgeInsets.only(top: 10),
+                            child: Row(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              children: [
+                                CategorysFavorite(
+                                  size: size,
+                                  favoriteController: favoriteController
+                                      .favorites, // subcategory: subcategory,
+                                ),
+                                Container(
+                                  height: double.infinity,
+                                  width: size.width / 1.51,
+                                  padding: EdgeInsets.only(top: 20),
+                                  child: Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    mainAxisAlignment: MainAxisAlignment.start,
+                                    children: [
+                                      Expanded(
+                                        flex: 0,
+                                        child: Container(
+                                            color: AppColors.greyColor,
+                                            child: SubcategoryFavorite(
+                                              favoriteController:
+                                                  favoriteController
+                                                      .favorites[
+                                                          favoriteController
+                                                              .idcategory.value]
+                                                      .subCategories,
+                                              size: size,
+                                              // subcategory: subcategory,
+                                            )),
+                                      ),
+                                      Expanded(
+                                        flex: 11,
+                                        child: Container(
+                                          margin: EdgeInsets.symmetric(
+                                              horizontal:
+                                                  Defaults.defaultPadding),
+                                          child: StaggeredGridView.countBuilder(
+                                            shrinkWrap: true,
+                                            crossAxisCount: 2,
+                                            itemCount: favoriteController
                                                 .favorites[favoriteController
                                                     .idcategory.value]
                                                 .subCategories[
                                                     favoriteController
                                                         .idsupcategory.value]
-                                                .products[index],
-                                            isCart: false,
-                                          );
-                                        },
-                                        staggeredTileBuilder: (int index) =>
-                                            new StaggeredTile.count(1, 1.39),
-                                        mainAxisSpacing: 25,
-                                        crossAxisSpacing: 1,
-                                      ),
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                    )
-                  : Center(
-                      child: CircularProgressIndicator(),
-                    )
-              : prodController.prods.length != 0
-                  ? Container(
-                      width: size.width,
-                      height: size.height,
-                      decoration: BoxDecoration(
-                          image: DecorationImage(
-                              image: AssetImage('assets/png/background.png'))),
-                      child: Padding(
-                        padding: EdgeInsets.only(top: 10),
-                        child: Column(
-                          children: [
-                            Expanded(
-                              child: Row(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                mainAxisAlignment: MainAxisAlignment.start,
-                                children: [
-                                  CategorysFavorite(
-                                    size: size,
-                                    favoriteController: prodController
-                                        .prods, // subcategory: subcategory,
-                                  ),
-                                  Container(
-                                    height: double.infinity,
-                                    width: size.width / 1.51,
-                                    padding: EdgeInsets.only(top: 20),
-                                    child: Column(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.start,
-                                      children: [
-                                        Expanded(
-                                          flex: 0,
-                                          child: Container(
-                                              color: AppColors.greyColor,
-                                              child: SubcategoryFavorite(
-                                                favoriteController:
-                                                    prodController
-                                                        .prods[
-                                                            favoriteController
-                                                                .idcategory
-                                                                .value]
-                                                        .subCategories,
+                                                .products
+                                                .length,
+                                            itemBuilder: (BuildContext context,
+                                                int index) {
+                                              return FullCard(
                                                 size: size,
-                                                // subcategory: subcategory,
-                                              )),
+                                                product: favoriteController
+                                                    .favorites[
+                                                        favoriteController
+                                                            .idcategory.value]
+                                                    .subCategories[
+                                                        favoriteController
+                                                            .idsupcategory
+                                                            .value]
+                                                    .products[index],
+                                                isCart: false,
+                                              );
+                                            },
+                                            staggeredTileBuilder: (int index) =>
+                                                new StaggeredTile.count(
+                                                    1, 1.39),
+                                            mainAxisSpacing: 25,
+                                            crossAxisSpacing: 1,
+                                          ),
                                         ),
-                                        Expanded(
-                                          flex: 11,
-                                          child: Container(
-                                            margin: EdgeInsets.symmetric(
-                                                horizontal:
-                                                    Defaults.defaultPadding),
-                                            child:
-                                                StaggeredGridView.countBuilder(
-                                              shrinkWrap: true,
-                                              crossAxisCount: 2,
-                                              itemCount: prodController
-                                                  .prods[favoriteController
-                                                      .idcategory.value]
-                                                  .subCategories[
-                                                      favoriteController
-                                                          .idsupcategory.value]
-                                                  .products
-                                                  .length,
-                                              itemBuilder:
-                                                  (BuildContext context,
-                                                      int index) {
-                                                return FullCard(
-                                                  size: size,
-                                                  product: prodController
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                        )
+                      : Center(
+                          child: CircularProgressIndicator(),
+                        )
+                  : Center(
+                      child: Column(children: [
+                        Padding(
+                          padding: const EdgeInsets.all(30),
+                          child: SvgPicture.asset('assets/svg/subscribe.svg'),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.all(15),
+                          child: SvgPicture.asset(
+                              'assets/svg/No favorite to show.svg'),
+                        ),
+                        InkWell(
+                          onTap: () {
+                            Get.off(BottomBar(
+                              fu: HomeView(),
+                            ));
+                          },
+                          child: Column(children: [
+                            Text(
+                              'Find your favorite',
+                              style: TextStyle(color: Colors.red),
+                            ),
+                            const Divider(
+                              height: 5,
+                              thickness: 2,
+                              indent: 150,
+                              endIndent: 150,
+                              color: Colors.red,
+                            ),
+                          ]),
+                        )
+                      ]),
+                    )
+              : !prodController.isEmpty.value
+                  ? prodController.prods.length != 0
+                      ? Container(
+                          width: size.width,
+                          height: size.height,
+                          decoration: BoxDecoration(
+                              image: DecorationImage(
+                                  image:
+                                      AssetImage('assets/png/background.png'))),
+                          child: Padding(
+                            padding: EdgeInsets.only(top: 10),
+                            child: Column(
+                              children: [
+                                Expanded(
+                                  child: Row(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    mainAxisAlignment: MainAxisAlignment.start,
+                                    children: [
+                                      CategorysFavorite(
+                                        size: size,
+                                        favoriteController: prodController
+                                            .prods, // subcategory: subcategory,
+                                      ),
+                                      Container(
+                                        height: double.infinity,
+                                        width: size.width / 1.51,
+                                        padding: EdgeInsets.only(top: 20),
+                                        child: Column(
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.start,
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.start,
+                                          children: [
+                                            Expanded(
+                                              flex: 0,
+                                              child: Container(
+                                                  color: AppColors.greyColor,
+                                                  child: SubcategoryFavorite(
+                                                    favoriteController:
+                                                        prodController
+                                                            .prods[
+                                                                favoriteController
+                                                                    .idcategory
+                                                                    .value]
+                                                            .subCategories,
+                                                    size: size,
+                                                    // subcategory: subcategory,
+                                                  )),
+                                            ),
+                                            Expanded(
+                                              flex: 11,
+                                              child: Container(
+                                                margin: EdgeInsets.symmetric(
+                                                    horizontal: Defaults
+                                                        .defaultPadding),
+                                                child: StaggeredGridView
+                                                    .countBuilder(
+                                                  shrinkWrap: true,
+                                                  crossAxisCount: 2,
+                                                  itemCount: prodController
                                                       .prods[favoriteController
                                                           .idcategory.value]
                                                       .subCategories[
                                                           favoriteController
                                                               .idsupcategory
                                                               .value]
-                                                      .products[index],
-                                                  isCart: false,
-                                                );
-                                              },
-                                              staggeredTileBuilder:
-                                                  (int index) =>
+                                                      .products
+                                                      .length,
+                                                  itemBuilder:
+                                                      (BuildContext context,
+                                                          int index) {
+                                                    return FullCard(
+                                                      size: size,
+                                                      product: prodController
+                                                          .prods[
+                                                              favoriteController
+                                                                  .idcategory
+                                                                  .value]
+                                                          .subCategories[
+                                                              favoriteController
+                                                                  .idsupcategory
+                                                                  .value]
+                                                          .products[index],
+                                                      isCart: false,
+                                                    );
+                                                  },
+                                                  staggeredTileBuilder: (int
+                                                          index) =>
                                                       new StaggeredTile.count(
                                                           1, 1.39),
-                                              mainAxisSpacing: 25,
-                                              crossAxisSpacing: 1,
+                                                  mainAxisSpacing: 25,
+                                                  crossAxisSpacing: 1,
+                                                ),
+                                              ),
                                             ),
-                                          ),
+                                          ],
                                         ),
-                                      ],
-                                    ),
+                                      ),
+                                    ],
                                   ),
-                                ],
-                              ),
+                                ),
+                              ],
                             ),
-                          ],
-                        ),
-                      ),
-                    )
+                          ),
+                        )
+                      : Center(
+                          child: CircularProgressIndicator(),
+                        )
                   : Center(
-                      child: CircularProgressIndicator(),
+                      child: Column(children: [
+                        Padding(
+                          padding: const EdgeInsets.all(30),
+                          child: SvgPicture.asset('assets/svg/subscribe.svg'),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.all(15),
+                          child: SvgPicture.asset(
+                              'assets/svg/No favorite to show.svg'),
+                        ),
+                        InkWell(
+                          onTap: () {
+                            Get.off(BottomBar(
+                              fu: HomeView(),
+                            ));
+                          },
+                          child: Column(children: [
+                            Text(
+                              'Find your favorite',
+                              style: TextStyle(color: Colors.red),
+                            ),
+                            const Divider(
+                              height: 5,
+                              thickness: 2,
+                              indent: 150,
+                              endIndent: 150,
+                              color: Colors.red,
+                            ),
+                          ]),
+                        )
+                      ]),
                     );
         }));
   }

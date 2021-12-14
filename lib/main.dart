@@ -26,6 +26,7 @@ class MyApp extends StatelessWidget {
     Constansbox.box.writeIfNull('offers', []);
     Constansbox.box.writeIfNull('favorite', []);
     Constansbox.box.writeIfNull('carts', []);
+    Constansbox.box.writeIfNull('Search', []);
 
     Constansbox.box.writeIfNull('accessToken', '');
     Constansbox.box.writeIfNull('refreshToken', '');

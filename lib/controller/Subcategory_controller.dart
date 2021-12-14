@@ -12,7 +12,7 @@ class SubcategorysControllers extends GetxController {
 
   ApiResult apiResult = ApiResult();
   SubcategoryService subcategory = SubcategoryService();
-  var value = 0.obs;
+  var idsub = 0.obs;
 
   @override
   void onInit() {
@@ -21,7 +21,7 @@ class SubcategorysControllers extends GetxController {
   }
 
   changevalue(int v) async {
-    value.value = await v;
+    idsub.value = await v;
   }
 
   getsubcategory(int value) async {

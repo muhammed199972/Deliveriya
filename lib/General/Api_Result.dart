@@ -3,4 +3,5 @@ class ApiResult {
   int? codeError;
   String? errorMassage;
   dynamic data;
+  dynamic isEmpty;
 }

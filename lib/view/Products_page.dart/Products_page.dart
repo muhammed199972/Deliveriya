@@ -117,7 +117,7 @@ class ProduvtsView extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.start,
           children: [
             Expanded(
-                flex: 1,
+                flex: 0,
                 child: Container(
                   color: AppColors.greyColor,
                   child: Column(
@@ -127,9 +127,19 @@ class ProduvtsView extends StatelessWidget {
                         iSfavorite: false,
                         // subcategory: subcategory,
                       ),
+                      SizedBox(
+                        height: 7,
+                      ),
                       SubcategoryScroll(
                         size: size,
                         // subcategory: subcategory,
+                      ),
+                      const Divider(
+                        height: 20,
+                        thickness: 1,
+                        indent: 0,
+                        endIndent: 0,
+                        color: Colors.grey,
                       ),
                     ],
                   ),
@@ -137,7 +147,7 @@ class ProduvtsView extends StatelessWidget {
             Obx(() {
               // move();
               return Expanded(
-                flex: 5,
+                flex: 4,
                 child: prodController.isLoading.value
                     ? ShimmerWidget.productsLoading()
                     : Container(
