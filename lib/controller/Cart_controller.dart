@@ -21,6 +21,7 @@ class CartController extends GetxController {
   //
   var hasError = true.obs;
   //
+  var lenghcart = 0.obs;
   var massage = ''.obs;
   var isLoading = true.obs;
   ApiResult apiResult = ApiResult();

@@ -7,14 +7,13 @@ import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 
 class FullCard extends StatelessWidget {
-  FullCard(
-      {Key? key,
-      required this.size,
-      required this.product,
-      required this.isCart})
-      : super(key: key);
+  FullCard({
+    Key? key,
+    required this.size,
+    required this.product,
+  }) : super(key: key);
   //
-  bool? isCart;
+  var isCart = false.obs;
 
   final Size size;
   var cartController = Get.find<CartController>();
@@ -35,11 +34,20 @@ class FullCard extends StatelessWidget {
         favorite.value = true;
       }
     }
+    if (statusCode.Token == '') {
+      List cart = Constansbox.box.read('cartsid');
+      isCart.value =
+          cart.any((element) => element != product.id ? false : true);
+    } else {
+      if (product.carts != null) {
+        isCart.value = true;
+      }
+    }
 
     return Stack(
       children: [
         Container(
-          height: size.height * 0.18,
+          height: size.height * 0.16,
           padding: EdgeInsets.only(right: Defaults.defaultPadding / 2),
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(5.0),
@@ -64,7 +72,7 @@ class FullCard extends StatelessWidget {
               children: <Widget>[
                 Stack(children: [
                   Container(
-                    height: size.height * 0.09,
+                    height: size.height * 0.082,
                     width: double.infinity,
                     decoration: BoxDecoration(
                       image: DecorationImage(
@@ -94,36 +102,80 @@ class FullCard extends StatelessWidget {
                         flex: 1,
                         child: Container(
                           child: InkWell(
-                            splashColor: Colors.transparent,
-                            highlightColor: Colors.transparent,
-                            onTap: () {
-                              if (isCart!) {
-                                cartController
-                                    .deletecart(product!.id.toString());
-                                // cart.value = false;
-                              } else {
-                                if (counter.value == 0) {
-                                  BotToast.showText(
-                                    text: 'choose your quantity',
-                                    align: Alignment.center,
-                                  );
-                                } else {
-                                  cartController.addTocart(
-                                      counter.value, product!.id.toString());
-                                }
+                              splashColor: Colors.transparent,
+                              highlightColor: Colors.transparent,
+                              onTap: () {
+                                if (isCart.value) {
+                                  if (statusCode.Token == '') {
+                                    List cartsid =
+                                        Constansbox.box.read('cartsid');
+                                    List cartscount =
+                                        Constansbox.box.read('cartscounte');
 
-                                // cart.value = true;
-                              }
-                            },
-                            child: SvgPicture.asset(
-                              'assets/svg/Cart icon.svg',
-                              color: isCart!
-                                  //  cart.value
-                                  ? AppColors.mainColor
-                                  : Colors.grey[800],
-                              width: 20,
-                            ),
-                          ),
+                                    for (int i = 0; i < cartsid.length; i++) {
+                                      if (cartsid[i] == product!.id) {
+                                        cartsid.removeAt(i);
+                                        cartscount.removeAt(i);
+                                      }
+                                    }
+                                    cartController.lenghcart.value =
+                                        cartsid.length;
+
+                                    Constansbox.box
+                                        .write('cartscounte', cartscount);
+
+                                    Constansbox.box.write('cartsid', cartsid);
+                                    isCart.value = false;
+                                  } else {
+                                    cartController
+                                        .deletecart(product!.id.toString());
+                                  }
+
+                                  // cart.value = false;
+                                } else {
+                                  if (counter.value == 0) {
+                                    BotToast.showText(
+                                      text: 'choose your quantity',
+                                      align: Alignment.center,
+                                    );
+                                  } else {
+                                    if (statusCode.Token == '') {
+                                      List cartsid =
+                                          Constansbox.box.read('cartsid');
+
+                                      cartsid.add(product!.id);
+                                      Constansbox.box.write('cartsid', cartsid);
+
+                                      List cartscount =
+                                          Constansbox.box.read('cartscounte');
+
+                                      cartscount.add(counter.value);
+
+                                      Constansbox.box
+                                          .write('cartscounte', cartscount);
+                                      cartController.lenghcart.value =
+                                          cartsid.length;
+
+                                      isCart.value = true;
+                                    } else {
+                                      cartController.addTocart(counter.value,
+                                          product!.id.toString());
+                                    }
+                                  }
+
+                                  // cart.value = true;
+                                }
+                              },
+                              child: Obx(() {
+                                return SvgPicture.asset(
+                                  'assets/svg/Cart icon.svg',
+                                  color: isCart.value
+                                      //  cart.value
+                                      ? AppColors.mainColor
+                                      : Colors.grey[800],
+                                  width: 20,
+                                );
+                              })),
                         ),
                       ),
                       Obx(
@@ -184,16 +236,46 @@ class FullCard extends StatelessWidget {
             ),
           ),
         ),
-        Visibility(
-          visible: !isCart!,
-          child: Positioned(
-            right: 0,
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: [
-                InkWell(
-                  onTap: () => counter++,
-                  child: Container(
+        Obx(() {
+          return Visibility(
+            visible: !isCart.value,
+            child: Positioned(
+              right: 0,
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [
+                  InkWell(
+                    onTap: () => counter++,
+                    child: Container(
+                      margin: EdgeInsets.only(
+                          bottom: Defaults.defaultPadding / 3.5),
+                      height: 20,
+                      width: 20,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(3.0),
+                        color: AppColors.whiteColor,
+                        boxShadow: [
+                          BoxShadow(
+                            color: Colors.black.withOpacity(0.1),
+                            spreadRadius: 1,
+                            blurRadius: 10,
+                            offset:
+                                Offset(10, 10), // changes position of shadow
+                          ),
+                        ],
+                      ),
+                      child: Center(
+                        child: Text(
+                          '+',
+                          style: TextStyle(
+                            fontWeight: FontWeight.w500,
+                            fontSize: 20,
+                          ),
+                        ),
+                      ),
+                    ),
+                  ),
+                  Container(
                     margin:
                         EdgeInsets.only(bottom: Defaults.defaultPadding / 3.5),
                     height: 20,
@@ -210,76 +292,50 @@ class FullCard extends StatelessWidget {
                         ),
                       ],
                     ),
-                    child: Center(
-                      child: Text(
-                        '+',
-                        style: TextStyle(
-                          fontWeight: FontWeight.w500,
-                          fontSize: 20,
+                    child: Obx(() {
+                      return Center(
+                        child: Text('${counter.value}'),
+                      );
+                    }),
+                  ),
+                  InkWell(
+                    onTap: () {
+                      if (counter > 0) {
+                        counter--;
+                      }
+                    },
+                    child: Container(
+                      height: 20,
+                      width: 20,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(3.0),
+                        color: AppColors.whiteColor,
+                        boxShadow: [
+                          BoxShadow(
+                            color: Colors.black.withOpacity(0.1),
+                            spreadRadius: 1,
+                            blurRadius: 10,
+                            offset:
+                                Offset(10, 10), // changes position of shadow
+                          ),
+                        ],
+                      ),
+                      child: Center(
+                        child: Text(
+                          '-',
+                          style: TextStyle(
+                            fontWeight: FontWeight.w500,
+                            fontSize: 20,
+                          ),
                         ),
                       ),
                     ),
-                  ),
-                ),
-                Container(
-                  margin:
-                      EdgeInsets.only(bottom: Defaults.defaultPadding / 3.5),
-                  height: 20,
-                  width: 20,
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(3.0),
-                    color: AppColors.whiteColor,
-                    boxShadow: [
-                      BoxShadow(
-                        color: Colors.black.withOpacity(0.1),
-                        spreadRadius: 1,
-                        blurRadius: 10,
-                        offset: Offset(10, 10), // changes position of shadow
-                      ),
-                    ],
-                  ),
-                  child: Obx(() {
-                    return Center(
-                      child: Text('${counter.value}'),
-                    );
-                  }),
-                ),
-                InkWell(
-                  onTap: () {
-                    if (counter > 0) {
-                      counter--;
-                    }
-                  },
-                  child: Container(
-                    height: 20,
-                    width: 20,
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(3.0),
-                      color: AppColors.whiteColor,
-                      boxShadow: [
-                        BoxShadow(
-                          color: Colors.black.withOpacity(0.1),
-                          spreadRadius: 1,
-                          blurRadius: 10,
-                          offset: Offset(10, 10), // changes position of shadow
-                        ),
-                      ],
-                    ),
-                    child: Center(
-                      child: Text(
-                        '-',
-                        style: TextStyle(
-                          fontWeight: FontWeight.w500,
-                          fontSize: 20,
-                        ),
-                      ),
-                    ),
-                  ),
-                )
-              ],
+                  )
+                ],
+              ),
             ),
-          ),
-        ),
+          );
+        })
       ],
     );
   }

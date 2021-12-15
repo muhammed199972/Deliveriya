@@ -62,12 +62,11 @@ class ProductsController extends GetxController {
     }
   }
 
-  getListproduct({
-    List<int>? Listproduct,
-    String? q,
-  }) async {
+  getListproduct(
+      {List<int>? Listproduct, String? q, String? from, String? to}) async {
     try {
-      apiResult = (await product.getListproductsData(Listproduct!, q!))!;
+      apiResult =
+          (await product.getListproductsData(Listproduct!, q!, from!, to!))!;
       if (!apiResult.hasError!) {
         isEmpty.value = apiResult.isEmpty;
         prods.value = apiResult.data;

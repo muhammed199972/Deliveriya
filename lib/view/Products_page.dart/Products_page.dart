@@ -33,8 +33,17 @@ class ProduvtsView extends StatelessWidget {
     });
   }
 
+  StatusCode statusCode = StatusCode();
   @override
   Widget build(BuildContext context) {
+    if (statusCode.Token == '') {
+      List cart = Constansbox.box.read('cartsid');
+      cartController.lenghcart.value = cart.length;
+    } else {
+      cartController.getcart();
+      move();
+    }
+
     Size size = MediaQuery.of(context).size;
     return Scaffold(
       // bottomNavigationBar:BottomBar(intid: 1,) ,
@@ -71,34 +80,64 @@ class ProduvtsView extends StatelessWidget {
                     ),
                   ),
                 ),
-                Obx(
-                  () => cartController.carts.value.data?.length == 0
-                      ? Container()
-                      : Padding(
-                          padding: const EdgeInsets.only(top: 5, right: 5),
-                          child: Align(
-                            alignment: Alignment.topCenter,
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.end,
-                              children: [
-                                SizedBox(
-                                  width: size.width * 0.03,
-                                ),
-                                CircleAvatar(
-                                  radius: 13,
-                                  backgroundColor: AppColors.mainColor,
-                                  child: Text(
-                                    '${cartController.carts.value.data?.length ?? 0}',
-                                    style: TextStyle(
-                                        fontSize: 14,
-                                        color: AppColors.whiteColor),
+                if (statusCode.Token != '')
+                  Obx(
+                    () => cartController.carts.value.data?.length == 0
+                        ? Container()
+                        : Padding(
+                            padding: const EdgeInsets.only(top: 5, right: 5),
+                            child: Align(
+                              alignment: Alignment.topCenter,
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.end,
+                                children: [
+                                  SizedBox(
+                                    width: size.width * 0.03,
                                   ),
-                                ),
-                              ],
+                                  CircleAvatar(
+                                    radius: 13,
+                                    backgroundColor: AppColors.mainColor,
+                                    child: Text(
+                                      '${cartController.carts.value.data?.length ?? 0}',
+                                      style: TextStyle(
+                                          fontSize: 14,
+                                          color: AppColors.whiteColor),
+                                    ),
+                                  ),
+                                ],
+                              ),
                             ),
                           ),
-                        ),
-                ),
+                  ),
+                if (statusCode.Token == '')
+                  Obx(
+                    () => cartController.lenghcart.value == 0
+                        ? Container()
+                        : Padding(
+                            padding: const EdgeInsets.only(top: 5, right: 5),
+                            child: Align(
+                              alignment: Alignment.topCenter,
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.end,
+                                children: [
+                                  SizedBox(
+                                    width: size.width * 0.03,
+                                  ),
+                                  CircleAvatar(
+                                    radius: 13,
+                                    backgroundColor: AppColors.mainColor,
+                                    child: Text(
+                                      '${cartController.lenghcart.value}',
+                                      style: TextStyle(
+                                          fontSize: 14,
+                                          color: AppColors.whiteColor),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ),
+                  ),
               ],
             ),
           ),
@@ -161,12 +200,10 @@ class ProduvtsView extends StatelessWidget {
                             return FullCard(
                               size: size,
                               product: prodController.products[index],
-                              isCart: list!
-                                  .contains(prodController.products[index].id),
                             );
                           },
                           staggeredTileBuilder: (int index) =>
-                              new StaggeredTile.count(1, 1.13),
+                              new StaggeredTile.count(1, 1.18),
                           mainAxisSpacing: 25,
                           crossAxisSpacing: 15,
                         ),

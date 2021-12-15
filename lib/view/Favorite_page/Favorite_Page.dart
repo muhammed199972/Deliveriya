@@ -33,11 +33,12 @@ class _FavoriteViewState extends State<FavoriteView> {
       List<int> favo = [];
       fav.forEach((e) => favo.add(e));
       if (favo.length != 0)
-        prodController.getListproduct(Listproduct: favo, q: '');
+        prodController.getListproduct(
+            Listproduct: favo, q: '', from: '', to: '');
       else
         prodController.isEmpty.value = true;
     } else {
-      favoriteController.getfavorite('');
+      favoriteController.getfavorite('', '', '');
     }
     super.initState();
   }
@@ -47,6 +48,8 @@ class _FavoriteViewState extends State<FavoriteView> {
     Size size = MediaQuery.of(context).size;
     List Se = Constansbox.box.read('Search');
     List Search = new List.from(Se.reversed);
+    DateTime now = DateTime.now();
+    print('${now.subtract(Duration(days: 7))}');
 
     return Scaffold(
         appBar: AppBar(
@@ -109,7 +112,6 @@ class _FavoriteViewState extends State<FavoriteView> {
                                 highlightColor: Colors.transparent,
                                 onTap: () {
                                   setState(() {
-                                    opensearch = !opensearch;
                                     if (statusCode.Token == '') {
                                       List<dynamic> fav =
                                           Constansbox.box.read('favorite');
@@ -117,11 +119,22 @@ class _FavoriteViewState extends State<FavoriteView> {
                                       fav.forEach((e) => favo.add(e));
                                       prodController.getListproduct(
                                           Listproduct: favo,
-                                          q: _searchController.text);
+                                          q: _searchController.text,
+                                          from: now
+                                              .subtract(Duration(days: 7))
+                                              .toString()
+                                              .split(' ')[0],
+                                          to: now.toString().split(' ')[0]);
                                     } else {
-                                      favoriteController
-                                          .getfavorite(_searchController.text);
+                                      favoriteController.getfavorite(
+                                          _searchController.text,
+                                          now
+                                              .subtract(Duration(days: 7))
+                                              .toString()
+                                              .split(' ')[0],
+                                          now.toString().split(' ')[0]);
                                     }
+                                    Get.back();
                                   });
                                 },
                                 child: Text('This Week')),
@@ -131,7 +144,33 @@ class _FavoriteViewState extends State<FavoriteView> {
                             InkWell(
                                 splashColor: Colors.transparent,
                                 highlightColor: Colors.transparent,
-                                onTap: () {},
+                                onTap: () {
+                                  setState(() {
+                                    if (statusCode.Token == '') {
+                                      List<dynamic> fav =
+                                          Constansbox.box.read('favorite');
+                                      List<int> favo = [];
+                                      fav.forEach((e) => favo.add(e));
+                                      prodController.getListproduct(
+                                          Listproduct: favo,
+                                          q: _searchController.text,
+                                          from: now
+                                              .subtract(Duration(days: 30))
+                                              .toString()
+                                              .split(' ')[0],
+                                          to: now.toString().split(' ')[0]);
+                                    } else {
+                                      favoriteController.getfavorite(
+                                          _searchController.text,
+                                          now
+                                              .subtract(Duration(days: 30))
+                                              .toString()
+                                              .split(' ')[0],
+                                          now.toString().split(' ')[0]);
+                                    }
+                                    Get.back();
+                                  });
+                                },
                                 child: Text('Last month')),
                             Divider(
                               color: AppColors.darkgreytextColor,
@@ -139,7 +178,33 @@ class _FavoriteViewState extends State<FavoriteView> {
                             InkWell(
                                 splashColor: Colors.transparent,
                                 highlightColor: Colors.transparent,
-                                onTap: () {},
+                                onTap: () {
+                                  setState(() {
+                                    if (statusCode.Token == '') {
+                                      List<dynamic> fav =
+                                          Constansbox.box.read('favorite');
+                                      List<int> favo = [];
+                                      fav.forEach((e) => favo.add(e));
+                                      prodController.getListproduct(
+                                          Listproduct: favo,
+                                          q: _searchController.text,
+                                          from: now
+                                              .subtract(Duration(days: 180))
+                                              .toString()
+                                              .split(' ')[0],
+                                          to: now.toString().split(' ')[0]);
+                                    } else {
+                                      favoriteController.getfavorite(
+                                          _searchController.text,
+                                          now
+                                              .subtract(Duration(days: 180))
+                                              .toString()
+                                              .split(' ')[0],
+                                          now.toString().split(' ')[0]);
+                                    }
+                                    Get.back();
+                                  });
+                                },
                                 child: Text('Last 6 months')),
                             Divider(
                               color: AppColors.darkgreytextColor,
@@ -147,7 +212,33 @@ class _FavoriteViewState extends State<FavoriteView> {
                             InkWell(
                                 splashColor: Colors.transparent,
                                 highlightColor: Colors.transparent,
-                                onTap: () {},
+                                onTap: () {
+                                  setState(() {
+                                    if (statusCode.Token == '') {
+                                      List<dynamic> fav =
+                                          Constansbox.box.read('favorite');
+                                      List<int> favo = [];
+                                      fav.forEach((e) => favo.add(e));
+                                      prodController.getListproduct(
+                                          Listproduct: favo,
+                                          q: _searchController.text,
+                                          from: now
+                                              .subtract(Duration(days: 362))
+                                              .toString()
+                                              .split(' ')[0],
+                                          to: now.toString().split(' ')[0]);
+                                    } else {
+                                      favoriteController.getfavorite(
+                                          _searchController.text,
+                                          now
+                                              .subtract(Duration(days: 362))
+                                              .toString()
+                                              .split(' ')[0],
+                                          now.toString().split(' ')[0]);
+                                    }
+                                    Get.back();
+                                  });
+                                },
                                 child: Text('Last year')),
                           ],
                         ),
@@ -225,8 +316,8 @@ class _FavoriteViewState extends State<FavoriteView> {
                                           Listproduct: favo,
                                           q: _searchController.text);
                                     } else {
-                                      favoriteController
-                                          .getfavorite(_searchController.text);
+                                      favoriteController.getfavorite(
+                                          _searchController.text, '', '');
                                     }
                                   });
                                 },
@@ -366,7 +457,6 @@ class _FavoriteViewState extends State<FavoriteView> {
                                                             .idsupcategory
                                                             .value]
                                                     .products[index],
-                                                isCart: false,
                                               );
                                             },
                                             staggeredTileBuilder: (int index) =>
@@ -504,7 +594,6 @@ class _FavoriteViewState extends State<FavoriteView> {
                                                                   .idsupcategory
                                                                   .value]
                                                           .products[index],
-                                                      isCart: false,
                                                     );
                                                   },
                                                   staggeredTileBuilder: (int

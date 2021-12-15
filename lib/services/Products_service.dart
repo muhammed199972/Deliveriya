@@ -138,7 +138,7 @@ class ProductService {
   }
 
   Future<ApiResult?> getListproductsData(
-      List<int> Listproduct, String q) async {
+      List<int> Listproduct, String q, String from, String to) async {
     StatusCode statusCode = StatusCode();
     ApiResult apiResult = ApiResult();
     List<FavoriteResponse> calendar = [];
@@ -148,11 +148,22 @@ class ProductService {
 
     try {
       var response;
+      if (from == '') {
+        response = await dio.post(
+            'http://' + statusCode.url1 + '/api/public/product/ids',
+            queryParameters: {
+              'q': q,
+            },
+            data: {
+              "ids": Listproduct
+            });
+      } else {
+        response = await dio.post(
+            'http://' + statusCode.url1 + '/api/public/product/ids',
+            queryParameters: {'q': q, 'from': from, 'to': to},
+            data: {"ids": Listproduct});
+      }
 
-      response = await dio.post(
-          'http://' + statusCode.url1 + '/api/public/product/ids',
-          queryParameters: {'q': q},
-          data: {"ids": Listproduct});
       print(response.data['response'].isEmpty);
       if (response!.statusCode == statusCode.OK ||
           response!.statusCode == statusCode.CREATED) {
@@ -188,7 +199,7 @@ class ProductService {
         apiResult.codeError = status.code;
         apiResult.hasError = true;
         await authController.postrefreshToken();
-        getListproductsData(Listproduct, q);
+        getListproductsData(Listproduct, q, from, to);
 
         print('A bad request Please try again');
       } else if (response!.statusCode == statusCode.FORBIDDEN) {

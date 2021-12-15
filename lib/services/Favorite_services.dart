@@ -9,14 +9,20 @@ import 'package:delivery_food/model/Post_data.dart';
 import 'package:http/http.dart' as http;
 
 class FavoriteService {
-  Future<ApiResult> getfavoriteData(String q) async {
+  Future<ApiResult> getfavoriteData(String q, String from, String to) async {
     StatusCode statusCode = StatusCode();
     ApiResult apiResult = ApiResult();
     List<FavoriteResponse> calendar = [];
     FavoriteStatus? status;
     ErrorResponse? error;
-    Uri url =
-        Uri.http('${statusCode.url1}', '/api/private/user/favorite', {'q': q});
+    Uri url;
+    if (from == '') {
+      url = Uri.http(
+          '${statusCode.url1}', '/api/private/user/favorite', {'q': q});
+    } else {
+      url = Uri.http('${statusCode.url1}', '/api/private/user/favorite',
+          {'q': q, 'from': from, 'to': to});
+    }
 
     try {
       var response = await http

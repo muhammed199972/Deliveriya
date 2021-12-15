@@ -25,15 +25,17 @@ class MyApp extends StatelessWidget {
     Constansbox.box.writeIfNull('New', []);
     Constansbox.box.writeIfNull('offers', []);
     Constansbox.box.writeIfNull('favorite', []);
-    Constansbox.box.writeIfNull('carts', []);
+    Constansbox.box.writeIfNull('cartsid', []);
+    Constansbox.box.writeIfNull('cartscounte', []);
+
     Constansbox.box.writeIfNull('Search', []);
 
     Constansbox.box.writeIfNull('accessToken', '');
     Constansbox.box.writeIfNull('refreshToken', '');
 //  Constansbox.box.remove('New');
 //     Constansbox.box.remove('offers');
-//     Constansbox.box.remove('favorite');
-//     Constansbox.box.remove('carts');
+    // Constansbox.box.remove('cartsid');
+    // Constansbox.box.remove('cartscounte');
 
     return ScreenUtilInit(
       designSize: Size(411, 683),

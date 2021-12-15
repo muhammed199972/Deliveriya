@@ -27,10 +27,10 @@ class FavoriteController extends GetxController {
     super.onInit();
   }
 
-  getfavorite(String q) async {
+  getfavorite(String q, String from, String to) async {
     favorites = <FavoriteResponse>[].obs;
     try {
-      apiResult = await favoriteService.getfavoriteData(q);
+      apiResult = await favoriteService.getfavoriteData(q, from, to);
       if (!apiResult.hasError!) {
         isEmpty.value = apiResult.isEmpty;
 
