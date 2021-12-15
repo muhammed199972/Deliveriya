@@ -1,5 +1,6 @@
 import 'package:delivery_food/General/Constants.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 
 class AddressWidget extends StatelessWidget {
   AddressWidget(
@@ -53,6 +54,13 @@ class AddressWidget extends StatelessWidget {
               ),
             ],
           ),
+          trailing: IconButton(
+              splashColor: Colors.transparent,
+              highlightColor: Colors.transparent,
+              onPressed: () {},
+              icon: Image.asset(
+                'assets/png/remove.png',
+              )),
         ),
       ),
     );

@@ -1,24 +1,29 @@
+import 'package:bot_toast/bot_toast.dart';
 import 'package:delivery_food/General/Constants.dart';
+import 'package:delivery_food/General/Dialogs.dart';
 import 'package:delivery_food/controller/Profile_controller.dart';
 import 'package:delivery_food/view/Profile_page/Component/OptionProfile.dart';
 import 'package:delivery_food/view/Profile_page/Component/TextField.dart';
+import 'package:delivery_food/view/Virefy_pages/Component/Buttons.dart';
 import 'package:delivery_food/view/Virefy_pages/Component/TextField.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
+import 'package:image_picker/image_picker.dart';
 
 class ProfileInfo extends StatelessWidget {
   ProfileInfo({Key? key}) : super(key: key);
-  var controller = Get.put(ProfileController());
+  var controller = Get.find<ProfileController>();
   final _firstnameController = TextEditingController();
   final _lastnameController = TextEditingController();
   final _phoneController = TextEditingController();
-  final _datebirthController = TextEditingController();
   final _confirmPassController = TextEditingController();
   final _newpassController = TextEditingController();
   final _oldpassController = TextEditingController();
+  var formkey1 = GlobalKey<FormState>();
+  var formkey2 = GlobalKey<FormState>();
 
   @override
   Widget build(BuildContext context) {
@@ -42,15 +47,6 @@ class ProfileInfo extends StatelessWidget {
           'Profile Info',
           style: TextStyle(color: AppColors.blackColor),
         ),
-        actions: [
-          IconButton(
-            onPressed: () {},
-            icon: Image.asset(
-              'assets/png/hestory.png',
-              width: 40,
-            ),
-          ),
-        ],
       ),
       body: SingleChildScrollView(
         child: Column(
@@ -85,7 +81,9 @@ class ProfileInfo extends StatelessWidget {
                             children: [
                               Center(
                                 child: InkWell(
-                                    onTap: () {},
+                                    onTap: () {
+                                      controller.postImg(ImageSource.camera);
+                                    },
                                     child: Row(
                                       mainAxisAlignment:
                                           MainAxisAlignment.center,
@@ -108,7 +106,9 @@ class ProfileInfo extends StatelessWidget {
                               ),
                               Center(
                                 child: InkWell(
-                                    onTap: () {},
+                                    onTap: () {
+                                      controller.postImg(ImageSource.gallery);
+                                    },
                                     child: Row(
                                       mainAxisAlignment:
                                           MainAxisAlignment.center,
@@ -144,10 +144,12 @@ class ProfileInfo extends StatelessWidget {
                     margin:
                         EdgeInsets.only(bottom: 0, left: 17, top: 10, right: 8),
                     child: CircleAvatar(
-                      child: SvgPicture.asset(
-                        "assets/svg/Profile icon.svg",
-                        color: AppColors.darkgreytextColor,
-                      ),
+                      child: controller.filenull.value
+                          ? SvgPicture.asset(
+                              "assets/svg/Profile icon.svg",
+                              color: AppColors.darkgreytextColor,
+                            )
+                          : Image.file(controller.file.value),
                       backgroundColor: AppColors.whiteColor,
                     ),
                   ),
@@ -188,45 +190,63 @@ class ProfileInfo extends StatelessWidget {
                     ),
                     child: Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 8),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Text(
-                            'Gender',
-                            style: TextStyle(fontSize: 17),
-                          ),
-                          PopupMenuButton(
-                              icon: Icon(
-                                Icons.arrow_forward_ios_rounded,
-                                color: AppColors.blackColor,
-                                size: 20,
+                      child: Obx(() => Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Text(
+                                controller.gender.value == ''
+                                    ? 'Gender'
+                                    : controller.gender.value,
+                                style: TextStyle(fontSize: 17),
                               ),
-                              elevation: 1,
-                              itemBuilder: (context) => [
-                                    PopupMenuItem(
-                                      child: Text("Male"),
-                                      value: 1,
-                                    ),
-                                    PopupMenuItem(
-                                      child: Text("Female"),
-                                      value: 2,
-                                    ),
-                                  ]),
-                        ],
-                      ),
+                              PopupMenuButton(
+                                  icon: Icon(
+                                    Icons.arrow_forward_ios_rounded,
+                                    color: AppColors.blackColor,
+                                    size: 20,
+                                  ),
+                                  elevation: 1,
+                                  itemBuilder: (context) => [
+                                        PopupMenuItem(
+                                          child: Text("Male"),
+                                          value: 1,
+                                          onTap: () {
+                                            controller.gender.value = 'Male';
+                                          },
+                                        ),
+                                        PopupMenuItem(
+                                          child: Text("Female"),
+                                          value: 2,
+                                          onTap: () {
+                                            controller.gender.value = 'Female';
+                                          },
+                                        ),
+                                      ]),
+                            ],
+                          )),
                     ),
                   ),
-                  OptionProfile(
-                    padd: 0,
-                    size: size,
-                    txt: 'Date Birth',
-                    iconarrow: Icon(
-                      Icons.arrow_forward_ios_rounded,
-                    ),
-                    ontap: () {
-                      DatePicker.showDatePicker(context);
-                    },
-                  ),
+                  Obx(() => OptionProfile(
+                        padd: 0,
+                        size: size,
+                        txt: controller.date.value == ''
+                            ? 'Date Birth'
+                            : controller.date.value,
+                        iconarrow: Icon(
+                          Icons.arrow_forward_ios_rounded,
+                        ),
+                        ontap: () {
+                          DatePicker.showDatePicker(
+                            context,
+                            minTime: DateTime(1920, 1, 1),
+                            maxTime: DateTime(2018, 12, 30),
+                            onConfirm: (time) {
+                              controller.date.value =
+                                  time.toString().substring(0, 10);
+                            },
+                          );
+                        },
+                      )),
                   OptionProfile(
                     padd: 0,
                     size: size,
@@ -238,9 +258,9 @@ class ProfileInfo extends StatelessWidget {
                       Get.bottomSheet(
                         Container(
                           padding: EdgeInsets.symmetric(
-                              horizontal: Defaults.defaultPadding * 2.5,
+                              horizontal: Defaults.defaultPadding * 3,
                               vertical: Defaults.defaultPadding * 2),
-                          height: size.height * 0.35,
+                          height: size.height * 0.25,
                           decoration: BoxDecoration(
                             color: Colors.white,
                             borderRadius: BorderRadius.only(
@@ -256,18 +276,42 @@ class ProfileInfo extends StatelessWidget {
                               )
                             ],
                           ),
-                          child: TextFieldwidget(
-                            inputFormatters: [
-                              FilteringTextInputFormatter.digitsOnly,
-                              LengthLimitingTextInputFormatter(9),
-                            ],
-                            validator: validateMobile,
-                            controller: _phoneController,
-                            lebel: 'New Phone Number',
-                            prefixtxt: '+963',
-                            icon: Icon(
-                              Icons.phone_android,
-                              color: AppColors.darkgreytextColor,
+                          child: Form(
+                            key: formkey1,
+                            child: SingleChildScrollView(
+                              child: Column(
+                                children: [
+                                  TextFieldwidget(
+                                    inputFormatters: [
+                                      FilteringTextInputFormatter.digitsOnly,
+                                      LengthLimitingTextInputFormatter(9),
+                                    ],
+                                    txttype: TextInputType.number,
+                                    validator: validateMobile,
+                                    controller: _phoneController,
+                                    lebel: 'New Phone Number',
+                                    prefixtxt: '+963',
+                                    icon: Icon(
+                                      Icons.phone_android,
+                                      color: AppColors.darkgreytextColor,
+                                    ),
+                                  ),
+                                  Padding(
+                                    padding: EdgeInsets.symmetric(
+                                      horizontal: 100,
+                                    ),
+                                    child: ButtonWidget2(
+                                      size: size,
+                                      txt: 'Submit',
+                                      onTap: () {
+                                        if (formkey1.currentState!.validate())
+                                          DialogsUtils.showdialogVirefy(
+                                              m: 'enter code');
+                                      },
+                                    ),
+                                  ),
+                                ],
+                              ),
                             ),
                           ),
                         ),
@@ -302,75 +346,98 @@ class ProfileInfo extends StatelessWidget {
                             )
                           ],
                         ),
-                        child: Column(
-                          children: [
-                            SizedBox(
-                              height: 25,
+                        child: SingleChildScrollView(
+                          child: Form(
+                            key: formkey2,
+                            child: Column(
+                              children: [
+                                SizedBox(
+                                  height: 25,
+                                ),
+                                Obx(() => TextFieldwidget(
+                                      txttype: TextInputType.visiblePassword,
+                                      validator: validatePass,
+                                      controller: _oldpassController,
+                                      lebel: 'Old Password',
+                                      prefixtxt: '',
+                                      icon: Icon(
+                                        Icons.vpn_key_outlined,
+                                        color: AppColors.darkgreytextColor,
+                                      ),
+                                      ispassword: controller.ispass1.value,
+                                      suffixIcon: controller.ispass1.value
+                                          ? Icons.visibility
+                                          : Icons.visibility_off,
+                                      suffixPressed: () {
+                                        controller.ispass1.value =
+                                            !controller.ispass1.value;
+                                      },
+                                    )),
+                                SizedBox(
+                                  height: 25,
+                                ),
+                                Obx(() => TextFieldwidget(
+                                      txttype: TextInputType.visiblePassword,
+                                      validator: validatePass,
+                                      controller: _newpassController,
+                                      lebel: 'New Password',
+                                      prefixtxt: '',
+                                      icon: Icon(
+                                        Icons.vpn_key_outlined,
+                                        color: AppColors.darkgreytextColor,
+                                      ),
+                                      ispassword: controller.ispass2.value,
+                                      suffixIcon: controller.ispass2.value
+                                          ? Icons.visibility
+                                          : Icons.visibility_off,
+                                      suffixPressed: () {
+                                        controller.ispass2.value =
+                                            !controller.ispass2.value;
+                                      },
+                                    )),
+                                SizedBox(
+                                  height: 25,
+                                ),
+                                Obx(() => TextFieldwidget(
+                                      txttype: TextInputType.visiblePassword,
+                                      validator: validatePass,
+                                      controller: _confirmPassController,
+                                      lebel: 'Confirm Password',
+                                      prefixtxt: '',
+                                      icon: Icon(
+                                        Icons.vpn_key_outlined,
+                                        color: AppColors.darkgreytextColor,
+                                      ),
+                                      ispassword: controller.ispass3.value,
+                                      suffixIcon: controller.ispass3.value
+                                          ? Icons.visibility
+                                          : Icons.visibility_off,
+                                      suffixPressed: () {
+                                        controller.ispass3.value =
+                                            !controller.ispass3.value;
+                                      },
+                                    )),
+                                Padding(
+                                  padding: EdgeInsets.symmetric(
+                                      horizontal: 100, vertical: 25),
+                                  child: ButtonWidget2(
+                                      size: size,
+                                      txt: 'Submit',
+                                      onTap: () {
+                                        if (formkey2.currentState!.validate()) {
+                                          if (_newpassController.text !=
+                                              _confirmPassController) {
+                                            BotToast.showText(
+                                              text: 'not correct!',
+                                              align: Alignment.center,
+                                            );
+                                          }
+                                        }
+                                      }),
+                                ),
+                              ],
                             ),
-                            Obx(() => TextFieldwidget(
-                                  txttype: TextInputType.visiblePassword,
-                                  validator: validatePass,
-                                  controller: _oldpassController,
-                                  lebel: 'Old Password',
-                                  prefixtxt: '',
-                                  icon: Icon(
-                                    Icons.vpn_key_outlined,
-                                    color: AppColors.darkgreytextColor,
-                                  ),
-                                  ispassword: controller.ispass.value,
-                                  suffixIcon: controller.ispass.value
-                                      ? Icons.visibility
-                                      : Icons.visibility_off,
-                                  suffixPressed: () {
-                                    controller.ispass.value =
-                                        !controller.ispass.value;
-                                  },
-                                )),
-                            SizedBox(
-                              height: 25,
-                            ),
-                            Obx(() => TextFieldwidget(
-                                  txttype: TextInputType.visiblePassword,
-                                  validator: validatePass,
-                                  controller: _newpassController,
-                                  lebel: 'New Password',
-                                  prefixtxt: '',
-                                  icon: Icon(
-                                    Icons.vpn_key_outlined,
-                                    color: AppColors.darkgreytextColor,
-                                  ),
-                                  ispassword: controller.ispass.value,
-                                  suffixIcon: controller.ispass.value
-                                      ? Icons.visibility
-                                      : Icons.visibility_off,
-                                  suffixPressed: () {
-                                    controller.ispass.value =
-                                        !controller.ispass.value;
-                                  },
-                                )),
-                            SizedBox(
-                              height: 25,
-                            ),
-                            Obx(() => TextFieldwidget(
-                                  txttype: TextInputType.visiblePassword,
-                                  validator: validatePass,
-                                  controller: _confirmPassController,
-                                  lebel: 'Confirm Password',
-                                  prefixtxt: '',
-                                  icon: Icon(
-                                    Icons.vpn_key_outlined,
-                                    color: AppColors.darkgreytextColor,
-                                  ),
-                                  ispassword: controller.ispass.value,
-                                  suffixIcon: controller.ispass.value
-                                      ? Icons.visibility
-                                      : Icons.visibility_off,
-                                  suffixPressed: () {
-                                    controller.ispass.value =
-                                        !controller.ispass.value;
-                                  },
-                                )),
-                          ],
+                          ),
                         ),
                       ),
                     );

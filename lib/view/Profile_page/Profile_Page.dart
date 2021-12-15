@@ -1,4 +1,6 @@
 import 'package:delivery_food/General/Constants.dart';
+import 'package:delivery_food/General/Dialogs.dart';
+import 'package:delivery_food/controller/Profile_controller.dart';
 import 'package:delivery_food/view/Profile_page/Component/OptionProfile.dart';
 import 'package:delivery_food/view/Profile_page/Profile_address.dart';
 import 'package:delivery_food/view/Profile_page/Profile_info.dart';
@@ -7,8 +9,9 @@ import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 
 class ProfileView extends StatelessWidget {
-  const ProfileView({Key? key}) : super(key: key);
+  ProfileView({Key? key}) : super(key: key);
 
+  var controller = Get.put(ProfileController());
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
@@ -18,50 +21,67 @@ class ProfileView extends StatelessWidget {
         backgroundColor: AppColors.whiteColor,
         elevation: 0,
         centerTitle: true,
-        leading: Icon(
-          Icons.arrow_back_rounded,
-          color: AppColors.blackColor,
-        ),
         title: Text(
           'Profile',
           style: TextStyle(color: AppColors.blackColor),
         ),
         actions: [
-          IconButton(
-            onPressed: () {},
-            icon: Image.asset(
-              'assets/png/hestory.png',
-              width: 40,
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Column(
+              children: [
+                SvgPicture.asset(
+                  'assets/svg/Cart icon.svg',
+                  color: AppColors.mainColor,
+                  width: 23,
+                ),
+                Text(
+                  '2',
+                  style: TextStyle(color: AppColors.mainColor),
+                ),
+              ],
             ),
           ),
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Column(
+              children: [
+                Icon(
+                  Icons.favorite_border_outlined,
+                  color: AppColors.mainColor,
+                ),
+                Text(
+                  '2',
+                  style: TextStyle(color: AppColors.mainColor),
+                ),
+              ],
+            ),
+          )
         ],
       ),
       body: Column(
         children: [
           Row(
             children: [
-              GestureDetector(
-                onTap: () {},
-                child: Container(
-                    decoration: BoxDecoration(
-                        color: Color(0xFFDADADA),
-                        shape: BoxShape.circle,
-                        border: Border.all(
-                          color: AppColors.mainColor,
-                          width: 1,
-                        )),
-                    width: size.width * 0.165,
-                    height: size.height * 0.093,
-                    margin:
-                        EdgeInsets.only(bottom: 0, left: 17, top: 10, right: 8),
-                    child: CircleAvatar(
-                      child: SvgPicture.asset(
-                        "assets/svg/Profile icon.svg",
-                        color: AppColors.darkgreytextColor,
-                      ),
-                      backgroundColor: AppColors.whiteColor,
-                    )),
-              ),
+              Container(
+                  decoration: BoxDecoration(
+                      color: Color(0xFFDADADA),
+                      shape: BoxShape.circle,
+                      border: Border.all(
+                        color: AppColors.mainColor,
+                        width: 1,
+                      )),
+                  width: size.width * 0.165,
+                  height: size.height * 0.093,
+                  margin:
+                      EdgeInsets.only(bottom: 0, left: 17, top: 10, right: 8),
+                  child: CircleAvatar(
+                    child: SvgPicture.asset(
+                      "assets/svg/Profile icon.svg",
+                      color: AppColors.darkgreytextColor,
+                    ),
+                    backgroundColor: AppColors.whiteColor,
+                  )),
               Text('Mohammad'),
             ],
           ),
@@ -115,43 +135,59 @@ class ProfileView extends StatelessWidget {
             ),
             child: Padding(
               padding: const EdgeInsets.symmetric(horizontal: 8),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Row(
+              child: Obx(() => Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      SvgPicture.asset('assets/svg/net.svg'),
-                      SizedBox(
-                        width: 8,
-                      ),
-                      Text(
-                        'Change language',
-                        style: TextStyle(fontSize: 17),
-                      ),
-                    ],
-                  ),
-                  PopupMenuButton(
-                      icon: Padding(
-                        padding: const EdgeInsets.only(left: 8.0),
-                        child: Icon(
-                          Icons.arrow_forward_ios_rounded,
-                          color: AppColors.darkgreytextColor.withOpacity(0.5),
-                          size: 25,
+                      Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 8),
+                        child: Row(
+                          children: [
+                            SvgPicture.asset('assets/svg/net.svg'),
+                            SizedBox(
+                              width: 8,
+                            ),
+                            Text(
+                              'Change language',
+                              style: TextStyle(fontSize: 17),
+                            ),
+                          ],
                         ),
                       ),
-                      elevation: 1,
-                      itemBuilder: (context) => [
-                            PopupMenuItem(
-                              child: Text("Arabic"),
-                              value: 1,
+                      Text(
+                        controller.lang.value == ''
+                            ? ''
+                            : controller.lang.value,
+                        style: TextStyle(fontSize: 15),
+                      ),
+                      PopupMenuButton(
+                          icon: Padding(
+                            padding: const EdgeInsets.only(left: 8.0),
+                            child: Icon(
+                              Icons.arrow_forward_ios_rounded,
+                              color:
+                                  AppColors.darkgreytextColor.withOpacity(0.5),
+                              size: 25,
                             ),
-                            PopupMenuItem(
-                              child: Text("English"),
-                              value: 2,
-                            ),
-                          ]),
-                ],
-              ),
+                          ),
+                          elevation: 1,
+                          itemBuilder: (context) => [
+                                PopupMenuItem(
+                                  child: Text("Arabic"),
+                                  value: 1,
+                                  onTap: () {
+                                    controller.lang.value = 'arabic';
+                                  },
+                                ),
+                                PopupMenuItem(
+                                  child: Text("English"),
+                                  value: 2,
+                                  onTap: () {
+                                    controller.lang.value = 'english';
+                                  },
+                                ),
+                              ]),
+                    ],
+                  )),
             ),
           ),
           OptionProfile(
@@ -161,10 +197,16 @@ class ProfileView extends StatelessWidget {
             iconarrow: Icon(
               Icons.arrow_forward_ios_rounded,
             ),
-            ontap: () {},
+            ontap: () {
+              DialogsUtils.showdialogHelp(
+                  m: '099*********',
+                  onPressed: () {
+                    Get.back();
+                  });
+            },
           ),
           Padding(
-            padding: const EdgeInsets.all(25),
+            padding: const EdgeInsets.all(30),
             child: InkWell(
               splashColor: Colors.transparent,
               highlightColor: Colors.transparent,
