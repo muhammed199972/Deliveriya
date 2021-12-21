@@ -3,6 +3,7 @@ import 'package:delivery_food/Shimmer_loading.dart';
 import 'package:delivery_food/controller/Cart_controller.dart';
 import 'package:delivery_food/controller/Products_controller.dart';
 import 'package:delivery_food/model/Products_model.dart';
+import 'package:delivery_food/view/Home_page/Home_page.dart';
 import 'package:delivery_food/view/Products_page.dart/component/Category_Scroll.dart';
 import 'package:delivery_food/view/Products_page.dart/component/Products_Cards.dart';
 import 'package:delivery_food/view/Products_page.dart/component/Subcategory_Scroll.dart';
@@ -141,74 +142,83 @@ class ProduvtsView extends StatelessWidget {
           ),
         ],
       ),
-      body: Container(
-        width: size.width,
-        height: size.height,
-        decoration: BoxDecoration(
-          image: DecorationImage(
-            image: AssetImage('assets/png/background.png'),
+      body: WillPopScope(
+        onWillPop: () async {
+          return await Get.offAll(
+            BottomBar(
+              fu: HomeView(),
+            ),
+          );
+        },
+        child: Container(
+          width: size.width,
+          height: size.height,
+          decoration: BoxDecoration(
+            image: DecorationImage(
+              image: AssetImage('assets/png/background.png'),
+            ),
           ),
-        ),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          mainAxisAlignment: MainAxisAlignment.start,
-          children: [
-            Expanded(
-                flex: 0,
-                child: Container(
-                  color: AppColors.greyColor,
-                  child: Column(
-                    children: [
-                      CategorysScroll(
-                        size: size,
-                        iSfavorite: false,
-                        // subcategory: subcategory,
-                      ),
-                      SizedBox(
-                        height: 7,
-                      ),
-                      SubcategoryScroll(
-                        size: size,
-                        // subcategory: subcategory,
-                      ),
-                      const Divider(
-                        height: 20,
-                        thickness: 1,
-                        indent: 0,
-                        endIndent: 0,
-                        color: Colors.grey,
-                      ),
-                    ],
-                  ),
-                )),
-            Obx(() {
-              // move();
-              return Expanded(
-                flex: 4,
-                child: prodController.isLoading.value
-                    ? ShimmerWidget.productsLoading()
-                    : Container(
-                        margin: EdgeInsets.symmetric(
-                            horizontal: Defaults.defaultPadding),
-                        child: StaggeredGridView.countBuilder(
-                          shrinkWrap: true,
-                          crossAxisCount: 3,
-                          itemCount: prodController.products.length,
-                          itemBuilder: (BuildContext context, int index) {
-                            return FullCard(
-                              size: size,
-                              product: prodController.products[index],
-                            );
-                          },
-                          staggeredTileBuilder: (int index) =>
-                              new StaggeredTile.count(1, 1.18),
-                          mainAxisSpacing: 25,
-                          crossAxisSpacing: 15,
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: [
+              Expanded(
+                  flex: 0,
+                  child: Container(
+                    color: AppColors.greyColor,
+                    child: Column(
+                      children: [
+                        CategorysScroll(
+                          size: size,
+                          iSfavorite: false,
+                          // subcategory: subcategory,
                         ),
-                      ),
-              );
-            }),
-          ],
+                        SizedBox(
+                          height: 7,
+                        ),
+                        SubcategoryScroll(
+                          size: size,
+                          // subcategory: subcategory,
+                        ),
+                        const Divider(
+                          height: 20,
+                          thickness: 1,
+                          indent: 0,
+                          endIndent: 0,
+                          color: Colors.grey,
+                        ),
+                      ],
+                    ),
+                  )),
+              Obx(() {
+                // move();
+                return Expanded(
+                  flex: 4,
+                  child: prodController.isLoading.value
+                      ? ShimmerWidget.productsLoading()
+                      : Container(
+                          margin: EdgeInsets.symmetric(
+                              horizontal: Defaults.defaultPadding),
+                          child: StaggeredGridView.countBuilder(
+                            shrinkWrap: true,
+                            crossAxisCount: 3,
+                            itemCount: prodController.products.length,
+                            itemBuilder: (BuildContext context, int index) {
+                              return FullCard(
+                                size: size,
+                                product: prodController.products[index],
+                              );
+                            },
+                            staggeredTileBuilder: (int index) =>
+                                new StaggeredTile.count(1, 1.18),
+                            mainAxisSpacing: 25,
+                            crossAxisSpacing: 15,
+                          ),
+                        ),
+                );
+              }),
+            ],
+          ),
         ),
       ),
     );

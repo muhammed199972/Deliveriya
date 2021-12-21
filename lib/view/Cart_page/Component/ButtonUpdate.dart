@@ -26,6 +26,7 @@ class ButtonUpdate extends StatelessWidget {
         cart.forEach((e) => carts.add(e));
         Get.offAll(
           BottomBar(
+            intid: 0,
             fu: HomeView(),
           ),
         );

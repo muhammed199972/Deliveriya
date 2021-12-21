@@ -9,7 +9,7 @@ import 'package:flutter_svg/svg.dart';
 import '../General/Constants.dart';
 
 class BottomBar extends StatefulWidget {
-  BottomBar({this.fu, Key? key}) : super(key: key);
+  BottomBar({this.fu, Key? key, this.intid}) : super(key: key);
   var intid;
   var fu;
   @override
@@ -22,14 +22,13 @@ class _BottomBarState extends State<BottomBar> {
 
   void _updateIndex(int value) {
     setState(() {
-      if (value != 2)
-        _screens = [
-          CartView(),
-          FavoriteView(),
-          HomeView(),
-          OffersView(),
-          ProfileView(),
-        ];
+      _screens = [
+        CartView(),
+        FavoriteView(),
+        HomeView(),
+        OffersView(),
+        ProfileView(),
+      ];
 
       _currentIndex = value;
     });
@@ -37,6 +36,9 @@ class _BottomBarState extends State<BottomBar> {
 
   @override
   void initState() {
+    if (widget.intid != null) {
+      _currentIndex = widget.intid!;
+    }
     _screens = [
       CartView(),
       FavoriteView(),
