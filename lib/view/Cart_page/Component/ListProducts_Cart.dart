@@ -1,35 +1,57 @@
 import 'package:delivery_food/General/Constants.dart';
 import 'package:delivery_food/controller/Cart_controller.dart';
+import 'package:delivery_food/controller/Products_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class ListProdCart extends StatelessWidget {
-  const ListProdCart({
+  ListProdCart({
     Key? key,
-    required this.controller,
+    required this.controlleritem,
   }) : super(key: key);
 
-  final CartController controller;
+  var controlleritem;
+  var prodController = Get.find<ProductsController>();
+
+  var controller = Get.put(CartController());
+  StatusCode statusCode = StatusCode();
 
   @override
   Widget build(BuildContext context) {
+    prodController.cartsupdate = [];
     return ListView.builder(
         controller: controller.listScrollController,
-        itemCount: 12,
+        itemCount: controlleritem.length,
         itemBuilder: (context, index) {
           var counter = 0.obs;
-
+          int? ind;
+          if (statusCode.Token != '') {
+            counter.value = controlleritem[index].Cartid[0].quantity;
+          } else {
+            for (int u = 0; u < prodController.cartsid.length; u++) {
+              if (controlleritem[index].id == prodController.cartsid[u]) {
+                ind = u;
+                break;
+              }
+            }
+            List cartscounte = prodController.cartscounte;
+            prodController.cartsupdate = prodController.cartscounte;
+            counter.value = cartscounte[ind!];
+          }
           return Container(
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Row(
                   children: [
-                    Image.asset(
-                      'assets/png/logo.png',
-                      width: 40,
+                    Image.network(
+                      statusCode.urlimage + controlleritem[index].avatar,
+                      width: 30,
                     ),
-                    Text('Fruits'),
+                    SizedBox(
+                      width: 5,
+                    ),
+                    Text(controlleritem[index].name),
                   ],
                 ),
                 Row(
@@ -39,6 +61,7 @@ class ListProdCart extends StatelessWidget {
                       onTap: () {
                         if (counter > 0) {
                           counter--;
+                          prodController.cartsupdate[ind!]--;
                         }
                       },
                       child: Container(
@@ -93,7 +116,10 @@ class ListProdCart extends StatelessWidget {
                       width: 5,
                     ),
                     InkWell(
-                      onTap: () => counter++,
+                      onTap: () {
+                        counter++;
+                        prodController.cartsupdate[ind!]++;
+                      },
                       child: Container(
                         height: 25,
                         width: 25,
@@ -123,7 +149,16 @@ class ListProdCart extends StatelessWidget {
                 ),
                 Row(
                   children: [
-                    Text('${index + 1} \$'),
+                    Obx(() {
+                      return FittedBox(
+                        fit: BoxFit.scaleDown,
+                        child: Container(
+                          width: 52,
+                          child: Text(
+                              '${controlleritem[index].price * counter.value} \$'),
+                        ),
+                      );
+                    }),
                     IconButton(
                       splashColor: Colors.transparent,
                       onPressed: () {},

@@ -1,4 +1,5 @@
 import 'package:delivery_food/General/Api_Result.dart';
+import 'package:delivery_food/General/Constants.dart';
 import 'package:delivery_food/General/Dialogs.dart';
 import 'package:delivery_food/model/Favorite_model.dart';
 import 'package:delivery_food/model/Products_model.dart';
@@ -12,12 +13,16 @@ class ProductsController extends GetxController {
   var massage = ''.obs;
   var isLoading = true.obs;
   var isEmpty = false.obs;
-
+  List cartscounte = [].obs;
+  List cartsid = [].obs;
+  List cartsupdate = [];
   ApiResult apiResult = ApiResult();
   ProductService product = ProductService();
 
   @override
-  void onInit() {
+  void onInit() async {
+    cartscounte = await Constansbox.box.read('cartscounte');
+    cartsid = await Constansbox.box.read('cartsid');
     super.onInit();
   }
 
@@ -65,6 +70,7 @@ class ProductsController extends GetxController {
   getListproduct(
       {List<int>? Listproduct, String? q, String? from, String? to}) async {
     try {
+      prods = <FavoriteResponse>[].obs;
       apiResult =
           (await product.getListproductsData(Listproduct!, q!, from!, to!))!;
       if (!apiResult.hasError!) {

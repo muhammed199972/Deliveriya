@@ -10,6 +10,7 @@ class StatusCode {
 
   var urlimage = 'https://delivery-food12.herokuapp.com/';
   var Token = '';
+
   var RefreshToken = Constansbox.box.read('refreshToken');
 
   var OK = 200; //                          * Normal

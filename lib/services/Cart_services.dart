@@ -15,7 +15,8 @@ class CartService {
   Future<ApiResult> getcartData() async {
     StatusCode statusCode = StatusCode();
     ApiResult apiResult = ApiResult();
-    CartResponse calendar;
+    List<CartResponse> calendar = [];
+
     CartStatus? status;
     ErrorResponse? error;
     Uri url = Uri.http('${statusCode.url1}', '/api/private/user/cart');
@@ -28,12 +29,24 @@ class CartService {
           response.statusCode == statusCode.CREATED) {
         status = CartStatus.fromJson(responsebode['status']);
 
-        if (responsebode['response'] != null) {
-          calendar = CartResponse.fromJson(responsebode['response']);
+        if (responsebode['response']['data'] != []) {
+          for (var item in responsebode['response']['data']) {
+            calendar.add(CartResponse.fromJson(item));
+          }
+          apiResult.isEmpty = false;
+
           apiResult.errorMassage = status.msg;
           apiResult.codeError = status.code;
           apiResult.hasError = false;
           apiResult.data = calendar;
+        } else {
+          calendar = [];
+          apiResult.isEmpty = false;
+
+          apiResult.hasError = false;
+        }
+        if (responsebode['response']['data'].isEmpty) {
+          apiResult.isEmpty = true;
         }
       } else if (response.statusCode == statusCode.BAD_REQUEST) {
         status = CartStatus.fromJson(responsebode['status']);

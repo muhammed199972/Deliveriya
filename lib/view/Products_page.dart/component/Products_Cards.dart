@@ -31,7 +31,8 @@ class FullCard extends StatelessWidget {
           fav.any((element) => element != product.id ? false : true);
     } else {
       if (product.favorites != null) {
-        favorite.value = true;
+        favorite.value = product.favorites
+            .any((element) => element.id != product.id ? false : true);
       }
     }
     if (statusCode.Token == '') {
@@ -39,8 +40,10 @@ class FullCard extends StatelessWidget {
       isCart.value =
           cart.any((element) => element != product.id ? false : true);
     } else {
-      if (product.carts != null) {
+      if (product.carts.isNotEmpty) {
+        print(product.carts);
         isCart.value = true;
+        //  isCart.value = product.carts.any((element) => print(element.data.id));
       }
     }
 
@@ -72,7 +75,7 @@ class FullCard extends StatelessWidget {
               children: <Widget>[
                 Stack(children: [
                   Container(
-                    height: size.height * 0.082,
+                    height: size.height * 0.07,
                     width: double.infinity,
                     decoration: BoxDecoration(
                       image: DecorationImage(
@@ -129,6 +132,9 @@ class FullCard extends StatelessWidget {
                                   } else {
                                     cartController
                                         .deletecart(product!.id.toString());
+                                    cartController.deleteCarts != null
+                                        ? isCart.value = false
+                                        : isCart.value = true;
                                   }
 
                                   // cart.value = false;
@@ -160,6 +166,9 @@ class FullCard extends StatelessWidget {
                                     } else {
                                       cartController.addTocart(counter.value,
                                           product!.id.toString());
+                                      cartController.postCarts != null
+                                          ? isCart.value = true
+                                          : isCart.value = false;
                                     }
                                   }
 

@@ -34,7 +34,7 @@ class FavoriteService {
           response.statusCode == statusCode.CREATED) {
         status = FavoriteStatus.fromJson(responsebode['status']);
         if (responsebode['response'] != null) {
-          for (var item in responsebode['response']) {
+          for (var item in responsebode['response']['data']) {
             calendar.add(FavoriteResponse.fromJson(item));
           }
           apiResult.isEmpty = false;
@@ -47,7 +47,7 @@ class FavoriteService {
           calendar = [];
           apiResult.hasError = false;
         }
-        if (responsebode['response'].isEmpty) {
+        if (responsebode['response']['data'].isEmpty) {
           apiResult.isEmpty = true;
         }
       } else if (response.statusCode == statusCode.BAD_REQUEST) {

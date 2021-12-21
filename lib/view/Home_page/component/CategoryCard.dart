@@ -53,7 +53,7 @@ class CategorysCard extends StatelessWidget {
             Expanded(
               flex: 2,
               child: Image.network(
-                statusCode.urlimage + datacontroller.avatar,
+                statusCode.urlimage + datacontroller.icon,
                 fit: BoxFit.cover,
               ),
             ),

@@ -49,7 +49,7 @@ class _FavoriteViewState extends State<FavoriteView> {
     List Se = Constansbox.box.read('Search');
     List Search = new List.from(Se.reversed);
     DateTime now = DateTime.now();
-    print('${now.subtract(Duration(days: 7))}');
+    //   print('${now.subtract(Duration(days: 7))}');
 
     return Scaffold(
         appBar: AppBar(
@@ -89,7 +89,7 @@ class _FavoriteViewState extends State<FavoriteView> {
                         padding: EdgeInsets.symmetric(
                             horizontal: Defaults.defaultPadding * 2.5,
                             vertical: Defaults.defaultPadding / 2),
-                        height: size.height * 0.196,
+                        height: size.height * 0.22,
                         decoration: BoxDecoration(
                           color: Colors.white,
                           borderRadius: BorderRadius.only(
@@ -107,6 +107,32 @@ class _FavoriteViewState extends State<FavoriteView> {
                         ),
                         child: Column(
                           children: [
+                            InkWell(
+                                splashColor: Colors.transparent,
+                                highlightColor: Colors.transparent,
+                                onTap: () {
+                                  setState(() {
+                                    if (statusCode.Token == '') {
+                                      List<dynamic> fav =
+                                          Constansbox.box.read('favorite');
+                                      List<int> favo = [];
+                                      fav.forEach((e) => favo.add(e));
+                                      prodController.getListproduct(
+                                          Listproduct: favo,
+                                          q: '',
+                                          from: '',
+                                          to: '');
+                                    } else {
+                                      favoriteController.getfavorite(
+                                          '', '', '');
+                                    }
+                                    Get.back();
+                                  });
+                                },
+                                child: Text('all')),
+                            Divider(
+                              color: AppColors.darkgreytextColor,
+                            ),
                             InkWell(
                                 splashColor: Colors.transparent,
                                 highlightColor: Colors.transparent,
@@ -302,8 +328,10 @@ class _FavoriteViewState extends State<FavoriteView> {
                                       return e == _searchController.text;
                                     });
                                     if (!sh) {
-                                      Search.add(_searchController.text);
-                                      Constansbox.box.write('Search', Search);
+                                      if (_searchController.text != '') {
+                                        Search.add(_searchController.text);
+                                        Constansbox.box.write('Search', Search);
+                                      }
                                     }
 
                                     opensearch = !opensearch;
@@ -314,7 +342,9 @@ class _FavoriteViewState extends State<FavoriteView> {
                                       fav.forEach((e) => favo.add(e));
                                       prodController.getListproduct(
                                           Listproduct: favo,
-                                          q: _searchController.text);
+                                          q: _searchController.text,
+                                          from: '',
+                                          to: '');
                                     } else {
                                       favoriteController.getfavorite(
                                           _searchController.text, '', '');
@@ -360,17 +390,14 @@ class _FavoriteViewState extends State<FavoriteView> {
                                         text: Search[index]);
                                   });
                                 },
-                                child: Row(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.center,
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    children: [
-                                      Center(
-                                        child: Text(
-                                          Search[index],
-                                        ),
-                                      ),
-                                    ]),
+                                child: Center(
+                                  child: FittedBox(
+                                    fit: BoxFit.scaleDown,
+                                    child: Text(
+                                      Search[index],
+                                    ),
+                                  ),
+                                ),
                               ),
                             ),
                           ),
@@ -412,6 +439,13 @@ class _FavoriteViewState extends State<FavoriteView> {
                                         CrossAxisAlignment.start,
                                     mainAxisAlignment: MainAxisAlignment.start,
                                     children: [
+                                      Divider(
+                                        height: 1,
+                                        thickness: 1,
+                                        indent: 0,
+                                        endIndent: 0,
+                                        color: Colors.grey,
+                                      ),
                                       Expanded(
                                         flex: 0,
                                         child: Container(
@@ -478,37 +512,49 @@ class _FavoriteViewState extends State<FavoriteView> {
                           child: CircularProgressIndicator(),
                         )
                   : Center(
-                      child: Column(children: [
-                        Padding(
-                          padding: const EdgeInsets.all(30),
-                          child: SvgPicture.asset('assets/svg/subscribe.svg'),
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.all(15),
-                          child: SvgPicture.asset(
-                              'assets/svg/No favorite to show.svg'),
-                        ),
-                        InkWell(
-                          onTap: () {
-                            Get.off(BottomBar(
-                              fu: HomeView(),
-                            ));
-                          },
-                          child: Column(children: [
-                            Text(
-                              'Find your favorite',
-                              style: TextStyle(color: Colors.red),
+                      child: Container(
+                        decoration: BoxDecoration(
+                            image: DecorationImage(
+                                image:
+                                    AssetImage('assets/png/background.png'))),
+                        child: Center(
+                          child: ListView(children: [
+                            Divider(
+                              height: 1,
+                              thickness: 1,
+                              indent: 0,
+                              endIndent: 0,
+                              color: Colors.grey,
                             ),
-                            const Divider(
-                              height: 5,
-                              thickness: 2,
-                              indent: 150,
-                              endIndent: 150,
-                              color: Colors.red,
+                            Padding(
+                              padding: const EdgeInsets.all(30),
+                              child:
+                                  SvgPicture.asset('assets/svg/subscribe.svg'),
                             ),
+                            Padding(
+                              padding: const EdgeInsets.all(15),
+                              child: SvgPicture.asset(
+                                  'assets/svg/No favorite to show.svg'),
+                            ),
+                            InkWell(
+                              onTap: () {
+                                // Get.off(BottomBar(
+                                //   fu: HomeView(),
+                                // ));
+                              },
+                              child: Center(
+                                child: Text(
+                                  'Find your favorite',
+                                  style: TextStyle(
+                                    color: Colors.red,
+                                    decoration: TextDecoration.underline,
+                                  ),
+                                ),
+                              ),
+                            )
                           ]),
-                        )
-                      ]),
+                        ),
+                      ),
                     )
               : !prodController.isEmpty.value
                   ? prodController.prods.length != 0
@@ -523,6 +569,13 @@ class _FavoriteViewState extends State<FavoriteView> {
                             padding: EdgeInsets.only(top: 10),
                             child: Column(
                               children: [
+                                Divider(
+                                  height: 1,
+                                  thickness: 1,
+                                  indent: 0,
+                                  endIndent: 0,
+                                  color: Colors.grey,
+                                ),
                                 Expanded(
                                   child: Row(
                                     crossAxisAlignment:
@@ -619,37 +672,49 @@ class _FavoriteViewState extends State<FavoriteView> {
                           child: CircularProgressIndicator(),
                         )
                   : Center(
-                      child: Column(children: [
-                        Padding(
-                          padding: const EdgeInsets.all(30),
-                          child: SvgPicture.asset('assets/svg/subscribe.svg'),
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.all(15),
-                          child: SvgPicture.asset(
-                              'assets/svg/No favorite to show.svg'),
-                        ),
-                        InkWell(
-                          onTap: () {
-                            Get.off(BottomBar(
-                              fu: HomeView(),
-                            ));
-                          },
-                          child: Column(children: [
-                            Text(
-                              'Find your favorite',
-                              style: TextStyle(color: Colors.red),
+                      child: Container(
+                        decoration: BoxDecoration(
+                            image: DecorationImage(
+                                image:
+                                    AssetImage('assets/png/background.png'))),
+                        child: Center(
+                          child: ListView(children: [
+                            Divider(
+                              height: 1,
+                              thickness: 1,
+                              indent: 0,
+                              endIndent: 0,
+                              color: Colors.grey,
                             ),
-                            const Divider(
-                              height: 5,
-                              thickness: 2,
-                              indent: 150,
-                              endIndent: 150,
-                              color: Colors.red,
+                            Padding(
+                              padding: const EdgeInsets.all(30),
+                              child:
+                                  SvgPicture.asset('assets/svg/subscribe.svg'),
                             ),
+                            Padding(
+                              padding: const EdgeInsets.all(15),
+                              child: SvgPicture.asset(
+                                  'assets/svg/No favorite to show.svg'),
+                            ),
+                            InkWell(
+                              onTap: () {
+                                // Get.off(BottomBar(
+                                //   fu: HomeView(),
+                                // ));
+                              },
+                              child: Center(
+                                child: Text(
+                                  'Find your favorite',
+                                  style: TextStyle(
+                                    color: Colors.red,
+                                    decoration: TextDecoration.underline,
+                                  ),
+                                ),
+                              ),
+                            )
                           ]),
-                        )
-                      ]),
+                        ),
+                      ),
                     );
         }));
   }

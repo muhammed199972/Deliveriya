@@ -11,8 +11,8 @@ import 'package:get/get.dart';
 
 class CartController extends GetxController {
   //
-  var carts = CartResponse().obs;
-  //
+  var carts = <CartResponse>[].obs;
+
   var postCarts = PostResponse().obs;
   //
   var patchCarts = PatchResponse().obs;
@@ -21,6 +21,7 @@ class CartController extends GetxController {
   //
   var hasError = true.obs;
   //
+  var priceall = 0.obs;
   var lenghcart = 0.obs;
   var massage = ''.obs;
   var isLoading = true.obs;
@@ -28,6 +29,7 @@ class CartController extends GetxController {
   CartService cartService = CartService();
   ScrollController listScrollController = ScrollController();
   var maxscroll = false.obs;
+  var isEmpty = false.obs;
 
   @override
   void onInit() {
@@ -46,9 +48,9 @@ class CartController extends GetxController {
     try {
       apiResult = await cartService.getcartData();
       if (!apiResult.hasError!) {
+        isEmpty.value = apiResult.isEmpty;
         carts.value = apiResult.data;
         hasError.value = apiResult.hasError!;
-        print(carts.value.data![0].id);
         isLoading.value = false;
       } else {
         hasError.value = apiResult.hasError!;
@@ -76,7 +78,7 @@ class CartController extends GetxController {
     try {
       apiResult = await cartService.postcartData(quantity, id);
       if (!apiResult.hasError!) {
-        carts.value.data = [];
+        carts.value = [];
         postCarts.value = apiResult.data;
         hasError.value = apiResult.hasError!;
         BotToast.showLoading();

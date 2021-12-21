@@ -174,7 +174,6 @@ class ProductService {
             calendar.add(FavoriteResponse.fromJson(item));
           }
           apiResult.isEmpty = false;
-
           apiResult.errorMassage = status.msg;
           apiResult.codeError = status.code;
           apiResult.hasError = false;

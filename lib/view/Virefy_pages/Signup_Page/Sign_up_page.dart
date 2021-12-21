@@ -27,8 +27,8 @@ class SignupPage extends StatelessWidget {
               image: AssetImage('assets/png/background.png'),
             ),
           ),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
+          child: ListView(
+            //   mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Padding(
                 padding:
@@ -83,7 +83,7 @@ class SignupPage extends StatelessWidget {
                         height: 44,
                       ),
                       Container(
-                        height: size.height * 0.15,
+                        // height: size.height * 0.15,
                         width: size.width,
                         decoration: BoxDecoration(
                           color: AppColors.lightgreyColor.withOpacity(0.5),
