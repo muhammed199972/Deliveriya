@@ -17,7 +17,6 @@ class CartView extends StatelessWidget {
   StatusCode statusCode = StatusCode();
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
-    print('allllllllllllllllllll');
     if (statusCode.Token == '') {
       List<dynamic> cart = Constansbox.box.read('cartsid');
       List<int> carts = [];
@@ -35,15 +34,16 @@ class CartView extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: AppColors.whiteColor,
-        elevation: 0,
-        leading: Icon(
-          Icons.arrow_back_rounded,
-          color: AppColors.blackColor,
-        ),
-        title: Center(
-          child: Text(
-            'Cart',
-            style: TextStyle(color: AppColors.blackColor),
+        elevation: 2,
+        // leading: Icon(
+        //   Icons.arrow_back_rounded,
+        //   color: AppColors.blackColor,
+        // ),
+        title: Text(
+          'Cart',
+          textAlign: TextAlign.center,
+          style: TextStyle(
+            color: AppColors.blackColor,
           ),
         ),
         actions: [
@@ -79,7 +79,7 @@ class CartView extends StatelessWidget {
                             Expanded(
                               flex: 10,
                               child: CategoryCart(
-                                  size: size, controller: controller.carts),
+                                  size: size, control: controller.carts),
                             ),
                             Expanded(child: TotalPrice())
                           ],
@@ -147,7 +147,7 @@ class CartView extends StatelessWidget {
                             Expanded(
                               flex: 10,
                               child: CategoryCart(
-                                  size: size, controller: prodController.prods),
+                                  size: size, control: prodController.prods),
                             ),
                             Expanded(child: TotalPrice())
                           ],
@@ -162,16 +162,9 @@ class CartView extends StatelessWidget {
                             image: AssetImage('assets/png/background.png'))),
                     child: Center(
                       child: Column(
-                          mainAxisAlignment: MainAxisAlignment.start,
+                          mainAxisAlignment: MainAxisAlignment.center,
                           crossAxisAlignment: CrossAxisAlignment.center,
                           children: [
-                            Divider(
-                              height: 1,
-                              thickness: 1,
-                              indent: 0,
-                              endIndent: 0,
-                              color: Colors.grey,
-                            ),
                             Padding(
                               padding: const EdgeInsets.all(30),
                               child:

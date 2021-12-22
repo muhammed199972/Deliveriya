@@ -105,9 +105,9 @@ class CartController extends GetxController {
     }
   }
 
-  patchcart(int quantity, id) async {
+  patchcart(var body) async {
     try {
-      apiResult = await cartService.patchcartData(quantity, id);
+      apiResult = await cartService.patchcartData(body);
       if (!apiResult.hasError!) {
         patchCarts.value = apiResult.data;
         hasError.value = apiResult.hasError!;

@@ -65,4 +65,40 @@ class DialogsUtils {
       barrierDismissible: false,
     );
   }
+
+  static showdialogdelete(
+      {String? m, Function()? onPressedOk, Function()? onPressedCancel}) {
+    Get.dialog(
+      AlertDialog(
+        contentPadding: EdgeInsets.symmetric(horizontal: 14.0, vertical: 6.0),
+        title: Text(
+          'Delete',
+          textAlign: TextAlign.center,
+        ),
+        content: Text(
+          m!,
+          textAlign: TextAlign.center,
+        ),
+        actions: <Widget>[
+          TextButton(
+            child: Text(
+              "OK",
+              style: TextStyle(color: AppColors.mainColor),
+            ),
+            onPressed: onPressedOk,
+          ),
+          TextButton(
+            style: ButtonStyle(
+                backgroundColor: MaterialStateProperty.all(Colors.red)),
+            child: Text(
+              "Cancel",
+              style: TextStyle(color: Colors.white),
+            ),
+            onPressed: onPressedCancel,
+          )
+        ],
+      ),
+      barrierDismissible: false,
+    );
+  }
 }

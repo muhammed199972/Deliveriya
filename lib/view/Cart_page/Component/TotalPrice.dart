@@ -68,7 +68,8 @@ class TotalPrice extends StatelessWidget {
             Text('Total price :'),
             Spacer(),
             Center(
-              child: Text('${pricemcat} \$'),
+              child: Text(
+                  prodController.isTotal.value ? '${pricemcat.value} \$' : '0'),
             ),
             Spacer(
               flex: 2,

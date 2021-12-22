@@ -19,8 +19,12 @@ class ButtonUpdate extends StatelessWidget {
   Widget build(BuildContext context) {
     return InkWell(
       onTap: () {
-        Constansbox.box.write('cartscounte', prodController.cartsupdate);
+        Constansbox.box.write('cartscounte', prodController.cartscountupdate);
         prodController.cartscounte = Constansbox.box.read('cartscounte');
+
+        Constansbox.box.write('cartsid', prodController.cartsdeleteupdate);
+        prodController.cartsid = Constansbox.box.read('cartsid');
+
         List<dynamic> cart = prodController.cartsid;
         List<int> carts = [];
         cart.forEach((e) => carts.add(e));

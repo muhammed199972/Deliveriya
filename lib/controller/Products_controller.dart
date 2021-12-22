@@ -15,7 +15,12 @@ class ProductsController extends GetxController {
   var isEmpty = false.obs;
   List cartscounte = [].obs;
   List cartsid = [].obs;
-  List cartsupdate = [];
+  List cartscountupdate = [];
+  List cartsdeleteupdate = [];
+  List cartsdeletesupupdate = [];
+  List cartsdeletecatupdate = [];
+  var isTotal = true.obs;
+
   ApiResult apiResult = ApiResult();
   ProductService product = ProductService();
 
@@ -23,6 +28,7 @@ class ProductsController extends GetxController {
   void onInit() async {
     cartscounte = await Constansbox.box.read('cartscounte');
     cartsid = await Constansbox.box.read('cartsid');
+
     super.onInit();
   }
 
