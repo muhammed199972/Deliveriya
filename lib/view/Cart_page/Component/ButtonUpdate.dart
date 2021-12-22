@@ -1,4 +1,7 @@
+import 'dart:convert';
+
 import 'package:delivery_food/General/Constants.dart';
+import 'package:delivery_food/controller/Cart_controller.dart';
 import 'package:delivery_food/controller/Products_controller.dart';
 import 'package:delivery_food/view/Cart_page/Cart_Page.dart';
 import 'package:delivery_food/view/Home_page/Home_page.dart';
@@ -14,31 +17,42 @@ class ButtonUpdate extends StatelessWidget {
 
   final Size size;
   var prodController = Get.find<ProductsController>();
+  StatusCode statusCode = StatusCode();
+  var cart = Get.put(CartController());
 
   @override
   Widget build(BuildContext context) {
     return InkWell(
       onTap: () {
-        Constansbox.box.write('cartscounte', prodController.cartscountupdate);
-        prodController.cartscounte = Constansbox.box.read('cartscounte');
+        if (statusCode.Token == '') {
+          Constansbox.box.write('cartscounte', prodController.cartscountupdate);
+          prodController.cartscounte = Constansbox.box.read('cartscounte');
 
-        Constansbox.box.write('cartsid', prodController.cartsdeleteupdate);
-        prodController.cartsid = Constansbox.box.read('cartsid');
+          Constansbox.box.write('cartsid', prodController.cartsdeleteupdate);
+          prodController.cartsid = Constansbox.box.read('cartsid');
 
-        List<dynamic> cart = prodController.cartsid;
-        List<int> carts = [];
-        cart.forEach((e) => carts.add(e));
-        Get.offAll(
-          BottomBar(
-            intid: 0,
-            fu: HomeView(),
-          ),
-        );
-        //  CartView();
+          List<dynamic> cart = prodController.cartsid;
+          List<int> carts = [];
+          cart.forEach((e) => carts.add(e));
+          Get.offAll(
+            BottomBar(
+              intid: 0,
+              fu: HomeView(),
+            ),
+          );
 
-        //  Get.back();
-        prodController.getListproduct(
-            Listproduct: carts, q: '', from: '', to: '');
+          prodController.getListproduct(
+              Listproduct: carts, q: '', from: '', to: '');
+        } else {
+          Map body = {"ids": cart.updata, "deleteIds": cart.updatadelete};
+          cart.patchcart(body);
+          // Get.offAll(
+          //   BottomBar(
+          //     intid: 0,
+          //     fu: HomeView(),
+          //   ),
+          // );
+        }
       },
       child: Container(
         height: size.height * 0.054,

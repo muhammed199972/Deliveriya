@@ -6,10 +6,10 @@ class DeleteResponse {
   String? msg;
 
   factory DeleteResponse.fromJson(Map<String, dynamic> json) => DeleteResponse(
-        msg: json["result"],
+        msg: json["response"],
       );
 
   Map<String, dynamic> toJson() => {
-        "result": msg,
+        "response": msg,
       };
 }

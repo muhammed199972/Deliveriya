@@ -21,6 +21,7 @@ class CategoryCart extends StatelessWidget {
   final Size size;
   var control;
   var prodController = Get.find<ProductsController>();
+  var cart = Get.put(CartController());
 
   StatusCode statusCode = StatusCode();
   @override
@@ -142,70 +143,87 @@ class CategoryCart extends StatelessWidget {
                                 splashColor: Colors.transparent,
                                 onPressed: () {
                                   DialogsUtils.showdialogdelete(
-                                    m: 'Proceed ?',
-                                    onPressedCancel: () async {
-                                      Get.back();
-                                    },
-                                    onPressedOk: () async {
-                                      for (int i = 0;
-                                          i <
-                                              controller[indexcat]
-                                                  .subCategories
-                                                  .length;
-                                          i++) {
-                                        for (int j = 0;
-                                            j <
-                                                controller[indexcat]
-                                                    .subCategories[i]
-                                                    .products
-                                                    .length;
-                                            j++) {
-                                          for (int k = 0;
-                                              k < prodController.cartsid.length;
-                                              k++) {
-                                            if (prodController.cartsid[k] ==
-                                                controller[indexcat]
-                                                    .subCategories[i]
-                                                    .products[j]
-                                                    .id) {
-                                              prodController.cartsid
-                                                  .removeAt(k);
-                                              prodController.cartscounte
-                                                  .removeAt(k);
+                                      m: 'Proceed ?',
+                                      onPressedCancel: () async {
+                                        Get.back();
+                                      },
+                                      onPressedOk: () async {
+                                        if (statusCode.Token == '') {
+                                          for (int i = 0;
+                                              i <
+                                                  controller[indexcat]
+                                                      .subCategories
+                                                      .length;
+                                              i++) {
+                                            for (int j = 0;
+                                                j <
+                                                    controller[indexcat]
+                                                        .subCategories[i]
+                                                        .products
+                                                        .length;
+                                                j++) {
+                                              for (int k = 0;
+                                                  k <
+                                                      prodController
+                                                          .cartsid.length;
+                                                  k++) {
+                                                if (prodController.cartsid[k] ==
+                                                    controller[indexcat]
+                                                        .subCategories[i]
+                                                        .products[j]
+                                                        .id) {
+                                                  prodController.cartsid
+                                                      .removeAt(k);
+                                                  prodController.cartscounte
+                                                      .removeAt(k);
+                                                }
+                                              }
                                             }
                                           }
+                                          await Constansbox.box.write(
+                                              'cartscounte',
+                                              prodController.cartscounte);
+
+                                          await Constansbox.box.write('cartsid',
+                                              prodController.cartsid);
+
+                                          List<dynamic> cart =
+                                              prodController.cartsid;
+                                          List<int> carts = [];
+                                          cart.forEach((e) => carts.add(e));
+
+                                          if (carts.isEmpty) {
+                                            controller.value = [];
+                                            prodController.isTotal.value =
+                                                false;
+                                            Get.back();
+                                          } else {
+                                            prodController.getListproduct(
+                                                Listproduct: carts,
+                                                q: '',
+                                                from: '',
+                                                to: '');
+                                            Get.offAll(
+                                              BottomBar(
+                                                intid: 0,
+                                                fu: HomeView(),
+                                              ),
+                                            );
+                                          }
+                                        } else {
+                                          cart.deletcategoryecart(
+                                              controller[indexcat]
+                                                  .id
+                                                  .toString());
+
+                                          Get.offAll(
+                                            BottomBar(
+                                              intid: 0,
+                                              fu: HomeView(),
+                                            ),
+                                          );
                                         }
-                                      }
-                                      await Constansbox.box.write('cartscounte',
-                                          prodController.cartscounte);
-
-                                      await Constansbox.box.write(
-                                          'cartsid', prodController.cartsid);
-
-                                      List<dynamic> cart =
-                                          prodController.cartsid;
-                                      List<int> carts = [];
-                                      cart.forEach((e) => carts.add(e));
-
-                                      if (carts.isEmpty) {
-                                        controller.value = [];
-                                        prodController.isTotal.value = false;
-                                        Get.back();
-                                      } else {
-                                        prodController.getListproduct(
-                                            Listproduct: carts,
-                                            q: '',
-                                            from: '',
-                                            to: '');
-                                        Get.offAll(
-                                          BottomBar(
-                                            intid: 0,
-                                            fu: HomeView(),
-                                          ),
-                                        );
-                                      }
-                                    },
-                                  );
+                                      });
                                 },
                                 icon: Image.asset(
                                   'assets/png/remove.png',
@@ -309,88 +327,109 @@ class CategoryCart extends StatelessWidget {
                                                 splashColor: Colors.transparent,
                                                 onPressed: () {
                                                   DialogsUtils.showdialogdelete(
-                                                    m: 'Proceed ?',
-                                                    onPressedCancel: () {
-                                                      Get.back();
-                                                    },
-                                                    onPressedOk: () async {
-                                                      for (int j = 0;
-                                                          j <
-                                                              controller[
-                                                                      idcategory
+                                                      m: 'Proceed ?',
+                                                      onPressedCancel: () {
+                                                        Get.back();
+                                                      },
+                                                      onPressedOk: () async {
+                                                        if (statusCode.Token ==
+                                                            '') {
+                                                          for (int j = 0;
+                                                              j <
+                                                                  controller[idcategory
                                                                           .value]
-                                                                  .subCategories[
-                                                                      indexsup]
-                                                                  .products
-                                                                  .length;
-                                                          j++) {
-                                                        for (int k = 0;
-                                                            k <
+                                                                      .subCategories[
+                                                                          indexsup]
+                                                                      .products
+                                                                      .length;
+                                                              j++) {
+                                                            for (int k = 0;
+                                                                k <
+                                                                    prodController
+                                                                        .cartsid
+                                                                        .length;
+                                                                k++) {
+                                                              if (prodController
+                                                                          .cartsid[
+                                                                      k] ==
+                                                                  controller[idcategory
+                                                                          .value]
+                                                                      .subCategories[
+                                                                          indexsup]
+                                                                      .products[
+                                                                          j]
+                                                                      .id) {
                                                                 prodController
                                                                     .cartsid
-                                                                    .length;
-                                                            k++) {
-                                                          if (prodController
-                                                                  .cartsid[k] ==
+                                                                    .removeAt(
+                                                                        k);
+                                                                prodController
+                                                                    .cartscounte
+                                                                    .removeAt(
+                                                                        k);
+                                                              }
+                                                            }
+                                                          }
+                                                          await Constansbox.box
+                                                              .write(
+                                                                  'cartscounte',
+                                                                  prodController
+                                                                      .cartscounte);
+
+                                                          await Constansbox.box
+                                                              .write(
+                                                                  'cartsid',
+                                                                  prodController
+                                                                      .cartsid);
+
+                                                          // controller[
+                                                          //         idcategory.value]
+                                                          //     .subCategories
+                                                          //     .removeAt(indexsup);
+                                                          List<dynamic> cart =
+                                                              prodController
+                                                                  .cartsid;
+                                                          List<int> carts = [];
+                                                          cart.forEach((e) =>
+                                                              carts.add(e));
+
+                                                          if (carts.isEmpty) {
+                                                            controller.value =
+                                                                [];
+                                                            Get.back();
+                                                          } else {
+                                                            prodController
+                                                                .getListproduct(
+                                                                    Listproduct:
+                                                                        carts,
+                                                                    q: '',
+                                                                    from: '',
+                                                                    to: '');
+                                                            Get.offAll(
+                                                              BottomBar(
+                                                                intid: 0,
+                                                                fu: HomeView(),
+                                                              ),
+                                                            );
+                                                          }
+                                                        } else {
+                                                          cart.deletsupcategoryecart(
                                                               controller[
                                                                       idcategory
                                                                           .value]
                                                                   .subCategories[
                                                                       indexsup]
-                                                                  .products[j]
-                                                                  .id) {
-                                                            prodController
-                                                                .cartsid
-                                                                .removeAt(k);
-                                                            prodController
-                                                                .cartscounte
-                                                                .removeAt(k);
-                                                          }
+                                                                  .id
+                                                                  .toString());
+
+                                                          Get.offAll(
+                                                            BottomBar(
+                                                              intid: 0,
+                                                              fu: HomeView(),
+                                                            ),
+                                                          );
                                                         }
-                                                      }
-                                                      await Constansbox.box
-                                                          .write(
-                                                              'cartscounte',
-                                                              prodController
-                                                                  .cartscounte);
-
-                                                      await Constansbox.box
-                                                          .write(
-                                                              'cartsid',
-                                                              prodController
-                                                                  .cartsid);
-
-                                                      // controller[
-                                                      //         idcategory.value]
-                                                      //     .subCategories
-                                                      //     .removeAt(indexsup);
-                                                      List<dynamic> cart =
-                                                          prodController
-                                                              .cartsid;
-                                                      List<int> carts = [];
-                                                      cart.forEach(
-                                                          (e) => carts.add(e));
-
-                                                      if (carts.isEmpty) {
-                                                        controller.value = [];
-                                                        Get.back();
-                                                      } else {
-                                                        prodController
-                                                            .getListproduct(
-                                                                Listproduct:
-                                                                    carts,
-                                                                q: '',
-                                                                from: '',
-                                                                to: '');
-                                                        Get.offAll(
-                                                          BottomBar(
-                                                            intid: 0,
-                                                            fu: HomeView(),
-                                                          ),
-                                                        );
-                                                      }
-                                                    },
-                                                  );
+                                                      });
                                                 },
                                                 icon: Image.asset(
                                                   'assets/png/remove.png',

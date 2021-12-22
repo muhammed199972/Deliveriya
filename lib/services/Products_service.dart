@@ -164,7 +164,6 @@ class ProductService {
             data: {"ids": Listproduct});
       }
 
-      print(response.data['response'].isEmpty);
       if (response!.statusCode == statusCode.OK ||
           response!.statusCode == statusCode.CREATED) {
         status = FavoriteStatus.fromJson(response.data['status']);

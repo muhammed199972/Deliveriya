@@ -14,7 +14,7 @@ class ListProdCart extends StatelessWidget {
   var item = [];
   var prodController = Get.find<ProductsController>();
 
-  var controller = Get.put(CartController());
+  var cart = Get.put(CartController());
   StatusCode statusCode = StatusCode();
 
   @override
@@ -27,13 +27,19 @@ class ListProdCart extends StatelessWidget {
     prodController.cartsdeleteupdate = [];
 
     return Obx(() {
+      cart.updata = [];
+
       return ListView.builder(
-          controller: controller.listScrollController,
+          controller: cart.listScrollController,
           itemCount: controlleritem.length,
           itemBuilder: (context, index) {
             var counter = 0.obs;
             int? ind;
             if (statusCode.Token != '') {
+              cart.updata.add({
+                'productId': controlleritem[index].id,
+                'quantity': controlleritem[index].Cartid[0].quantity
+              });
               counter.value = controlleritem[index].Cartid[0].quantity;
             } else {
               for (int u = 0; u < prodController.cartsid.length; u++) {
@@ -72,7 +78,12 @@ class ListProdCart extends StatelessWidget {
                         onTap: () {
                           if (counter > 0) {
                             counter--;
-                            prodController.cartscountupdate[ind!]--;
+                            if (statusCode.Token == '') {
+                              prodController.cartscountupdate[ind!]--;
+                            } else {
+                              cart.updata[index]['quantity'] =
+                                  cart.updata[index]['quantity']! - 1;
+                            }
                           }
                         },
                         child: Container(
@@ -129,7 +140,13 @@ class ListProdCart extends StatelessWidget {
                       InkWell(
                         onTap: () {
                           counter++;
-                          prodController.cartscountupdate[ind!]++;
+
+                          if (statusCode.Token == '') {
+                            prodController.cartscountupdate[ind!]++;
+                          } else {
+                            cart.updata[index]['quantity'] =
+                                cart.updata[index]['quantity']! + 1;
+                          }
                         },
                         child: Container(
                           height: 25,
@@ -174,21 +191,31 @@ class ListProdCart extends StatelessWidget {
                         splashColor: Colors.transparent,
                         onPressed: () {
                           DialogsUtils.showdialogdelete(
-                            m: 'Proceed ?',
-                            onPressedCancel: () {
-                              Get.back();
-                            },
-                            onPressedOk: () {
-                              var item = controlleritem;
-                              item.removeAt(index);
-                              prodController.cartscountupdate.removeAt(ind!);
-                              prodController.cartsdeleteupdate.removeAt(ind);
-                              ListProdCart(
-                                item: item,
-                              );
-                              Get.back();
-                            },
-                          );
+                              m: 'Proceed ?',
+                              onPressedCancel: () {
+                                Get.back();
+                              },
+                              onPressedOk: () {
+                                if (statusCode.Token == '') {
+                                  var item = controlleritem;
+                                  item.removeAt(index);
+                                  prodController.cartscountupdate
+                                      .removeAt(ind!);
+                                  prodController.cartsdeleteupdate
+                                      .removeAt(ind);
+                                  ListProdCart(
+                                    item: item,
+                                  );
+                                } else {
+                                  var item = controlleritem;
+                                  cart.updatadelete.add(item[index].id);
+                                  item.removeAt(index);
+                                  ListProdCart(
+                                    item: item,
+                                  );
+                                  Get.back();
+                                }
+                              });
                         },
                         icon: Image.asset(
                           'assets/png/remove.png',

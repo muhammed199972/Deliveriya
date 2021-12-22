@@ -21,6 +21,8 @@ class CartController extends GetxController {
   //
   var hasError = true.obs;
   //
+  List<Map<String, int>> updata = [];
+  List<int> updatadelete = [];
   var priceall = 0.obs;
   var lenghcart = 0.obs;
   var massage = ''.obs;
@@ -111,7 +113,6 @@ class CartController extends GetxController {
       if (!apiResult.hasError!) {
         patchCarts.value = apiResult.data;
         hasError.value = apiResult.hasError!;
-        getcart();
       } else {
         hasError.value = apiResult.hasError!;
         massage.value = apiResult.errorMassage!;
@@ -133,6 +134,67 @@ class CartController extends GetxController {
   deletecart(id) async {
     try {
       apiResult = await cartService.deletecartData(id);
+      if (!apiResult.hasError!) {
+        deleteCarts.value = apiResult.data;
+        hasError.value = apiResult.hasError!;
+        BotToast.showLoading();
+        await getcart();
+      } else {
+        hasError.value = apiResult.hasError!;
+        massage.value = apiResult.errorMassage!;
+        DialogsUtils.showdialog(
+            m: massage.value,
+            onPressed: () {
+              Get.back();
+            });
+      }
+    } catch (e) {
+      hasError.value = apiResult.hasError!;
+      massage.value = apiResult.errorMassage!;
+      DialogsUtils.showdialog(
+          m: 'حدث خطأ غير متوقع',
+          onPressed: () {
+            Get.back();
+          });
+    } finally {
+      BotToast.closeAllLoading();
+    }
+  }
+
+  deletcategoryecart(String id) async {
+    try {
+      apiResult = await cartService.deletcategoryecart(id);
+
+      if (!apiResult.hasError!) {
+        deleteCarts.value = apiResult.data;
+        hasError.value = apiResult.hasError!;
+        BotToast.showLoading();
+        await getcart();
+      } else {
+        hasError.value = apiResult.hasError!;
+        massage.value = apiResult.errorMassage!;
+        DialogsUtils.showdialog(
+            m: massage.value,
+            onPressed: () {
+              Get.back();
+            });
+      }
+    } catch (e) {
+      hasError.value = apiResult.hasError!;
+      massage.value = apiResult.errorMassage!;
+      DialogsUtils.showdialog(
+          m: 'حدث خطأ غير متوقع',
+          onPressed: () {
+            Get.back();
+          });
+    } finally {
+      BotToast.closeAllLoading();
+    }
+  }
+
+  deletsupcategoryecart(String id) async {
+    try {
+      apiResult = await cartService.deletsupcategoryecart(id);
       if (!apiResult.hasError!) {
         deleteCarts.value = apiResult.data;
         hasError.value = apiResult.hasError!;
