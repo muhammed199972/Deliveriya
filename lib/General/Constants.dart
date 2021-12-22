@@ -9,7 +9,8 @@ class StatusCode {
   String url1 = 'delivery-food12.herokuapp.com';
 
   var urlimage = 'https://delivery-food12.herokuapp.com/';
-  var Token = '';
+  var Token =
+      'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNjQwMTYzMDQxLCJleHAiOjE2NDA1OTUwNDF9.Uf8ktkPyx2SY-BHJtNdv2_EUWd9fJm8Z4azypO5GOCc';
 
   var RefreshToken = Constansbox.box.read('refreshToken');
 

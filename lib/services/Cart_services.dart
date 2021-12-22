@@ -351,18 +351,18 @@ class CartService {
     return apiResult;
   }
 
-  Future<ApiResult> patchcartData(int quantity, id) async {
+  Future<ApiResult> patchcartData(var body) async {
     StatusCode statusCode = StatusCode();
     ApiResult apiResult = ApiResult();
     PatchResponse? calendar;
     CartStatus? status;
     ErrorResponse? error;
-    Uri url = Uri.http('${statusCode.url1}', '/api/private/user/cart/$id');
+    Uri url = Uri.http('${statusCode.url1}', '/api/private/user/cart');
 
     try {
       var response = await http.patch(
         url,
-        body: {"quantity": quantity.toString()},
+        body: json.encode(body.toJson()),
         headers: {'Authorization': 'Bearer ${statusCode.Token}'},
       );
       var responsebode = jsonDecode(response.body);

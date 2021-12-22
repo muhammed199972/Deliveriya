@@ -50,6 +50,7 @@ class ProductsController extends GetxController {
       if (!apiResult.hasError!) {
         products.value = apiResult.data;
         hasError.value = apiResult.hasError!;
+        print(products);
         isLoading.value = false;
       } else {
         hasError.value = apiResult.hasError!;
