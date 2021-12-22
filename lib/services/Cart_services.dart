@@ -581,17 +581,24 @@ class CartService {
     // Uri url = Uri.http('${statusCode.url1}', '/api/private/user/cart');
 
     try {
-      var response = await dio.patch(
+      var response = await dio.put(
         'http://' + statusCode.url1 + '/api/private/user/cart',
-        data: JsonEncoder().convert(body),
+        data: {
+          'ids': [
+            {'productId': 6, 'quantity': 5},
+            {'productId': 7, 'quantity': 5}
+          ],
+          'deleteIds': []
+        },
         options: Options(
           headers: {
-            "Accept": "application/json",
-            'Content-Type': 'application/json',
+            // "Accept": "application/json",
+            // 'Content-Type': 'application/json',
             'Authorization': 'Bearer ${statusCode.Token}'
           },
         ),
       );
+      print(response);
 
       if (response.statusCode == statusCode.OK ||
           response.statusCode == statusCode.CREATED) {
