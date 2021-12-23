@@ -32,7 +32,8 @@ class ProductsResponse {
         avatar: json["avatar"],
         price: json["price"],
         quantity: json["quantity"] == null ? null : json["quantity"],
-        subCategoryId: json["SubCategoryId"],
+        subCategoryId:
+            json["SubCategoryId"] == null ? null : json["SubCategoryId"],
         favorites: json['Favorites'] == null ? null : json['Favorites'],
         carts: json['Carts'] == null ? null : json['Carts'],
       );

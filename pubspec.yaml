@@ -39,7 +39,6 @@ dependencies:
   ripple_animation: ^0.0.1+2
   shimmer: ^2.0.0
   story_view: ^0.13.1
-
 dev_dependencies:
   flutter_test:
     sdk: flutter
