@@ -10,7 +10,7 @@ class CategorysFavorite extends StatelessWidget {
     required this.size,
   }) : super(key: key);
   var fav = Get.find<FavoriteController>();
-
+  StatusCode statusCode = StatusCode();
   final Size size;
   var favoriteController;
   @override
@@ -69,8 +69,9 @@ class CategorysFavorite extends StatelessWidget {
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
                             Expanded(
-                              child: Image.asset(
-                                'assets/png/logo.png',
+                              child: Image.network(
+                                statusCode.urlimage +
+                                    favoriteController[index].icon!,
                                 color: fav.idcategory.value == index
                                     ? AppColors.mainColor
                                     : AppColors.darkgreytextColor,

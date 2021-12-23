@@ -1,3 +1,4 @@
+import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:delivery_food/General/Constants.dart';
 import 'package:delivery_food/view/Home_page/component/SearchDelegate.dart';
 import 'package:flutter/material.dart';
@@ -34,9 +35,22 @@ class SearchBar extends StatelessWidget {
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Text(
-                'Let us help you find',
-                style: TextStyle(color: AppColors.darkgreytextColor),
+              SizedBox(
+                width: 250.0,
+                child: DefaultTextStyle(
+                  style: const TextStyle(
+                    color: AppColors.darkgreytextColor,
+                    fontSize: 15.0,
+                    fontFamily: 'Roboto',
+                  ),
+                  child: AnimatedTextKit(
+                    animatedTexts: [
+                      TyperAnimatedText('How can we help you ...',
+                          speed: const Duration(milliseconds: 100)),
+                    ],
+                    repeatForever: true,
+                  ),
+                ),
               ),
               Icon(Icons.search, color: AppColors.darkgreytextColor)
             ],

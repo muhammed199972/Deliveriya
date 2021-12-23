@@ -23,7 +23,7 @@ class CategorysScroll extends StatelessWidget {
   Widget build(BuildContext context) {
     return new Container(
       color: Colors.transparent,
-      height: iSfavorite! ? size.height : size.height * 0.072,
+      height: iSfavorite! ? size.height : size.height * 0.065,
       width: iSfavorite! ? size.width / 3.2 : double.infinity,
       margin: EdgeInsets.only(
         top: size.height * 0.0147,
@@ -37,19 +37,19 @@ class CategorysScroll extends StatelessWidget {
             scrollDirection: iSfavorite! ? Axis.vertical : Axis.horizontal,
             itemBuilder: (BuildContext context, int index) {
               return Container(
-                height: size.height * 0.0586,
-                width: size.width * 0.28,
+                height: size.height * 0.1,
+                width: size.width * 0.26,
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(7.0),
                   color: Colors.white,
-                  boxShadow: [
-                    BoxShadow(
-                      color: Colors.black.withOpacity(0.1),
-                      spreadRadius: 1,
-                      blurRadius: 10,
-                      offset: Offset(2, 5),
-                    ),
-                  ],
+                  // boxShadow: [
+                  //   BoxShadow(
+                  //     color: Colors.black.withOpacity(0.1),
+                  //     spreadRadius: 1,
+                  //     blurRadius: 10,
+                  //     offset: Offset(2, 5),
+                  //   ),
+                  // ],
                   border: Border.all(
                     color: AppColors.darkgreyColor,
                     width: 1.5,
@@ -68,7 +68,7 @@ class CategorysScroll extends StatelessWidget {
                         await subController
                             .getsubcategory(category.categorys[index].id!);
                         prodController.getproduct(
-                            subCategoryId: '${subController.value}',
+                            subCategoryId: '${subController.idsub.value}',
                             offset: 0,
                             limit: 8,
                             q: '');

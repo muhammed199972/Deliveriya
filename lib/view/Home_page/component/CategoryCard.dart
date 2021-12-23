@@ -29,9 +29,10 @@ class CategorysCard extends StatelessWidget {
             offset: 0,
             limit: 8,
             q: '');
-        Get.back();
-        Get.to(() => BottomBar(
-                fu: ProduvtsView(
+
+        Get.offAll(() => BottomBar(
+            intid: 2,
+            fu: ProduvtsView(
               idcategory: datacontroller.id,
             )));
         // ProduvtsView(
@@ -53,7 +54,7 @@ class CategorysCard extends StatelessWidget {
             Expanded(
               flex: 2,
               child: Image.network(
-                statusCode.urlimage + datacontroller.avatar,
+                statusCode.urlimage + datacontroller.icon,
                 fit: BoxFit.cover,
               ),
             ),

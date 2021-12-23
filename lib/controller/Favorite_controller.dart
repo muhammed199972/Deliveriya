@@ -16,6 +16,7 @@ class FavoriteController extends GetxController {
   var opensearch = false.obs;
   var idcategory = 0.obs;
   var idsupcategory = 0.obs;
+  var isEmpty = false.obs;
 
   ApiResult apiResult = ApiResult();
   FavoriteService favoriteService = FavoriteService();
@@ -26,10 +27,13 @@ class FavoriteController extends GetxController {
     super.onInit();
   }
 
-  getfavorite() async {
+  getfavorite(String q, String from, String to) async {
+    favorites = <FavoriteResponse>[].obs;
     try {
-      apiResult = await favoriteService.getfavoriteData();
+      apiResult = await favoriteService.getfavoriteData(q, from, to);
       if (!apiResult.hasError!) {
+        isEmpty.value = apiResult.isEmpty;
+
         favorites.value = apiResult.data;
         hasError.value = apiResult.hasError!;
         isLoading.value = false;

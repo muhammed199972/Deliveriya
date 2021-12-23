@@ -1,4 +1,5 @@
 import 'package:delivery_food/General/Api_Result.dart';
+import 'package:delivery_food/General/Constants.dart';
 import 'package:delivery_food/General/Dialogs.dart';
 import 'package:delivery_food/model/Favorite_model.dart';
 import 'package:delivery_food/model/Products_model.dart';
@@ -11,12 +12,23 @@ class ProductsController extends GetxController {
   var hasError = true.obs;
   var massage = ''.obs;
   var isLoading = true.obs;
+  var isEmpty = false.obs;
+  List cartscounte = [].obs;
+  List cartsid = [].obs;
+  List cartscountupdate = [];
+  List cartsdeleteupdate = [];
+  List cartsdeletesupupdate = [];
+  List cartsdeletecatupdate = [];
+  var isTotal = true.obs;
 
   ApiResult apiResult = ApiResult();
   ProductService product = ProductService();
 
   @override
-  void onInit() {
+  void onInit() async {
+    cartscounte = await Constansbox.box.read('cartscounte');
+    cartsid = await Constansbox.box.read('cartsid');
+
     super.onInit();
   }
 
@@ -38,6 +50,7 @@ class ProductsController extends GetxController {
       if (!apiResult.hasError!) {
         products.value = apiResult.data;
         hasError.value = apiResult.hasError!;
+        print(products);
         isLoading.value = false;
       } else {
         hasError.value = apiResult.hasError!;
@@ -61,15 +74,14 @@ class ProductsController extends GetxController {
     }
   }
 
-  getListproduct({
-    List<int>? Listproduct,
-  }) async {
+  getListproduct(
+      {List<int>? Listproduct, String? q, String? from, String? to}) async {
     try {
-      apiResult = (await product.getListproductsData(
-        Listproduct!,
-      ))!;
-
+      prods = <FavoriteResponse>[].obs;
+      apiResult =
+          (await product.getListproductsData(Listproduct!, q!, from!, to!))!;
       if (!apiResult.hasError!) {
+        isEmpty.value = apiResult.isEmpty;
         prods.value = apiResult.data;
         hasError.value = apiResult.hasError!;
       } else {

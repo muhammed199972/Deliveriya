@@ -1,4 +1,5 @@
 import 'package:delivery_food/controller/Ads_controller.dart';
+import 'package:delivery_food/controller/Auth_controller.dart';
 import 'package:delivery_food/controller/Cart_controller.dart';
 import 'package:delivery_food/controller/Category_controller.dart';
 import 'package:delivery_food/controller/Favorite_controller.dart';
@@ -20,5 +21,6 @@ class Binds extends Bindings {
     Get.put(AdssController());
     Get.put(ProductsController());
     Get.put(FavoriteController());
+    Get.put(AuthController());
   }
 }

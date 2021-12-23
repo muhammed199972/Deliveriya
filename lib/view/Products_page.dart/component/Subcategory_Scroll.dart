@@ -72,7 +72,7 @@ class SubcategoryScroll extends StatelessWidget {
                                   subController.subcategorys[index].name
                                       .toString(),
                                   style: TextStyle(
-                                    color: subController.value.value ==
+                                    color: subController.idsub.value ==
                                             subController.subcategorys[index].id
                                         ? AppColors.mainColor
                                         : AppColors.darkgreytextColor,

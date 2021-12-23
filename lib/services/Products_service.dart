@@ -24,7 +24,7 @@ class ProductService {
     ProductsStatus? status;
     ErrorResponse? error;
     Uri url = Uri.http('${statusCode.url1}', '/api/public/product', {
-      'subCategoryId': subCategoryId,
+      'SubCategoryId': subCategoryId,
       'offset': '$offset',
       'limit': '$limit',
       'q': q
@@ -39,10 +39,11 @@ class ProductService {
       }
 
       var responsebody = jsonDecode(response.body);
-      print(responsebody);
+
       if (response.statusCode == statusCode.OK ||
           response.statusCode == statusCode.CREATED) {
         status = ProductsStatus.fromJson(responsebody['status']);
+
         if (responsebody['response'] != null) {
           for (var item in responsebody['response']) {
             calendar.add(ProductsResponse.fromJson(item));
@@ -137,8 +138,7 @@ class ProductService {
   }
 
   Future<ApiResult?> getListproductsData(
-    List<int> Listproduct,
-  ) async {
+      List<int> Listproduct, String q, String from, String to) async {
     StatusCode statusCode = StatusCode();
     ApiResult apiResult = ApiResult();
     List<FavoriteResponse> calendar = [];
@@ -148,22 +148,38 @@ class ProductService {
 
     try {
       var response;
+      if (from == '') {
+        response = await dio.post(
+            'http://' + statusCode.url1 + '/api/public/product/ids',
+            queryParameters: {
+              'q': q,
+            },
+            data: {
+              "ids": Listproduct
+            });
+      } else {
+        response = await dio.post(
+            'http://' + statusCode.url1 + '/api/public/product/ids',
+            queryParameters: {'q': q, 'from': from, 'to': to},
+            data: {"ids": Listproduct});
+      }
 
-      response = await dio.post(
-          'http://' + statusCode.url1 + '/api/public/product/ids',
-          data: {"ids": Listproduct});
-      print(response);
       if (response!.statusCode == statusCode.OK ||
           response!.statusCode == statusCode.CREATED) {
         status = FavoriteStatus.fromJson(response.data['status']);
+
         if (response.data['response'] != null) {
           for (var item in response.data['response']) {
             calendar.add(FavoriteResponse.fromJson(item));
           }
+          apiResult.isEmpty = false;
           apiResult.errorMassage = status.msg;
           apiResult.codeError = status.code;
           apiResult.hasError = false;
           apiResult.data = calendar;
+        }
+        if (response.data['response'].isEmpty) {
+          apiResult.isEmpty = true;
         }
       } else if (response!.statusCode == statusCode.BAD_REQUEST) {
         status = FavoriteStatus.fromJson(response.data['status']);
@@ -181,7 +197,7 @@ class ProductService {
         apiResult.codeError = status.code;
         apiResult.hasError = true;
         await authController.postrefreshToken();
-        getListproductsData(Listproduct);
+        getListproductsData(Listproduct, q, from, to);
 
         print('A bad request Please try again');
       } else if (response!.statusCode == statusCode.FORBIDDEN) {

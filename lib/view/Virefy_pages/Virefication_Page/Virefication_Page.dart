@@ -71,6 +71,7 @@ class VerificationPage extends StatelessWidget {
                         Visibility(
                           visible: controller.sendcode.value,
                           child: OTPTextField(
+                            keyboardType: TextInputType.text,
                             width: size.width,
                             length: 6,
                             textFieldAlignment: MainAxisAlignment.spaceAround,

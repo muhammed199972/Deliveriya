@@ -11,22 +11,27 @@ import 'package:get/get.dart';
 
 class CartController extends GetxController {
   //
-  var carts = CartResponse().obs;
-  //
+  var carts = <CartResponse>[].obs;
+
   var postCarts = PostResponse().obs;
   //
-  var patchCarts = PatchResponse().obs;
+  var patchCarts = DeleteResponse().obs;
   //
   var deleteCarts = DeleteResponse().obs;
   //
   var hasError = true.obs;
   //
+  List<Map<String, int>> updata = [];
+  List<int> updatadelete = [];
+  var priceall = 0.obs;
+  var lenghcart = 0.obs;
   var massage = ''.obs;
   var isLoading = true.obs;
   ApiResult apiResult = ApiResult();
   CartService cartService = CartService();
   ScrollController listScrollController = ScrollController();
   var maxscroll = false.obs;
+  var isEmpty = false.obs;
 
   @override
   void onInit() {
@@ -43,11 +48,12 @@ class CartController extends GetxController {
 
   getcart() async {
     try {
+      BotToast.showLoading();
       apiResult = await cartService.getcartData();
       if (!apiResult.hasError!) {
+        isEmpty.value = apiResult.isEmpty;
         carts.value = apiResult.data;
         hasError.value = apiResult.hasError!;
-        print(carts.value.data![0].id);
         isLoading.value = false;
       } else {
         hasError.value = apiResult.hasError!;
@@ -68,6 +74,8 @@ class CartController extends GetxController {
             Get.back();
             Get.back();
           });
+    } finally {
+      BotToast.closeAllLoading();
     }
   }
 
@@ -75,7 +83,7 @@ class CartController extends GetxController {
     try {
       apiResult = await cartService.postcartData(quantity, id);
       if (!apiResult.hasError!) {
-        carts.value.data = [];
+        carts.value = [];
         postCarts.value = apiResult.data;
         hasError.value = apiResult.hasError!;
         BotToast.showLoading();
@@ -102,13 +110,15 @@ class CartController extends GetxController {
     }
   }
 
-  patchcart(int quantity, id) async {
+  patchcart(var body) async {
     try {
-      apiResult = await cartService.patchcartData(quantity, id);
+      apiResult = await cartService.patchcartData(body);
       if (!apiResult.hasError!) {
         patchCarts.value = apiResult.data;
         hasError.value = apiResult.hasError!;
-        getcart();
+        BotToast.showLoading();
+        await getcart();
+        Get.back();
       } else {
         hasError.value = apiResult.hasError!;
         massage.value = apiResult.errorMassage!;
@@ -135,6 +145,70 @@ class CartController extends GetxController {
         hasError.value = apiResult.hasError!;
         BotToast.showLoading();
         await getcart();
+      } else {
+        hasError.value = apiResult.hasError!;
+        massage.value = apiResult.errorMassage!;
+        DialogsUtils.showdialog(
+            m: massage.value,
+            onPressed: () {
+              Get.back();
+            });
+      }
+    } catch (e) {
+      hasError.value = apiResult.hasError!;
+      massage.value = apiResult.errorMassage!;
+      DialogsUtils.showdialog(
+          m: 'حدث خطأ غير متوقع',
+          onPressed: () {
+            Get.back();
+          });
+    } finally {
+      BotToast.closeAllLoading();
+    }
+  }
+
+  deletcategoryecart(String id) async {
+    try {
+      apiResult = await cartService.deletcategoryecart(id);
+
+      if (!apiResult.hasError!) {
+        deleteCarts.value = apiResult.data;
+        hasError.value = apiResult.hasError!;
+        BotToast.showLoading();
+        await getcart();
+        Get.back();
+      } else {
+        hasError.value = apiResult.hasError!;
+        massage.value = apiResult.errorMassage!;
+        DialogsUtils.showdialog(
+            m: massage.value,
+            onPressed: () {
+              Get.back();
+            });
+      }
+    } catch (e) {
+      hasError.value = apiResult.hasError!;
+      massage.value = apiResult.errorMassage!;
+      DialogsUtils.showdialog(
+          m: 'حدث خطأ غير متوقع',
+          onPressed: () {
+            Get.back();
+          });
+    } finally {
+      BotToast.closeAllLoading();
+    }
+  }
+
+  deletsupcategoryecart(String id) async {
+    try {
+      apiResult = await cartService.deletsupcategoryecart(id);
+      if (!apiResult.hasError!) {
+        deleteCarts.value = apiResult.data;
+        hasError.value = apiResult.hasError!;
+        BotToast.showLoading();
+        await getcart();
+
+        Get.back();
       } else {
         hasError.value = apiResult.hasError!;
         massage.value = apiResult.errorMassage!;

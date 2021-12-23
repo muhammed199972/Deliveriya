@@ -136,22 +136,6 @@ class Favorites {
   }
 }
 
-class Favorite {
-  Favorite({
-    this.id,
-  });
-
-  int? id;
-
-  factory Favorite.fromJson(Map<String, dynamic> json) => Favorite(
-        id: json["id"],
-      );
-
-  Map<String, dynamic> toJson() => {
-        "id": id,
-      };
-}
-
 class FavoriteStatus {
   FavoriteStatus({
     this.code,

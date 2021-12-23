@@ -30,16 +30,20 @@ class HomeView extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
+              SizedBox(
+                height: 20,
+              ),
               Expanded(
                 child: Padding(
                   padding: const EdgeInsets.symmetric(
-                      horizontal: Defaults.defaultPadding * 2),
+                    horizontal: Defaults.defaultPadding,
+                  ),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.end,
                     children: [
                       Spacer(),
                       Expanded(
-                          flex: 2,
+                          flex: 3,
                           child: Padding(
                               padding: EdgeInsets.only(top: 20),
                               child: LogoStatus())),
@@ -47,7 +51,7 @@ class HomeView extends StatelessWidget {
                         flex: 1,
                         child: Padding(
                           padding: const EdgeInsets.only(
-                              bottom: Defaults.defaultPadding * 2, right: 2),
+                              bottom: Defaults.defaultPadding * 4),
                           child: Row(
                             children: [
                               Text(
@@ -57,9 +61,11 @@ class HomeView extends StatelessWidget {
                               SizedBox(
                                 width: 8,
                               ),
-                              Icon(
-                                Icons.help_sharp,
-                                color: AppColors.darkgreytextColor,
+                              InkWell(
+                                child: Icon(
+                                  Icons.help_sharp,
+                                  color: AppColors.darkgreytextColor,
+                                ),
                               )
                             ],
                           ),

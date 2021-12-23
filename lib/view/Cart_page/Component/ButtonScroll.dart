@@ -4,12 +4,11 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class ButtonScroll extends StatelessWidget {
-  const ButtonScroll({
+  ButtonScroll({
     Key? key,
-    required this.controller,
   }) : super(key: key);
 
-  final CartController controller;
+  var controller = Get.put(CartController());
 
   @override
   Widget build(BuildContext context) {
