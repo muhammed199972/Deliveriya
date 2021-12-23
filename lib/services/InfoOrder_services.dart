@@ -38,7 +38,7 @@ class InfoOrderService {
       } else if (response.statusCode == statusCode.BAD_REQUEST) {
         status = InfoOrderStatus.fromJson(responsebode['status']);
 
-        error = ErrorResponse.fromJson(responsebode['errors']);
+        error = ErrorResponse.fromJson(responsebode['errors'][0]);
         apiResult.errorMassage = error.msg;
         apiResult.codeError = status.code;
         apiResult.hasError = true;
@@ -46,7 +46,7 @@ class InfoOrderService {
       } else if (response.statusCode == statusCode.UNAUTHORIZED) {
         status = InfoOrderStatus.fromJson(responsebode['status']);
 
-        error = ErrorResponse.fromJson(responsebode['errors']);
+        error = ErrorResponse.fromJson(responsebode['errors'][0]);
         apiResult.errorMassage = error.msg;
         apiResult.codeError = status.code;
         apiResult.hasError = true;
@@ -54,7 +54,7 @@ class InfoOrderService {
       } else if (response.statusCode == statusCode.FORBIDDEN) {
         status = InfoOrderStatus.fromJson(responsebode['status']);
 
-        error = ErrorResponse.fromJson(responsebode['errors']);
+        error = ErrorResponse.fromJson(responsebode['errors'][0]);
         apiResult.errorMassage = error.msg;
         apiResult.codeError = status.code;
         apiResult.hasError = true;
@@ -62,7 +62,7 @@ class InfoOrderService {
       } else if (response.statusCode == statusCode.NOT_FOUND) {
         status = InfoOrderStatus.fromJson(responsebode['status']);
 
-        error = ErrorResponse.fromJson(responsebode['errors']);
+        error = ErrorResponse.fromJson(responsebode['errors'][0]);
         apiResult.errorMassage = error.msg;
         apiResult.codeError = status.code;
         apiResult.hasError = true;
@@ -70,7 +70,7 @@ class InfoOrderService {
       } else if (response.statusCode == statusCode.DUPLICATED_ENTRY) {
         status = InfoOrderStatus.fromJson(responsebode['status']);
 
-        error = ErrorResponse.fromJson(responsebode['errors']);
+        error = ErrorResponse.fromJson(responsebode['errors'][0]);
         apiResult.errorMassage = error.msg;
         apiResult.codeError = status.code;
         apiResult.hasError = true;
@@ -78,7 +78,7 @@ class InfoOrderService {
       } else if (response.statusCode == statusCode.VALIDATION_ERROR) {
         status = InfoOrderStatus.fromJson(responsebode['status']);
 
-        error = ErrorResponse.fromJson(responsebode['errors']);
+        error = ErrorResponse.fromJson(responsebode['errors'][0]);
         apiResult.errorMassage = error.msg;
         apiResult.codeError = status.code;
         apiResult.hasError = true;
@@ -86,14 +86,14 @@ class InfoOrderService {
       } else if (response.statusCode == statusCode.INTERNAL_SERVER_ERROR) {
         status = InfoOrderStatus.fromJson(responsebode['status']);
 
-        error = ErrorResponse.fromJson(responsebode['errors']);
+        error = ErrorResponse.fromJson(responsebode['errors'][0]);
         apiResult.errorMassage = error.msg;
         apiResult.codeError = status.code;
         apiResult.hasError = true;
         print('Server error Please try again');
       } else {
         status = InfoOrderStatus.fromJson(responsebode['status']);
-        error = ErrorResponse.fromJson(responsebode['errors']);
+        error = ErrorResponse.fromJson(responsebode['errors'][0]);
         apiResult.errorMassage = error.msg;
         apiResult.codeError = status.code;
         apiResult.hasError = true;

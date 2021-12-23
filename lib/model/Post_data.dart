@@ -1,15 +1,15 @@
 class PostResponse {
   PostResponse({
-    this.msg,
+    this.id,
   });
 
-  String? msg;
+  int? id;
 
   factory PostResponse.fromJson(Map<String, dynamic> json) => PostResponse(
-        msg: json["id"],
+        id: json["id"],
       );
 
   Map<String, dynamic> toJson() => {
-        "id": msg,
+        "id": id,
       };
 }
