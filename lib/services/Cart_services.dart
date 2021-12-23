@@ -571,40 +571,28 @@ class CartService {
   }
 
   Future<ApiResult> patchcartData(var body) async {
-    print(body);
     StatusCode statusCode = StatusCode();
     ApiResult apiResult = ApiResult();
     DeleteResponse? calendar;
     CartStatus? status;
     ErrorResponse? error;
     Dio dio = Dio();
-    // Uri url = Uri.http('${statusCode.url1}', '/api/private/user/cart');
 
     try {
+      print(body);
       var response = await dio.put(
         'http://' + statusCode.url1 + '/api/private/user/cart',
-        data: {
-          'ids': [
-            {'productId': 6, 'quantity': 5},
-            {'productId': 7, 'quantity': 5}
-          ],
-          'deleteIds': []
-        },
+        data: jsonEncode(body),
         options: Options(
-          headers: {
-            // "Accept": "application/json",
-            // 'Content-Type': 'application/json',
-            'Authorization': 'Bearer ${statusCode.Token}'
-          },
+          headers: {'Authorization': 'Bearer ${statusCode.Token}'},
         ),
       );
-      print(response);
 
       if (response.statusCode == statusCode.OK ||
           response.statusCode == statusCode.CREATED) {
         status = CartStatus.fromJson(response.data['status']);
 
-        calendar = DeleteResponse.fromJson(response.data['response']);
+        calendar = DeleteResponse.fromJson(response.data);
 
         apiResult.isEmpty = false;
         apiResult.errorMassage = status.msg;

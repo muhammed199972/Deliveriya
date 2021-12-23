@@ -215,13 +215,6 @@ class CategoryCart extends StatelessWidget {
                                               controller[indexcat]
                                                   .id
                                                   .toString());
-
-                                          Get.offAll(
-                                            BottomBar(
-                                              intid: 0,
-                                              fu: HomeView(),
-                                            ),
-                                          );
                                         }
                                       });
                                 },
@@ -421,13 +414,6 @@ class CategoryCart extends StatelessWidget {
                                                                       indexsup]
                                                                   .id
                                                                   .toString());
-
-                                                          Get.offAll(
-                                                            BottomBar(
-                                                              intid: 0,
-                                                              fu: HomeView(),
-                                                            ),
-                                                          );
                                                         }
                                                       });
                                                 },

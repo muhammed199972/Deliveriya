@@ -44,14 +44,21 @@ class ButtonUpdate extends StatelessWidget {
           prodController.getListproduct(
               Listproduct: carts, q: '', from: '', to: '');
         } else {
-          Map body = {"ids": cart.updata, "deleteIds": cart.updatadelete};
-          cart.patchcart(body);
-          // Get.offAll(
-          //   BottomBar(
-          //     intid: 0,
-          //     fu: HomeView(),
-          //   ),
-          // );
+          if (cart.updatadelete.length == 0 && cart.updata.length == 0) {
+            // Get.back();
+          } else if (cart.updatadelete.length == 0) {
+            Map body = {"ids": cart.updata};
+            // Get.back();
+            cart.patchcart(body);
+          } else if (cart.updata.length == 0) {
+            Map body = {"deleteIds": cart.updatadelete};
+            // Get.back();
+            cart.patchcart(body);
+          } else {
+            Map body = {"ids": cart.updata, "deleteIds": cart.updatadelete};
+            // Get.back();
+            cart.patchcart(body);
+          }
         }
       },
       child: Container(

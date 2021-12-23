@@ -15,7 +15,7 @@ class CartController extends GetxController {
 
   var postCarts = PostResponse().obs;
   //
-  var patchCarts = PatchResponse().obs;
+  var patchCarts = DeleteResponse().obs;
   //
   var deleteCarts = DeleteResponse().obs;
   //
@@ -48,6 +48,7 @@ class CartController extends GetxController {
 
   getcart() async {
     try {
+      BotToast.showLoading();
       apiResult = await cartService.getcartData();
       if (!apiResult.hasError!) {
         isEmpty.value = apiResult.isEmpty;
@@ -73,6 +74,8 @@ class CartController extends GetxController {
             Get.back();
             Get.back();
           });
+    } finally {
+      BotToast.closeAllLoading();
     }
   }
 
@@ -113,6 +116,9 @@ class CartController extends GetxController {
       if (!apiResult.hasError!) {
         patchCarts.value = apiResult.data;
         hasError.value = apiResult.hasError!;
+        BotToast.showLoading();
+        await getcart();
+        Get.back();
       } else {
         hasError.value = apiResult.hasError!;
         massage.value = apiResult.errorMassage!;
@@ -170,6 +176,7 @@ class CartController extends GetxController {
         hasError.value = apiResult.hasError!;
         BotToast.showLoading();
         await getcart();
+        Get.back();
       } else {
         hasError.value = apiResult.hasError!;
         massage.value = apiResult.errorMassage!;
@@ -200,6 +207,8 @@ class CartController extends GetxController {
         hasError.value = apiResult.hasError!;
         BotToast.showLoading();
         await getcart();
+
+        Get.back();
       } else {
         hasError.value = apiResult.hasError!;
         massage.value = apiResult.errorMassage!;
