@@ -36,7 +36,7 @@ class SubcategoryService {
       } else if (response.statusCode == statusCode.BAD_REQUEST) {
         status = SubcategoryStatus.fromJson(responsebode['status']);
 
-        error = ErrorResponse.fromJson(responsebode['errors']);
+        error = ErrorResponse.fromJson(responsebode['errors'][0]);
         apiResult.errorMassage = error.msg;
         apiResult.codeError = status.code;
         apiResult.hasError = true;
@@ -44,7 +44,7 @@ class SubcategoryService {
       } else if (response.statusCode == statusCode.UNAUTHORIZED) {
         status = SubcategoryStatus.fromJson(responsebode['status']);
 
-        error = ErrorResponse.fromJson(responsebode['errors']);
+        error = ErrorResponse.fromJson(responsebode['errors'][0]);
         apiResult.errorMassage = error.msg;
         apiResult.codeError = status.code;
         apiResult.hasError = true;
@@ -52,7 +52,7 @@ class SubcategoryService {
       } else if (response.statusCode == statusCode.FORBIDDEN) {
         status = SubcategoryStatus.fromJson(responsebode['status']);
 
-        error = ErrorResponse.fromJson(responsebode['errors']);
+        error = ErrorResponse.fromJson(responsebode['errors'][0]);
         apiResult.errorMassage = error.msg;
         apiResult.codeError = status.code;
         apiResult.hasError = true;
@@ -60,7 +60,7 @@ class SubcategoryService {
       } else if (response.statusCode == statusCode.NOT_FOUND) {
         status = SubcategoryStatus.fromJson(responsebode['status']);
 
-        error = ErrorResponse.fromJson(responsebode['errors']);
+        error = ErrorResponse.fromJson(responsebode['errors'][0]);
         apiResult.errorMassage = error.msg;
         apiResult.codeError = status.code;
         apiResult.hasError = true;
@@ -68,7 +68,7 @@ class SubcategoryService {
       } else if (response.statusCode == statusCode.DUPLICATED_ENTRY) {
         status = SubcategoryStatus.fromJson(responsebode['status']);
 
-        error = ErrorResponse.fromJson(responsebode['errors']);
+        error = ErrorResponse.fromJson(responsebode['errors'][0]);
         apiResult.errorMassage = error.msg;
         apiResult.codeError = status.code;
         apiResult.hasError = true;
@@ -76,7 +76,7 @@ class SubcategoryService {
       } else if (response.statusCode == statusCode.VALIDATION_ERROR) {
         status = SubcategoryStatus.fromJson(responsebode['status']);
 
-        error = ErrorResponse.fromJson(responsebode['errors']);
+        error = ErrorResponse.fromJson(responsebode['errors'][0]);
         apiResult.errorMassage = error.msg;
         apiResult.codeError = status.code;
         apiResult.hasError = true;
@@ -84,14 +84,14 @@ class SubcategoryService {
       } else if (response.statusCode == statusCode.INTERNAL_SERVER_ERROR) {
         status = SubcategoryStatus.fromJson(responsebode['status']);
 
-        error = ErrorResponse.fromJson(responsebode['errors']);
+        error = ErrorResponse.fromJson(responsebode['errors'][0]);
         apiResult.errorMassage = error.msg;
         apiResult.codeError = status.code;
         apiResult.hasError = true;
         print('Server error Please try again');
       } else {
         status = SubcategoryStatus.fromJson(responsebode['status']);
-        error = ErrorResponse.fromJson(responsebode['errors']);
+        error = ErrorResponse.fromJson(responsebode['errors'][0]);
         apiResult.errorMassage = error.msg;
         apiResult.codeError = status.code;
         apiResult.hasError = true;

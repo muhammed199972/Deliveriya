@@ -17,6 +17,7 @@ class TextFieldProfwidget extends StatelessWidget {
     this.txttype,
     this.lines,
     this.h,
+    this.enabled,
   });
 
   TextEditingController controller;
@@ -31,6 +32,7 @@ class TextFieldProfwidget extends StatelessWidget {
   TextInputType? txttype;
   double? h;
   int? lines;
+  bool? enabled;
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -50,7 +52,7 @@ class TextFieldProfwidget extends StatelessWidget {
       child: TextFormField(
         validator: validator,
         //Text Field which accepts input.
-
+        enabled: enabled,
         inputFormatters: inputFormatters,
         keyboardType: txttype,
         maxLines: lines ?? 1,

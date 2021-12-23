@@ -32,7 +32,7 @@ class OfferService {
         }
       } else if (response.statusCode == statusCode.BAD_REQUEST) {
         status = OffersStatus.fromJson(responsebody['status']);
-        error = ErrorResponse.fromJson(responsebody['errors']);
+        error = ErrorResponse.fromJson(responsebody['errors'][0]);
         apiResult.errorMassage = error.msg;
         apiResult.codeError = status.code;
         apiResult.hasError = true;
@@ -41,7 +41,7 @@ class OfferService {
       } else if (response.statusCode == statusCode.UNAUTHORIZED) {
         status = OffersStatus.fromJson(responsebody['status']);
 
-        error = ErrorResponse.fromJson(responsebody['errors']);
+        error = ErrorResponse.fromJson(responsebody['errors'][0]);
         apiResult.errorMassage = error.msg;
         apiResult.codeError = status.code;
         apiResult.hasError = true;
@@ -49,7 +49,7 @@ class OfferService {
       } else if (response.statusCode == statusCode.FORBIDDEN) {
         status = OffersStatus.fromJson(responsebody['status']);
 
-        error = ErrorResponse.fromJson(responsebody['errors']);
+        error = ErrorResponse.fromJson(responsebody['errors'][0]);
         apiResult.errorMassage = error.msg;
         apiResult.codeError = status.code;
         apiResult.hasError = true;
@@ -57,7 +57,7 @@ class OfferService {
       } else if (response.statusCode == statusCode.NOT_FOUND) {
         status = OffersStatus.fromJson(responsebody['status']);
 
-        error = ErrorResponse.fromJson(responsebody['errors']);
+        error = ErrorResponse.fromJson(responsebody['errors'][0]);
         apiResult.errorMassage = error.msg;
         apiResult.codeError = status.code;
         apiResult.hasError = true;
@@ -65,7 +65,7 @@ class OfferService {
       } else if (response.statusCode == statusCode.DUPLICATED_ENTRY) {
         status = OffersStatus.fromJson(responsebody['status']);
 
-        error = ErrorResponse.fromJson(responsebody['errors']);
+        error = ErrorResponse.fromJson(responsebody['errors'][0]);
         apiResult.errorMassage = error.msg;
         apiResult.codeError = status.code;
         apiResult.hasError = true;
@@ -73,7 +73,7 @@ class OfferService {
       } else if (response.statusCode == statusCode.VALIDATION_ERROR) {
         status = OffersStatus.fromJson(responsebody['status']);
 
-        error = ErrorResponse.fromJson(responsebody['errors']);
+        error = ErrorResponse.fromJson(responsebody['errors'][0]);
         apiResult.errorMassage = error.msg;
         apiResult.codeError = status.code;
         apiResult.hasError = true;
@@ -81,14 +81,14 @@ class OfferService {
       } else if (response.statusCode == statusCode.INTERNAL_SERVER_ERROR) {
         status = OffersStatus.fromJson(responsebody['status']);
 
-        error = ErrorResponse.fromJson(responsebody['errors']);
+        error = ErrorResponse.fromJson(responsebody['errors'][0]);
         apiResult.errorMassage = error.msg;
         apiResult.codeError = status.code;
         apiResult.hasError = true;
         print('Server error Please try again');
       } else {
         status = OffersStatus.fromJson(responsebody['status']);
-        error = ErrorResponse.fromJson(responsebody['errors']);
+        error = ErrorResponse.fromJson(responsebody['errors'][0]);
         apiResult.errorMassage = error.msg;
         apiResult.codeError = status.code;
         apiResult.hasError = true;

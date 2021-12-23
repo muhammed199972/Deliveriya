@@ -1,4 +1,8 @@
+import 'dart:developer';
+
+import 'package:bot_toast/bot_toast.dart';
 import 'package:delivery_food/General/Constants.dart';
+import 'package:delivery_food/controller/Address_controller.dart';
 import 'package:delivery_food/view/Profile_page/Component/TextField.dart';
 import 'package:delivery_food/view/Virefy_pages/Component/Buttons.dart';
 import 'package:flutter/material.dart';
@@ -7,16 +11,18 @@ import 'package:get/get.dart';
 
 class AddAddress extends StatelessWidget {
   AddAddress({Key? key}) : super(key: key);
-  List<Map<String, dynamic>> statesList = [
-    {'id': 1, 'name': 'aaaaaa'},
-    {'id': 2, 'name': 'bbbbb'}
-  ];
+  var controller = Get.find<AddressController>();
+
   final _streetController = TextEditingController();
   final _phoneController = TextEditingController();
   final _detailedController = TextEditingController();
+  var formkey = GlobalKey<FormState>();
+
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
+    inspect(controller.cities.value);
+    inspect(controller.towns.value);
 
     return Scaffold(
       backgroundColor: AppColors.whiteColor,
@@ -39,144 +45,179 @@ class AddAddress extends StatelessWidget {
         ),
       ),
       body: SingleChildScrollView(
-        child: Column(
-          children: [
-            Container(
-              margin: EdgeInsets.symmetric(vertical: 5, horizontal: 17),
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(5.0),
-                color: AppColors.whiteColor,
-                boxShadow: [
-                  BoxShadow(
-                    color: Colors.black.withOpacity(0.1),
-                    spreadRadius: 1,
-                    blurRadius: 3,
-                  ),
-                ],
-              ),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: <Widget>[
-                  Expanded(
-                    child: DropdownButtonHideUnderline(
-                      child: ButtonTheme(
-                        alignedDropdown: true,
-                        child: DropdownButton<String>(
-                            value: '1',
-                            iconSize: 30,
-                            icon: (null),
-                            style: TextStyle(
-                              color: Colors.black54,
-                              fontSize: 16,
-                            ),
-                            hint: Text('Select State'),
-                            onChanged: (String? newValue) {
-                              // setState(() {
-                              //   _myState = newValue;
-                              //   _getCitiesList();
-                              //   print(_myState);
-                              // });
-                            },
-                            items: statesList.map((item) {
-                              return new DropdownMenuItem(
-                                child: new Text(item['name']),
-                                value: item['id'].toString(),
-                              );
-                            }).toList()),
-                      ),
+        child: Form(
+          key: formkey,
+          child: Column(
+            children: [
+              Container(
+                margin: EdgeInsets.symmetric(vertical: 5, horizontal: 17),
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(5.0),
+                  color: AppColors.whiteColor,
+                  boxShadow: [
+                    BoxShadow(
+                      color: Colors.black.withOpacity(0.1),
+                      spreadRadius: 1,
+                      blurRadius: 3,
                     ),
-                  ),
-                ],
-              ),
-            ),
-            Container(
-              height: 50,
-              margin: EdgeInsets.symmetric(vertical: 5, horizontal: 17),
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(5.0),
-                color: AppColors.whiteColor,
-                boxShadow: [
-                  BoxShadow(
-                    color: Colors.black.withOpacity(0.1),
-                    spreadRadius: 1,
-                    blurRadius: 3,
-                  ),
-                ],
-              ),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: <Widget>[
-                  Expanded(
-                    child: DropdownButtonHideUnderline(
-                      child: ButtonTheme(
-                        alignedDropdown: true,
-                        child: DropdownButton<String>(
-                            value: '1',
-                            iconSize: 30,
-                            icon: (null),
-                            style: TextStyle(
-                              color: Colors.black54,
-                              fontSize: 16,
-                            ),
-                            hint: Text('Select State'),
-                            onChanged: (String? newValue) {
-                              // setState(() {
-                              //   _myState = newValue;
-                              //   _getCitiesList();
-                              //   print(_myState);
-                              // });
-                            },
-                            items: statesList.map((item) {
-                              return new DropdownMenuItem(
-                                child: new Text(item['name']),
-                                value: item['id'].toString(),
-                              );
-                            }).toList()),
-                      ),
+                  ],
+                ),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: <Widget>[
+                    Expanded(
+                      child: Obx(() {
+                        return DropdownButtonHideUnderline(
+                          child: ButtonTheme(
+                            alignedDropdown: true,
+                            child: DropdownButton<String?>(
+                                value: controller.vCity.value == ''
+                                    ? null
+                                    : controller.vCity.value,
+                                iconSize: 30,
+                                icon: (null),
+                                style: TextStyle(
+                                  color: Colors.black54,
+                                  fontSize: 16,
+                                ),
+                                hint: Text('Select City'),
+                                onChanged: (String? newValue) async {
+                                  controller.vCity.value = newValue!;
+                                  await controller.getTown(newValue);
+                                  controller.vTown.value =
+                                      controller.towns[0].id.toString();
+                                },
+                                items: controller.cities.isNotEmpty
+                                    ? controller.cities.map((item) {
+                                        return new DropdownMenuItem<String?>(
+                                          child: new Text(item.name!),
+                                          value: item.id.toString(),
+                                        );
+                                      }).toList()
+                                    : []),
+                          ),
+                        );
+                      }),
                     ),
-                  ),
-                ],
+                  ],
+                ),
               ),
-            ),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 17),
-              child: TextFieldProfwidget(
-                controller: _streetController,
-                validator: validateMobile,
-                lebel: 'Street',
+              Container(
+                height: 50,
+                margin: EdgeInsets.symmetric(vertical: 5, horizontal: 17),
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(5.0),
+                  color: AppColors.whiteColor,
+                  boxShadow: [
+                    BoxShadow(
+                      color: Colors.black.withOpacity(0.1),
+                      spreadRadius: 1,
+                      blurRadius: 3,
+                    ),
+                  ],
+                ),
+                child: Obx(() => Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: <Widget>[
+                        Expanded(
+                          child: DropdownButtonHideUnderline(
+                            child: ButtonTheme(
+                              alignedDropdown: true,
+                              child: DropdownButton<String?>(
+                                  value: controller.vTown.value,
+                                  iconSize: 30,
+                                  icon: (null),
+                                  style: TextStyle(
+                                    color: Colors.black54,
+                                    fontSize: 16,
+                                  ),
+                                  hint: Text('Select Town'),
+                                  onChanged: (String? newValue) {
+                                    controller.vTown.value = newValue!;
+                                  },
+                                  items: controller.towns.isNotEmpty
+                                      ? controller.towns.map((item) {
+                                          print(item.name);
+                                          return new DropdownMenuItem<String?>(
+                                            child: Text(item.name!),
+                                            value: item.id.toString(),
+                                          );
+                                        }).toList()
+                                      : []),
+                            ),
+                          ),
+                        ),
+                      ],
+                    )),
               ),
-            ),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 17),
-              child: TextFieldProfwidget(
-                inputFormatters: [
-                  FilteringTextInputFormatter.digitsOnly,
-                  LengthLimitingTextInputFormatter(9),
-                ],
-                validator: validateMobile,
-                controller: _phoneController,
-                lebel: 'Phone Number',
-                prefixtxt: '+963',
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 17),
+                child: TextFieldProfwidget(
+                  controller: _streetController,
+                  validator: validate,
+                  lebel: 'Street',
+                ),
               ),
-            ),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 17),
-              child: TextFieldProfwidget(
-                h: 100,
-                lines: 5,
-                controller: _detailedController,
-                validator: validateMobile,
-                lebel: 'Detailed address',
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 17),
+                child: TextFieldProfwidget(
+                  inputFormatters: [
+                    FilteringTextInputFormatter.digitsOnly,
+                    LengthLimitingTextInputFormatter(9),
+                  ],
+                  validator: validateMobile,
+                  controller: _phoneController,
+                  lebel: 'Phone Number',
+                  prefixtxt: '+963',
+                ),
               ),
-            ),
-            Padding(
-              padding: EdgeInsets.symmetric(horizontal: 150),
-              child: ButtonWidget2(size: size, txt: 'Submit', onTap: () {}),
-            ),
-          ],
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 17),
+                child: TextFieldProfwidget(
+                  h: 100,
+                  lines: 5,
+                  controller: _detailedController,
+                  validator: validate,
+                  lebel: 'Detailed address',
+                ),
+              ),
+              Padding(
+                padding: EdgeInsets.symmetric(horizontal: 150),
+                child: ButtonWidget2(
+                    size: size,
+                    txt: 'Submit',
+                    onTap: () {
+                      if (formkey.currentState!.validate()) {
+                        if (controller.vTown.value == '' ||
+                            controller.vCity.value == '') {
+                          BotToast.showText(
+                            text: 'choose town plaese',
+                            align: Alignment.center,
+                          );
+                        } else {
+                          Map<String, dynamic> body = {
+                            'TownId': controller.vTown.value,
+                            'street': controller.vTown.value,
+                            'locationDescription': _detailedController.text,
+                            'phone': _phoneController.text,
+                          };
+                          controller.addAddress(body);
+                        }
+                      }
+                    }),
+              ),
+            ],
+          ),
         ),
       ),
     );
+  }
+
+  String? validate(String? value) {
+    if (value!.length == 0)
+      return 'Please enter value';
+    else
+      return null;
   }
 
   String? validateMobile(String? value) {

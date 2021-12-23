@@ -10,6 +10,7 @@ import 'package:get/get.dart';
 
 class ProfileView extends StatelessWidget {
   ProfileView({Key? key}) : super(key: key);
+  var status = StatusCode();
 
   var controller = Get.put(ProfileController());
   @override
@@ -63,26 +64,27 @@ class ProfileView extends StatelessWidget {
         children: [
           Row(
             children: [
-              Container(
-                  decoration: BoxDecoration(
+              Obx(() => Container(
+                    decoration: BoxDecoration(
                       color: Color(0xFFDADADA),
                       shape: BoxShape.circle,
                       border: Border.all(
                         color: AppColors.mainColor,
                         width: 1,
-                      )),
-                  width: size.width * 0.165,
-                  height: size.height * 0.093,
-                  margin:
-                      EdgeInsets.only(bottom: 0, left: 17, top: 10, right: 8),
-                  child: CircleAvatar(
-                    child: SvgPicture.asset(
-                      "assets/svg/Profile icon.svg",
-                      color: AppColors.darkgreytextColor,
+                      ),
+                      image: DecorationImage(
+                          image: NetworkImage(controller.profile.value.avatar ==
+                                  null
+                              ? status.imgdefault
+                              : '${status.urlimage + controller.profile.value.avatar}'),
+                          fit: BoxFit.cover),
                     ),
-                    backgroundColor: AppColors.whiteColor,
+                    width: size.width * 0.165,
+                    height: size.height * 0.093,
+                    margin:
+                        EdgeInsets.only(bottom: 0, left: 17, top: 10, right: 8),
                   )),
-              Text('Mohammad'),
+              Obx(() => Text(controller.profile.value.name ?? '')),
             ],
           ),
           SizedBox(
@@ -96,6 +98,7 @@ class ProfileView extends StatelessWidget {
               Icons.arrow_forward_ios_rounded,
             ),
             ontap: () {
+              controller.getprofile();
               Get.to(() => ProfileInfo());
             },
           ),
