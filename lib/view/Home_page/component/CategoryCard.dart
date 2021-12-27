@@ -24,10 +24,12 @@ class CategorysCard extends StatelessWidget {
         controller.changevalue(datacontroller.id!);
         controller.changecontrollerscroll(index);
         await subcategory.getsubcategory(datacontroller.id);
+        prodController.offsetScroll = 0;
+        prodController.subcategoryId = subcategory.subcategorys[0].id!;
         prodController.getproduct(
             subCategoryId: '${subcategory.subcategorys[0].id}',
             offset: 0,
-            limit: 8,
+            limit: 16,
             q: '');
 
         Get.offAll(() => BottomBar(

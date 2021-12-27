@@ -51,11 +51,14 @@ class SubcategoryScroll extends StatelessWidget {
                         onTap: () {
                           subController.changevalue(
                               subController.subcategorys[index].id!);
+                          prodController.offsetScroll = 0;
+                          prodController.subcategoryId =
+                              subController.subcategorys[index].id!;
                           prodController.getproduct(
                               subCategoryId:
                                   '${subController.subcategorys[index].id!}',
                               offset: 0,
-                              limit: 8,
+                              limit: 16,
                               q: '');
                           // prodController.getproduct(
                           //     subCategoryId: index.toString(),

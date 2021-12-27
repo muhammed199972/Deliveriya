@@ -209,6 +209,7 @@ class ProduvtsView extends StatelessWidget {
                           margin: EdgeInsets.symmetric(
                               horizontal: Defaults.defaultPadding),
                           child: StaggeredGridView.countBuilder(
+                            controller: prodController.scrollController,
                             shrinkWrap: true,
                             crossAxisCount: 3,
                             itemCount: prodController.products.length,

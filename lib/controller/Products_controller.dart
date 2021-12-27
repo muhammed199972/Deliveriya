@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:bot_toast/bot_toast.dart';
 import 'package:delivery_food/General/Api_Result.dart';
 import 'package:delivery_food/General/Constants.dart';
@@ -5,6 +7,7 @@ import 'package:delivery_food/General/Dialogs.dart';
 import 'package:delivery_food/model/Favorite_model.dart';
 import 'package:delivery_food/model/Products_model.dart';
 import 'package:delivery_food/services/Products_service.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 
 class ProductsController extends GetxController {
@@ -24,11 +27,24 @@ class ProductsController extends GetxController {
 
   ApiResult apiResult = ApiResult();
   ProductService product = ProductService();
-
+  ScrollController scrollController = ScrollController();
+  int offsetScroll = 1;
+  var subcategoryId = 0;
   @override
   void onInit() async {
     cartscounte = await Constansbox.box.read('cartscounte');
     cartsid = await Constansbox.box.read('cartsid');
+    scrollController.addListener(() {
+      if (scrollController.position.pixels ==
+          scrollController.position.maxScrollExtent) {
+        getproductScroll(
+            subCategoryId: '${subcategoryId}',
+            offset: offsetScroll,
+            limit: 16,
+            q: '');
+        print(offsetScroll);
+      }
+    });
 
     super.onInit();
   }
@@ -52,6 +68,51 @@ class ProductsController extends GetxController {
         products.value = apiResult.data;
         hasError.value = apiResult.hasError!;
 
+        isLoading.value = false;
+      } else {
+        hasError.value = apiResult.hasError!;
+        massage.value = apiResult.errorMassage!;
+        DialogsUtils.showdialog(
+            m: massage.value,
+            onPressed: () {
+              Get.back();
+              Get.back();
+            });
+      }
+    } catch (e) {
+      hasError.value = apiResult.hasError!;
+      massage.value = apiResult.errorMassage!;
+      DialogsUtils.showdialog(
+          m: 'حدث خطأ غير متوقع',
+          onPressed: () {
+            Get.back();
+            Get.back();
+          });
+    }
+  }
+
+  getproductScroll({
+    String? subCategoryId,
+    int? offset,
+    int? limit,
+    String? q,
+  }) async {
+    try {
+      apiResult = (await product.getproductsData(
+        subCategoryId!,
+        offset!,
+        limit!,
+        q!,
+      ))!;
+
+      if (!apiResult.hasError!) {
+        apiResult.data.forEach((element) {
+          products.value.add(element);
+        });
+        //  products.value = apiResult.data;
+        hasError.value = apiResult.hasError!;
+        print('[[[[[[[[[object]]]]]]]]]');
+        offsetScroll++;
         isLoading.value = false;
       } else {
         hasError.value = apiResult.hasError!;
