@@ -1,3 +1,4 @@
+import 'package:bot_toast/bot_toast.dart';
 import 'package:delivery_food/General/Api_Result.dart';
 import 'package:delivery_food/General/Constants.dart';
 import 'package:delivery_food/General/Dialogs.dart';
@@ -50,7 +51,7 @@ class ProductsController extends GetxController {
       if (!apiResult.hasError!) {
         products.value = apiResult.data;
         hasError.value = apiResult.hasError!;
-        print(products);
+
         isLoading.value = false;
       } else {
         hasError.value = apiResult.hasError!;
@@ -78,6 +79,7 @@ class ProductsController extends GetxController {
       {List<int>? Listproduct, String? q, String? from, String? to}) async {
     try {
       prods = <FavoriteResponse>[].obs;
+      BotToast.showLoading();
       apiResult =
           (await product.getListproductsData(Listproduct!, q!, from!, to!))!;
       if (!apiResult.hasError!) {
@@ -101,6 +103,8 @@ class ProductsController extends GetxController {
             Get.back();
             Get.back();
           });
+    } finally {
+      BotToast.closeAllLoading();
     }
   }
 

@@ -13,7 +13,6 @@ class FullCard extends StatelessWidget {
     required this.product,
   }) : super(key: key);
   //
-  var isCart = false.obs;
 
   final Size size;
   var cartController = Get.find<CartController>();
@@ -22,6 +21,11 @@ class FullCard extends StatelessWidget {
   Constans Constansbox = Constans();
   dynamic product;
   var favorite = false.obs;
+  var isCart = false.obs;
+  var cleckevent1 = false.obs;
+  var cleckevent2 = false.obs;
+  var cleckevent3 = false.obs;
+
   var counter = 0.obs;
   @override
   Widget build(BuildContext context) {
@@ -30,9 +34,8 @@ class FullCard extends StatelessWidget {
       favorite.value =
           fav.any((element) => element != product.id ? false : true);
     } else {
-      if (product.favorites != null) {
-        favorite.value = product.favorites
-            .any((element) => element.id != product.id ? false : true);
+      if (product.favorites.isNotEmpty) {
+        favorite.value = true;
       }
     }
     if (statusCode.Token == '') {
@@ -41,16 +44,14 @@ class FullCard extends StatelessWidget {
           cart.any((element) => element != product.id ? false : true);
     } else {
       if (product.carts.isNotEmpty) {
-        print(product.carts);
         isCart.value = true;
-        //  isCart.value = product.carts.any((element) => print(element.data.id));
       }
     }
 
     return Stack(
       children: [
         Container(
-          height: size.height * 0.16,
+          height: size.height * 0.2,
           padding: EdgeInsets.only(right: Defaults.defaultPadding / 2),
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(5.0),
@@ -75,7 +76,7 @@ class FullCard extends StatelessWidget {
               children: <Widget>[
                 Stack(children: [
                   Container(
-                    height: size.height * 0.07,
+                    height: size.height * 0.09,
                     width: double.infinity,
                     decoration: BoxDecoration(
                       image: DecorationImage(
@@ -232,12 +233,36 @@ class FullCard extends StatelessWidget {
                       ),
                       Spacer(),
                       Expanded(
-                        flex: 2,
-                        child: Text(
-                          '${product!.price!}\$',
-                          style: Styles.priceStyle,
-                        ),
-                      ),
+                          flex: 2,
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Text(
+                                '${product.price}\$',
+                                textAlign: TextAlign.center,
+                                style: TextStyle(
+                                  color: product.afterOffer != null
+                                      ? AppColors.mainColor
+                                      : AppColors.blackColor,
+                                  decoration: product.afterOffer != null
+                                      ? TextDecoration.lineThrough
+                                      : TextDecoration.none,
+                                  fontSize: 12,
+                                ),
+                              ),
+                              product.afterOffer != null
+                                  ? Text(
+                                      '${product.afterOffer}\$',
+                                      textAlign: TextAlign.center,
+                                      style: TextStyle(
+                                        color: AppColors.blackColor,
+                                        fontSize: 12,
+                                      ),
+                                    )
+                                  : Container()
+                            ],
+                          )),
                     ],
                   ),
                 ),
@@ -250,11 +275,22 @@ class FullCard extends StatelessWidget {
             visible: !isCart.value,
             child: Positioned(
               right: 0,
+              top: cleckevent1.value ? 0 : 27,
               child: Column(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   InkWell(
-                    onTap: () => counter++,
+                    onTap: () {
+                      if (cleckevent1.value) {
+                        cleckevent2.value = true;
+                      }
+                      cleckevent1.value = true;
+                      if (cleckevent2.value) {
+                        if (counter < product.max)
+                          counter = counter + product.min;
+                      }
+                    },
                     child: Container(
                       margin: EdgeInsets.only(
                           bottom: Defaults.defaultPadding / 3.5),
@@ -284,38 +320,12 @@ class FullCard extends StatelessWidget {
                       ),
                     ),
                   ),
-                  Container(
-                    margin:
-                        EdgeInsets.only(bottom: Defaults.defaultPadding / 3.5),
-                    height: 20,
-                    width: 20,
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(3.0),
-                      color: AppColors.whiteColor,
-                      boxShadow: [
-                        BoxShadow(
-                          color: Colors.black.withOpacity(0.1),
-                          spreadRadius: 1,
-                          blurRadius: 10,
-                          offset: Offset(10, 10), // changes position of shadow
-                        ),
-                      ],
-                    ),
-                    child: Obx(() {
-                      return Center(
-                        child: Text('${counter.value}'),
-                      );
-                    }),
-                  ),
-                  InkWell(
-                    onTap: () {
-                      if (counter > 0) {
-                        counter--;
-                      }
-                    },
+                  Visibility(
+                    visible: cleckevent1.value,
                     child: Container(
-                      height: 20,
-                      width: 20,
+                      margin: EdgeInsets.only(
+                          bottom: Defaults.defaultPadding / 3.5),
+                      height: 35,
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(3.0),
                         color: AppColors.whiteColor,
@@ -329,15 +339,72 @@ class FullCard extends StatelessWidget {
                           ),
                         ],
                       ),
-                      child: Center(
-                        child: Text(
-                          '-',
-                          style: TextStyle(
-                            fontWeight: FontWeight.w500,
-                            fontSize: 20,
+                      child: Obx(() {
+                        return Center(
+                          child: Padding(
+                            padding: EdgeInsets.only(left: 4, right: 4),
+                            child: Column(children: [
+                              Expanded(child: Text('${counter.value}')),
+                              Expanded(
+                                  child: Text(
+                                '${product.measuringUnit}',
+                                style: TextStyle(fontSize: 10),
+                              ))
+                            ]),
                           ),
-                        ),
-                      ),
+                        );
+                      }),
+                    ),
+                  ),
+                  Visibility(
+                    visible: cleckevent1.value,
+                    child: InkWell(
+                      onTap: () {
+                        if (counter.value == 0) {
+                          cleckevent2.value = false;
+                        } else if (counter.value < 0) {
+                          cleckevent1.value = false;
+                        } else {
+                          counter = counter - product.min;
+                        }
+                      },
+                      child: Container(
+                          height: 20,
+                          width: 20,
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(3.0),
+                            color: AppColors.whiteColor,
+                            boxShadow: [
+                              BoxShadow(
+                                color: Colors.black.withOpacity(0.1),
+                                spreadRadius: 1,
+                                blurRadius: 10,
+                                offset: Offset(
+                                    10, 10), // changes position of shadow
+                              ),
+                            ],
+                          ),
+                          child: cleckevent2.value
+                              ? Center(
+                                  child: Text(
+                                    '-',
+                                    style: TextStyle(
+                                      fontWeight: FontWeight.w500,
+                                      fontSize: 20,
+                                    ),
+                                  ),
+                                )
+                              : Center(
+                                  child: InkWell(
+                                    onTap: () {
+                                      cleckevent1.value = false;
+                                    },
+                                    child: Icon(
+                                      Icons.delete_outlined,
+                                      size: 20,
+                                    ),
+                                  ),
+                                )),
                     ),
                   )
                 ],

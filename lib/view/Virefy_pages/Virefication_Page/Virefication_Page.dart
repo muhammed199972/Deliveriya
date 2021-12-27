@@ -1,6 +1,7 @@
 import 'package:delivery_food/General/Constants.dart';
 import 'package:delivery_food/controller/Auth_controller.dart';
 import 'package:delivery_food/view/Virefy_pages/Component/TextField.dart';
+import 'package:delivery_food/view/Virefy_pages/Signup_Page/Sign_up_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_svg/svg.dart';
@@ -16,6 +17,7 @@ class VerificationPage extends StatelessWidget {
   final _codeController = TextEditingController();
   var formkey = GlobalKey<FormState>();
   var controller = Get.find<AuthController>();
+  StatusCode statusCode = StatusCode();
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
@@ -86,10 +88,7 @@ class VerificationPage extends StatelessWidget {
                             ),
                             onChanged: (k) {},
                             onCompleted: (n) {
-                              controller.postcodeNumber(
-                                _phoneController.text,
-                                n,
-                              );
+                              Get.to(SignupPage());
                             },
                           ),
                         ),
@@ -101,6 +100,7 @@ class VerificationPage extends StatelessWidget {
                           child: TextButton(
                             onPressed: () {
                               if (formkey.currentState!.validate()) {
+                                phone = _phoneController.text;
                                 controller.getcode(_phoneController.text);
                               }
                             },

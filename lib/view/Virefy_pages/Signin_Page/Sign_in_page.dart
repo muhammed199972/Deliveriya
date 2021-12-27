@@ -86,7 +86,8 @@ class SigninPage extends StatelessWidget {
                       TextButton(
                         onPressed: () {
                           if (formkey.currentState!.validate()) {
-                            // controller.getcode(_phoneController.text);
+                            controller.postsignin(
+                                _phoneController.text, _passController.text);
                           }
                         },
                         style: TextButton.styleFrom(

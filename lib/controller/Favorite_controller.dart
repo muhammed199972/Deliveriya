@@ -1,8 +1,7 @@
 import 'package:delivery_food/General/Api_Result.dart';
 import 'package:delivery_food/General/Dialogs.dart';
-import 'package:delivery_food/model/Delete.dart';
+import 'package:delivery_food/model/DeletePutPost.dart';
 import 'package:delivery_food/model/Favorite_model.dart';
-import 'package:delivery_food/model/Post_data.dart';
 import 'package:delivery_food/services/Favorite_services.dart';
 import 'package:get/get.dart';
 
@@ -10,8 +9,8 @@ class FavoriteController extends GetxController {
   var favorites = <FavoriteResponse>[].obs;
   var hasError = true.obs;
   var massage = ''.obs;
-  var postFavorite = PostResponse().obs;
-  var deleteFavorite = DeleteResponse().obs;
+  var postFavorite = DeletePutPostResponse().obs;
+  var deleteFavorite = DeletePutPostResponse().obs;
   var isLoading = true.obs;
   var opensearch = false.obs;
   var idcategory = 0.obs;
@@ -86,8 +85,6 @@ class FavoriteController extends GetxController {
   }
 
   addFavorite(int id) async {
-    print('[[[[[[[[[[[[[[object]]]]]]]]]]]]]]');
-
     try {
       apiResult = await favoriteService.postfavoriteData(id);
       if (!apiResult.hasError!) {

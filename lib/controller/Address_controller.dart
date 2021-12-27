@@ -5,13 +5,14 @@ import 'package:delivery_food/General/Api_Result.dart';
 import 'package:delivery_food/General/Dialogs.dart';
 import 'package:delivery_food/model/Address.dart';
 import 'package:delivery_food/model/City_model.dart';
-import 'package:delivery_food/model/Post_data.dart';
+import 'package:delivery_food/model/DeletePutPost.dart';
+
 import 'package:delivery_food/services/Address_services.dart';
 import 'package:get/get.dart';
 
 class AddressController extends GetxController {
   var address = <AddressResponse>[].obs;
-  var postaddress = PostResponse().obs;
+  var postaddress = DeletePutPostResponse().obs;
   var cities = <CitiesResponse>[].obs;
   var towns = <Townm>[].obs;
   var hasError = true.obs;
@@ -94,7 +95,6 @@ class AddressController extends GetxController {
         address.value = apiResult.data;
         hasError.value = apiResult.hasError!;
         isLoading.value = false;
-        print(address[0].id);
       } else {
         hasError.value = apiResult.hasError!;
         massage.value = apiResult.errorMassage!;

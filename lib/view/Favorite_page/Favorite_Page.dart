@@ -89,7 +89,7 @@ class _FavoriteViewState extends State<FavoriteView> {
                         padding: EdgeInsets.symmetric(
                             horizontal: Defaults.defaultPadding * 2.5,
                             vertical: Defaults.defaultPadding / 2),
-                        height: size.height * 0.22,
+                        height: size.height * 0.23,
                         decoration: BoxDecoration(
                           color: Colors.white,
                           borderRadius: BorderRadius.only(
@@ -105,7 +105,7 @@ class _FavoriteViewState extends State<FavoriteView> {
                             )
                           ],
                         ),
-                        child: Column(
+                        child: ListView(
                           children: [
                             InkWell(
                                 splashColor: Colors.transparent,
@@ -129,7 +129,7 @@ class _FavoriteViewState extends State<FavoriteView> {
                                     Get.back();
                                   });
                                 },
-                                child: Text('all')),
+                                child: Center(child: Text('all'))),
                             Divider(
                               color: AppColors.darkgreytextColor,
                             ),
@@ -163,7 +163,7 @@ class _FavoriteViewState extends State<FavoriteView> {
                                     Get.back();
                                   });
                                 },
-                                child: Text('This Week')),
+                                child: Center(child: Text('This Week'))),
                             Divider(
                               color: AppColors.darkgreytextColor,
                             ),
@@ -197,7 +197,7 @@ class _FavoriteViewState extends State<FavoriteView> {
                                     Get.back();
                                   });
                                 },
-                                child: Text('Last month')),
+                                child: Center(child: Text('Last month'))),
                             Divider(
                               color: AppColors.darkgreytextColor,
                             ),
@@ -231,7 +231,7 @@ class _FavoriteViewState extends State<FavoriteView> {
                                     Get.back();
                                   });
                                 },
-                                child: Text('Last 6 months')),
+                                child: Center(child: Text('Last 6 months'))),
                             Divider(
                               color: AppColors.darkgreytextColor,
                             ),
@@ -265,7 +265,7 @@ class _FavoriteViewState extends State<FavoriteView> {
                                     Get.back();
                                   });
                                 },
-                                child: Text('Last year')),
+                                child: Center(child: Text('Last year'))),
                           ],
                         ),
                       ));
@@ -494,9 +494,8 @@ class _FavoriteViewState extends State<FavoriteView> {
                                               );
                                             },
                                             staggeredTileBuilder: (int index) =>
-                                                new StaggeredTile.count(
-                                                    1, 1.39),
-                                            mainAxisSpacing: 25,
+                                                new StaggeredTile.count(1, 1.2),
+                                            mainAxisSpacing: 5,
                                             crossAxisSpacing: 1,
                                           ),
                                         ),
@@ -652,8 +651,8 @@ class _FavoriteViewState extends State<FavoriteView> {
                                                   staggeredTileBuilder: (int
                                                           index) =>
                                                       new StaggeredTile.count(
-                                                          1, 1.39),
-                                                  mainAxisSpacing: 25,
+                                                          1, 1.2),
+                                                  mainAxisSpacing: 5,
                                                   crossAxisSpacing: 1,
                                                 ),
                                               ),

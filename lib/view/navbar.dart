@@ -3,6 +3,7 @@ import 'package:delivery_food/view/Favorite_page/Favorite_Page.dart';
 import 'package:delivery_food/view/Home_page/Home_page.dart';
 import 'package:delivery_food/view/Offers_page/Offers_Page.dart';
 import 'package:delivery_food/view/Profile_page/Profile_Page.dart';
+import 'package:delivery_food/view/Virefy_pages/Choose_Page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 
@@ -19,16 +20,25 @@ class BottomBar extends StatefulWidget {
 class _BottomBarState extends State<BottomBar> {
   int _currentIndex = 2;
   List _screens = [];
+  StatusCode statusCode = StatusCode();
 
   void _updateIndex(int value) {
     setState(() {
-      _screens = [
-        CartView(),
-        FavoriteView(),
-        HomeView(),
-        OffersView(),
-        ProfileView(),
-      ];
+      statusCode.Token != ''
+          ? _screens = [
+              CartView(),
+              FavoriteView(),
+              HomeView(),
+              OffersView(),
+              ProfileView(),
+            ]
+          : _screens = [
+              CartView(),
+              FavoriteView(),
+              HomeView(),
+              ChoseSign(),
+              ChoseSign(),
+            ];
 
       _currentIndex = value;
     });
@@ -39,13 +49,22 @@ class _BottomBarState extends State<BottomBar> {
     if (widget.intid != null) {
       _currentIndex = widget.intid!;
     }
-    _screens = [
-      CartView(),
-      FavoriteView(),
-      widget.fu,
-      OffersView(),
-      ProfileView(),
-    ];
+    statusCode.Token != ''
+        ? _screens = [
+            CartView(),
+            FavoriteView(),
+            widget.fu,
+            OffersView(),
+            ProfileView(),
+          ]
+        : _screens = [
+            CartView(),
+            FavoriteView(),
+            widget.fu,
+            ChoseSign(),
+            ChoseSign(),
+          ];
+
     super.initState();
   }
 

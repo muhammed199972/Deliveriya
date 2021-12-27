@@ -5,9 +5,8 @@ import 'package:delivery_food/General/Api_Result.dart';
 import 'package:delivery_food/General/Constants.dart';
 import 'package:delivery_food/model/Address.dart';
 import 'package:delivery_food/model/City_model.dart';
-import 'package:delivery_food/model/Delete.dart';
+import 'package:delivery_food/model/DeletePutPost.dart';
 import 'package:delivery_food/model/Error.dart';
-import 'package:delivery_food/model/Post_data.dart';
 import 'package:http/http.dart' as http;
 
 class AddressService {
@@ -124,7 +123,7 @@ class AddressService {
   Future<ApiResult> postaddressData(Map<String, dynamic> body) async {
     StatusCode statusCode = StatusCode();
     ApiResult apiResult = ApiResult();
-    PostResponse? calendar;
+    DeletePutPostResponse? calendar;
     AddressStatus? status;
     ErrorResponse? error;
     Uri url = Uri.http('${statusCode.url1}', '/api/private/user/address');
@@ -142,7 +141,7 @@ class AddressService {
         status = AddressStatus.fromJson(responsebode['status']);
 
         if (responsebode['response'] != null) {
-          calendar = PostResponse.fromJson(responsebode['response']);
+          calendar = DeletePutPostResponse.fromJson(responsebode);
 
           apiResult.errorMassage = status.msg;
           apiResult.codeError = status.code;
@@ -234,7 +233,7 @@ class AddressService {
   Future<ApiResult> deleteaddressData(String id) async {
     StatusCode statusCode = StatusCode();
     ApiResult apiResult = ApiResult();
-    DeleteResponse? calendar;
+    DeletePutPostResponse? calendar;
     AddressStatus? status;
     ErrorResponse? error;
     Uri url = Uri.http('${statusCode.url1}', '/api/private/user/address/$id');
@@ -251,7 +250,7 @@ class AddressService {
         status = AddressStatus.fromJson(responsebode['status']);
 
         if (responsebode['response'] != null) {
-          calendar = DeleteResponse.fromJson(responsebode['response']);
+          calendar = DeletePutPostResponse.fromJson(responsebode);
 
           apiResult.errorMassage = status.msg;
           apiResult.codeError = status.code;

@@ -4,8 +4,8 @@ import 'dart:io';
 
 import 'package:delivery_food/General/Api_Result.dart';
 import 'package:delivery_food/General/Constants.dart';
+import 'package:delivery_food/model/DeletePutPost.dart';
 import 'package:delivery_food/model/Error.dart';
-import 'package:delivery_food/model/Patch_data.dart';
 import 'package:delivery_food/model/Profile_model.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/widgets.dart';
@@ -26,7 +26,7 @@ class ProfileService {
       var response = await http
           .get(url, headers: {'Authorization': 'Bearer ${statusCode.Token}'});
       var responsebode = jsonDecode(response.body);
-
+      print(responsebode);
       if (response.statusCode == statusCode.OK ||
           response.statusCode == statusCode.CREATED) {
         status = ProfileStatus.fromJson(responsebode['status']);
@@ -130,18 +130,13 @@ class ProfileService {
   }) async {
     StatusCode statusCode = StatusCode();
     ApiResult apiResult = ApiResult();
-    PatchResponse? calendar;
+    DeletePutPostResponse? calendar;
     ProfileStatus? status;
     ErrorResponse? error;
     Dio dio = Dio();
     var response;
 
     try {
-      print('[][[][] $name ');
-      print('[][[][] $gender ');
-      print('[][[][] $birthdate ');
-      print('[][[][] ${file.path} ');
-
       FormData? formData;
       if (file.path != '') {
         String fileName = file.path.split('/').last;

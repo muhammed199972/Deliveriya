@@ -1,5 +1,6 @@
 import 'package:delivery_food/General/Constants.dart';
 import 'package:delivery_food/controller/Auth_controller.dart';
+import 'package:delivery_food/view/Home_page/Home_page.dart';
 import 'package:delivery_food/view/Virefy_pages/Component/Buttons.dart';
 import 'package:delivery_food/view/Virefy_pages/Signin_Page/Sign_in_page.dart';
 import 'package:delivery_food/view/Virefy_pages/Signup_Page/Sign_up_page.dart';
@@ -60,7 +61,11 @@ class ChoseSign extends StatelessWidget {
                     txt: 'Guest',
                     onTap: () {
                       controller.authType.value = 'login';
-                      Get.to(() => BottomBar());
+                      Get.offAll(
+                        () => BottomBar(
+                          fu: HomeView(),
+                        ),
+                      );
                     },
                   ),
                 ],

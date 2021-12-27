@@ -232,7 +232,7 @@ class ProfileInfoEdit extends StatelessWidget {
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
                                 Text(
-                                  controller.gender.value == ''
+                                  controller.gender.value == null
                                       ? 'Gender'
                                       : controller.gender.value,
                                   style: TextStyle(fontSize: 17),
@@ -241,7 +241,7 @@ class ProfileInfoEdit extends StatelessWidget {
                                     icon: Icon(
                                       Icons.arrow_forward_ios_rounded,
                                       color: AppColors.blackColor,
-                                      size: 20,
+                                      size: 15,
                                     ),
                                     elevation: 1,
                                     itemBuilder: (context) => [
@@ -269,10 +269,7 @@ class ProfileInfoEdit extends StatelessWidget {
                           padd: 0,
                           size: size,
                           txt: controller.date.value == ''
-                              ? (controller.profile.value.date
-                                          .toString()
-                                          .substring(0, 10) ==
-                                      null
+                              ? (controller.profile.value.date == null
                                   ? 'Date Birth'
                                   : controller.profile.value.date
                                       .toString()

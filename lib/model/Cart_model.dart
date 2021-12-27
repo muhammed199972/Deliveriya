@@ -80,6 +80,9 @@ class Products {
   String? avatar;
   int? price;
   int? quantity;
+  int? min;
+  int? max;
+  String? measuringUnit;
   List<Carts> Cartid = [];
 
   Products(
@@ -89,6 +92,9 @@ class Products {
       this.avatar,
       this.price,
       this.quantity,
+      this.min,
+      this.max,
+      this.measuringUnit,
       required this.Cartid});
 
   Products.fromJson(Map<String, dynamic> json) {
@@ -98,6 +104,9 @@ class Products {
     avatar = json['avatar'];
     price = json['price'];
     quantity = json['quantity'];
+    min = json['min'];
+    max = json['max'];
+    measuringUnit = json['measuringUnit'];
     if (json['Carts'] != null) {
       json['Carts'].forEach((v) {
         Cartid.add(new Carts.fromJson(v));
@@ -113,6 +122,10 @@ class Products {
     data['avatar'] = this.avatar;
     data['price'] = this.price;
     data['quantity'] = this.quantity;
+    data['min'] = this.min;
+    data['max'] = this.max;
+    data['measuringUnit'] = this.measuringUnit;
+
     if (this.Cartid != null) {
       data['Carts'] = this.Cartid.map((v) => v.toJson()).toList();
     }

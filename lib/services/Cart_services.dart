@@ -5,10 +5,9 @@ import 'dart:io';
 import 'package:delivery_food/General/Api_Result.dart';
 import 'package:delivery_food/General/Constants.dart';
 import 'package:delivery_food/model/Cart_model.dart';
-import 'package:delivery_food/model/Delete.dart';
+import 'package:delivery_food/model/DeletePutPost.dart';
 import 'package:delivery_food/model/Error.dart';
-import 'package:delivery_food/model/Patch_data.dart';
-import 'package:delivery_food/model/Post_data.dart';
+
 import 'package:dio/dio.dart';
 import 'package:http/http.dart' as http;
 
@@ -135,7 +134,7 @@ class CartService {
   Future<ApiResult> postcartData(int quantity, String id) async {
     StatusCode statusCode = StatusCode();
     ApiResult apiResult = ApiResult();
-    PostResponse? calendar;
+    DeletePutPostResponse? calendar;
     CartStatus? status;
     ErrorResponse? error;
     Uri url = Uri.http('${statusCode.url1}', '/api/private/user/cart/$id');
@@ -153,7 +152,7 @@ class CartService {
         status = CartStatus.fromJson(responsebode['status']);
 
         if (responsebode['response'] != null) {
-          calendar = PostResponse.fromJson(responsebode['response']);
+          calendar = DeletePutPostResponse.fromJson(responsebode);
 
           apiResult.errorMassage = status.msg;
           apiResult.codeError = status.code;
@@ -245,7 +244,7 @@ class CartService {
   Future<ApiResult> deletecartData(String id) async {
     StatusCode statusCode = StatusCode();
     ApiResult apiResult = ApiResult();
-    DeleteResponse? calendar;
+    DeletePutPostResponse? calendar;
     CartStatus? status;
     ErrorResponse? error;
     Uri url = Uri.http('${statusCode.url1}', '/api/private/user/cart/$id');
@@ -263,7 +262,7 @@ class CartService {
         status = CartStatus.fromJson(responsebode['status']);
 
         if (responsebode['response'] != null) {
-          calendar = DeleteResponse.fromJson(responsebode['response']);
+          calendar = DeletePutPostResponse.fromJson(responsebode);
 
           apiResult.errorMassage = status.msg;
           apiResult.codeError = status.code;
@@ -355,7 +354,7 @@ class CartService {
   Future<ApiResult> deletcategoryecart(String id) async {
     StatusCode statusCode = StatusCode();
     ApiResult apiResult = ApiResult();
-    DeleteResponse? calendar;
+    DeletePutPostResponse? calendar;
     CartStatus? status;
     ErrorResponse? error;
     Uri url = Uri.http('${statusCode.url1}', '/api/private/user/cart/criteria',
@@ -373,7 +372,7 @@ class CartService {
           response.statusCode == statusCode.CREATED) {
         status = CartStatus.fromJson(responsebode['status']);
 
-        calendar = DeleteResponse.fromJson(responsebode);
+        calendar = DeletePutPostResponse.fromJson(responsebode);
 
         apiResult.errorMassage = status.msg;
         apiResult.codeError = status.code;
@@ -464,7 +463,7 @@ class CartService {
   Future<ApiResult> deletsupcategoryecart(String id) async {
     StatusCode statusCode = StatusCode();
     ApiResult apiResult = ApiResult();
-    DeleteResponse? calendar;
+    DeletePutPostResponse? calendar;
     CartStatus? status;
     ErrorResponse? error;
     Uri url = Uri.http('${statusCode.url1}', '/api/private/user/cart/criteria',
@@ -482,7 +481,7 @@ class CartService {
           response.statusCode == statusCode.CREATED) {
         status = CartStatus.fromJson(responsebode['status']);
 
-        calendar = DeleteResponse.fromJson(responsebode);
+        calendar = DeletePutPostResponse.fromJson(responsebode);
 
         apiResult.errorMassage = status.msg;
         apiResult.codeError = status.code;
@@ -573,7 +572,7 @@ class CartService {
   Future<ApiResult> patchcartData(var body) async {
     StatusCode statusCode = StatusCode();
     ApiResult apiResult = ApiResult();
-    DeleteResponse? calendar;
+    DeletePutPostResponse? calendar;
     CartStatus? status;
     ErrorResponse? error;
     Dio dio = Dio();
@@ -592,7 +591,7 @@ class CartService {
           response.statusCode == statusCode.CREATED) {
         status = CartStatus.fromJson(response.data['status']);
 
-        calendar = DeleteResponse.fromJson(response.data);
+        calendar = DeletePutPostResponse.fromJson(response.data);
 
         apiResult.isEmpty = false;
         apiResult.errorMassage = status.msg;

@@ -3,8 +3,9 @@ import 'dart:io';
 
 import 'package:bot_toast/bot_toast.dart';
 import 'package:delivery_food/General/Api_Result.dart';
+import 'package:delivery_food/General/Constants.dart';
 import 'package:delivery_food/General/Dialogs.dart';
-import 'package:delivery_food/model/Patch_data.dart';
+import 'package:delivery_food/model/DeletePutPost.dart';
 import 'package:delivery_food/model/Profile_model.dart';
 import 'package:delivery_food/services/Profile_services.dart';
 import 'package:dio/dio.dart' as dio;
@@ -16,7 +17,7 @@ class ProfileController extends GetxController {
   var profile = ProfileResponse().obs;
   ApiResult apiResult = ApiResult();
   ProfileService profileservice = ProfileService();
-  var patch = PatchResponse().obs;
+  var patch = DeletePutPostResponse().obs;
   var hasError = true.obs;
   var massage = ''.obs;
   var ispass1 = false.obs;
@@ -31,9 +32,11 @@ class ProfileController extends GetxController {
   var genderController = TextEditingController();
   var datebirthController = TextEditingController();
   var phoneController = TextEditingController();
+  StatusCode statusCode = StatusCode();
+
   @override
   void onInit() {
-    getprofile();
+    if (statusCode.Token != '') getprofile();
     super.onInit();
   }
 
@@ -64,12 +67,16 @@ class ProfileController extends GetxController {
         hasError.value = apiResult.hasError!;
         //
         firstnameController.text = profile.value.name;
-        gender.value = profile.value.gender!;
-        genderController.text = profile.value.gender!;
-        datebirthController.text = profile.value.date!.substring(0, 10);
+        gender.value =
+            profile.value.gender == null ? 'Male' : profile.value.gender!;
+        genderController.text =
+            profile.value.gender == null ? '' : profile.value.gender!;
+        datebirthController.text = profile.value.date == null
+            ? ''
+            : profile.value.date!.substring(0, 10);
         phoneController.text = profile.value.phone!.toString();
         //
-        log('${profile.value.name}', name: 'controller profile');
+        //  log('${profile.value.name}', name: 'controller profile');
       } else {
         hasError.value = apiResult.hasError!;
         massage.value = apiResult.errorMassage!;

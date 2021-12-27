@@ -6,6 +6,7 @@ import 'package:delivery_food/model/Auth_model.dart';
 import 'package:delivery_food/services/Auth_service.dart';
 import 'package:delivery_food/view/Home_page/Home_page.dart';
 import 'package:delivery_food/view/Virefy_pages/Signup_Page/Sign_up_page.dart';
+import 'package:delivery_food/view/navbar.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -20,7 +21,7 @@ class AuthController extends GetxController {
   ApiResult apiResult = ApiResult();
   AuthService authservice = AuthService();
   Constans Constansbox = Constans();
-
+  StatusCode statusCode = StatusCode();
   @override
   void onInit() {
     super.onInit();
@@ -33,7 +34,7 @@ class AuthController extends GetxController {
         auth.value = apiResult.data;
         hasError.value = apiResult.hasError!;
         sendcode.value = true;
-        print(auth.value.code);
+        code = auth.value.code!;
       } else {
         hasError.value = apiResult.hasError!;
         massage.value = apiResult.errorMassage!;
@@ -54,10 +55,10 @@ class AuthController extends GetxController {
     }
   }
 
-  postcodeNumber(String phone, String code) async {
+  postsignup(String password) async {
     try {
       BotToast.showLoading();
-      apiResult = await authservice.postcode(phone, code, authType.value);
+      apiResult = await authservice.postsignup(password);
       if (!apiResult.hasError!) {
         signUpResponse.value = apiResult.data;
         Constansbox.box
@@ -65,14 +66,57 @@ class AuthController extends GetxController {
         Constansbox.box
             .write('refreshToken', signUpResponse.value.data!.refreshToken);
         hasError.value = apiResult.hasError!;
-        Get.offAll(SignupPage(
-          txtButton: 'Sign Up',
-        ));
+        Get.offAll(
+          BottomBar(
+            fu: HomeView(),
+          ),
+        );
       } else {
         hasError.value = apiResult.hasError!;
         massage.value = apiResult.errorMassage!;
         BotToast.showText(
-          text: 'Error!',
+          text: apiResult.errorMassage!,
+          align: Alignment.center,
+        );
+      }
+    } catch (e) {
+      hasError.value = apiResult.hasError!;
+      massage.value = apiResult.errorMassage!;
+      print(e);
+      DialogsUtils.showdialog(
+          m: 'حدث خطأ غير متوقع',
+          onPressed: () {
+            Get.back();
+          });
+    } finally {
+      BotToast.closeAllLoading();
+    }
+  }
+
+  postsignin(String num, String password) async {
+    try {
+      print(num);
+      print(password);
+
+      BotToast.showLoading();
+      apiResult = await authservice.postsignin(num, password);
+      if (!apiResult.hasError!) {
+        signUpResponse.value = apiResult.data;
+        Constansbox.box
+            .write('accessToken', signUpResponse.value.data!.accessToken);
+        Constansbox.box
+            .write('refreshToken', signUpResponse.value.data!.refreshToken);
+        hasError.value = apiResult.hasError!;
+        Get.offAll(
+          BottomBar(
+            fu: HomeView(),
+          ),
+        );
+      } else {
+        hasError.value = apiResult.hasError!;
+        massage.value = apiResult.errorMassage!;
+        BotToast.showText(
+          text: apiResult.errorMassage!,
           align: Alignment.center,
         );
       }

@@ -1,9 +1,11 @@
 import 'package:delivery_food/General/Constants.dart';
 import 'package:delivery_food/General/Dialogs.dart';
 import 'package:delivery_food/controller/Profile_controller.dart';
+import 'package:delivery_food/view/Home_page/Home_page.dart';
 import 'package:delivery_food/view/Profile_page/Component/OptionProfile.dart';
 import 'package:delivery_food/view/Profile_page/Profile_address.dart';
 import 'package:delivery_food/view/Profile_page/Profile_info.dart';
+import 'package:delivery_food/view/navbar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
@@ -29,34 +31,54 @@ class ProfileView extends StatelessWidget {
         actions: [
           Padding(
             padding: const EdgeInsets.all(8.0),
-            child: Column(
-              children: [
-                SvgPicture.asset(
-                  'assets/svg/Cart icon.svg',
-                  color: AppColors.mainColor,
-                  width: 23,
-                ),
-                Text(
-                  '2',
-                  style: TextStyle(color: AppColors.mainColor),
-                ),
-              ],
+            child:
+                //  Column(
+                // children: [
+                InkWell(
+              onTap: () {
+                Get.offAll(
+                  BottomBar(
+                    intid: 0,
+                    fu: HomeView(),
+                  ),
+                );
+              },
+              child: SvgPicture.asset(
+                'assets/svg/Cart icon.svg',
+                color: AppColors.mainColor,
+                width: 23,
+              ),
             ),
+            // Text(
+            //   '2',
+            //   style: TextStyle(color: AppColors.mainColor),
+            // ),
+            //   ],
+            // ),
           ),
           Padding(
             padding: const EdgeInsets.all(8.0),
-            child: Column(
-              children: [
-                Icon(
-                  Icons.favorite_border_outlined,
-                  color: AppColors.mainColor,
+            child:
+                //  Column(
+                //   children: [
+                InkWell(
+              onTap: () => Get.offAll(
+                BottomBar(
+                  intid: 1,
+                  fu: HomeView(),
                 ),
-                Text(
-                  '2',
-                  style: TextStyle(color: AppColors.mainColor),
-                ),
-              ],
+              ),
+              child: Icon(
+                Icons.favorite_border_outlined,
+                color: AppColors.mainColor,
+              ),
             ),
+            //     Text(
+            //       '2',
+            //       style: TextStyle(color: AppColors.mainColor),
+            //     ),
+            //   ],
+            // ),
           )
         ],
       ),

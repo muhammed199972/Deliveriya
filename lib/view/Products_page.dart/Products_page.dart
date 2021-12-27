@@ -58,7 +58,9 @@ class ProduvtsView extends StatelessWidget {
         ),
         leading: IconButton(
           onPressed: () {
-            Get.back();
+            Get.offAll(BottomBar(
+              fu: HomeView(),
+            ));
           },
           icon: Icon(Icons.arrow_back_rounded),
           color: AppColors.blackColor,
@@ -71,7 +73,14 @@ class ProduvtsView extends StatelessWidget {
                 Align(
                   alignment: Alignment.bottomLeft,
                   child: IconButton(
-                    onPressed: () {},
+                    onPressed: () {
+                      Get.offAll(
+                        BottomBar(
+                          intid: 0,
+                          fu: HomeView(),
+                        ),
+                      );
+                    },
                     icon: SvgPicture.asset(
                       'assets/svg/Cart icon.svg',
                       color: AppColors.mainColor,
@@ -210,9 +219,9 @@ class ProduvtsView extends StatelessWidget {
                               );
                             },
                             staggeredTileBuilder: (int index) =>
-                                new StaggeredTile.count(1, 1.18),
-                            mainAxisSpacing: 25,
-                            crossAxisSpacing: 15,
+                                new StaggeredTile.count(1, 1.2),
+                            mainAxisSpacing: 5,
+                            crossAxisSpacing: 10,
                           ),
                         ),
                 );

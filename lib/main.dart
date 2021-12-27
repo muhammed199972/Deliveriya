@@ -22,6 +22,7 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   Constans Constansbox = Constans();
   final botToastBuilder = BotToastInit();
+  StatusCode statusCode = StatusCode();
   @override
   Widget build(BuildContext context) {
     Constansbox.box.writeIfNull('New', []);
@@ -30,9 +31,10 @@ class MyApp extends StatelessWidget {
     Constansbox.box.writeIfNull('cartsid', []);
     Constansbox.box.writeIfNull('cartscounte', []);
     Constansbox.box.writeIfNull('Search', []);
+    Constansbox.box.writeIfNull('SearchHome', []);
     Constansbox.box.writeIfNull('accessToken', '');
     Constansbox.box.writeIfNull('refreshToken', '');
-//     Constansbox.box.remove('New');
+    // Constansbox.box.remove('SearchHome');
     // Constansbox.box.remove('cartsid');
     // Constansbox.box.remove('cartscounte');
 //  Constansbox.box.remove('New');
@@ -55,11 +57,11 @@ class MyApp extends StatelessWidget {
           primarySwatch: Colors.red,
         ),
 
-        home:
-            // ChoseSign(),
-            BottomBar(
-          fu: HomeView(),
-        ),
+        home: statusCode.Token == ''
+            ? ChoseSign()
+            : BottomBar(
+                fu: HomeView(),
+              ),
         translations: Translation(),
         locale: Locale("en"),
         fallbackLocale: Locale('en'),

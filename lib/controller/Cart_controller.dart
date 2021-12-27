@@ -2,9 +2,8 @@ import 'package:bot_toast/bot_toast.dart';
 import 'package:delivery_food/General/Api_Result.dart';
 import 'package:delivery_food/General/Dialogs.dart';
 import 'package:delivery_food/model/Cart_model.dart';
-import 'package:delivery_food/model/Delete.dart';
-import 'package:delivery_food/model/Patch_data.dart';
-import 'package:delivery_food/model/Post_data.dart';
+import 'package:delivery_food/model/DeletePutPost.dart';
+
 import 'package:delivery_food/services/Cart_services.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -13,15 +12,15 @@ class CartController extends GetxController {
   //
   var carts = <CartResponse>[].obs;
 
-  var postCarts = PostResponse().obs;
+  var postCarts = DeletePutPostResponse().obs;
   //
-  var patchCarts = DeleteResponse().obs;
+  var patchCarts = DeletePutPostResponse().obs;
   //
-  var deleteCarts = DeleteResponse().obs;
+  var deleteCarts = DeletePutPostResponse().obs;
   //
   var hasError = true.obs;
   //
-  List<Map<String, int>> updata = [];
+  List<Map<String, dynamic>> updata = [];
   List<int> updatadelete = [];
   var priceall = 0.obs;
   var lenghcart = 0.obs;

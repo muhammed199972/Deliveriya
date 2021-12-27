@@ -1,3 +1,5 @@
+import 'package:delivery_food/model/Products_model.dart';
+
 class FavoriteResponse {
   int? id;
   String? name;
@@ -43,7 +45,7 @@ class SubCategories {
   String? name;
   String? icon;
   String? avatar;
-  List<Products> products = [];
+  List<ProductsResponse> products = [];
 
   SubCategories(
       {this.id, this.name, this.icon, this.avatar, required this.products});
@@ -55,7 +57,7 @@ class SubCategories {
     avatar = json['avatar'];
     if (json['Products'] != null) {
       json['Products'].forEach((v) {
-        products.add(new Products.fromJson(v));
+        products.add(new ProductsResponse.fromJson(v));
       });
     }
   }
@@ -68,53 +70,6 @@ class SubCategories {
     data['avatar'] = this.avatar;
     if (this.products != null) {
       data['Products'] = this.products.map((v) => v.toJson()).toList();
-    }
-    return data;
-  }
-}
-
-class Products {
-  int? id;
-  String? name;
-  String? type;
-  String? avatar;
-  int? price;
-  int? quantity;
-  List<Favorites> favorites = [];
-
-  Products(
-      {this.id,
-      this.name,
-      this.type,
-      this.avatar,
-      this.price,
-      this.quantity,
-      required this.favorites});
-
-  Products.fromJson(Map<String, dynamic> json) {
-    id = json['id'];
-    name = json['name'];
-    type = json['type'];
-    avatar = json['avatar'];
-    price = json['price'];
-    quantity = json['quantity'];
-    if (json['Favorites'] != null) {
-      json['Favorites'].forEach((v) {
-        favorites.add(new Favorites.fromJson(v));
-      });
-    }
-  }
-
-  Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['id'] = this.id;
-    data['name'] = this.name;
-    data['type'] = this.type;
-    data['avatar'] = this.avatar;
-    data['price'] = this.price;
-    data['quantity'] = this.quantity;
-    if (this.favorites != null) {
-      data['Favorites'] = this.favorites.map((v) => v.toJson()).toList();
     }
     return data;
   }

@@ -8,12 +8,15 @@ import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 
 class SignupPage extends StatelessWidget {
-  SignupPage({Key? key, required this.txtButton}) : super(key: key);
-  String txtButton;
+  SignupPage({
+    Key? key,
+  }) : super(key: key);
+
   final _confirmPassController = TextEditingController();
   final _passController = TextEditingController();
   var formkey = GlobalKey<FormState>();
   var controller = Get.find<AuthController>();
+  StatusCode statusCode = StatusCode();
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
@@ -35,153 +38,153 @@ class SignupPage extends StatelessWidget {
                     const EdgeInsets.only(top: Defaults.defaultPadding * 4),
                 child: SvgPicture.asset('assets/svg/mainlogo.svg'),
               ),
-              Spacer(
-                flex: 1,
-              ),
               Form(
                 key: formkey,
                 child: Padding(
                   padding: EdgeInsets.symmetric(
                       horizontal: size.width * 0.11, vertical: 20),
-                  child: Column(
-                    children: [
-                      Obx(() => TextFieldwidget(
-                            txttype: TextInputType.visiblePassword,
-                            validator: validatePass,
-                            controller: _passController,
-                            lebel: 'Password',
-                            prefixtxt: '',
-                            icon: Icon(
-                              Icons.vpn_key_outlined,
-                              color: AppColors.darkgreytextColor,
-                            ),
-                            ispassword: controller.ispass.value,
-                            suffixIcon: controller.ispass.value
-                                ? Icons.visibility
-                                : Icons.visibility_off,
-                            suffixPressed: () {
-                              controller.ispass.value =
-                                  !controller.ispass.value;
-                            },
-                          )),
-                      SizedBox(
-                        height: 22,
-                      ),
-                      Obx(() => TextFieldwidget(
-                            txttype: TextInputType.visiblePassword,
-                            validator: validatePass,
-                            controller: _confirmPassController,
-                            lebel: 'Confirm Password',
-                            prefixtxt: '',
-                            icon: Icon(
-                              Icons.vpn_key_outlined,
-                              color: AppColors.darkgreytextColor,
-                            ),
-                            ispassword: controller.ispass.value,
-                          )),
-                      SizedBox(
-                        height: 44,
-                      ),
-                      Container(
-                        // height: size.height * 0.15,
-                        width: size.width,
-                        decoration: BoxDecoration(
-                          color: AppColors.lightgreyColor.withOpacity(0.5),
-                          borderRadius: BorderRadius.circular(5),
+                  child: Obx(
+                    () => Column(
+                      children: [
+                        TextFieldwidget(
+                          txttype: TextInputType.visiblePassword,
+                          validator: validatePass,
+                          controller: _passController,
+                          lebel: 'Password',
+                          prefixtxt: '',
+                          icon: Icon(
+                            Icons.vpn_key_outlined,
+                            color: AppColors.darkgreytextColor,
+                          ),
+                          ispassword: controller.ispass.value,
+                          suffixIcon: controller.ispass.value
+                              ? Icons.visibility
+                              : Icons.visibility_off,
+                          suffixPressed: () {
+                            controller.ispass.value = !controller.ispass.value;
+                          },
                         ),
-                        child: Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text(
-                                'Password must:',
-                                style: TextStyle(
-                                  fontSize: 12,
+                        SizedBox(
+                          height: 22,
+                        ),
+                        TextFieldwidget(
+                          txttype: TextInputType.visiblePassword,
+                          validator: validatePass,
+                          controller: _confirmPassController,
+                          lebel: 'Confirm Password',
+                          prefixtxt: '',
+                          icon: Icon(
+                            Icons.vpn_key_outlined,
+                            color: AppColors.darkgreytextColor,
+                          ),
+                          ispassword: controller.ispass.value,
+                        ),
+                        SizedBox(
+                          height: 44,
+                        ),
+                        Container(
+                          //     height: size.height * 0.15,
+                          width: size.width,
+                          decoration: BoxDecoration(
+                            color: AppColors.lightgreyColor.withOpacity(0.5),
+                            borderRadius: BorderRadius.circular(5),
+                          ),
+                          child: Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(
+                                  'Password must:',
+                                  style: TextStyle(
+                                    fontSize: 17,
+                                  ),
                                 ),
-                              ),
-                              Row(
-                                children: [
-                                  Text(
-                                    '. ',
-                                    style: TextStyle(
-                                        fontSize: 20,
-                                        fontWeight: FontWeight.bold),
-                                  ),
-                                  Text(
-                                    'Be at least 6 characters long.',
-                                    style: TextStyle(
-                                      fontSize: 10,
+                                Row(
+                                  children: [
+                                    Text(
+                                      '. ',
+                                      style: TextStyle(
+                                          fontSize: 25,
+                                          fontWeight: FontWeight.bold),
                                     ),
-                                  ),
-                                ],
-                              ),
-                              Row(
-                                children: [
-                                  Text(
-                                    '. ',
-                                    style: TextStyle(
-                                        fontSize: 20,
-                                        fontWeight: FontWeight.bold),
-                                  ),
-                                  Text(
-                                    'Contains one or more numbers.',
-                                    style: TextStyle(
-                                      fontSize: 10,
+                                    Text(
+                                      'Be at least 6 characters long.',
+                                      style: TextStyle(
+                                        fontSize: 15,
+                                      ),
                                     ),
-                                  ),
-                                ],
-                              ),
-                              Row(
-                                children: [
-                                  Text(
-                                    '. ',
-                                    style: TextStyle(
-                                        fontSize: 20,
-                                        fontWeight: FontWeight.bold),
-                                  ),
-                                  Text(
-                                    'Includes at least one of the following special characters: \n <=>?@[|]~, or a space.',
-                                    style: TextStyle(
-                                      fontSize: 10,
+                                  ],
+                                ),
+                                Row(
+                                  children: [
+                                    Text(
+                                      '. ',
+                                      style: TextStyle(
+                                          fontSize: 25,
+                                          fontWeight: FontWeight.bold),
                                     ),
-                                  ),
-                                ],
-                              ),
-                            ],
+                                    Text(
+                                      'Contains one or more numbers.',
+                                      style: TextStyle(
+                                        fontSize: 15,
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                                Row(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  mainAxisAlignment: MainAxisAlignment.start,
+                                  children: [
+                                    Text(
+                                      '. ',
+                                      style: TextStyle(
+                                          fontSize: 25,
+                                          fontWeight: FontWeight.bold),
+                                    ),
+                                    FittedBox(
+                                      fit: BoxFit.fill,
+                                      child: Text(
+                                        'Includes at least one of the following \nspecial characters: <=>?@[|]~, or a space.',
+                                        style: TextStyle(
+                                          fontSize: 15,
+                                        ),
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ],
+                            ),
                           ),
                         ),
-                      ),
-                      SizedBox(
-                        height: 20,
-                      ),
-                      TextButton(
-                        onPressed: () {
-                          if (formkey.currentState!.validate()) {
-                            if (_passController.text !=
-                                _confirmPassController) {
-                              BotToast.showText(
-                                text: 'Not correct!',
-                                align: Alignment.center,
-                              );
-                            }
-                            // controller.getcode(_phoneController.text);
-                          }
-                        },
-                        style: TextButton.styleFrom(
-                          padding: EdgeInsets.symmetric(
-                              vertical: 10, horizontal: 30),
-                          side:
-                              BorderSide(color: AppColors.mainColor, width: 2),
+                        SizedBox(
+                          height: 20,
                         ),
-                        child: Text(txtButton, style: Styles.buttonStyle),
-                      ),
-                    ],
+                        TextButton(
+                          onPressed: () {
+                            if (formkey.currentState!.validate()) {
+                              if (_passController.text !=
+                                  _confirmPassController) {
+                                BotToast.showText(
+                                  text: 'Not correct!',
+                                  align: Alignment.center,
+                                );
+                              }
+                              controller.postsignup(_passController.text);
+                            }
+                          },
+                          style: TextButton.styleFrom(
+                            padding: EdgeInsets.symmetric(
+                                vertical: 10, horizontal: 30),
+                            side: BorderSide(
+                                color: AppColors.mainColor, width: 2),
+                          ),
+                          child: Text('Save', style: Styles.buttonStyle),
+                        ),
+                      ],
+                    ),
                   ),
                 ),
-              ),
-              Spacer(
-                flex: 1,
               ),
             ],
           ),

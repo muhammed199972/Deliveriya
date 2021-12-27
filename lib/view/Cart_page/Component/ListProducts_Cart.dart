@@ -76,13 +76,16 @@ class ListProdCart extends StatelessWidget {
                     children: [
                       InkWell(
                         onTap: () {
-                          if (counter > 0) {
-                            counter--;
+                          if (counter > 0 && counter > item[index].min) {
+                            counter = counter - item[index].min;
                             if (statusCode.Token == '') {
-                              prodController.cartscountupdate[ind!]--;
+                              prodController.cartscountupdate[ind!] =
+                                  prodController.cartscountupdate[ind] -
+                                      item[index].min;
                             } else {
                               cart.updata[index]['quantity'] =
-                                  cart.updata[index]['quantity']! - 1;
+                                  cart.updata[index]['quantity']! -
+                                      int.parse(item[index].min);
                             }
                           }
                         },
@@ -116,7 +119,6 @@ class ListProdCart extends StatelessWidget {
                       ),
                       Container(
                         height: 25,
-                        width: 25,
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(3.0),
                           color: AppColors.whiteColor,
@@ -130,7 +132,8 @@ class ListProdCart extends StatelessWidget {
                         ),
                         child: Obx(() {
                           return Center(
-                            child: Text('${counter.value}'),
+                            child: Text(
+                                '${counter.value} ${item[index].measuringUnit}'),
                           );
                         }),
                       ),
@@ -139,13 +142,17 @@ class ListProdCart extends StatelessWidget {
                       ),
                       InkWell(
                         onTap: () {
-                          counter++;
-
-                          if (statusCode.Token == '') {
-                            prodController.cartscountupdate[ind!]++;
-                          } else {
-                            cart.updata[index]['quantity'] =
-                                cart.updata[index]['quantity']! + 1;
+                          if (counter < item[index].max) {
+                            counter = counter + item[index].min;
+                            if (statusCode.Token == '') {
+                              prodController.cartscountupdate[ind!] =
+                                  prodController.cartscountupdate[ind] +
+                                      item[index].min;
+                            } else {
+                              cart.updata[index]['quantity'] =
+                                  cart.updata[index]['quantity']! +
+                                      int.parse(item[index].min);
+                            }
                           }
                         },
                         child: Container(
