@@ -25,8 +25,8 @@ class LogoStatus extends StatelessWidget {
       // offer.checkStatuses();
       // adss.checkStatuses();
       if (offer.offers.length != 0 && adss.adss.length != 0) {
-        if ((offer.isOffStatuts.value || statuses.booloff.value) &&
-            (adss.isNewStatuts.value || statuses.boolnew.value)) {
+        if ((!offer.isOffStatuts.value && !statuses.booloff.value) &&
+            (!adss.isNewStatuts.value && !statuses.boolnew.value)) {
           return InkWell(
             highlightColor: Colors.transparent,
             onTap: () {
@@ -38,14 +38,19 @@ class LogoStatus extends StatelessWidget {
                 height: size.height * 0.17,
                 decoration: BoxDecoration(
                   shape: BoxShape.circle,
-                  border: Border.all(
-                    color: AppColors.mainColor,
-                    width: 2,
+                  gradient: LinearGradient(
+                    begin: Alignment.centerLeft,
+                    end: Alignment.centerRight,
+                    colors: [Colors.amber, AppColors.mainColor],
                   ),
+                  // border: Border.all(
+                  //   color: AppColors.mainColor,
+                  //   width: 2,
+                  // ),
                 ),
                 child: Center(
                     child: Container(
-                  //  width: double.infinity,
+                  height: size.height * 0.16,
                   //  margin: EdgeInsets.all(4),
                   decoration: BoxDecoration(
                       shape: BoxShape.circle,
@@ -75,7 +80,7 @@ class LogoStatus extends StatelessWidget {
                   ));
             },
             child: Container(
-                height: size.height * 0.17,
+                height: size.height * 0.16,
                 decoration: BoxDecoration(
                   shape: BoxShape.circle,
                   border: Border.all(

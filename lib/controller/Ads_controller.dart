@@ -16,7 +16,8 @@ class AdssController extends GetxController {
   var isNewStatuts = true.obs;
   @override
   void onInit() async {
-    getAds();
+    await getAds();
+    checkStatuses();
     super.onInit();
   }
 

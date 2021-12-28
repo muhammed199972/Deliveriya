@@ -18,7 +18,7 @@ class ProfileResponse {
   String? date;
   String? gender;
   dynamic? avatar;
-  int? phone;
+  String? phone;
   DateTime? createdAt;
   DateTime? updatedAt;
   List<Address>? addresses;

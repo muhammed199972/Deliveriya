@@ -16,8 +16,10 @@ class OfferController extends GetxController {
   var isLoading = true.obs;
 
   @override
-  void onInit() {
-    getoffers();
+  void onInit() async {
+    await getoffers();
+    checkStatuses();
+
     super.onInit();
   }
 

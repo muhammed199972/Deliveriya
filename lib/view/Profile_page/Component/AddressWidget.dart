@@ -5,14 +5,14 @@ import 'package:flutter_svg/flutter_svg.dart';
 class AddressWidget extends StatelessWidget {
   AddressWidget(
       {Key? key,
-      required this.size,
+      this.size,
       required this.icon,
-      required this.icondel,
+      this.icondel,
       this.subtitle,
       required this.txt})
       : super(key: key);
 
-  final Size size;
+  final Size? size;
   Widget? icon;
   Widget? icondel;
   String? subtitle;
@@ -20,7 +20,7 @@ class AddressWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: size.height * 0.080,
+      height: size == null ? 66 : size!.height * 0.080,
       margin: EdgeInsets.symmetric(horizontal: 17, vertical: 5),
       decoration: BoxDecoration(
           color: Colors.white,
@@ -45,7 +45,7 @@ class AddressWidget extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(txt!),
-                Text(subtitle!),
+                Text(subtitle ?? ''),
               ],
             ),
           ],

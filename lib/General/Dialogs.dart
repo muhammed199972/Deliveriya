@@ -1,5 +1,9 @@
 import 'package:delivery_food/General/Constants.dart';
+import 'package:delivery_food/controller/Address_controller.dart';
+import 'package:delivery_food/view/Profile_page/AddAddress.dart';
+import 'package:delivery_food/view/Profile_page/Component/AddressWidget.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:otp_text_field/otp_field.dart';
 import 'package:otp_text_field/otp_field_style.dart';
@@ -169,6 +173,54 @@ class DialogsUtils {
         ],
       ),
       barrierDismissible: false,
+    );
+  }
+
+  static showdialogAddress() {
+    var controller = Get.find<AddressController>();
+
+    Get.dialog(
+      Dialog(
+        child: Padding(
+          padding: const EdgeInsets.only(top: 20.0),
+          child: Stack(
+            children: [
+              Obx(
+                () => ListView.builder(
+                  itemCount: controller.address.length,
+                  itemBuilder: (context, int index) => InkWell(
+                    child: AddressWidget(
+                      icon: SvgPicture.asset('assets/svg/address.svg'),
+                      txt:
+                          '${controller.address[index].town!.city!.name}-${controller.address[index].town!.name}',
+                      subtitle:
+                          '${controller.address[index].locationDescription ?? ''}',
+                    ),
+                    onTap: () {
+                      controller.data.value = controller.address[index];
+                      Get.back();
+                    },
+                  ),
+                ),
+              ),
+              Positioned(
+                bottom: 10,
+                right: 10,
+                child: FloatingActionButton(
+                  backgroundColor: AppColors.mainColor,
+                  child: SvgPicture.asset(
+                    'assets/svg/plus.svg',
+                    color: AppColors.whiteColor,
+                  ),
+                  onPressed: () {
+                    Get.to(() => AddAddress());
+                  },
+                ),
+              ),
+            ],
+          ),
+        ),
+      ),
     );
   }
 }

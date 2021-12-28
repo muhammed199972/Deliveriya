@@ -1,4 +1,5 @@
 import 'package:delivery_food/General/Constants.dart';
+import 'package:delivery_food/General/Dialogs.dart';
 import 'package:delivery_food/controller/Address_controller.dart';
 import 'package:delivery_food/view/Profile_page/AddAddress.dart';
 import 'package:delivery_food/view/Profile_page/Component/AddressWidget.dart';
@@ -43,13 +44,21 @@ class ProfileAddress extends StatelessWidget {
                     icon: SvgPicture.asset('assets/svg/address.svg'),
                     txt:
                         '${controller.address[index].town!.city!.name}-${controller.address[index].town!.name}',
-                    subtitle: '+963${controller.address[index].phone ?? ''}',
+                    subtitle:
+                        '${controller.address[index].locationDescription ?? ''}',
                     icondel: IconButton(
                         splashColor: Colors.transparent,
                         highlightColor: Colors.transparent,
                         onPressed: () {
-                          controller.deleteAddress(
-                              controller.address[index].id.toString());
+                          DialogsUtils.showdialogdelete(
+                              m: 'Proceed ?',
+                              onPressedCancel: () async {
+                                Get.back();
+                              },
+                              onPressedOk: () {
+                                controller.deleteAddress(
+                                    controller.address[index].id.toString());
+                              });
                         },
                         icon: Image.asset(
                           'assets/png/remove.png',

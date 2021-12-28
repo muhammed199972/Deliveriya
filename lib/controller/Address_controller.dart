@@ -21,6 +21,7 @@ class AddressController extends GetxController {
   var vTown = ''.obs;
   ApiResult apiResult = ApiResult();
   AddressService addressService = AddressService();
+  var data = AddressResponse().obs;
   @override
   void onInit() {
     getCiteis();
@@ -52,7 +53,7 @@ class AddressController extends GetxController {
             Get.back();
           });
     } finally {
-      BotToast.cleanAll();
+      BotToast.closeAllLoading();
     }
   }
 
@@ -82,7 +83,7 @@ class AddressController extends GetxController {
             Get.back();
           });
     } finally {
-      BotToast.cleanAll();
+      BotToast.closeAllLoading();
     }
   }
 
@@ -94,7 +95,6 @@ class AddressController extends GetxController {
         address.value = apiResult.data;
         hasError.value = apiResult.hasError!;
         isLoading.value = false;
-        print(address[0].id);
       } else {
         hasError.value = apiResult.hasError!;
         massage.value = apiResult.errorMassage!;
@@ -113,7 +113,7 @@ class AddressController extends GetxController {
             Get.back();
           });
     } finally {
-      BotToast.cleanAll();
+      BotToast.closeAllLoading();
     }
   }
 
@@ -156,6 +156,7 @@ class AddressController extends GetxController {
         hasError.value = apiResult.hasError!;
         BotToast.showLoading();
         await getaddress();
+        Get.back();
       } else {
         hasError.value = apiResult.hasError!;
         massage.value = apiResult.errorMassage!;
