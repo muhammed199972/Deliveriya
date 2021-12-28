@@ -91,18 +91,22 @@ class AddressController extends GetxController {
     try {
       BotToast.showLoading();
       apiResult = await addressService.getaddressData();
-      if (!apiResult.hasError!) {
-        address.value = apiResult.data;
-        hasError.value = apiResult.hasError!;
-        isLoading.value = false;
+      if (apiResult.rfreshToken) {
+        if (!apiResult.hasError!) {
+          address.value = apiResult.data;
+          hasError.value = apiResult.hasError!;
+          isLoading.value = false;
+        } else {
+          hasError.value = apiResult.hasError!;
+          massage.value = apiResult.errorMassage!;
+          DialogsUtils.showdialog(
+              m: massage.value,
+              onPressed: () {
+                Get.back();
+              });
+        }
       } else {
-        hasError.value = apiResult.hasError!;
-        massage.value = apiResult.errorMassage!;
-        DialogsUtils.showdialog(
-            m: massage.value,
-            onPressed: () {
-              Get.back();
-            });
+        getaddress();
       }
     } catch (e) {
       hasError.value = apiResult.hasError!;
@@ -120,20 +124,24 @@ class AddressController extends GetxController {
   addAddress(Map<String, dynamic> body) async {
     try {
       apiResult = await addressService.postaddressData(body);
-      if (!apiResult.hasError!) {
-        postaddress.value = apiResult.data;
-        hasError.value = apiResult.hasError!;
-        BotToast.showLoading();
-        await getaddress();
-        Get.back();
+      if (apiResult.rfreshToken) {
+        if (!apiResult.hasError!) {
+          postaddress.value = apiResult.data;
+          hasError.value = apiResult.hasError!;
+          BotToast.showLoading();
+          await getaddress();
+          Get.back();
+        } else {
+          hasError.value = apiResult.hasError!;
+          massage.value = apiResult.errorMassage!;
+          DialogsUtils.showdialog(
+              m: massage.value,
+              onPressed: () {
+                Get.back();
+              });
+        }
       } else {
-        hasError.value = apiResult.hasError!;
-        massage.value = apiResult.errorMassage!;
-        DialogsUtils.showdialog(
-            m: massage.value,
-            onPressed: () {
-              Get.back();
-            });
+        addAddress(body);
       }
     } catch (e) {
       hasError.value = apiResult.hasError!;
@@ -151,19 +159,23 @@ class AddressController extends GetxController {
   deleteAddress(String id) async {
     try {
       apiResult = await addressService.deleteaddressData(id);
-      if (!apiResult.hasError!) {
-        address.value = apiResult.data;
-        hasError.value = apiResult.hasError!;
-        BotToast.showLoading();
-        await getaddress();
+      if (apiResult.rfreshToken) {
+        if (!apiResult.hasError!) {
+          address.value = apiResult.data;
+          hasError.value = apiResult.hasError!;
+          BotToast.showLoading();
+          await getaddress();
+        } else {
+          hasError.value = apiResult.hasError!;
+          massage.value = apiResult.errorMassage!;
+          DialogsUtils.showdialog(
+              m: massage.value,
+              onPressed: () {
+                Get.back();
+              });
+        }
       } else {
-        hasError.value = apiResult.hasError!;
-        massage.value = apiResult.errorMassage!;
-        DialogsUtils.showdialog(
-            m: massage.value,
-            onPressed: () {
-              Get.back();
-            });
+        deleteAddress(id);
       }
     } catch (e) {
       hasError.value = apiResult.hasError!;

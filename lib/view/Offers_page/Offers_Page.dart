@@ -86,7 +86,7 @@ class OffersView extends StatelessWidget {
                         child: RichText(
                           text: TextSpan(
                               style: TextStyle(color: Colors.black),
-                              text: offer.offers[index].name),
+                              text: offer.offers[index].description),
                         ),
                       ),
                     ),

@@ -3,11 +3,14 @@ import 'dart:io';
 
 import 'package:delivery_food/General/Api_Result.dart';
 import 'package:delivery_food/General/Constants.dart';
+import 'package:delivery_food/controller/Auth_controller.dart';
 import 'package:delivery_food/model/Error.dart';
 import 'package:delivery_food/model/InfoOrder_model.dart';
 import 'package:http/http.dart' as http;
 
 class InfoOrderService {
+  AuthController authController = AuthController();
+
   Future<ApiResult> getinfoOrderData() async {
     StatusCode statusCode = StatusCode();
     ApiResult apiResult = ApiResult();
@@ -41,7 +44,7 @@ class InfoOrderService {
         error = ErrorResponse.fromJson(responsebode['errors'][0]);
         apiResult.errorMassage = error.msg;
         apiResult.codeError = status.code;
-        apiResult.hasError = true;
+
         print('A bad request Please try again');
       } else if (response.statusCode == statusCode.UNAUTHORIZED) {
         status = InfoOrderStatus.fromJson(responsebode['status']);
@@ -49,7 +52,8 @@ class InfoOrderService {
         error = ErrorResponse.fromJson(responsebode['errors'][0]);
         apiResult.errorMassage = error.msg;
         apiResult.codeError = status.code;
-        apiResult.hasError = true;
+        apiResult.rfreshToken = false;
+        await authController.postrefreshToken();
         print('A bad request Please try again');
       } else if (response.statusCode == statusCode.FORBIDDEN) {
         status = InfoOrderStatus.fromJson(responsebode['status']);
@@ -57,7 +61,7 @@ class InfoOrderService {
         error = ErrorResponse.fromJson(responsebode['errors'][0]);
         apiResult.errorMassage = error.msg;
         apiResult.codeError = status.code;
-        apiResult.hasError = true;
+
         print('A bad request Please try again');
       } else if (response.statusCode == statusCode.NOT_FOUND) {
         status = InfoOrderStatus.fromJson(responsebode['status']);
@@ -65,7 +69,7 @@ class InfoOrderService {
         error = ErrorResponse.fromJson(responsebode['errors'][0]);
         apiResult.errorMassage = error.msg;
         apiResult.codeError = status.code;
-        apiResult.hasError = true;
+
         print('Endpoint not found Please try again');
       } else if (response.statusCode == statusCode.DUPLICATED_ENTRY) {
         status = InfoOrderStatus.fromJson(responsebode['status']);
@@ -73,7 +77,7 @@ class InfoOrderService {
         error = ErrorResponse.fromJson(responsebode['errors'][0]);
         apiResult.errorMassage = error.msg;
         apiResult.codeError = status.code;
-        apiResult.hasError = true;
+
         print('Input error Please try again');
       } else if (response.statusCode == statusCode.VALIDATION_ERROR) {
         status = InfoOrderStatus.fromJson(responsebode['status']);
@@ -81,7 +85,7 @@ class InfoOrderService {
         error = ErrorResponse.fromJson(responsebode['errors'][0]);
         apiResult.errorMassage = error.msg;
         apiResult.codeError = status.code;
-        apiResult.hasError = true;
+
         print('Input error Please try again');
       } else if (response.statusCode == statusCode.INTERNAL_SERVER_ERROR) {
         status = InfoOrderStatus.fromJson(responsebode['status']);
@@ -89,14 +93,14 @@ class InfoOrderService {
         error = ErrorResponse.fromJson(responsebode['errors'][0]);
         apiResult.errorMassage = error.msg;
         apiResult.codeError = status.code;
-        apiResult.hasError = true;
+
         print('Server error Please try again');
       } else {
         status = InfoOrderStatus.fromJson(responsebode['status']);
         error = ErrorResponse.fromJson(responsebode['errors'][0]);
         apiResult.errorMassage = error.msg;
         apiResult.codeError = status.code;
-        apiResult.hasError = true;
+
         print(' error Please try again');
       }
     } on SocketException {

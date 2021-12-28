@@ -42,7 +42,6 @@ class ProductsController extends GetxController {
             offset: offsetScroll,
             limit: 16,
             q: '');
-        print(offsetScroll);
       }
     });
 
@@ -109,9 +108,9 @@ class ProductsController extends GetxController {
         apiResult.data.forEach((element) {
           products.value.add(element);
         });
-        //  products.value = apiResult.data;
+
         hasError.value = apiResult.hasError!;
-        print('[[[[[[[[[object]]]]]]]]]');
+
         offsetScroll++;
         isLoading.value = false;
       } else {

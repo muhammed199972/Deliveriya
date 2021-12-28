@@ -30,21 +30,25 @@ class FavoriteController extends GetxController {
     favorites = <FavoriteResponse>[].obs;
     try {
       apiResult = await favoriteService.getfavoriteData(q, from, to);
-      if (!apiResult.hasError!) {
-        isEmpty.value = apiResult.isEmpty;
+      if (apiResult.rfreshToken) {
+        if (!apiResult.hasError!) {
+          isEmpty.value = apiResult.isEmpty;
 
-        favorites.value = apiResult.data;
-        hasError.value = apiResult.hasError!;
-        isLoading.value = false;
+          favorites.value = apiResult.data;
+          hasError.value = apiResult.hasError!;
+          isLoading.value = false;
+        } else {
+          hasError.value = apiResult.hasError!;
+          massage.value = apiResult.errorMassage!;
+          DialogsUtils.showdialog(
+              m: massage.value,
+              onPressed: () {
+                Get.back();
+                Get.back();
+              });
+        }
       } else {
-        hasError.value = apiResult.hasError!;
-        massage.value = apiResult.errorMassage!;
-        DialogsUtils.showdialog(
-            m: massage.value,
-            onPressed: () {
-              Get.back();
-              Get.back();
-            });
+        getfavorite(q, from, to);
       }
     } catch (e) {
       hasError.value = apiResult.hasError!;
@@ -61,17 +65,21 @@ class FavoriteController extends GetxController {
   deleteFavorites(int id) async {
     try {
       apiResult = await favoriteService.deletefavoriteData(id);
-      if (!apiResult.hasError!) {
-        deleteFavorite.value = apiResult.data;
-        hasError.value = apiResult.hasError!;
+      if (apiResult.rfreshToken) {
+        if (!apiResult.hasError!) {
+          deleteFavorite.value = apiResult.data;
+          hasError.value = apiResult.hasError!;
+        } else {
+          hasError.value = apiResult.hasError!;
+          massage.value = apiResult.errorMassage!;
+          DialogsUtils.showdialog(
+              m: massage.value,
+              onPressed: () {
+                Get.back();
+              });
+        }
       } else {
-        hasError.value = apiResult.hasError!;
-        massage.value = apiResult.errorMassage!;
-        DialogsUtils.showdialog(
-            m: massage.value,
-            onPressed: () {
-              Get.back();
-            });
+        deleteFavorites(id);
       }
     } catch (e) {
       hasError.value = apiResult.hasError!;
@@ -87,17 +95,21 @@ class FavoriteController extends GetxController {
   addFavorite(int id) async {
     try {
       apiResult = await favoriteService.postfavoriteData(id);
-      if (!apiResult.hasError!) {
-        postFavorite.value = apiResult.data;
-        hasError.value = apiResult.hasError!;
+      if (apiResult.rfreshToken) {
+        if (!apiResult.hasError!) {
+          postFavorite.value = apiResult.data;
+          hasError.value = apiResult.hasError!;
+        } else {
+          hasError.value = apiResult.hasError!;
+          massage.value = apiResult.errorMassage!;
+          DialogsUtils.showdialog(
+              m: massage.value,
+              onPressed: () {
+                Get.back();
+              });
+        }
       } else {
-        hasError.value = apiResult.hasError!;
-        massage.value = apiResult.errorMassage!;
-        DialogsUtils.showdialog(
-            m: massage.value,
-            onPressed: () {
-              Get.back();
-            });
+        addFavorite(id);
       }
     } catch (e) {
       hasError.value = apiResult.hasError!;

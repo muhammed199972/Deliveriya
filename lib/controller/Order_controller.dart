@@ -22,19 +22,23 @@ class OrderController extends GetxController {
   getorder() async {
     try {
       apiResult = await orderService.getorderData();
-      if (!apiResult.hasError!) {
-        orders.value = apiResult.data;
-        hasError.value = apiResult.hasError!;
-        isLoading.value = false;
+      if (apiResult.rfreshToken) {
+        if (!apiResult.hasError!) {
+          orders.value = apiResult.data;
+          hasError.value = apiResult.hasError!;
+          isLoading.value = false;
+        } else {
+          hasError.value = apiResult.hasError!;
+          massage.value = apiResult.errorMassage!;
+          DialogsUtils.showdialog(
+              m: massage.value,
+              onPressed: () {
+                Get.back();
+                Get.back();
+              });
+        }
       } else {
-        hasError.value = apiResult.hasError!;
-        massage.value = apiResult.errorMassage!;
-        DialogsUtils.showdialog(
-            m: massage.value,
-            onPressed: () {
-              Get.back();
-              Get.back();
-            });
+        getorder();
       }
     } catch (e) {
       hasError.value = apiResult.hasError!;

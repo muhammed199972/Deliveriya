@@ -4,6 +4,7 @@ import 'dart:io';
 
 import 'package:delivery_food/General/Api_Result.dart';
 import 'package:delivery_food/General/Constants.dart';
+import 'package:delivery_food/controller/Auth_controller.dart';
 import 'package:delivery_food/model/Cart_model.dart';
 import 'package:delivery_food/model/DeletePutPost.dart';
 import 'package:delivery_food/model/Error.dart';
@@ -12,6 +13,7 @@ import 'package:dio/dio.dart';
 import 'package:http/http.dart' as http;
 
 class CartService {
+  AuthController authController = AuthController();
   Future<ApiResult> getcartData() async {
     StatusCode statusCode = StatusCode();
     ApiResult apiResult = ApiResult();
@@ -50,27 +52,26 @@ class CartService {
         }
       } else if (response.statusCode == statusCode.BAD_REQUEST) {
         status = CartStatus.fromJson(responsebode['status']);
-
         error = ErrorResponse.fromJson(responsebode['errors'][0]);
         apiResult.errorMassage = error.msg;
         apiResult.codeError = status.code;
-        apiResult.hasError = true;
         print('A bad request Please try again');
       } else if (response.statusCode == statusCode.UNAUTHORIZED) {
         status = CartStatus.fromJson(responsebode['status']);
-
+        print('A bad request Please try Token Muhammed');
         error = ErrorResponse.fromJson(responsebode['errors'][0]);
         apiResult.errorMassage = error.msg;
         apiResult.codeError = status.code;
-        apiResult.hasError = true;
-        print('A bad request Please try again');
+        apiResult.rfreshToken = false;
+        await authController.postrefreshToken();
+
+        print('A bad request Please try Token Muhammed');
       } else if (response.statusCode == statusCode.FORBIDDEN) {
         status = CartStatus.fromJson(responsebode['status']);
 
         error = ErrorResponse.fromJson(responsebode['errors'][0]);
         apiResult.errorMassage = error.msg;
         apiResult.codeError = status.code;
-        apiResult.hasError = true;
         print('A bad request Please try again');
       } else if (response.statusCode == statusCode.NOT_FOUND) {
         status = CartStatus.fromJson(responsebode['status']);
@@ -78,7 +79,6 @@ class CartService {
         error = ErrorResponse.fromJson(responsebode['errors'][0]);
         apiResult.errorMassage = error.msg;
         apiResult.codeError = status.code;
-        apiResult.hasError = true;
         print('Endpoint not found Please try again');
       } else if (response.statusCode == statusCode.DUPLICATED_ENTRY) {
         status = CartStatus.fromJson(responsebode['status']);
@@ -86,7 +86,6 @@ class CartService {
         error = ErrorResponse.fromJson(responsebode['errors'][0]);
         apiResult.errorMassage = error.msg;
         apiResult.codeError = status.code;
-        apiResult.hasError = true;
         print('Input error Please try again');
       } else if (response.statusCode == statusCode.VALIDATION_ERROR) {
         status = CartStatus.fromJson(responsebode['status']);
@@ -94,7 +93,6 @@ class CartService {
         error = ErrorResponse.fromJson(responsebode['errors'][0]);
         apiResult.errorMassage = error.msg;
         apiResult.codeError = status.code;
-        apiResult.hasError = true;
         print('Input error Please try again');
       } else if (response.statusCode == statusCode.INTERNAL_SERVER_ERROR) {
         status = CartStatus.fromJson(responsebode['status']);
@@ -102,30 +100,25 @@ class CartService {
         error = ErrorResponse.fromJson(responsebode['errors'][0]);
         apiResult.errorMassage = error.msg;
         apiResult.codeError = status.code;
-        apiResult.hasError = true;
         print('Server error Please try again');
       } else {
         status = CartStatus.fromJson(responsebode['status']);
         error = ErrorResponse.fromJson(responsebode['errors'][0]);
         apiResult.errorMassage = error.msg;
         apiResult.codeError = status.code;
-        apiResult.hasError = true;
         print(' error Please try again');
       }
     } on SocketException {
       apiResult.errorMassage = 'Make sure you are connected to the internet';
       apiResult.codeError = statusCode.connection;
-      apiResult.hasError = true;
       print('Make sure you are connected to the internet');
     } on FormatException {
       apiResult.errorMassage = 'There is a problem with the admin';
       apiResult.codeError = statusCode.parsing;
-      apiResult.hasError = true;
       print('There is a problem with the admin');
     } catch (e) {
       apiResult.errorMassage = 'حدث خطأ غير متوقع';
       apiResult.codeError = statusCode.connection;
-      apiResult.hasError = true;
       print('${e}');
     }
     return apiResult;
@@ -164,7 +157,7 @@ class CartService {
         error = ErrorResponse.fromJson(responsebode['errors'][0]);
         apiResult.errorMassage = error.msg;
         apiResult.codeError = status.code;
-        apiResult.hasError = true;
+
         print('A bad request Please try again');
       } else if (response.statusCode == statusCode.UNAUTHORIZED) {
         status = CartStatus.fromJson(responsebode['status']);
@@ -172,7 +165,9 @@ class CartService {
         error = ErrorResponse.fromJson(responsebode['errors'][0]);
         apiResult.errorMassage = error.msg;
         apiResult.codeError = status.code;
-        apiResult.hasError = true;
+
+        apiResult.rfreshToken = false;
+        await authController.postrefreshToken();
         print('A bad request Please try again');
       } else if (response.statusCode == statusCode.FORBIDDEN) {
         status = CartStatus.fromJson(responsebode['status']);
@@ -180,7 +175,7 @@ class CartService {
         error = ErrorResponse.fromJson(responsebode['errors'][0]);
         apiResult.errorMassage = error.msg;
         apiResult.codeError = status.code;
-        apiResult.hasError = true;
+
         print('A bad request Please try again');
       } else if (response.statusCode == statusCode.NOT_FOUND) {
         status = CartStatus.fromJson(responsebode['status']);
@@ -188,7 +183,7 @@ class CartService {
         error = ErrorResponse.fromJson(responsebode['errors'][0]);
         apiResult.errorMassage = error.msg;
         apiResult.codeError = status.code;
-        apiResult.hasError = true;
+
         print('Endpoint not found Please try again');
       } else if (response.statusCode == statusCode.DUPLICATED_ENTRY) {
         status = CartStatus.fromJson(responsebode['status']);
@@ -196,7 +191,7 @@ class CartService {
         error = ErrorResponse.fromJson(responsebode['errors'][0]);
         apiResult.errorMassage = error.msg;
         apiResult.codeError = status.code;
-        apiResult.hasError = true;
+
         print('Input error Please try again');
       } else if (response.statusCode == statusCode.VALIDATION_ERROR) {
         status = CartStatus.fromJson(responsebode['status']);
@@ -204,7 +199,7 @@ class CartService {
         // error = ErrorResponse.fromJson(responsebode['errors'][0]);
         // apiResult.errorMassage = error.msg;
         apiResult.codeError = status.code;
-        apiResult.hasError = true;
+
         print('Input error Please try again');
       } else if (response.statusCode == statusCode.INTERNAL_SERVER_ERROR) {
         status = CartStatus.fromJson(responsebode['status']);
@@ -212,25 +207,25 @@ class CartService {
         error = ErrorResponse.fromJson(responsebode['errors'][0]);
         apiResult.errorMassage = error.msg;
         apiResult.codeError = status.code;
-        apiResult.hasError = true;
+
         print('Server error Please try again');
       } else {
         status = CartStatus.fromJson(responsebode['status']);
         error = ErrorResponse.fromJson(responsebode['errors'][0]);
         apiResult.errorMassage = error.msg;
         apiResult.codeError = status.code;
-        apiResult.hasError = true;
+
         print(' error Please try again');
       }
     } on SocketException {
       apiResult.errorMassage = 'Make sure you are connected to the internet';
       apiResult.codeError = statusCode.connection;
-      apiResult.hasError = true;
+
       print('Make sure you are connected to the internet');
     } on FormatException {
       apiResult.errorMassage = 'There is a problem with the admin';
       apiResult.codeError = statusCode.parsing;
-      apiResult.hasError = true;
+
       print('There is a problem with the admin');
     } catch (e) {
       apiResult.errorMassage = 'حدث خطأ غير متوقع';
@@ -274,7 +269,7 @@ class CartService {
         error = ErrorResponse.fromJson(responsebode['errors'][0]);
         apiResult.errorMassage = error.msg;
         apiResult.codeError = status.code;
-        apiResult.hasError = true;
+
         print('A bad request Please try again');
       } else if (response.statusCode == statusCode.UNAUTHORIZED) {
         status = CartStatus.fromJson(responsebode['status']);
@@ -282,7 +277,8 @@ class CartService {
         error = ErrorResponse.fromJson(responsebode['errors'][0]);
         apiResult.errorMassage = error.msg;
         apiResult.codeError = status.code;
-        apiResult.hasError = true;
+        apiResult.rfreshToken = false;
+        await authController.postrefreshToken();
         print('A bad request Please try again');
       } else if (response.statusCode == statusCode.FORBIDDEN) {
         status = CartStatus.fromJson(responsebode['status']);
@@ -290,7 +286,7 @@ class CartService {
         error = ErrorResponse.fromJson(responsebode['errors'][0]);
         apiResult.errorMassage = error.msg;
         apiResult.codeError = status.code;
-        apiResult.hasError = true;
+
         print('A bad request Please try again');
       } else if (response.statusCode == statusCode.NOT_FOUND) {
         status = CartStatus.fromJson(responsebode['status']);
@@ -298,7 +294,7 @@ class CartService {
         error = ErrorResponse.fromJson(responsebode['errors'][0]);
         apiResult.errorMassage = error.msg;
         apiResult.codeError = status.code;
-        apiResult.hasError = true;
+
         print('Endpoint not found Please try again');
       } else if (response.statusCode == statusCode.DUPLICATED_ENTRY) {
         status = CartStatus.fromJson(responsebode['status']);
@@ -306,7 +302,7 @@ class CartService {
         error = ErrorResponse.fromJson(responsebode['errors'][0]);
         apiResult.errorMassage = error.msg;
         apiResult.codeError = status.code;
-        apiResult.hasError = true;
+
         print('Input error Please try again');
       } else if (response.statusCode == statusCode.VALIDATION_ERROR) {
         status = CartStatus.fromJson(responsebode['status']);
@@ -314,7 +310,7 @@ class CartService {
         error = ErrorResponse.fromJson(responsebode['errors'][0]);
         apiResult.errorMassage = error.msg;
         apiResult.codeError = status.code;
-        apiResult.hasError = true;
+
         print('Input error Please try again');
       } else if (response.statusCode == statusCode.INTERNAL_SERVER_ERROR) {
         status = CartStatus.fromJson(responsebode['status']);
@@ -322,30 +318,30 @@ class CartService {
         error = ErrorResponse.fromJson(responsebode['errors'][0]);
         apiResult.errorMassage = error.msg;
         apiResult.codeError = status.code;
-        apiResult.hasError = true;
+
         print('Server error Please try again');
       } else {
         status = CartStatus.fromJson(responsebode['status']);
         error = ErrorResponse.fromJson(responsebode['errors'][0]);
         apiResult.errorMassage = error.msg;
         apiResult.codeError = status.code;
-        apiResult.hasError = true;
+
         print(' error Please try again');
       }
     } on SocketException {
       apiResult.errorMassage = 'Make sure you are connected to the internet';
       apiResult.codeError = statusCode.connection;
-      apiResult.hasError = true;
+
       print('Make sure you are connected to the internet');
     } on FormatException {
       apiResult.errorMassage = 'There is a problem with the admin';
       apiResult.codeError = statusCode.parsing;
-      apiResult.hasError = true;
+
       print('There is a problem with the admin');
     } catch (e) {
       apiResult.errorMassage = 'حدث خطأ غير متوقع';
       apiResult.codeError = statusCode.connection;
-      apiResult.hasError = true;
+
       print('${e}');
     }
     return apiResult;
@@ -383,7 +379,7 @@ class CartService {
         error = ErrorResponse.fromJson(responsebode['errors'][0]);
         apiResult.errorMassage = error.msg;
         apiResult.codeError = status.code;
-        apiResult.hasError = true;
+
         print('A bad request Please try again');
       } else if (response.statusCode == statusCode.UNAUTHORIZED) {
         status = CartStatus.fromJson(responsebode['status']);
@@ -391,7 +387,8 @@ class CartService {
         error = ErrorResponse.fromJson(responsebode['errors'][0]);
         apiResult.errorMassage = error.msg;
         apiResult.codeError = status.code;
-        apiResult.hasError = true;
+        apiResult.rfreshToken = false;
+        await authController.postrefreshToken();
         print('A bad request Please try again');
       } else if (response.statusCode == statusCode.FORBIDDEN) {
         status = CartStatus.fromJson(responsebode['status']);
@@ -399,7 +396,7 @@ class CartService {
         error = ErrorResponse.fromJson(responsebode['errors'][0]);
         apiResult.errorMassage = error.msg;
         apiResult.codeError = status.code;
-        apiResult.hasError = true;
+
         print('A bad request Please try again');
       } else if (response.statusCode == statusCode.NOT_FOUND) {
         status = CartStatus.fromJson(responsebode['status']);
@@ -407,7 +404,7 @@ class CartService {
         error = ErrorResponse.fromJson(responsebode['errors'][0]);
         apiResult.errorMassage = error.msg;
         apiResult.codeError = status.code;
-        apiResult.hasError = true;
+
         print('Endpoint not found Please try again');
       } else if (response.statusCode == statusCode.DUPLICATED_ENTRY) {
         status = CartStatus.fromJson(responsebode['status']);
@@ -415,7 +412,7 @@ class CartService {
         error = ErrorResponse.fromJson(responsebode['errors'][0]);
         apiResult.errorMassage = error.msg;
         apiResult.codeError = status.code;
-        apiResult.hasError = true;
+
         print('Input error Please try again');
       } else if (response.statusCode == statusCode.VALIDATION_ERROR) {
         status = CartStatus.fromJson(responsebode['status']);
@@ -423,7 +420,7 @@ class CartService {
         error = ErrorResponse.fromJson(responsebode['errors'][0]);
         apiResult.errorMassage = error.msg;
         apiResult.codeError = status.code;
-        apiResult.hasError = true;
+
         print('Input error Please try again');
       } else if (response.statusCode == statusCode.INTERNAL_SERVER_ERROR) {
         status = CartStatus.fromJson(responsebode['status']);
@@ -431,30 +428,30 @@ class CartService {
         error = ErrorResponse.fromJson(responsebode['errors'][0]);
         apiResult.errorMassage = error.msg;
         apiResult.codeError = status.code;
-        apiResult.hasError = true;
+
         print('Server error Please try again');
       } else {
         status = CartStatus.fromJson(responsebode['status']);
         error = ErrorResponse.fromJson(responsebode['errors'][0]);
         apiResult.errorMassage = error.msg;
         apiResult.codeError = status.code;
-        apiResult.hasError = true;
+
         print(' error Please try again');
       }
     } on SocketException {
       apiResult.errorMassage = 'Make sure you are connected to the internet';
       apiResult.codeError = statusCode.connection;
-      apiResult.hasError = true;
+
       print('Make sure you are connected to the internet');
     } on FormatException {
       apiResult.errorMassage = 'There is a problem with the admin';
       apiResult.codeError = statusCode.parsing;
-      apiResult.hasError = true;
+
       print('There is a problem with the admin');
     } catch (e) {
       apiResult.errorMassage = 'حدث خطأ غير متوقع';
       apiResult.codeError = statusCode.connection;
-      apiResult.hasError = true;
+
       print('${e}');
     }
     return apiResult;
@@ -492,7 +489,7 @@ class CartService {
         error = ErrorResponse.fromJson(responsebode['errors'][0]);
         apiResult.errorMassage = error.msg;
         apiResult.codeError = status.code;
-        apiResult.hasError = true;
+
         print('A bad request Please try again');
       } else if (response.statusCode == statusCode.UNAUTHORIZED) {
         status = CartStatus.fromJson(responsebode['status']);
@@ -500,7 +497,8 @@ class CartService {
         error = ErrorResponse.fromJson(responsebode['errors'][0]);
         apiResult.errorMassage = error.msg;
         apiResult.codeError = status.code;
-        apiResult.hasError = true;
+        apiResult.rfreshToken = false;
+        await authController.postrefreshToken();
         print('A bad request Please try again');
       } else if (response.statusCode == statusCode.FORBIDDEN) {
         status = CartStatus.fromJson(responsebode['status']);
@@ -508,7 +506,7 @@ class CartService {
         error = ErrorResponse.fromJson(responsebode['errors'][0]);
         apiResult.errorMassage = error.msg;
         apiResult.codeError = status.code;
-        apiResult.hasError = true;
+
         print('A bad request Please try again');
       } else if (response.statusCode == statusCode.NOT_FOUND) {
         status = CartStatus.fromJson(responsebode['status']);
@@ -516,7 +514,7 @@ class CartService {
         error = ErrorResponse.fromJson(responsebode['errors'][0]);
         apiResult.errorMassage = error.msg;
         apiResult.codeError = status.code;
-        apiResult.hasError = true;
+
         print('Endpoint not found Please try again');
       } else if (response.statusCode == statusCode.DUPLICATED_ENTRY) {
         status = CartStatus.fromJson(responsebode['status']);
@@ -524,7 +522,7 @@ class CartService {
         error = ErrorResponse.fromJson(responsebode['errors'][0]);
         apiResult.errorMassage = error.msg;
         apiResult.codeError = status.code;
-        apiResult.hasError = true;
+
         print('Input error Please try again');
       } else if (response.statusCode == statusCode.VALIDATION_ERROR) {
         status = CartStatus.fromJson(responsebode['status']);
@@ -532,7 +530,7 @@ class CartService {
         error = ErrorResponse.fromJson(responsebode['errors'][0]);
         apiResult.errorMassage = error.msg;
         apiResult.codeError = status.code;
-        apiResult.hasError = true;
+
         print('Input error Please try again');
       } else if (response.statusCode == statusCode.INTERNAL_SERVER_ERROR) {
         status = CartStatus.fromJson(responsebode['status']);
@@ -540,30 +538,30 @@ class CartService {
         error = ErrorResponse.fromJson(responsebode['errors'][0]);
         apiResult.errorMassage = error.msg;
         apiResult.codeError = status.code;
-        apiResult.hasError = true;
+
         print('Server error Please try again');
       } else {
         status = CartStatus.fromJson(responsebode['status']);
         error = ErrorResponse.fromJson(responsebode['errors'][0]);
         apiResult.errorMassage = error.msg;
         apiResult.codeError = status.code;
-        apiResult.hasError = true;
+
         print(' error Please try again');
       }
     } on SocketException {
       apiResult.errorMassage = 'Make sure you are connected to the internet';
       apiResult.codeError = statusCode.connection;
-      apiResult.hasError = true;
+
       print('Make sure you are connected to the internet');
     } on FormatException {
       apiResult.errorMassage = 'There is a problem with the admin';
       apiResult.codeError = statusCode.parsing;
-      apiResult.hasError = true;
+
       print('There is a problem with the admin');
     } catch (e) {
       apiResult.errorMassage = 'حدث خطأ غير متوقع';
       apiResult.codeError = statusCode.connection;
-      apiResult.hasError = true;
+
       print('${e}');
     }
     return apiResult;
@@ -604,8 +602,8 @@ class CartService {
         error = ErrorResponse.fromJson(response.data['errors']);
         apiResult.errorMassage = error.msg;
         apiResult.codeError = status.code;
-        apiResult.hasError = true;
-
+        apiResult.rfreshToken = false;
+        await authController.postrefreshToken();
         print('A bad request Please try again');
       } else if (response.statusCode == statusCode.FORBIDDEN) {
         status = CartStatus.fromJson(response.data['status']);
@@ -613,7 +611,7 @@ class CartService {
         error = ErrorResponse.fromJson(response.data['errors']);
         apiResult.errorMassage = error.msg;
         apiResult.codeError = status.code;
-        apiResult.hasError = true;
+
         print('A bad request Please try again');
       } else if (response.statusCode == statusCode.NOT_FOUND) {
         status = CartStatus.fromJson(response.data['status']);
@@ -621,7 +619,7 @@ class CartService {
         error = ErrorResponse.fromJson(response.data['errors']);
         apiResult.errorMassage = error.msg;
         apiResult.codeError = status.code;
-        apiResult.hasError = true;
+
         print('Endpoint not found Please try again');
       } else if (response.statusCode == statusCode.DUPLICATED_ENTRY) {
         status = CartStatus.fromJson(response.data['status']);
@@ -629,7 +627,7 @@ class CartService {
         error = ErrorResponse.fromJson(response.data['errors']);
         apiResult.errorMassage = error.msg;
         apiResult.codeError = status.code;
-        apiResult.hasError = true;
+
         print('Input error Please try again');
       } else if (response.statusCode == statusCode.VALIDATION_ERROR) {
         status = CartStatus.fromJson(response.data['status']);
@@ -637,7 +635,7 @@ class CartService {
         error = ErrorResponse.fromJson(response.data['errors']);
         apiResult.errorMassage = error.msg;
         apiResult.codeError = status.code;
-        apiResult.hasError = true;
+
         print('Input error Please try again');
       } else if (response.statusCode == statusCode.INTERNAL_SERVER_ERROR) {
         status = CartStatus.fromJson(response.data['status']);
@@ -645,30 +643,30 @@ class CartService {
         error = ErrorResponse.fromJson(response.data['errors']);
         apiResult.errorMassage = error.msg;
         apiResult.codeError = status.code;
-        apiResult.hasError = true;
+
         print('Server error Please try again');
       } else {
         status = CartStatus.fromJson(response.data['status']);
         error = ErrorResponse.fromJson(response.data['errors']);
         apiResult.errorMassage = error.msg;
         apiResult.codeError = status.code;
-        apiResult.hasError = true;
+
         print(' error Please try again');
       }
     } on SocketException {
       apiResult.errorMassage = 'Make sure you are connected to the internet';
       apiResult.codeError = statusCode.connection;
-      apiResult.hasError = true;
+
       print('Make sure you are connected to the internet');
     } on FormatException {
       apiResult.errorMassage = 'There is a problem with the admin';
       apiResult.codeError = statusCode.parsing;
-      apiResult.hasError = true;
+
       print('There is a problem with the admin');
     } catch (e) {
       apiResult.errorMassage = 'حدث خطأ غير متوقع';
       apiResult.codeError = statusCode.connection;
-      apiResult.hasError = true;
+
       print('${e}');
     }
     return apiResult;
@@ -694,7 +692,7 @@ class CartService {
   //       error = ErrorResponse.fromJson(responsebode['errors'][0]);
   //       apiResult.errorMassage = error.msg;
   //       apiResult.codeError = status.code;
-  //       apiResult.hasError = true;
+  //
   //       print('A bad request Please try again');
   //     } else if (response.statusCode == statusCode.UNAUTHORIZED) {
   //       status = CartStatus.fromJson(responsebode['status']);
@@ -702,7 +700,7 @@ class CartService {
   //       error = ErrorResponse.fromJson(responsebode['errors'][0]);
   //       apiResult.errorMassage = error.msg;
   //       apiResult.codeError = status.code;
-  //       apiResult.hasError = true;
+  //
   //       print('A bad request Please try again');
   //     } else if (response.statusCode == statusCode.FORBIDDEN) {
   //       status = CartStatus.fromJson(responsebode['status']);
@@ -710,7 +708,7 @@ class CartService {
   //       error = ErrorResponse.fromJson(responsebode['errors'][0]);
   //       apiResult.errorMassage = error.msg;
   //       apiResult.codeError = status.code;
-  //       apiResult.hasError = true;
+  //
   //       print('A bad request Please try again');
   //     } else if (response.statusCode == statusCode.NOT_FOUND) {
   //       status = CartStatus.fromJson(responsebode['status']);
@@ -718,7 +716,7 @@ class CartService {
   //       error = ErrorResponse.fromJson(responsebode['errors'][0]);
   //       apiResult.errorMassage = error.msg;
   //       apiResult.codeError = status.code;
-  //       apiResult.hasError = true;
+  //
   //       print('Endpoint not found Please try again');
   //     } else if (response.statusCode == statusCode.DUPLICATED_ENTRY) {
   //       status = CartStatus.fromJson(responsebode['status']);
@@ -726,7 +724,7 @@ class CartService {
   //       error = ErrorResponse.fromJson(responsebode['errors'][0]);
   //       apiResult.errorMassage = error.msg;
   //       apiResult.codeError = status.code;
-  //       apiResult.hasError = true;
+  //
   //       print('Input error Please try again');
   //     } else if (response.statusCode == statusCode.VALIDATION_ERROR) {
   //       status = CartStatus.fromJson(responsebode['status']);
@@ -734,7 +732,7 @@ class CartService {
   //       error = ErrorResponse.fromJson(responsebode['errors'][0]);
   //       apiResult.errorMassage = error.msg;
   //       apiResult.codeError = status.code;
-  //       apiResult.hasError = true;
+  //
   //       print('Input error Please try again');
   //     } else if (response.statusCode == statusCode.INTERNAL_SERVER_ERROR) {
   //       status = CartStatus.fromJson(responsebode['status']);
@@ -742,30 +740,30 @@ class CartService {
   //       error = ErrorResponse.fromJson(responsebode['errors'][0]);
   //       apiResult.errorMassage = error.msg;
   //       apiResult.codeError = status.code;
-  //       apiResult.hasError = true;
+  //
   //       print('Server error Please try again');
   //     } else {
   //       status = CartStatus.fromJson(responsebode['status']);
   //       error = ErrorResponse.fromJson(responsebode['errors'][0]);
   //       apiResult.errorMassage = error.msg;
   //       apiResult.codeError = status.code;
-  //       apiResult.hasError = true;
+  //
   //       print(' error Please try again');
   //     }
   //   } on SocketException {
   //     apiResult.errorMassage = 'Make sure you are connected to the internet';
   //     apiResult.codeError = statusCode.connection;
-  //     apiResult.hasError = true;
+  //
   //     print('Make sure you are connected to the internet');
   //   } on FormatException {
   //     apiResult.errorMassage = 'There is a problem with the admin';
   //     apiResult.codeError = statusCode.parsing;
-  //     apiResult.hasError = true;
+  //
   //     print('There is a problem with the admin');
   //   } catch (e) {
   //     apiResult.errorMassage = 'حدث خطأ غير متوقع';
   //     apiResult.codeError = statusCode.connection;
-  //     apiResult.hasError = true;
+  //
   //     print('${e}');
   //   }
   //   return apiResult;

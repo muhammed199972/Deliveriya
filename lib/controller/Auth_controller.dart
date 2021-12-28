@@ -136,7 +136,6 @@ class AuthController extends GetxController {
 
   postrefreshToken() async {
     try {
-      BotToast.showLoading();
       apiResult = await authservice.postrefreshToken();
       if (!apiResult.hasError!) {
         signUpResponse.value = apiResult.data;
@@ -145,7 +144,6 @@ class AuthController extends GetxController {
         Constansbox.box
             .write('refreshToken', signUpResponse.value.data!.refreshToken);
         hasError.value = apiResult.hasError!;
-        Get.offAll(HomeView());
       } else {
         hasError.value = apiResult.hasError!;
         massage.value = apiResult.errorMassage!;
@@ -163,8 +161,6 @@ class AuthController extends GetxController {
           onPressed: () {
             Get.back();
           });
-    } finally {
-      BotToast.closeAllLoading();
-    }
+    } finally {}
   }
 }

@@ -23,7 +23,6 @@ class ProfileController extends GetxController {
   var ispass1 = false.obs;
   var ispass2 = false.obs;
   var ispass3 = false.obs;
-
   var date = ''.obs;
   var gender = ''.obs;
   var phone = ''.obs;
@@ -40,7 +39,6 @@ class ProfileController extends GetxController {
     super.onInit();
   }
 
-  // File? file;
   var file = File('');
   var filenull = true.obs;
   Future postImg(x) async {
@@ -62,29 +60,33 @@ class ProfileController extends GetxController {
       BotToast.showLoading();
 
       apiResult = await profileservice.getprofilesData();
-      if (!apiResult.hasError!) {
-        profile.value = apiResult.data;
-        hasError.value = apiResult.hasError!;
-        //
-        firstnameController.text = profile.value.name;
-        gender.value =
-            profile.value.gender == null ? 'Male' : profile.value.gender!;
-        genderController.text =
-            profile.value.gender == null ? '' : profile.value.gender!;
-        datebirthController.text = profile.value.date == null
-            ? ''
-            : profile.value.date!.substring(0, 10);
-        phoneController.text = profile.value.phone!.toString();
-        //
-        //  log('${profile.value.name}', name: 'controller profile');
+      if (apiResult.rfreshToken) {
+        if (!apiResult.hasError!) {
+          profile.value = apiResult.data;
+          hasError.value = apiResult.hasError!;
+          //
+          firstnameController.text = profile.value.name;
+          gender.value =
+              profile.value.gender == null ? 'Male' : profile.value.gender!;
+          genderController.text =
+              profile.value.gender == null ? '' : profile.value.gender!;
+          datebirthController.text = profile.value.date == null
+              ? ''
+              : profile.value.date!.substring(0, 10);
+          phoneController.text = profile.value.phone!.toString();
+          //
+          //  log('${profile.value.name}', name: 'controller profile');
+        } else {
+          hasError.value = apiResult.hasError!;
+          massage.value = apiResult.errorMassage!;
+          DialogsUtils.showdialog(
+              m: massage.value,
+              onPressed: () {
+                Get.back();
+              });
+        }
       } else {
-        hasError.value = apiResult.hasError!;
-        massage.value = apiResult.errorMassage!;
-        DialogsUtils.showdialog(
-            m: massage.value,
-            onPressed: () {
-              Get.back();
-            });
+        getprofile();
       }
     } catch (e) {
       hasError.value = apiResult.hasError!;
@@ -110,11 +112,23 @@ class ProfileController extends GetxController {
             : date.value,
         file: file,
       );
-
-      patch.value = apiResult.data;
-      await getprofile();
-
-      Get.back();
+      if (apiResult.rfreshToken) {
+        if (!apiResult.hasError!) {
+          patch.value = apiResult.data;
+          await getprofile();
+        } else {
+          hasError.value = apiResult.hasError!;
+          massage.value = apiResult.errorMassage!;
+          DialogsUtils.showdialog(
+              m: massage.value,
+              onPressed: () {
+                Get.back();
+              });
+        }
+        Get.back();
+      } else {
+        patchprofile2();
+      }
     } catch (e) {
       print(e);
     } finally {

@@ -210,6 +210,7 @@ class ListProdCart extends StatelessWidget {
                                       .removeAt(ind!);
                                   prodController.cartsdeleteupdate
                                       .removeAt(ind);
+                                  Get.back();
                                   ListProdCart(
                                     item: item,
                                   );

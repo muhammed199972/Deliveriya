@@ -6,6 +6,8 @@ class OffersResponse {
   String? mediaType;
   String? color;
   String? name;
+  String? description;
+
   String? createdAt;
   String? updatedAt;
 
@@ -17,6 +19,7 @@ class OffersResponse {
       this.mediaType,
       this.color,
       this.name,
+      this.description,
       this.createdAt,
       this.updatedAt});
 
@@ -28,6 +31,7 @@ class OffersResponse {
     mediaType = json['mediaType'];
     color = json['color'];
     name = json['name'];
+    description = json['description'];
     createdAt = json['createdAt'];
     updatedAt = json['updatedAt'];
   }
@@ -41,6 +45,7 @@ class OffersResponse {
     data['mediaType'] = this.mediaType;
     data['color'] = this.color;
     data['name'] = this.name;
+    data['description'] = this.description;
     data['createdAt'] = this.createdAt;
     data['updatedAt'] = this.updatedAt;
     return data;

@@ -49,20 +49,24 @@ class CartController extends GetxController {
     try {
       BotToast.showLoading();
       apiResult = await cartService.getcartData();
-      if (!apiResult.hasError!) {
-        isEmpty.value = apiResult.isEmpty;
-        carts.value = apiResult.data;
-        hasError.value = apiResult.hasError!;
-        isLoading.value = false;
+      if (apiResult.rfreshToken) {
+        if (!apiResult.hasError!) {
+          isEmpty.value = apiResult.isEmpty;
+          carts.value = apiResult.data;
+          hasError.value = apiResult.hasError!;
+          isLoading.value = false;
+        } else {
+          hasError.value = apiResult.hasError!;
+          massage.value = apiResult.errorMassage!;
+          DialogsUtils.showdialog(
+              m: massage.value,
+              onPressed: () {
+                Get.back();
+                Get.back();
+              });
+        }
       } else {
-        hasError.value = apiResult.hasError!;
-        massage.value = apiResult.errorMassage!;
-        DialogsUtils.showdialog(
-            m: massage.value,
-            onPressed: () {
-              Get.back();
-              Get.back();
-            });
+        getcart();
       }
     } catch (e) {
       hasError.value = apiResult.hasError!;
@@ -81,20 +85,24 @@ class CartController extends GetxController {
   addTocart(int quantity, String id) async {
     try {
       apiResult = await cartService.postcartData(quantity, id);
-      if (!apiResult.hasError!) {
-        carts.value = [];
-        postCarts.value = apiResult.data;
-        hasError.value = apiResult.hasError!;
-        BotToast.showLoading();
-        await getcart();
+      if (apiResult.rfreshToken) {
+        if (!apiResult.hasError!) {
+          carts.value = [];
+          postCarts.value = apiResult.data;
+          hasError.value = apiResult.hasError!;
+          BotToast.showLoading();
+          await getcart();
+        } else {
+          hasError.value = apiResult.hasError!;
+          massage.value = apiResult.errorMassage!;
+          DialogsUtils.showdialog(
+              m: massage.value,
+              onPressed: () {
+                Get.back();
+              });
+        }
       } else {
-        hasError.value = apiResult.hasError!;
-        massage.value = apiResult.errorMassage!;
-        DialogsUtils.showdialog(
-            m: massage.value,
-            onPressed: () {
-              Get.back();
-            });
+        addTocart(quantity, id);
       }
     } catch (e) {
       hasError.value = apiResult.hasError!;
@@ -112,20 +120,24 @@ class CartController extends GetxController {
   patchcart(var body) async {
     try {
       apiResult = await cartService.patchcartData(body);
-      if (!apiResult.hasError!) {
-        patchCarts.value = apiResult.data;
-        hasError.value = apiResult.hasError!;
-        BotToast.showLoading();
-        await getcart();
-        Get.back();
+      if (apiResult.rfreshToken) {
+        if (!apiResult.hasError!) {
+          patchCarts.value = apiResult.data;
+          hasError.value = apiResult.hasError!;
+          BotToast.showLoading();
+          await getcart();
+          Get.back();
+        } else {
+          hasError.value = apiResult.hasError!;
+          massage.value = apiResult.errorMassage!;
+          DialogsUtils.showdialog(
+              m: massage.value,
+              onPressed: () {
+                Get.back();
+              });
+        }
       } else {
-        hasError.value = apiResult.hasError!;
-        massage.value = apiResult.errorMassage!;
-        DialogsUtils.showdialog(
-            m: massage.value,
-            onPressed: () {
-              Get.back();
-            });
+        patchcart(body);
       }
     } catch (e) {
       hasError.value = apiResult.hasError!;
@@ -139,19 +151,23 @@ class CartController extends GetxController {
   deletecart(id) async {
     try {
       apiResult = await cartService.deletecartData(id);
-      if (!apiResult.hasError!) {
-        deleteCarts.value = apiResult.data;
-        hasError.value = apiResult.hasError!;
-        BotToast.showLoading();
-        await getcart();
+      if (apiResult.rfreshToken) {
+        if (!apiResult.hasError!) {
+          deleteCarts.value = apiResult.data;
+          hasError.value = apiResult.hasError!;
+          BotToast.showLoading();
+          await getcart();
+        } else {
+          hasError.value = apiResult.hasError!;
+          massage.value = apiResult.errorMassage!;
+          DialogsUtils.showdialog(
+              m: massage.value,
+              onPressed: () {
+                Get.back();
+              });
+        }
       } else {
-        hasError.value = apiResult.hasError!;
-        massage.value = apiResult.errorMassage!;
-        DialogsUtils.showdialog(
-            m: massage.value,
-            onPressed: () {
-              Get.back();
-            });
+        deletecart(id);
       }
     } catch (e) {
       hasError.value = apiResult.hasError!;
@@ -169,21 +185,24 @@ class CartController extends GetxController {
   deletcategoryecart(String id) async {
     try {
       apiResult = await cartService.deletcategoryecart(id);
-
-      if (!apiResult.hasError!) {
-        deleteCarts.value = apiResult.data;
-        hasError.value = apiResult.hasError!;
-        BotToast.showLoading();
-        await getcart();
-        Get.back();
+      if (apiResult.rfreshToken) {
+        if (!apiResult.hasError!) {
+          deleteCarts.value = apiResult.data;
+          hasError.value = apiResult.hasError!;
+          BotToast.showLoading();
+          await getcart();
+          Get.back();
+        } else {
+          hasError.value = apiResult.hasError!;
+          massage.value = apiResult.errorMassage!;
+          DialogsUtils.showdialog(
+              m: massage.value,
+              onPressed: () {
+                Get.back();
+              });
+        }
       } else {
-        hasError.value = apiResult.hasError!;
-        massage.value = apiResult.errorMassage!;
-        DialogsUtils.showdialog(
-            m: massage.value,
-            onPressed: () {
-              Get.back();
-            });
+        deletcategoryecart(id);
       }
     } catch (e) {
       hasError.value = apiResult.hasError!;
@@ -201,21 +220,25 @@ class CartController extends GetxController {
   deletsupcategoryecart(String id) async {
     try {
       apiResult = await cartService.deletsupcategoryecart(id);
-      if (!apiResult.hasError!) {
-        deleteCarts.value = apiResult.data;
-        hasError.value = apiResult.hasError!;
-        BotToast.showLoading();
-        await getcart();
+      if (apiResult.rfreshToken) {
+        if (!apiResult.hasError!) {
+          deleteCarts.value = apiResult.data;
+          hasError.value = apiResult.hasError!;
+          BotToast.showLoading();
+          await getcart();
 
-        Get.back();
+          Get.back();
+        } else {
+          hasError.value = apiResult.hasError!;
+          massage.value = apiResult.errorMassage!;
+          DialogsUtils.showdialog(
+              m: massage.value,
+              onPressed: () {
+                Get.back();
+              });
+        }
       } else {
-        hasError.value = apiResult.hasError!;
-        massage.value = apiResult.errorMassage!;
-        DialogsUtils.showdialog(
-            m: massage.value,
-            onPressed: () {
-              Get.back();
-            });
+        deletsupcategoryecart(id);
       }
     } catch (e) {
       hasError.value = apiResult.hasError!;

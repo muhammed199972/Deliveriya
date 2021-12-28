@@ -18,6 +18,7 @@ class OfferService {
     try {
       var response = await http.get(url);
       var responsebody = jsonDecode(response.body);
+      print(responsebody);
       if (response.statusCode == statusCode.OK ||
           response.statusCode == statusCode.CREATED) {
         status = OffersStatus.fromJson(responsebody['status']);
@@ -35,7 +36,7 @@ class OfferService {
         error = ErrorResponse.fromJson(responsebody['errors'][0]);
         apiResult.errorMassage = error.msg;
         apiResult.codeError = status.code;
-        apiResult.hasError = true;
+
         apiResult.data = calendar;
         print('A bad request Please try again');
       } else if (response.statusCode == statusCode.UNAUTHORIZED) {
@@ -44,7 +45,7 @@ class OfferService {
         error = ErrorResponse.fromJson(responsebody['errors'][0]);
         apiResult.errorMassage = error.msg;
         apiResult.codeError = status.code;
-        apiResult.hasError = true;
+
         print('A bad request Please try again');
       } else if (response.statusCode == statusCode.FORBIDDEN) {
         status = OffersStatus.fromJson(responsebody['status']);
@@ -52,7 +53,7 @@ class OfferService {
         error = ErrorResponse.fromJson(responsebody['errors'][0]);
         apiResult.errorMassage = error.msg;
         apiResult.codeError = status.code;
-        apiResult.hasError = true;
+
         print('A bad request Please try again');
       } else if (response.statusCode == statusCode.NOT_FOUND) {
         status = OffersStatus.fromJson(responsebody['status']);
@@ -60,7 +61,7 @@ class OfferService {
         error = ErrorResponse.fromJson(responsebody['errors'][0]);
         apiResult.errorMassage = error.msg;
         apiResult.codeError = status.code;
-        apiResult.hasError = true;
+
         print('Endpoint not found Please try again');
       } else if (response.statusCode == statusCode.DUPLICATED_ENTRY) {
         status = OffersStatus.fromJson(responsebody['status']);
@@ -68,7 +69,7 @@ class OfferService {
         error = ErrorResponse.fromJson(responsebody['errors'][0]);
         apiResult.errorMassage = error.msg;
         apiResult.codeError = status.code;
-        apiResult.hasError = true;
+
         print('Input error Please try again');
       } else if (response.statusCode == statusCode.VALIDATION_ERROR) {
         status = OffersStatus.fromJson(responsebody['status']);
@@ -76,7 +77,7 @@ class OfferService {
         error = ErrorResponse.fromJson(responsebody['errors'][0]);
         apiResult.errorMassage = error.msg;
         apiResult.codeError = status.code;
-        apiResult.hasError = true;
+
         print('Input error Please try again');
       } else if (response.statusCode == statusCode.INTERNAL_SERVER_ERROR) {
         status = OffersStatus.fromJson(responsebody['status']);
@@ -84,30 +85,30 @@ class OfferService {
         error = ErrorResponse.fromJson(responsebody['errors'][0]);
         apiResult.errorMassage = error.msg;
         apiResult.codeError = status.code;
-        apiResult.hasError = true;
+
         print('Server error Please try again');
       } else {
         status = OffersStatus.fromJson(responsebody['status']);
         error = ErrorResponse.fromJson(responsebody['errors'][0]);
         apiResult.errorMassage = error.msg;
         apiResult.codeError = status.code;
-        apiResult.hasError = true;
+
         print(' error Please try again');
       }
     } on SocketException {
       apiResult.errorMassage = 'Make sure you are connected to the internet';
       apiResult.codeError = statusCode.connection;
-      apiResult.hasError = true;
+
       print('Make sure you are connected to the internet');
     } on FormatException {
       apiResult.errorMassage = 'There is a problem with the admin';
       apiResult.codeError = statusCode.parsing;
-      apiResult.hasError = true;
+
       print('There is a problem with the admin');
     } catch (e) {
       apiResult.errorMassage = 'حدث خطأ غير متوقع';
       apiResult.codeError = statusCode.connection;
-      apiResult.hasError = true;
+
       print('${e}');
     }
     return apiResult;
