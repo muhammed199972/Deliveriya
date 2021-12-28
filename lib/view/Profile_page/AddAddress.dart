@@ -6,7 +6,6 @@ import 'package:delivery_food/controller/Address_controller.dart';
 import 'package:delivery_food/view/Profile_page/Component/TextField.dart';
 import 'package:delivery_food/view/Virefy_pages/Component/Buttons.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 
 class AddAddress extends StatelessWidget {
@@ -14,15 +13,12 @@ class AddAddress extends StatelessWidget {
   var controller = Get.find<AddressController>();
 
   final _streetController = TextEditingController();
-  final _phoneController = TextEditingController();
   final _detailedController = TextEditingController();
   var formkey = GlobalKey<FormState>();
 
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
-    inspect(controller.cities.value);
-    inspect(controller.towns.value);
 
     return Scaffold(
       backgroundColor: AppColors.whiteColor,
@@ -161,19 +157,6 @@ class AddAddress extends StatelessWidget {
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 17),
                 child: TextFieldProfwidget(
-                  inputFormatters: [
-                    FilteringTextInputFormatter.digitsOnly,
-                    LengthLimitingTextInputFormatter(9),
-                  ],
-                  validator: validateMobile,
-                  controller: _phoneController,
-                  lebel: 'Phone Number',
-                  prefixtxt: '+963',
-                ),
-              ),
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 17),
-                child: TextFieldProfwidget(
                   h: 100,
                   lines: 5,
                   controller: _detailedController,
@@ -199,7 +182,6 @@ class AddAddress extends StatelessWidget {
                             'TownId': controller.vTown.value,
                             'street': controller.vTown.value,
                             'locationDescription': _detailedController.text,
-                            'phone': _phoneController.text,
                           };
                           controller.addAddress(body);
                         }
@@ -217,15 +199,6 @@ class AddAddress extends StatelessWidget {
     if (value!.length == 0)
       return 'Please enter value';
     else
-      return null;
-  }
-
-  String? validateMobile(String? value) {
-    if (value!.length == 0)
-      return 'Please enter PhoneNumber';
-    else if (value.startsWith('0', 0)) {
-      return 'enter like 9********';
-    } else
       return null;
   }
 }

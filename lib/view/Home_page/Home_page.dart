@@ -1,5 +1,6 @@
 import 'package:delivery_food/General/Constants.dart';
 import 'package:delivery_food/Shimmer_loading.dart';
+import 'package:delivery_food/controller/Address_controller.dart';
 import 'package:delivery_food/controller/Category_controller.dart';
 import 'package:delivery_food/view/Home_page/component/CategoryCard.dart';
 import 'package:delivery_food/view/Home_page/component/Logo.dart';
@@ -11,6 +12,8 @@ import 'package:get/get.dart';
 
 class HomeView extends StatelessWidget {
   CategorysController controller = Get.put(CategorysController());
+  // AddressController ca = Get.put(AddressController());
+
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;

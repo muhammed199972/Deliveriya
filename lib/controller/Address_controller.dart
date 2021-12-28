@@ -22,6 +22,7 @@ class AddressController extends GetxController {
   var vTown = ''.obs;
   ApiResult apiResult = ApiResult();
   AddressService addressService = AddressService();
+  var data = AddressResponse().obs;
   @override
   void onInit() {
     getCiteis();
@@ -53,7 +54,7 @@ class AddressController extends GetxController {
             Get.back();
           });
     } finally {
-      BotToast.cleanAll();
+      BotToast.closeAllLoading();
     }
   }
 
@@ -83,7 +84,7 @@ class AddressController extends GetxController {
             Get.back();
           });
     } finally {
-      BotToast.cleanAll();
+      BotToast.closeAllLoading();
     }
   }
 
@@ -117,7 +118,7 @@ class AddressController extends GetxController {
             Get.back();
           });
     } finally {
-      BotToast.cleanAll();
+      BotToast.closeAllLoading();
     }
   }
 

@@ -1,10 +1,11 @@
 import 'package:delivery_food/General/Constants.dart';
 import 'package:delivery_food/controller/Cart_controller.dart';
+import 'package:delivery_food/controller/Order_controller.dart';
 import 'package:delivery_food/controller/Products_controller.dart';
+import 'package:delivery_food/view/Cart_page/CartConfirm.dart';
 import 'package:delivery_food/view/Cart_page/Component/Categor_Sub_Cart.dart';
 import 'package:delivery_food/view/Cart_page/Component/TotalPrice.dart';
-import 'package:delivery_food/view/Home_page/Home_page.dart';
-import 'package:delivery_food/view/navbar.dart';
+import 'package:delivery_food/view/History_page/History_Page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
@@ -12,6 +13,8 @@ import 'package:get/get.dart';
 class CartView extends StatelessWidget {
   CartView({Key? key}) : super(key: key);
   var controller = Get.put(CartController());
+  var co = Get.put(OrderController());
+
   var prodController = Get.find<ProductsController>();
   @override
   StatusCode statusCode = StatusCode();
@@ -39,6 +42,7 @@ class CartView extends StatelessWidget {
         //   Icons.arrow_back_rounded,
         //   color: AppColors.blackColor,
         // ),
+        centerTitle: true,
         title: Text(
           'Cart',
           textAlign: TextAlign.center,
@@ -48,9 +52,12 @@ class CartView extends StatelessWidget {
         ),
         actions: [
           IconButton(
-              onPressed: () {},
-              icon: Image.asset(
-                'assets/png/hestory.png',
+              onPressed: () {
+                co.getorder('');
+                Get.to(() => HistoryPage());
+              },
+              icon: SvgPicture.asset(
+                'assets/svg/history.svg',
                 width: 40,
               )),
         ],
@@ -195,12 +202,17 @@ class CartView extends StatelessWidget {
                     ),
                   );
       }),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {},
-        splashColor: AppColors.lightmainColor,
-        backgroundColor: AppColors.mainColor,
-        child: Text('Submit'),
-      ),
+      floatingActionButton: Obx(() => Visibility(
+            visible: controller.carts.length != 0,
+            child: FloatingActionButton(
+              onPressed: () {
+                Get.to(() => ConfirmCart());
+              },
+              splashColor: AppColors.lightmainColor,
+              backgroundColor: AppColors.mainColor,
+              child: Text('Submit'),
+            ),
+          )),
     );
   }
 }

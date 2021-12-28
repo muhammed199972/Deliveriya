@@ -3,7 +3,6 @@ class AddressResponse {
     this.id,
     this.gpsLocation,
     this.street,
-    this.phone,
     this.locationDescription,
     this.createdAt,
     this.updatedAt,
@@ -14,7 +13,6 @@ class AddressResponse {
 
   int? id;
   String? street;
-  String? phone;
   dynamic? gpsLocation;
   String? locationDescription;
   DateTime? createdAt;
@@ -27,7 +25,6 @@ class AddressResponse {
       AddressResponse(
         id: json["id"],
         street: json["street"],
-        phone: json["phone"],
         gpsLocation: json["GPSLocation"],
         locationDescription: json["locationDescription"],
         createdAt: DateTime.parse(json["createdAt"]),
@@ -40,7 +37,6 @@ class AddressResponse {
   Map<String, dynamic> toJson() => {
         "id": id,
         "street": street,
-        "phone": phone,
         "GPSLocation": gpsLocation,
         "locationDescription": locationDescription,
         "createdAt": createdAt!.toIso8601String(),
