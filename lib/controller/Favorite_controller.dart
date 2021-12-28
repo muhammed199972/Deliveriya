@@ -11,7 +11,6 @@ class FavoriteController extends GetxController {
   var massage = ''.obs;
   var postFavorite = DeletePutPostResponse().obs;
   var deleteFavorite = DeletePutPostResponse().obs;
-  var isLoading = true.obs;
   var opensearch = false.obs;
   var idcategory = 0.obs;
   var idsupcategory = 0.obs;
@@ -36,7 +35,6 @@ class FavoriteController extends GetxController {
 
           favorites.value = apiResult.data;
           hasError.value = apiResult.hasError!;
-          isLoading.value = false;
         } else {
           hasError.value = apiResult.hasError!;
           massage.value = apiResult.errorMassage!;

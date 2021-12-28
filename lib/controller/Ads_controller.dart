@@ -9,7 +9,6 @@ class AdssController extends GetxController {
   var adss = <AdsResponse>[].obs;
   var hasError = true.obs;
   var massage = ''.obs;
-  var isLoading = true.obs;
   ApiResult apiResult = ApiResult();
   AdsService ads = AdsService();
   Constans Constansbox = Constans();
@@ -41,7 +40,6 @@ class AdssController extends GetxController {
       if (!apiResult.hasError!) {
         adss.value = apiResult.data;
         hasError.value = apiResult.hasError!;
-        isLoading.value = false;
       } else {
         hasError.value = apiResult.hasError!;
         massage.value = apiResult.errorMassage!;

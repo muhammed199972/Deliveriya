@@ -64,7 +64,7 @@ class ShimmerWidget extends StatelessWidget {
   static Widget productsLoading() => StaggeredGridView.countBuilder(
         shrinkWrap: true,
         physics: NeverScrollableScrollPhysics(),
-        crossAxisCount: 2,
+        crossAxisCount: 3,
         itemCount: 8,
         itemBuilder: (BuildContext context, int index) => ShimmerWidget.card(
           margin: EdgeInsets.symmetric(

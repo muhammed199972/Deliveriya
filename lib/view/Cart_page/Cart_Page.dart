@@ -38,10 +38,6 @@ class CartView extends StatelessWidget {
       appBar: AppBar(
         backgroundColor: AppColors.whiteColor,
         elevation: 2,
-        // leading: Icon(
-        //   Icons.arrow_back_rounded,
-        //   color: AppColors.blackColor,
-        // ),
         centerTitle: true,
         title: Text(
           'Cart',
@@ -92,9 +88,7 @@ class CartView extends StatelessWidget {
                           ],
                         ),
                       )
-                    : Center(
-                        child: CircularProgressIndicator(),
-                      )
+                    : Container()
                 : Container(
                     decoration: BoxDecoration(
                         image: DecorationImage(
@@ -160,9 +154,7 @@ class CartView extends StatelessWidget {
                           ],
                         ),
                       )
-                    : Center(
-                        child: CircularProgressIndicator(),
-                      )
+                    : Container()
                 : Container(
                     decoration: BoxDecoration(
                         image: DecorationImage(

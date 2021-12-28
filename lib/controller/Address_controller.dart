@@ -17,7 +17,6 @@ class AddressController extends GetxController {
   var towns = <Townm>[].obs;
   var hasError = true.obs;
   var massage = ''.obs;
-  var isLoading = true.obs;
   var vCity = ''.obs;
   var vTown = ''.obs;
   ApiResult apiResult = ApiResult();
@@ -37,7 +36,6 @@ class AddressController extends GetxController {
       if (!apiResult.hasError!) {
         cities.value = apiResult.data;
         hasError.value = apiResult.hasError!;
-        isLoading.value = false;
       } else {
         hasError.value = apiResult.hasError!;
         massage.value = apiResult.errorMassage!;
@@ -65,7 +63,6 @@ class AddressController extends GetxController {
       if (!apiResult.hasError!) {
         towns.value = apiResult.data;
         hasError.value = apiResult.hasError!;
-        isLoading.value = false;
 
         update();
       } else {
@@ -96,7 +93,6 @@ class AddressController extends GetxController {
         if (!apiResult.hasError!) {
           address.value = apiResult.data;
           hasError.value = apiResult.hasError!;
-          isLoading.value = false;
         } else {
           hasError.value = apiResult.hasError!;
           massage.value = apiResult.errorMassage!;
@@ -162,7 +158,7 @@ class AddressController extends GetxController {
       apiResult = await addressService.deleteaddressData(id);
       if (apiResult.rfreshToken) {
         if (!apiResult.hasError!) {
-          address.value = apiResult.data;
+          postaddress.value = apiResult.data;
           hasError.value = apiResult.hasError!;
           BotToast.showLoading();
           await getaddress();

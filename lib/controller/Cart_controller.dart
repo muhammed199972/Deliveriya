@@ -25,7 +25,6 @@ class CartController extends GetxController {
   var priceall = 0.obs;
   var lenghcart = 0.obs;
   var massage = ''.obs;
-  var isLoading = true.obs;
   ApiResult apiResult = ApiResult();
   CartService cartService = CartService();
   ScrollController listScrollController = ScrollController();
@@ -54,7 +53,6 @@ class CartController extends GetxController {
           isEmpty.value = apiResult.isEmpty;
           carts.value = apiResult.data;
           hasError.value = apiResult.hasError!;
-          isLoading.value = false;
         } else {
           hasError.value = apiResult.hasError!;
           massage.value = apiResult.errorMassage!;
