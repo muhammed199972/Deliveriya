@@ -62,21 +62,29 @@ class ProductsController extends GetxController {
         limit!,
         q!,
       ))!;
+      if (apiResult.rfreshToken) {
+        if (!apiResult.hasError!) {
+          products.value = apiResult.data;
+          hasError.value = apiResult.hasError!;
 
-      if (!apiResult.hasError!) {
-        products.value = apiResult.data;
-        hasError.value = apiResult.hasError!;
-
-        isLoading.value = false;
+          isLoading.value = false;
+        } else {
+          hasError.value = apiResult.hasError!;
+          massage.value = apiResult.errorMassage!;
+          DialogsUtils.showdialog(
+              m: massage.value,
+              onPressed: () {
+                Get.back();
+                Get.back();
+              });
+        }
       } else {
-        hasError.value = apiResult.hasError!;
-        massage.value = apiResult.errorMassage!;
-        DialogsUtils.showdialog(
-            m: massage.value,
-            onPressed: () {
-              Get.back();
-              Get.back();
-            });
+        getproduct(
+          subCategoryId: subCategoryId,
+          offset: offset,
+          limit: limit,
+          q: q,
+        );
       }
     } catch (e) {
       hasError.value = apiResult.hasError!;
@@ -103,25 +111,33 @@ class ProductsController extends GetxController {
         limit!,
         q!,
       ))!;
+      if (apiResult.rfreshToken) {
+        if (!apiResult.hasError!) {
+          apiResult.data.forEach((element) {
+            products.value.add(element);
+          });
 
-      if (!apiResult.hasError!) {
-        apiResult.data.forEach((element) {
-          products.value.add(element);
-        });
+          hasError.value = apiResult.hasError!;
 
-        hasError.value = apiResult.hasError!;
-
-        offsetScroll++;
-        isLoading.value = false;
+          offsetScroll++;
+          isLoading.value = false;
+        } else {
+          hasError.value = apiResult.hasError!;
+          massage.value = apiResult.errorMassage!;
+          DialogsUtils.showdialog(
+              m: massage.value,
+              onPressed: () {
+                Get.back();
+                Get.back();
+              });
+        }
       } else {
-        hasError.value = apiResult.hasError!;
-        massage.value = apiResult.errorMassage!;
-        DialogsUtils.showdialog(
-            m: massage.value,
-            onPressed: () {
-              Get.back();
-              Get.back();
-            });
+        getproductScroll(
+          subCategoryId: subCategoryId,
+          offset: offset,
+          limit: limit,
+          q: q,
+        );
       }
     } catch (e) {
       hasError.value = apiResult.hasError!;

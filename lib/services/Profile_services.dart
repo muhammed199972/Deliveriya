@@ -137,10 +137,11 @@ class ProfileService {
     DeletePutPostResponse? calendar;
     ProfileStatus? status;
     ErrorResponse? error;
-    Dio dio = Dio();
+
     var response;
 
     try {
+      Dio dio = Dio();
       FormData? formData;
       if (file.path != '') {
         String fileName = file.path.split('/').last;
@@ -170,6 +171,7 @@ class ProfileService {
           headers: {'Authorization': 'Bearer ${statusCode.Token}'},
         ),
       );
+
       if (response!.statusCode == statusCode.OK ||
           response!.statusCode == statusCode.CREATED) {
         status = ProfileStatus.fromJson(response.data['status']);
@@ -183,71 +185,6 @@ class ProfileService {
         if (response.data['response'].isEmpty) {
           apiResult.isEmpty = true;
         }
-      } else if (response!.statusCode == statusCode.BAD_REQUEST) {
-        status = ProfileStatus.fromJson(response.data['status']);
-        error = ErrorResponse.fromJson(response.data['errors'][0]);
-        apiResult.errorMassage = error.msg;
-        apiResult.codeError = status.code;
-
-        apiResult.data = calendar;
-        print('A bad request Please try again');
-      } else if (response!.statusCode == statusCode.UNAUTHORIZED) {
-        status = ProfileStatus.fromJson(response.data['status']);
-
-        error = ErrorResponse.fromJson(response.data['errors'][0]);
-        apiResult.errorMassage = error.msg;
-        apiResult.codeError = status.code;
-
-        apiResult.rfreshToken = false;
-        await authController.postrefreshToken();
-        print('A bad request Please try again');
-      } else if (response!.statusCode == statusCode.FORBIDDEN) {
-        status = ProfileStatus.fromJson(response.data['status']);
-
-        error = ErrorResponse.fromJson(response.data['errors'][0]);
-        apiResult.errorMassage = error.msg;
-        apiResult.codeError = status.code;
-
-        print('A bad request Please try again');
-      } else if (response!.statusCode == statusCode.NOT_FOUND) {
-        status = ProfileStatus.fromJson(response.data['status']);
-
-        error = ErrorResponse.fromJson(response.data['errors'][0]);
-        apiResult.errorMassage = error.msg;
-        apiResult.codeError = status.code;
-
-        print('Endpoint not found Please try again');
-      } else if (response!.statusCode == statusCode.DUPLICATED_ENTRY) {
-        status = ProfileStatus.fromJson(response.data['status']);
-
-        error = ErrorResponse.fromJson(response.data['errors'][0]);
-        apiResult.errorMassage = error.msg;
-        apiResult.codeError = status.code;
-
-        print('Input error Please try again');
-      } else if (response!.statusCode == statusCode.VALIDATION_ERROR) {
-        status = ProfileStatus.fromJson(response.data['status']);
-
-        error = ErrorResponse.fromJson(response.data['errors'][0]);
-        apiResult.errorMassage = error.msg;
-        apiResult.codeError = status.code;
-
-        print('Input error Please try again');
-      } else if (response!.statusCode == statusCode.INTERNAL_SERVER_ERROR) {
-        status = ProfileStatus.fromJson(response.data['status']);
-
-        error = ErrorResponse.fromJson(response.data['errors'][0]);
-        apiResult.errorMassage = error.msg;
-        apiResult.codeError = status.code;
-
-        print('Server error Please try again');
-      } else {
-        status = ProfileStatus.fromJson(response.data['status']);
-        error = ErrorResponse.fromJson(response.data['errors'][0]);
-        apiResult.errorMassage = error.msg;
-        apiResult.codeError = status.code;
-
-        print(' error Please try again');
       }
     } on SocketException {
       apiResult.errorMassage = 'Make sure you are connected to the internet';
@@ -259,11 +196,18 @@ class ProfileService {
       apiResult.codeError = statusCode.parsing;
 
       print('There is a problem with the admin');
-    } catch (e) {
+    } on DioError catch (e) {
       apiResult.errorMassage = 'حدث خطأ غير متوقع';
       apiResult.codeError = statusCode.connection;
+      if (e.response!.statusCode == 401) {
+        apiResult.rfreshToken = false;
+        await authController.postrefreshToken();
+      } else {
+        apiResult.errorMassage = 'Error';
+        apiResult.codeError = statusCode.connection;
+      }
 
-      print('${e}');
+      print('${e.response!.statusCode!}');
     }
     return apiResult;
   }

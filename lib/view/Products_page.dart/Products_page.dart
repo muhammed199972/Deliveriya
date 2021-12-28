@@ -23,14 +23,16 @@ class ProduvtsView extends StatelessWidget {
   var cartController = Get.find<CartController>();
   List<ProductsResponse> temp = [];
   List<int>? list = [];
-  // void move() {
-  //   if (cartController.carts.isNotEmpty)
-  //     list = cartController.carts.map<int>((element) => element.id!).toList();
-  //   list!.forEach((element) {
-  //     temp = prodController.products.where((p0) => p0.id == element).toList();
-  //     print(element);
-  //   });
-  // }
+  void move() async {
+    await cartController.getcart();
+    cartController.lenghcart.value = 0;
+    for (int k = 0; k < cartController.carts.length; k++) {
+      for (int i = 0; i < cartController.carts[k].subCategories.length; i++) {
+        cartController.lenghcart.value = cartController.lenghcart.value +
+            cartController.carts[k].subCategories[i].products.length;
+      }
+    }
+  }
 
   StatusCode statusCode = StatusCode();
   @override
@@ -39,8 +41,7 @@ class ProduvtsView extends StatelessWidget {
       List cart = Constansbox.box.read('cartsid');
       cartController.lenghcart.value = cart.length;
     } else {
-      // cartController.getcart();
-      // move();
+      move();
     }
 
     Size size = MediaQuery.of(context).size;
@@ -90,7 +91,7 @@ class ProduvtsView extends StatelessWidget {
                 ),
                 if (statusCode.Token != '')
                   Obx(
-                    () => cartController.carts.length == 0
+                    () => cartController.lenghcart.value == 0
                         ? Container()
                         : Padding(
                             padding: const EdgeInsets.only(top: 5, right: 5),
@@ -106,7 +107,7 @@ class ProduvtsView extends StatelessWidget {
                                     radius: 13,
                                     backgroundColor: AppColors.mainColor,
                                     child: Text(
-                                      '${cartController.carts.value.length}',
+                                      '${cartController.lenghcart.value}',
                                       style: TextStyle(
                                           fontSize: 14,
                                           color: AppColors.whiteColor),

@@ -58,7 +58,8 @@ class ProductService {
         error = ErrorResponse.fromJson(responsebody['errors'][0]);
         apiResult.errorMassage = error.msg;
         apiResult.codeError = status.code;
-
+        apiResult.rfreshToken = false;
+        await authController.postrefreshToken();
         apiResult.data = calendar;
         print('A bad request Please try again');
       } else if (response.statusCode == statusCode.UNAUTHORIZED) {
@@ -67,9 +68,8 @@ class ProductService {
         apiResult.errorMassage = error.msg;
         apiResult.codeError = status.code;
         apiResult.rfreshToken = false;
-
         await authController.postrefreshToken();
-        getproductsData(subCategoryId, offset, limit, q);
+
         print('A bad request Please try again');
       } else if (response.statusCode == statusCode.FORBIDDEN) {
         status = ProductsStatus.fromJson(responsebody['status']);
@@ -192,14 +192,9 @@ class ProductService {
         print('A bad request Please try again');
       } else if (response!.statusCode == statusCode.UNAUTHORIZED) {
         status = FavoriteStatus.fromJson(response.data['status']);
-
         error = ErrorResponse.fromJson(response.data['errors'][0]);
         apiResult.errorMassage = error.msg;
         apiResult.codeError = status.code;
-
-        await authController.postrefreshToken();
-        getListproductsData(Listproduct, q, from, to);
-
         print('A bad request Please try again');
       } else if (response!.statusCode == statusCode.FORBIDDEN) {
         status = FavoriteStatus.fromJson(response.data['status']);
