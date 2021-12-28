@@ -26,7 +26,6 @@ class ProfileController extends GetxController {
   var date = ''.obs;
   var gender = ''.obs;
   var phone = ''.obs;
-  var lang = ''.obs;
   var firstnameController = TextEditingController();
   var genderController = TextEditingController();
   var datebirthController = TextEditingController();

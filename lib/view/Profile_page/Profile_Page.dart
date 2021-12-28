@@ -1,6 +1,7 @@
 import 'package:delivery_food/General/Constants.dart';
 import 'package:delivery_food/General/Dialogs.dart';
 import 'package:delivery_food/controller/Profile_controller.dart';
+import 'package:delivery_food/controller/loclization_controller.dart';
 import 'package:delivery_food/view/Profile_page/Component/OptionProfile.dart';
 import 'package:delivery_food/view/Profile_page/Profile_address.dart';
 import 'package:delivery_food/view/Profile_page/Profile_info.dart';
@@ -11,6 +12,7 @@ import 'package:get/get.dart';
 class ProfileView extends StatelessWidget {
   ProfileView({Key? key}) : super(key: key);
   var status = StatusCode();
+  var contr = Get.put(LanguageController());
 
   var controller = Get.put(ProfileController());
   @override
@@ -157,9 +159,9 @@ class ProfileView extends StatelessWidget {
                         ),
                       ),
                       Text(
-                        controller.lang.value == ''
-                            ? ''
-                            : controller.lang.value,
+                        Constansbox.box.read('lang') == 'ar'
+                            ? 'العربية'
+                            : 'English',
                         style: TextStyle(fontSize: 15),
                       ),
                       PopupMenuButton(
@@ -178,14 +180,14 @@ class ProfileView extends StatelessWidget {
                                   child: Text("Arabic"),
                                   value: 1,
                                   onTap: () {
-                                    controller.lang.value = 'arabic';
+                                    contr.changeLanguage('ar');
                                   },
                                 ),
                                 PopupMenuItem(
                                   child: Text("English"),
                                   value: 2,
                                   onTap: () {
-                                    controller.lang.value = 'english';
+                                    contr.changeLanguage('en');
                                   },
                                 ),
                               ]),

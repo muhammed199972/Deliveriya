@@ -4,9 +4,7 @@ import 'package:bot_toast/bot_toast.dart';
 import 'package:delivery_food/Binds.dart';
 import 'package:delivery_food/General/Constants.dart';
 import 'package:delivery_food/lang/traranslation.dart';
-import 'package:delivery_food/view/History_page/History_Page.dart';
 import 'package:delivery_food/view/Home_page/Home_page.dart';
-import 'package:delivery_food/view/Virefy_pages/Choose_Page.dart';
 import 'package:delivery_food/view/navbar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -32,11 +30,13 @@ class MyApp extends StatelessWidget {
     Constansbox.box.writeIfNull('Search', []);
     Constansbox.box.writeIfNull('accessToken', '');
     Constansbox.box.writeIfNull('refreshToken', '');
-//     Constansbox.box.remove('New');
+    Constansbox.box.writeIfNull('lang', '');
+
+    //Constansbox.box.remove('New');
     // Constansbox.box.remove('cartsid');
     // Constansbox.box.remove('cartscounte');
-//  Constansbox.box.remove('New');
-//     Constansbox.box.remove('offers');
+    //Constansbox.box.remove('New');
+    //Constansbox.box.remove('offers');
     // Constansbox.box.remove('cartsid');
     // Constansbox.box.remove('cartscounte');
 
@@ -61,8 +61,8 @@ class MyApp extends StatelessWidget {
           fu: HomeView(),
         ),
         translations: Translation(),
-        locale: Locale("en"),
-        fallbackLocale: Locale('en'),
+        locale: Locale(Constansbox.box.read('lang')),
+        fallbackLocale: Locale(Constansbox.box.read('lang')),
       ),
       // getPages: [GetPage(name: '/home', page: () => SigninPage())],
     );
