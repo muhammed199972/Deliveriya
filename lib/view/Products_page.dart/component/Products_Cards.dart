@@ -136,6 +136,7 @@ class FullCard extends StatelessWidget {
                                   } else {
                                     cartController
                                         .deletecart(product!.id.toString());
+                                    cartController.lenghcart.value--;
                                     cartController.deleteCarts != null
                                         ? isCart.value = false
                                         : isCart.value = true;
@@ -170,6 +171,7 @@ class FullCard extends StatelessWidget {
                                     } else {
                                       cartController.addTocart(counter.value,
                                           product!.id.toString());
+                                      cartController.lenghcart.value++;
                                       cartController.postCarts != null
                                           ? isCart.value = true
                                           : isCart.value = false;

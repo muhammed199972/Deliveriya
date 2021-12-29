@@ -90,8 +90,8 @@ class ProduvtsView extends StatelessWidget {
                   ),
                 ),
                 if (statusCode.Token != '')
-                  Obx(
-                    () => cartController.lenghcart.value == 0
+                  Obx(() {
+                    return cartController.lenghcart.value == 0
                         ? Container()
                         : Padding(
                             padding: const EdgeInsets.only(top: 5, right: 5),
@@ -116,8 +116,8 @@ class ProduvtsView extends StatelessWidget {
                                 ],
                               ),
                             ),
-                          ),
-                  ),
+                          );
+                  }),
                 if (statusCode.Token == '')
                   Obx(
                     () => cartController.lenghcart.value == 0
