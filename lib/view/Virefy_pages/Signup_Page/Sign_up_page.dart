@@ -49,7 +49,7 @@ class SignupPage extends StatelessWidget {
                             txttype: TextInputType.visiblePassword,
                             validator: validatePass,
                             controller: _passController,
-                            lebel: 'Password',
+                            lebel: 'password'.tr,
                             prefixtxt: '',
                             icon: Icon(
                               Icons.vpn_key_outlined,

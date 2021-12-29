@@ -77,7 +77,7 @@ class ButtonUpdate extends StatelessWidget {
         ),
         child: Center(
           child: Text(
-            'Update',
+            'update'.tr,
           ),
         ),
       ),

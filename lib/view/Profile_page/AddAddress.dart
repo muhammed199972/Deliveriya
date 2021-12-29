@@ -6,7 +6,6 @@ import 'package:delivery_food/controller/Address_controller.dart';
 import 'package:delivery_food/view/Profile_page/Component/TextField.dart';
 import 'package:delivery_food/view/Virefy_pages/Component/Buttons.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 
 class AddAddress extends StatelessWidget {
@@ -40,7 +39,7 @@ class AddAddress extends StatelessWidget {
           },
         ),
         title: Text(
-          'Add address',
+          'addaddress'.tr,
           style: TextStyle(color: AppColors.blackColor),
         ),
       ),
@@ -80,7 +79,7 @@ class AddAddress extends StatelessWidget {
                                   color: Colors.black54,
                                   fontSize: 16,
                                 ),
-                                hint: Text('Select City'),
+                                hint: Text('selectcity'.tr),
                                 onChanged: (String? newValue) async {
                                   controller.vCity.value = newValue!;
                                   await controller.getTown(newValue);
@@ -131,7 +130,7 @@ class AddAddress extends StatelessWidget {
                                     color: Colors.black54,
                                     fontSize: 16,
                                   ),
-                                  hint: Text('Select Town'),
+                                  hint: Text('selecttown'.tr),
                                   onChanged: (String? newValue) {
                                     controller.vTown.value = newValue!;
                                   },
@@ -155,20 +154,7 @@ class AddAddress extends StatelessWidget {
                 child: TextFieldProfwidget(
                   controller: _streetController,
                   validator: validate,
-                  lebel: 'Street',
-                ),
-              ),
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 17),
-                child: TextFieldProfwidget(
-                  inputFormatters: [
-                    FilteringTextInputFormatter.digitsOnly,
-                    LengthLimitingTextInputFormatter(9),
-                  ],
-                  validator: validateMobile,
-                  controller: _phoneController,
-                  lebel: 'Phone Number',
-                  prefixtxt: '+963',
+                  lebel: 'street'.tr,
                 ),
               ),
               Padding(
@@ -178,14 +164,14 @@ class AddAddress extends StatelessWidget {
                   lines: 5,
                   controller: _detailedController,
                   validator: validate,
-                  lebel: 'Detailed address',
+                  lebel: 'addressdetails'.tr,
                 ),
               ),
               Padding(
                 padding: EdgeInsets.symmetric(horizontal: 150),
                 child: ButtonWidget2(
                     size: size,
-                    txt: 'Submit',
+                    txt: 'submit'.tr,
                     onTap: () {
                       if (formkey.currentState!.validate()) {
                         if (controller.vTown.value == '' ||

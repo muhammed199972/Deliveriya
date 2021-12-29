@@ -29,7 +29,7 @@ class ProfileAddress extends StatelessWidget {
           },
         ),
         title: Text(
-          'Profile address',
+          'myaddress'.tr,
           style: TextStyle(color: AppColors.blackColor),
         ),
       ),

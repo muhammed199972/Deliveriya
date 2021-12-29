@@ -61,8 +61,12 @@ class MyApp extends StatelessWidget {
           fu: HomeView(),
         ),
         translations: Translation(),
-        locale: Locale(Constansbox.box.read('lang')),
-        fallbackLocale: Locale(Constansbox.box.read('lang')),
+        locale: Locale(Constansbox.box.read('lang') == ''
+            ? 'en'
+            : Constansbox.box.read('lang')),
+        fallbackLocale: Locale(Constansbox.box.read('lang') == ''
+            ? 'en'
+            : Constansbox.box.read('lang')),
       ),
       // getPages: [GetPage(name: '/home', page: () => SigninPage())],
     );

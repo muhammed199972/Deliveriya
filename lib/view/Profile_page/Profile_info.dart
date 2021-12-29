@@ -32,7 +32,7 @@ class ProfileInfo extends StatelessWidget {
           },
         ),
         title: Text(
-          'Profile Info',
+          'personalinfo'.tr,
           style: TextStyle(color: AppColors.blackColor),
         ),
       ),
@@ -80,25 +80,25 @@ class ProfileInfo extends StatelessWidget {
                       enabled: false,
                       controller: controller.firstnameController,
                       validator: validatePass,
-                      lebel: 'User name',
+                      lebel: 'username'.tr,
                     ),
                     TextFieldProfwidget(
                       enabled: false,
                       controller: controller.genderController,
                       validator: validatePass,
-                      lebel: 'Gender',
+                      lebel: 'gender'.tr,
                     ),
                     TextFieldProfwidget(
                       enabled: false,
                       controller: controller.datebirthController,
                       validator: validatePass,
-                      lebel: 'Date Birth',
+                      lebel: 'datebirth'.tr,
                     ),
                     TextFieldProfwidget(
                       enabled: false,
                       controller: controller.phoneController,
                       validator: validatePass,
-                      lebel: 'phone',
+                      lebel: 'phone'.tr,
                     )
                   ],
                 ),

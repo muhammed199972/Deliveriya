@@ -7,8 +7,10 @@ const Map<String, String> en = {
   'category': 'Category',
   'profile': 'Profile',
   'favorite': 'Favorite',
+  'home': 'Home',
   'cart': 'Cart',
   'personalinfo': 'Personal Info',
+  'searchhelper': ' ...How can we help you',
   //===============profile================
   'myaddress': 'My Address',
   'orderhistory': 'Order History',
@@ -20,18 +22,28 @@ const Map<String, String> en = {
   'gender': 'Gender',
   'datebirth': 'Date Birth',
   'phone': 'Phone',
+  'male': 'Male',
+  'female': 'Female',
   //===============bottomsheet================
 
   'all': 'all',
   'thisweek': 'this week',
-  'lastmounth': 'last mounth',
-  'last6mounth': 'last 6 mounth',
+  'lastmonth': 'last month',
+  'last6month': 'last 6 month',
   'lastyear': 'last year',
   //===============address================
 
   'addaddress': 'Add Address',
-  'choosecity ': 'Choose City',
-  'choosetown ': 'choose Town',
-  'street ': 'Street',
-  'addressdetails ': 'Address Details',
+  'selectcity': 'Choose City',
+  'selecttown': 'choose Town',
+  'street': 'Street',
+  'addressdetails': 'Address Details',
+  //===============other================
+  'password': 'Password',
+  'newpassword': 'New Password',
+  'oldpassword': 'Old Password',
+  'resetpassword': 'Reset Password',
+  'confirmpassword': 'Confirm Password',
+  'submit': 'Submit',
+  'update': 'Update',
 };

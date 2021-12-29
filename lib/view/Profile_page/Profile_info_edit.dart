@@ -43,7 +43,7 @@ class ProfileInfoEdit extends StatelessWidget {
           },
         ),
         title: Text(
-          'Profile Info',
+          'personalinfo'.tr,
           style: TextStyle(color: AppColors.blackColor),
         ),
       ),
@@ -210,7 +210,7 @@ class ProfileInfoEdit extends StatelessWidget {
                     TextFieldProfwidget(
                       controller: controller.firstnameController,
                       validator: validateName,
-                      lebel: 'User name',
+                      lebel: 'username'.tr,
                     ),
                     Container(
                       height: 50,
@@ -233,7 +233,7 @@ class ProfileInfoEdit extends StatelessWidget {
                               children: [
                                 Text(
                                   controller.gender.value == ''
-                                      ? 'Gender'
+                                      ? 'gender'.tr
                                       : controller.gender.value,
                                   style: TextStyle(fontSize: 17),
                                 ),
@@ -246,18 +246,19 @@ class ProfileInfoEdit extends StatelessWidget {
                                     elevation: 1,
                                     itemBuilder: (context) => [
                                           PopupMenuItem(
-                                            child: Text("Male"),
+                                            child: Text("male".tr),
                                             value: 1,
                                             onTap: () {
-                                              controller.gender.value = 'Male';
+                                              controller.gender.value =
+                                                  'Male'.tr;
                                             },
                                           ),
                                           PopupMenuItem(
-                                            child: Text("Female"),
+                                            child: Text("famale".tr),
                                             value: 2,
                                             onTap: () {
                                               controller.gender.value =
-                                                  'Female';
+                                                  'Female'.tr;
                                             },
                                           ),
                                         ]),
@@ -273,7 +274,7 @@ class ProfileInfoEdit extends StatelessWidget {
                                           .toString()
                                           .substring(0, 10) ==
                                       null
-                                  ? 'Date Birth'
+                                  ? 'datebirth'.tr
                                   : controller.profile.value.date
                                       .toString()
                                       .substring(0, 10))
@@ -335,7 +336,7 @@ class ProfileInfoEdit extends StatelessWidget {
                                       txttype: TextInputType.number,
                                       validator: validateMobile,
                                       controller: _phoneController,
-                                      lebel: 'New Phone Number',
+                                      lebel: 'phone'.tr,
                                       prefixtxt: '+963',
                                       icon: Icon(
                                         Icons.phone_android,
@@ -348,7 +349,7 @@ class ProfileInfoEdit extends StatelessWidget {
                                       ),
                                       child: ButtonWidget2(
                                         size: size,
-                                        txt: 'Submit',
+                                        txt: 'submit'.tr,
                                         onTap: () {
                                           if (formkey1.currentState!.validate())
                                             DialogsUtils.showdialogVirefy(
@@ -404,7 +405,7 @@ class ProfileInfoEdit extends StatelessWidget {
                                         txttype: TextInputType.visiblePassword,
                                         validator: validatePass,
                                         controller: _oldpassController,
-                                        lebel: 'Old Password',
+                                        lebel: 'oldpassword'.tr,
                                         prefixtxt: '',
                                         icon: Icon(
                                           Icons.vpn_key_outlined,
@@ -426,7 +427,7 @@ class ProfileInfoEdit extends StatelessWidget {
                                         txttype: TextInputType.visiblePassword,
                                         validator: validatePass,
                                         controller: _newpassController,
-                                        lebel: 'New Password',
+                                        lebel: 'newpassword'.tr,
                                         prefixtxt: '',
                                         icon: Icon(
                                           Icons.vpn_key_outlined,
@@ -448,7 +449,7 @@ class ProfileInfoEdit extends StatelessWidget {
                                         txttype: TextInputType.visiblePassword,
                                         validator: validatePass,
                                         controller: _confirmPassController,
-                                        lebel: 'Confirm Password',
+                                        lebel: 'confirmpassword'.tr,
                                         prefixtxt: '',
                                         icon: Icon(
                                           Icons.vpn_key_outlined,
@@ -468,7 +469,7 @@ class ProfileInfoEdit extends StatelessWidget {
                                         horizontal: 100, vertical: 25),
                                     child: ButtonWidget2(
                                         size: size,
-                                        txt: 'Submit',
+                                        txt: 'submit'.tr,
                                         onTap: () {
                                           if (formkey2.currentState!
                                               .validate()) {
@@ -490,7 +491,7 @@ class ProfileInfoEdit extends StatelessWidget {
                       );
                     },
                     child: Text(
-                      'Reset Password',
+                      'resetpassword'.tr,
                       style: TextStyle(
                         fontSize: 17,
                       ),
@@ -500,7 +501,7 @@ class ProfileInfoEdit extends StatelessWidget {
                 padding: const EdgeInsets.symmetric(horizontal: 50),
                 child: ButtonWidget2(
                     size: size,
-                    txt: 'Update',
+                    txt: 'update'.tr,
                     onTap: () {
                       if (formkey.currentState!.validate()) {
                         controller.patchprofile2();

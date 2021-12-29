@@ -51,7 +51,7 @@ class SigninPage extends StatelessWidget {
                         ],
                         validator: validateMobile,
                         controller: _phoneController,
-                        lebel: 'Phone Number',
+                        lebel: 'phone'.tr,
                         prefixtxt: '+963',
                         icon: Icon(
                           Icons.phone_android,
@@ -65,7 +65,7 @@ class SigninPage extends StatelessWidget {
                             txttype: TextInputType.visiblePassword,
                             validator: validatePass,
                             controller: _passController,
-                            lebel: 'Password',
+                            lebel: 'password'.tr,
                             prefixtxt: '',
                             icon: Icon(
                               Icons.vpn_key_outlined,

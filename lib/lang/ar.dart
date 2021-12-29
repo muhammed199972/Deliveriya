@@ -6,9 +6,11 @@ const Map<String, String> ar = {
   'offers': 'العروض',
   'category': 'الأصناف',
   'profile': 'الملف االشخصي',
+  'home': 'الرئيسية',
   'favorite': 'المفضلة',
   'cart': 'سلة المشتريات',
-  'personalinfo': 'المنتجات',
+  'personalinfo': 'المعلومات الشخصية',
+  'searchhelper': 'كيف يمكننا مساعدتك ...',
   //===============profile================
   'myaddress': 'عنواني',
   'orderhistory': 'الطلبات السابقة',
@@ -20,18 +22,28 @@ const Map<String, String> ar = {
   'gender': 'الجنس',
   'datebirth': 'تاريخ الميلاد',
   'phone': 'الهاتف',
+  'male': 'ذكر',
+  'female': 'انثى',
   //===============bottomsheet================
 
   'all': 'الكل',
   'thisweek': 'هذا الأسبوع',
-  'lastmounth': 'اخر شهر',
-  'last6mounth': 'اخر 6 اشهر',
+  'lastmonth': 'اخر شهر',
+  'last6month': 'اخر 6 اشهر',
   'lastyear': 'اخر عام',
   //===============address================
 
   'addaddress': 'إضافة عنوان',
-  'choosecity ': 'اختر المحافظة',
-  'choosetown ': 'اختر المنطقة',
-  'street ': 'الشارع',
-  'addressdetails ': 'التفاصيل',
+  'selectcity': 'اختر المحافظة',
+  'selecttown': 'اختر المنطقة',
+  'street': 'الشارع',
+  'addressdetails': 'التفاصيل',
+  //===============other================
+  'password': 'كلمة المرور',
+  'newpassword': 'كلمة المرور الجديدة',
+  'oldpassword': 'كلمة المرور القديمة',
+  'resetpassword': 'تغيير كلمة المرور',
+  'confirmpassword': 'تأكيد كلمة المرور',
+  'submit': 'إرسال',
+  'update': 'تحديث',
 };
