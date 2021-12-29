@@ -3,9 +3,7 @@ import 'package:delivery_food/controller/Favorite_controller.dart';
 import 'package:delivery_food/controller/Products_controller.dart';
 import 'package:delivery_food/view/Favorite_page/Component/Category_favorite.dart';
 import 'package:delivery_food/view/Favorite_page/Component/Subcategory_favorite.dart';
-import 'package:delivery_food/view/Home_page/Home_page.dart';
 import 'package:delivery_food/view/Products_page.dart/component/Products_Cards.dart';
-import 'package:delivery_food/view/navbar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:flutter_svg/svg.dart';
@@ -57,7 +55,7 @@ class _FavoriteViewState extends State<FavoriteView> {
           backgroundColor: AppColors.whiteColor,
           centerTitle: true,
           title: Text(
-            'Favorite',
+            'favorite'.tr,
             style: TextStyle(color: Colors.black),
           ),
           actions: [
@@ -89,7 +87,7 @@ class _FavoriteViewState extends State<FavoriteView> {
                         padding: EdgeInsets.symmetric(
                             horizontal: Defaults.defaultPadding * 2.5,
                             vertical: Defaults.defaultPadding / 2),
-                        height: size.height * 0.23,
+                        height: size.height * 0.26,
                         decoration: BoxDecoration(
                           color: Colors.white,
                           borderRadius: BorderRadius.only(
@@ -129,7 +127,7 @@ class _FavoriteViewState extends State<FavoriteView> {
                                     Get.back();
                                   });
                                 },
-                                child: Center(child: Text('all'))),
+                                child: Text('all'.tr)),
                             Divider(
                               color: AppColors.darkgreytextColor,
                             ),
@@ -163,7 +161,7 @@ class _FavoriteViewState extends State<FavoriteView> {
                                     Get.back();
                                   });
                                 },
-                                child: Center(child: Text('This Week'))),
+                                child: Text('thisweek'.tr)),
                             Divider(
                               color: AppColors.darkgreytextColor,
                             ),
@@ -197,7 +195,7 @@ class _FavoriteViewState extends State<FavoriteView> {
                                     Get.back();
                                   });
                                 },
-                                child: Center(child: Text('Last month'))),
+                                child: Text('lastmonth'.tr)),
                             Divider(
                               color: AppColors.darkgreytextColor,
                             ),
@@ -231,7 +229,7 @@ class _FavoriteViewState extends State<FavoriteView> {
                                     Get.back();
                                   });
                                 },
-                                child: Center(child: Text('Last 6 months'))),
+                                child: Text('last6month'.tr)),
                             Divider(
                               color: AppColors.darkgreytextColor,
                             ),
@@ -265,7 +263,7 @@ class _FavoriteViewState extends State<FavoriteView> {
                                     Get.back();
                                   });
                                 },
-                                child: Center(child: Text('Last year'))),
+                                child: Text('lastyear'.tr)),
                           ],
                         ),
                       ));
@@ -305,7 +303,7 @@ class _FavoriteViewState extends State<FavoriteView> {
                                     ),
                                     contentPadding: new EdgeInsets.symmetric(
                                         vertical: 10.0, horizontal: 10.0),
-                                    labelText: 'search',
+                                    labelText: 'search'.tr,
                                     border: OutlineInputBorder(
                                       borderRadius: BorderRadius.circular(5),
                                     ),

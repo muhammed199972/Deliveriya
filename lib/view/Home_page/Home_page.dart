@@ -46,28 +46,29 @@ class HomeView extends StatelessWidget {
                     children: [
                       Spacer(),
                       Expanded(
-                          flex: 3,
+                          flex: 2,
                           child: Padding(
                               padding: EdgeInsets.only(top: 20),
                               child: LogoStatus())),
                       Expanded(
-                        flex: 1,
                         child: Padding(
                           padding: const EdgeInsets.only(
                               bottom: Defaults.defaultPadding * 4),
                           child: Row(
                             children: [
-                              Text(
-                                'help'.tr,
-                                style: TextStyle(color: AppColors.blackColor),
+                              Expanded(
+                                flex: 2,
+                                child: Text(
+                                  'help'.tr,
+                                  style: TextStyle(color: AppColors.blackColor),
+                                ),
                               ),
-                              SizedBox(
-                                width: 8,
-                              ),
-                              InkWell(
-                                child: Icon(
-                                  Icons.help_sharp,
-                                  color: AppColors.darkgreytextColor,
+                              Expanded(
+                                child: InkWell(
+                                  child: Icon(
+                                    Icons.help_sharp,
+                                    color: AppColors.darkgreytextColor,
+                                  ),
                                 ),
                               )
                             ],

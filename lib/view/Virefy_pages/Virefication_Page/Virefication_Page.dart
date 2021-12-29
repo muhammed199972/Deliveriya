@@ -59,7 +59,7 @@ class VerificationPage extends StatelessWidget {
                             ],
                             validator: validateMobile,
                             controller: _phoneController,
-                            lebel: 'Phone Number',
+                            lebel: 'phone'.tr,
                             prefixtxt: '+963',
                             icon: Icon(
                               Icons.phone_android,
