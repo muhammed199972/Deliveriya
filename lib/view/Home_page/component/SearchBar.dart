@@ -2,6 +2,7 @@ import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:delivery_food/General/Constants.dart';
 import 'package:delivery_food/view/Home_page/component/SearchDelegate.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get_utils/src/extensions/internacionalization.dart';
 
 class SearchBar extends StatelessWidget {
   const SearchBar({
@@ -45,7 +46,7 @@ class SearchBar extends StatelessWidget {
                   ),
                   child: AnimatedTextKit(
                     animatedTexts: [
-                      TyperAnimatedText('How can we help you ...',
+                      TyperAnimatedText('searchhelper'.tr,
                           speed: const Duration(milliseconds: 100)),
                     ],
                     repeatForever: true,

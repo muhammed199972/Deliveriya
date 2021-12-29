@@ -36,7 +36,7 @@ class AddAddress extends StatelessWidget {
           },
         ),
         title: Text(
-          'Add address',
+          'addaddress'.tr,
           style: TextStyle(color: AppColors.blackColor),
         ),
       ),
@@ -76,7 +76,7 @@ class AddAddress extends StatelessWidget {
                                   color: Colors.black54,
                                   fontSize: 16,
                                 ),
-                                hint: Text('Select City'),
+                                hint: Text('selectcity'.tr),
                                 onChanged: (String? newValue) async {
                                   controller.vCity.value = newValue!;
                                   await controller.getTown(newValue);
@@ -127,7 +127,7 @@ class AddAddress extends StatelessWidget {
                                     color: Colors.black54,
                                     fontSize: 16,
                                   ),
-                                  hint: Text('Select Town'),
+                                  hint: Text('selecttown'.tr),
                                   onChanged: (String? newValue) {
                                     controller.vTown.value = newValue!;
                                   },
@@ -151,7 +151,7 @@ class AddAddress extends StatelessWidget {
                 child: TextFieldProfwidget(
                   controller: _streetController,
                   validator: validate,
-                  lebel: 'Street',
+                  lebel: 'street'.tr,
                 ),
               ),
               Padding(
@@ -161,14 +161,14 @@ class AddAddress extends StatelessWidget {
                   lines: 5,
                   controller: _detailedController,
                   validator: validate,
-                  lebel: 'Detailed address',
+                  lebel: 'addressdetails'.tr,
                 ),
               ),
               Padding(
                 padding: EdgeInsets.symmetric(horizontal: 150),
                 child: ButtonWidget2(
                     size: size,
-                    txt: 'Submit',
+                    txt: 'submit'.tr,
                     onTap: () {
                       if (formkey.currentState!.validate()) {
                         if (controller.vTown.value == '' ||

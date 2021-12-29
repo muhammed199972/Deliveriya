@@ -2,6 +2,7 @@ import 'package:delivery_food/General/Constants.dart';
 import 'package:delivery_food/General/Dialogs.dart';
 import 'package:delivery_food/controller/Profile_controller.dart';
 import 'package:delivery_food/view/Home_page/Home_page.dart';
+import 'package:delivery_food/controller/loclization_controller.dart';
 import 'package:delivery_food/view/Profile_page/Component/OptionProfile.dart';
 import 'package:delivery_food/view/Profile_page/Profile_address.dart';
 import 'package:delivery_food/view/Profile_page/Profile_info.dart';
@@ -13,6 +14,7 @@ import 'package:get/get.dart';
 class ProfileView extends StatelessWidget {
   ProfileView({Key? key}) : super(key: key);
   var status = StatusCode();
+  var contr = Get.put(LanguageController());
 
   var controller = Get.put(ProfileController());
   @override
@@ -25,7 +27,7 @@ class ProfileView extends StatelessWidget {
         elevation: 0,
         centerTitle: true,
         title: Text(
-          'Profile',
+          'profile'.tr,
           style: TextStyle(color: AppColors.blackColor),
         ),
         actions: [
@@ -115,7 +117,7 @@ class ProfileView extends StatelessWidget {
           OptionProfile(
             size: size,
             icon: SvgPicture.asset('assets/svg/edit.svg'),
-            txt: 'Personal Info',
+            txt: 'personalinfo'.tr,
             iconarrow: Icon(
               Icons.arrow_forward_ios_rounded,
             ),
@@ -127,7 +129,7 @@ class ProfileView extends StatelessWidget {
           OptionProfile(
             size: size,
             icon: SvgPicture.asset('assets/svg/address.svg'),
-            txt: 'My addresses',
+            txt: 'myaddress'.tr,
             iconarrow: Icon(
               Icons.arrow_forward_ios_rounded,
             ),
@@ -138,7 +140,7 @@ class ProfileView extends StatelessWidget {
           OptionProfile(
             size: size,
             icon: SvgPicture.asset('assets/svg/history.svg'),
-            txt: 'Order history',
+            txt: 'orderhistory'.tr,
             iconarrow: Icon(
               Icons.arrow_forward_ios_rounded,
             ),
@@ -160,65 +162,64 @@ class ProfileView extends StatelessWidget {
             ),
             child: Padding(
               padding: const EdgeInsets.symmetric(horizontal: 8),
-              child: Obx(() => Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 8),
-                        child: Row(
-                          children: [
-                            SvgPicture.asset('assets/svg/net.svg'),
-                            SizedBox(
-                              width: 8,
-                            ),
-                            Text(
-                              'Change language',
-                              style: TextStyle(fontSize: 17),
-                            ),
-                          ],
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 8),
+                    child: Row(
+                      children: [
+                        SvgPicture.asset('assets/svg/net.svg'),
+                        SizedBox(
+                          width: 8,
+                        ),
+                        Text(
+                          'changelanguage'.tr,
+                          style: TextStyle(fontSize: 17),
+                        ),
+                      ],
+                    ),
+                  ),
+                  Text(
+                    Constansbox.box.read('lang') == 'ar'
+                        ? 'العربية'
+                        : 'English',
+                    style: TextStyle(fontSize: 15),
+                  ),
+                  PopupMenuButton(
+                      icon: Padding(
+                        padding: const EdgeInsets.only(left: 8.0),
+                        child: Icon(
+                          Icons.arrow_forward_ios_rounded,
+                          color: AppColors.darkgreytextColor.withOpacity(0.5),
+                          size: 25,
                         ),
                       ),
-                      Text(
-                        controller.lang.value == ''
-                            ? ''
-                            : controller.lang.value,
-                        style: TextStyle(fontSize: 15),
-                      ),
-                      PopupMenuButton(
-                          icon: Padding(
-                            padding: const EdgeInsets.only(left: 8.0),
-                            child: Icon(
-                              Icons.arrow_forward_ios_rounded,
-                              color:
-                                  AppColors.darkgreytextColor.withOpacity(0.5),
-                              size: 25,
+                      elevation: 1,
+                      itemBuilder: (context) => [
+                            PopupMenuItem(
+                              child: Text("arabic".tr),
+                              value: 1,
+                              onTap: () {
+                                contr.changeLanguage('ar');
+                              },
                             ),
-                          ),
-                          elevation: 1,
-                          itemBuilder: (context) => [
-                                PopupMenuItem(
-                                  child: Text("Arabic"),
-                                  value: 1,
-                                  onTap: () {
-                                    controller.lang.value = 'arabic';
-                                  },
-                                ),
-                                PopupMenuItem(
-                                  child: Text("English"),
-                                  value: 2,
-                                  onTap: () {
-                                    controller.lang.value = 'english';
-                                  },
-                                ),
-                              ]),
-                    ],
-                  )),
+                            PopupMenuItem(
+                              child: Text("english".tr),
+                              value: 2,
+                              onTap: () {
+                                contr.changeLanguage('en');
+                              },
+                            ),
+                          ]),
+                ],
+              ),
             ),
           ),
           OptionProfile(
             size: size,
             icon: SvgPicture.asset('assets/svg/help.svg'),
-            txt: 'Help',
+            txt: 'help'.tr,
             iconarrow: Icon(
               Icons.arrow_forward_ios_rounded,
             ),
@@ -242,7 +243,7 @@ class ProfileView extends StatelessWidget {
                     width: 8,
                   ),
                   Text(
-                    'Log out',
+                    'logout'.tr,
                     style: TextStyle(color: AppColors.mainColor, fontSize: 20),
                   )
                 ],

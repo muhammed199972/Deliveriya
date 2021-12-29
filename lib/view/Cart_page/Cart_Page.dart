@@ -40,7 +40,7 @@ class CartView extends StatelessWidget {
         elevation: 2,
         centerTitle: true,
         title: Text(
-          'Cart',
+          'cart'.tr,
           textAlign: TextAlign.center,
           style: TextStyle(
             color: AppColors.blackColor,
@@ -202,7 +202,7 @@ class CartView extends StatelessWidget {
               },
               splashColor: AppColors.lightmainColor,
               backgroundColor: AppColors.mainColor,
-              child: Text('Submit'),
+              child: Text('submit'.tr),
             ),
           )),
     );
