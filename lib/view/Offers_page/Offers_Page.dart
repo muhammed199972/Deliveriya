@@ -85,7 +85,9 @@ class OffersView extends StatelessWidget {
                         //      padding: EdgeInsets.only(bottom: 50),
                         child: RichText(
                           text: TextSpan(
-                              style: Styles.defualtmobile,
+                              style: size.width >= 600
+                                  ? Styles.defualttab
+                                  : Styles.defualtmobile,
                               text: offer.offers[index].description),
                         ),
                       ),

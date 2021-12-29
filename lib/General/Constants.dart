@@ -106,7 +106,7 @@ class Styles {
   static const defualtmobile =
       TextStyle(color: AppColors.blackColor, fontSize: 16);
   static const defualttab =
-      TextStyle(color: AppColors.blackColor, fontSize: 15);
+      TextStyle(color: AppColors.blackColor, fontSize: 25);
 }
 
 class Defaults {

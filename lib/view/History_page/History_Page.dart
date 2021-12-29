@@ -283,13 +283,19 @@ class _HistoryPageState extends State<HistoryPage> {
                                 Text(
                                   controller.orders[index].orderHistory
                                       .toString(),
-                                  style: TextStyle(fontWeight: FontWeight.bold),
+                                  style: TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: size.width >= 600 ? 25 : 16),
                                 ),
                                 SizedBox(
                                   height: 10,
                                 ),
                                 Text(
-                                    '${controller.orders[index].orders!.length} order'),
+                                  '${controller.orders[index].orders!.length} order',
+                                  style: size.width >= 600
+                                      ? Styles.defualttab
+                                      : Styles.defualtmobile,
+                                ),
                               ],
                             ),
                             onExpansionChanged: (p) {},
@@ -322,19 +328,41 @@ class _HistoryPageState extends State<HistoryPage> {
                                                     children: [
                                                       Row(
                                                         children: [
-                                                          Text('Order'),
+                                                          Text(
+                                                            'Order',
+                                                            style: size.width >=
+                                                                    600
+                                                                ? Styles
+                                                                    .defualttab
+                                                                : Styles
+                                                                    .defualtmobile,
+                                                          ),
                                                           SizedBox(
                                                             width: 10,
                                                           ),
                                                           Text(
-                                                              '# ${controller.orders[index1.value].orders![index].id}'),
+                                                            '# ${controller.orders[index1.value].orders![index].id}',
+                                                            style: size.width >=
+                                                                    600
+                                                                ? Styles
+                                                                    .defualttab
+                                                                : Styles
+                                                                    .defualtmobile,
+                                                          ),
                                                         ],
                                                       ),
-                                                      Text(controller
-                                                          .orders[index1.value]
-                                                          .orders![index]
-                                                          .status
-                                                          .toString())
+                                                      Text(
+                                                        controller
+                                                            .orders[
+                                                                index1.value]
+                                                            .orders![index]
+                                                            .status
+                                                            .toString(),
+                                                        style: size.width >= 600
+                                                            ? Styles.defualttab
+                                                            : Styles
+                                                                .defualtmobile,
+                                                      )
                                                     ],
                                                   ),
                                                   SizedBox(
@@ -345,14 +373,26 @@ class _HistoryPageState extends State<HistoryPage> {
                                                         MainAxisAlignment
                                                             .spaceBetween,
                                                     children: [
-                                                      Text(controller
-                                                          .orders[index1.value]
-                                                          .orders![index]
-                                                          .createdAt
-                                                          .toString()
-                                                          .substring(0, 10)),
                                                       Text(
-                                                          '${controller.orders[index1.value].orders![index].finalPrice} \$')
+                                                        controller
+                                                            .orders[
+                                                                index1.value]
+                                                            .orders![index]
+                                                            .createdAt
+                                                            .toString()
+                                                            .substring(0, 10),
+                                                        style: size.width >= 600
+                                                            ? Styles.defualttab
+                                                            : Styles
+                                                                .defualtmobile,
+                                                      ),
+                                                      Text(
+                                                        '${controller.orders[index1.value].orders![index].finalPrice} \$',
+                                                        style: size.width >= 600
+                                                            ? Styles.defualttab
+                                                            : Styles
+                                                                .defualtmobile,
+                                                      )
                                                     ],
                                                   ),
                                                 ],
@@ -415,19 +455,35 @@ class _HistoryPageState extends State<HistoryPage> {
                                                                     MainAxisAlignment
                                                                         .spaceBetween,
                                                                 children: [
-                                                                  Text(controller
-                                                                      .orders[index1
-                                                                          .value]
-                                                                      .orders![
-                                                                          index2
-                                                                              .value]
-                                                                      .orderItems![
-                                                                          index]
-                                                                      .product!
-                                                                      .name
-                                                                      .toString()),
                                                                   Text(
-                                                                      '${controller.orders[index1.value].orders![index2.value].orderItems![index].product!.price.toString()} \$')
+                                                                    controller
+                                                                        .orders[index1
+                                                                            .value]
+                                                                        .orders![index2
+                                                                            .value]
+                                                                        .orderItems![
+                                                                            index]
+                                                                        .product!
+                                                                        .name
+                                                                        .toString(),
+                                                                    style: size
+                                                                                .width >=
+                                                                            600
+                                                                        ? Styles
+                                                                            .defualttab
+                                                                        : Styles
+                                                                            .defualtmobile,
+                                                                  ),
+                                                                  Text(
+                                                                    '${controller.orders[index1.value].orders![index2.value].orderItems![index].product!.price.toString()} \$',
+                                                                    style: size
+                                                                                .width >=
+                                                                            600
+                                                                        ? Styles
+                                                                            .defualttab
+                                                                        : Styles
+                                                                            .defualtmobile,
+                                                                  )
                                                                 ],
                                                               ),
                                                             ),

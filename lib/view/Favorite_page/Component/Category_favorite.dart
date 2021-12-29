@@ -83,10 +83,10 @@ class CategorysFavorite extends StatelessWidget {
                                 child: Text(
                                   favoriteController[index].name.toString(),
                                   style: TextStyle(
-                                    color: fav.idcategory.value == index
-                                        ? AppColors.mainColor
-                                        : AppColors.darkgreytextColor,
-                                  ),
+                                      color: fav.idcategory.value == index
+                                          ? AppColors.mainColor
+                                          : AppColors.darkgreytextColor,
+                                      fontSize: size.width >= 600 ? 25 : 16),
                                 ),
                               ),
                             ),

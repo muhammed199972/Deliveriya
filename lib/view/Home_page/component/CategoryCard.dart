@@ -19,6 +19,8 @@ class CategorysCard extends StatelessWidget {
   StatusCode statusCode = StatusCode();
   @override
   Widget build(BuildContext context) {
+    Size size = MediaQuery.of(context).size;
+
     return InkWell(
       highlightColor: Colors.transparent,
       onTap: () async {
@@ -73,7 +75,9 @@ class CategorysCard extends StatelessWidget {
                     fit: BoxFit.scaleDown,
                     child: Text(
                       datacontroller.name,
-                      style: Styles.defualtmobile,
+                      style: size.width >= 600
+                          ? Styles.defualttab
+                          : Styles.defualtmobile,
                     )),
               ),
             )

@@ -135,7 +135,12 @@ class CategoryCart extends StatelessWidget {
                       ),
                       Row(
                         children: [
-                          Text('${pricemcat.value} \$'),
+                          Text(
+                            '${pricemcat.value} \$',
+                            style: size.width >= 600
+                                ? Styles.defualttab
+                                : Styles.defualtmobile,
+                          ),
                           Obx(
                             () => Visibility(
                               visible: visibleRemove.value,
@@ -310,12 +315,22 @@ class CategoryCart extends StatelessWidget {
                                         mainAxisAlignment:
                                             MainAxisAlignment.spaceBetween,
                                         children: [
-                                          Text(controller[idcategory.value]
-                                              .subCategories[indexsup]
-                                              .name!),
+                                          Text(
+                                            controller[idcategory.value]
+                                                .subCategories[indexsup]
+                                                .name!,
+                                            style: size.width >= 600
+                                                ? Styles.defualttab
+                                                : Styles.defualtmobile,
+                                          ),
                                           Row(
                                             children: [
-                                              Text('${pricesup.value} \$'),
+                                              Text(
+                                                '${pricesup.value} \$',
+                                                style: size.width >= 600
+                                                    ? Styles.defualttab
+                                                    : Styles.defualtmobile,
+                                              ),
                                               IconButton(
                                                 splashColor: Colors.transparent,
                                                 onPressed: () {

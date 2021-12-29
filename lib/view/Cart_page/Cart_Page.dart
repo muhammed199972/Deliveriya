@@ -121,9 +121,9 @@ class CartView extends StatelessWidget {
                                 child: Text(
                                   'Find your favorite',
                                   style: TextStyle(
-                                    color: Colors.red,
-                                    decoration: TextDecoration.underline,
-                                  ),
+                                      color: Colors.red,
+                                      decoration: TextDecoration.underline,
+                                      fontSize: size.width >= 600 ? 25 : 16),
                                 ),
                               ),
                             )
@@ -188,9 +188,9 @@ class CartView extends StatelessWidget {
                                 child: Text(
                                   'Find your favorite',
                                   style: TextStyle(
-                                    color: Colors.red,
-                                    decoration: TextDecoration.underline,
-                                  ),
+                                      color: Colors.red,
+                                      decoration: TextDecoration.underline,
+                                      fontSize: size.width >= 600 ? 25 : 16),
                                 ),
                               ),
                             )

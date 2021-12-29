@@ -70,7 +70,9 @@ class HomeView extends StatelessWidget {
                                   flex: 2,
                                   child: Text(
                                     'help'.tr,
-                                    style: Styles.defualtmobile,
+                                    style: size.width >= 600
+                                        ? Styles.defualttab
+                                        : Styles.defualtmobile,
                                   ),
                                 ),
                                 Expanded(
@@ -103,7 +105,9 @@ class HomeView extends StatelessWidget {
                               const EdgeInsets.all(Defaults.defaultPadding),
                           child: Text(
                             'category'.tr,
-                            style: Styles.defualtmobile,
+                            style: size.width >= 600
+                                ? Styles.defualttab
+                                : Styles.defualtmobile,
                           ),
                         ),
                         Padding(
@@ -113,7 +117,7 @@ class HomeView extends StatelessWidget {
                                 ? StaggeredGridView.countBuilder(
                                     shrinkWrap: true,
                                     physics: NeverScrollableScrollPhysics(),
-                                    crossAxisCount: 3,
+                                    crossAxisCount: size.width >= 600 ? 4 : 3,
                                     itemCount: controller.categorys.length,
                                     itemBuilder:
                                         (BuildContext context, int index) =>

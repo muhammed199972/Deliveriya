@@ -36,7 +36,9 @@ class Offers_New extends StatelessWidget {
                   padding: const EdgeInsets.all(8.0),
                   child: Text(
                     'offers'.tr,
-                    style: Styles.defualtmobile,
+                    style: size.width >= 600
+                        ? Styles.defualttab
+                        : Styles.defualtmobile,
                   ),
                 ),
                 InkWell(
@@ -142,7 +144,9 @@ class Offers_New extends StatelessWidget {
                   padding: const EdgeInsets.all(8.0),
                   child: Text(
                     'new'.tr,
-                    style: Styles.defualtmobile,
+                    style: size.width >= 600
+                        ? Styles.defualttab
+                        : Styles.defualtmobile,
                   ),
                 ),
                 InkWell(

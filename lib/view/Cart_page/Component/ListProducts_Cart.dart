@@ -19,6 +19,7 @@ class ListProdCart extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    Size size = MediaQuery.of(context).size;
     List controlleritem = [].obs;
     item.forEach((element) {
       controlleritem.add(element);
@@ -68,7 +69,12 @@ class ListProdCart extends StatelessWidget {
                       SizedBox(
                         width: 5,
                       ),
-                      Text(controlleritem[index].name),
+                      Text(
+                        controlleritem[index].name,
+                        style: size.width >= 600
+                            ? Styles.defualttab
+                            : Styles.defualtmobile,
+                      ),
                     ],
                   ),
                   Row(

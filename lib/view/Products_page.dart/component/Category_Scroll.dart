@@ -96,6 +96,7 @@ class CategorysScroll extends StatelessWidget {
                                 child: Text(
                                   category.categorys[index].name.toString(),
                                   style: TextStyle(
+                                    fontSize: size.width >= 600 ? 25 : 16,
                                     color: category.value.value ==
                                             category.categorys[index].id
                                         ? AppColors.mainColor

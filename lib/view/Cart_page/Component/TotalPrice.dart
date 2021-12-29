@@ -14,6 +14,7 @@ class TotalPrice extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    Size size = MediaQuery.of(context).size;
     var pricemcat = 0.obs;
     if (statusCode.Token != '') {
       for (int k = 0; k < controller.carts.length; k++) {
@@ -65,7 +66,11 @@ class TotalPrice extends StatelessWidget {
         padding: EdgeInsets.symmetric(horizontal: Defaults.defaultPadding),
         child: Row(
           children: [
-            Text('Total price :'),
+            Text(
+              'Total price :',
+              style:
+                  size.width >= 600 ? Styles.defualttab : Styles.defualtmobile,
+            ),
             Spacer(),
             Center(
               child: Text(

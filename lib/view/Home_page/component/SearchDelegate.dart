@@ -122,7 +122,9 @@ class Datasesrch extends SearchDelegate<String> {
                         fit: BoxFit.scaleDown,
                         child: Text(
                           searchController.SearchHome[index],
-                          style: Styles.defualtmobile,
+                          style: size.width >= 600
+                              ? Styles.defualttab
+                              : Styles.defualtmobile,
                         ),
                       ),
                       IconButton(

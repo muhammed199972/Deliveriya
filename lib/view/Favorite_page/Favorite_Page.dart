@@ -59,7 +59,7 @@ class _FavoriteViewState extends State<FavoriteView> {
           centerTitle: true,
           title: Text(
             'favorite'.tr,
-            style: TextStyle(color: Colors.black),
+            style: size.width >= 600 ? Styles.defualttab : Styles.defualtmobile,
           ),
           actions: [
             !opensearch
@@ -130,7 +130,12 @@ class _FavoriteViewState extends State<FavoriteView> {
                                     Get.back();
                                   });
                                 },
-                                child: Text('all'.tr)),
+                                child: Text(
+                                  'all'.tr,
+                                  style: size.width >= 600
+                                      ? Styles.defualttab
+                                      : Styles.defualtmobile,
+                                )),
                             Divider(
                               color: AppColors.darkgreytextColor,
                             ),
@@ -164,7 +169,12 @@ class _FavoriteViewState extends State<FavoriteView> {
                                     Get.back();
                                   });
                                 },
-                                child: Text('thisweek'.tr)),
+                                child: Text(
+                                  'thisweek'.tr,
+                                  style: size.width >= 600
+                                      ? Styles.defualttab
+                                      : Styles.defualtmobile,
+                                )),
                             Divider(
                               color: AppColors.darkgreytextColor,
                             ),
@@ -198,7 +208,12 @@ class _FavoriteViewState extends State<FavoriteView> {
                                     Get.back();
                                   });
                                 },
-                                child: Text('lastmonth'.tr)),
+                                child: Text(
+                                  'lastmonth'.tr,
+                                  style: size.width >= 600
+                                      ? Styles.defualttab
+                                      : Styles.defualtmobile,
+                                )),
                             Divider(
                               color: AppColors.darkgreytextColor,
                             ),
@@ -232,7 +247,12 @@ class _FavoriteViewState extends State<FavoriteView> {
                                     Get.back();
                                   });
                                 },
-                                child: Text('last6month'.tr)),
+                                child: Text(
+                                  'last6month'.tr,
+                                  style: size.width >= 600
+                                      ? Styles.defualttab
+                                      : Styles.defualtmobile,
+                                )),
                             Divider(
                               color: AppColors.darkgreytextColor,
                             ),
@@ -266,7 +286,12 @@ class _FavoriteViewState extends State<FavoriteView> {
                                     Get.back();
                                   });
                                 },
-                                child: Text('lastyear'.tr)),
+                                child: Text(
+                                  'lastyear'.tr,
+                                  style: size.width >= 600
+                                      ? Styles.defualttab
+                                      : Styles.defualtmobile,
+                                )),
                           ],
                         ),
                       ));
@@ -396,6 +421,9 @@ class _FavoriteViewState extends State<FavoriteView> {
                                     fit: BoxFit.scaleDown,
                                     child: Text(
                                       Search[index],
+                                      style: size.width >= 600
+                                          ? Styles.defualttab
+                                          : Styles.defualtmobile,
                                     ),
                                   ),
                                 ),
@@ -550,9 +578,9 @@ class _FavoriteViewState extends State<FavoriteView> {
                                 child: Text(
                                   'Find your favorite',
                                   style: TextStyle(
-                                    color: Colors.red,
-                                    decoration: TextDecoration.underline,
-                                  ),
+                                      color: Colors.red,
+                                      decoration: TextDecoration.underline,
+                                      fontSize: size.width >= 600 ? 25 : 16),
                                 ),
                               ),
                             )
@@ -626,7 +654,8 @@ class _FavoriteViewState extends State<FavoriteView> {
                                                 child: StaggeredGridView
                                                     .countBuilder(
                                                   shrinkWrap: true,
-                                                  crossAxisCount: 2,
+                                                  crossAxisCount:
+                                                      size.width >= 600 ? 3 : 2,
                                                   itemCount: prodController
                                                       .prods[favoriteController
                                                           .idcategory.value]
@@ -713,9 +742,9 @@ class _FavoriteViewState extends State<FavoriteView> {
                                 child: Text(
                                   'Find your favorite',
                                   style: TextStyle(
-                                    color: Colors.red,
-                                    decoration: TextDecoration.underline,
-                                  ),
+                                      color: Colors.red,
+                                      decoration: TextDecoration.underline,
+                                      fontSize: size.width >= 600 ? 25 : 16),
                                 ),
                               ),
                             )

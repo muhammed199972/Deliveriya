@@ -109,7 +109,7 @@ class ProduvtsView extends StatelessWidget {
                                     child: Text(
                                       '${cartController.lenghcart.value}',
                                       style: TextStyle(
-                                          fontSize: 14,
+                                          fontSize: size.width >= 600 ? 25 : 16,
                                           color: AppColors.whiteColor),
                                     ),
                                   ),
@@ -138,7 +138,7 @@ class ProduvtsView extends StatelessWidget {
                                     child: Text(
                                       '${cartController.lenghcart.value}',
                                       style: TextStyle(
-                                          fontSize: 14,
+                                          fontSize: size.width >= 600 ? 20 : 14,
                                           color: AppColors.whiteColor),
                                     ),
                                   ),
@@ -212,7 +212,7 @@ class ProduvtsView extends StatelessWidget {
                           child: StaggeredGridView.countBuilder(
                             controller: prodController.scrollController,
                             shrinkWrap: true,
-                            crossAxisCount: 3,
+                            crossAxisCount: size.width >= 600 ? 4 : 3,
                             itemCount: prodController.products.length,
                             itemBuilder: (BuildContext context, int index) {
                               return FullCard(
