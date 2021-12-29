@@ -61,11 +61,13 @@ class AuthController extends GetxController {
       apiResult = await authservice.postsignup(password);
       if (!apiResult.hasError!) {
         signUpResponse.value = apiResult.data;
-        Constansbox.box
+        await Constansbox.box
             .write('accessToken', signUpResponse.value.data!.accessToken);
-        Constansbox.box
+        await Constansbox.box
             .write('refreshToken', signUpResponse.value.data!.refreshToken);
         hasError.value = apiResult.hasError!;
+        if (statusCode.favorite.isNotEmpty) postfavorateData();
+        if (statusCode.cartsid.isNotEmpty) postcartData();
         Get.offAll(
           BottomBar(
             fu: HomeView(),
@@ -95,18 +97,19 @@ class AuthController extends GetxController {
 
   postsignin(String num, String password) async {
     try {
-      print(num);
-      print(password);
-
       BotToast.showLoading();
       apiResult = await authservice.postsignin(num, password);
       if (!apiResult.hasError!) {
         signUpResponse.value = apiResult.data;
-        Constansbox.box
+        await Constansbox.box
             .write('accessToken', signUpResponse.value.data!.accessToken);
-        Constansbox.box
+        await Constansbox.box
             .write('refreshToken', signUpResponse.value.data!.refreshToken);
         hasError.value = apiResult.hasError!;
+        // List y=[];
+        // y.isNotEmpty
+        if (statusCode.favorite.isNotEmpty) postfavorateData();
+        if (statusCode.cartsid.isNotEmpty) postcartData();
         Get.offAll(
           BottomBar(
             fu: HomeView(),
@@ -162,5 +165,73 @@ class AuthController extends GetxController {
             Get.back();
           });
     } finally {}
+  }
+
+  postcartData() async {
+    try {
+      BotToast.showLoading();
+      apiResult = await authservice.postcartData();
+      if (apiResult.rfreshToken) {
+        if (!apiResult.hasError!) {
+          hasError.value = apiResult.hasError!;
+        } else {
+          hasError.value = apiResult.hasError!;
+          massage.value = apiResult.errorMassage!;
+          DialogsUtils.showdialog(
+              m: massage.value,
+              onPressed: () {
+                Get.back();
+                Get.back();
+              });
+        }
+      } else {
+        postcartData();
+      }
+    } catch (e) {
+      hasError.value = apiResult.hasError!;
+      massage.value = apiResult.errorMassage!;
+      DialogsUtils.showdialog(
+          m: 'حدث خطأ غير متوقع',
+          onPressed: () {
+            Get.back();
+            Get.back();
+          });
+    } finally {
+      BotToast.closeAllLoading();
+    }
+  }
+
+  postfavorateData() async {
+    try {
+      BotToast.showLoading();
+      apiResult = await authservice.postfavorateData();
+      if (apiResult.rfreshToken) {
+        if (!apiResult.hasError!) {
+          hasError.value = apiResult.hasError!;
+        } else {
+          hasError.value = apiResult.hasError!;
+          massage.value = apiResult.errorMassage!;
+          DialogsUtils.showdialog(
+              m: massage.value,
+              onPressed: () {
+                Get.back();
+                Get.back();
+              });
+        }
+      } else {
+        postfavorateData();
+      }
+    } catch (e) {
+      hasError.value = apiResult.hasError!;
+      massage.value = apiResult.errorMassage!;
+      DialogsUtils.showdialog(
+          m: 'حدث خطأ غير متوقع',
+          onPressed: () {
+            Get.back();
+            Get.back();
+          });
+    } finally {
+      BotToast.closeAllLoading();
+    }
   }
 }

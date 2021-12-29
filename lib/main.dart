@@ -34,11 +34,13 @@ class MyApp extends StatelessWidget {
     Constansbox.box.writeIfNull('SearchHome', []);
     Constansbox.box.writeIfNull('accessToken', '');
     Constansbox.box.writeIfNull('refreshToken', '');
+    //Constansbox.box.remove('accessToken');
+    //Constansbox.box.remove('refreshToken');
+
     // Constansbox.box.remove('SearchHome');
     // Constansbox.box.remove('cartsid');
     // Constansbox.box.remove('cartscounte');
-//  Constansbox.box.remove('New');
-//     Constansbox.box.remove('offers');
+
     // Constansbox.box.remove('cartsid');
     // Constansbox.box.remove('cartscounte');
 

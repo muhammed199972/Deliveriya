@@ -663,11 +663,22 @@ class CartService {
       apiResult.codeError = statusCode.parsing;
 
       print('There is a problem with the admin');
-    } catch (e) {
-      apiResult.errorMassage = 'حدث خطأ غير متوقع';
-      apiResult.codeError = statusCode.connection;
+    } on DioError catch (e) {
+      if (e.response!.statusCode == statusCode.UNAUTHORIZED) {
+        status = CartStatus.fromJson(e.response!.data['status']);
 
-      print('${e}');
+        error = ErrorResponse.fromJson(e.response!.data['errors']);
+        apiResult.errorMassage = error.msg;
+        apiResult.codeError = status.code;
+        apiResult.rfreshToken = false;
+        await authController.postrefreshToken();
+        print('A bad request Please try again');
+      } else {
+        apiResult.errorMassage = 'حدث خطأ غير متوقع';
+        apiResult.codeError = statusCode.connection;
+
+        print('${e}');
+      }
     }
     return apiResult;
   }
