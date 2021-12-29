@@ -21,7 +21,8 @@ class CartService {
 
     CartStatus? status;
     ErrorResponse? error;
-    Uri url = Uri.http('${statusCode.url1}', '/api/private/user/cart');
+    Uri url = Uri.http('${statusCode.url1}', '/api/private/user/cart',
+        {'lang': statusCode.Lang});
 
     try {
       var response = await http
@@ -130,7 +131,10 @@ class CartService {
     DeletePutPostResponse? calendar;
     CartStatus? status;
     ErrorResponse? error;
-    Uri url = Uri.http('${statusCode.url1}', '/api/private/user/cart/$id');
+    Uri url = Uri.http(
+      '${statusCode.url1}',
+      '/api/private/user/cart/$id',
+    );
 
     try {
       var response = await http.post(

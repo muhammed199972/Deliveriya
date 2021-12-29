@@ -33,7 +33,7 @@ class MyApp extends StatelessWidget {
     Constansbox.box.writeIfNull('SearchHome', []);
     Constansbox.box.writeIfNull('accessToken', '');
     Constansbox.box.writeIfNull('refreshToken', '');
-    Constansbox.box.writeIfNull('lang', '');
+    Constansbox.box.writeIfNull('lang', 'en');
 
     //Constansbox.box.remove('New');
     // Constansbox.box.remove('cartsid');
@@ -64,12 +64,8 @@ class MyApp extends StatelessWidget {
                 fu: HomeView(),
               ),
         translations: Translation(),
-        locale: Locale(Constansbox.box.read('lang') == ''
-            ? 'en'
-            : Constansbox.box.read('lang')),
-        fallbackLocale: Locale(Constansbox.box.read('lang') == ''
-            ? 'en'
-            : Constansbox.box.read('lang')),
+        locale: Locale(Constansbox.box.read('lang')),
+        fallbackLocale: Locale(Constansbox.box.read('lang')),
       ),
       // getPages: [GetPage(name: '/home', page: () => SigninPage())],
     );

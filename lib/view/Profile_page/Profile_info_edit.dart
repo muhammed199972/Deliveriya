@@ -30,8 +30,8 @@ class ProfileInfoEdit extends StatelessWidget {
     return Scaffold(
       backgroundColor: AppColors.whiteColor,
       appBar: AppBar(
-        backgroundColor: AppColors.whiteColor,
-        elevation: 0,
+        backgroundColor: AppColors.whiteappbarColor,
+        elevation: 1,
         centerTitle: true,
         leading: IconButton(
           icon: Icon(
@@ -254,7 +254,7 @@ class ProfileInfoEdit extends StatelessWidget {
                                             },
                                           ),
                                           PopupMenuItem(
-                                            child: Text("famale".tr),
+                                            child: Text("female".tr),
                                             value: 2,
                                             onTap: () {
                                               controller.gender.value =
@@ -270,10 +270,7 @@ class ProfileInfoEdit extends StatelessWidget {
                           padd: 0,
                           size: size,
                           txt: controller.date.value == ''
-                              ? (controller.profile.value.date
-                                          .toString()
-                                          .substring(0, 10) ==
-                                      null
+                              ? (controller.profile.value.date == null
                                   ? 'datebirth'.tr
                                   : controller.profile.value.date
                                       .toString()

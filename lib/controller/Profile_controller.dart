@@ -64,9 +64,9 @@ class ProfileController extends GetxController {
           profile.value = apiResult.data;
           hasError.value = apiResult.hasError!;
           //
-          firstnameController.text = profile.value.name;
+          firstnameController.text = profile.value.name ?? '';
           gender.value =
-              profile.value.gender == null ? 'Male' : profile.value.gender!;
+              profile.value.gender == null ? '' : profile.value.gender!;
           genderController.text =
               profile.value.gender == null ? '' : profile.value.gender!;
           datebirthController.text = profile.value.date == null

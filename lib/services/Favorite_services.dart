@@ -19,11 +19,11 @@ class FavoriteService {
     ErrorResponse? error;
     Uri url;
     if (from == '') {
-      url = Uri.http(
-          '${statusCode.url1}', '/api/private/user/favorite', {'q': q});
+      url = Uri.http('${statusCode.url1}', '/api/private/user/favorite',
+          {'q': q, 'lang': statusCode.Lang});
     } else {
       url = Uri.http('${statusCode.url1}', '/api/private/user/favorite',
-          {'q': q, 'from': from, 'to': to});
+          {'q': q, 'from': from, 'to': to, 'lang': statusCode.Lang});
     }
 
     try {

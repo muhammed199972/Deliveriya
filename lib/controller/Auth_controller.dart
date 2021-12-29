@@ -137,20 +137,22 @@ class AuthController extends GetxController {
   postrefreshToken() async {
     try {
       apiResult = await authservice.postrefreshToken();
-      if (!apiResult.hasError!) {
-        signUpResponse.value = apiResult.data;
-        Constansbox.box
-            .write('accessToken', signUpResponse.value.data!.accessToken);
-        Constansbox.box
-            .write('refreshToken', signUpResponse.value.data!.refreshToken);
-        hasError.value = apiResult.hasError!;
-      } else {
-        hasError.value = apiResult.hasError!;
-        massage.value = apiResult.errorMassage!;
-        BotToast.showText(
-          text: 'Error!',
-          align: Alignment.center,
-        );
+      if (apiResult.rfreshToken) {
+        if (!apiResult.hasError!) {
+          signUpResponse.value = apiResult.data;
+          Constansbox.box
+              .write('accessToken', signUpResponse.value.data!.accessToken);
+          Constansbox.box
+              .write('refreshToken', signUpResponse.value.data!.refreshToken);
+          hasError.value = apiResult.hasError!;
+        } else {
+          hasError.value = apiResult.hasError!;
+          massage.value = apiResult.errorMassage!;
+          BotToast.showText(
+            text: 'Error!',
+            align: Alignment.center,
+          );
+        }
       }
     } catch (e) {
       hasError.value = apiResult.hasError!;

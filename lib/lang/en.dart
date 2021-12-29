@@ -3,7 +3,7 @@ const Map<String, String> en = {
   'help': 'Help',
   'search': 'Search',
   'new': 'New',
-  'offer': 'Offer',
+  'offers': 'Offer',
   'category': 'Category',
   'profile': 'Profile',
   'favorite': 'Favorite',
@@ -14,6 +14,7 @@ const Map<String, String> en = {
   //===============profile================
   'myaddress': 'My Address',
   'orderhistory': 'Order History',
+  'infoorder': 'Info Order',
   'changelanguage': 'Change Language',
   'english': 'English',
   'arabic': 'Arabic',
@@ -46,4 +47,6 @@ const Map<String, String> en = {
   'confirmpassword': 'Confirm Password',
   'submit': 'Submit',
   'update': 'Update',
+  'setdelivarytime': 'Set delivery Time',
+  'setdelivarydate': 'Set delivery date'
 };

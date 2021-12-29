@@ -1,4 +1,5 @@
 import 'package:delivery_food/General/Constants.dart';
+import 'package:delivery_food/General/Dialogs.dart';
 import 'package:delivery_food/Shimmer_loading.dart';
 import 'package:delivery_food/controller/Address_controller.dart';
 import 'package:delivery_food/controller/Category_controller.dart';
@@ -16,6 +17,7 @@ class HomeView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    controller.getcategory();
     Size size = MediaQuery.of(context).size;
     return Scaffold(
         backgroundColor: AppColors.whiteColor,
@@ -54,24 +56,33 @@ class HomeView extends StatelessWidget {
                         child: Padding(
                           padding: const EdgeInsets.only(
                               bottom: Defaults.defaultPadding * 4),
-                          child: Row(
-                            children: [
-                              Expanded(
-                                flex: 2,
-                                child: Text(
-                                  'help'.tr,
-                                  style: TextStyle(color: AppColors.blackColor),
-                                ),
-                              ),
-                              Expanded(
-                                child: InkWell(
-                                  child: Icon(
-                                    Icons.help_sharp,
-                                    color: AppColors.darkgreytextColor,
+                          child: InkWell(
+                            onTap: () {
+                              DialogsUtils.showdialogHelp(
+                                  m: '099*********',
+                                  onPressed: () {
+                                    Get.back();
+                                  });
+                            },
+                            child: Row(
+                              children: [
+                                Expanded(
+                                  flex: 2,
+                                  child: Text(
+                                    'help'.tr,
+                                    style: Styles.defualtmobile,
                                   ),
                                 ),
-                              )
-                            ],
+                                Expanded(
+                                  child: InkWell(
+                                    child: Icon(
+                                      Icons.help_sharp,
+                                      color: AppColors.darkgreytextColor,
+                                    ),
+                                  ),
+                                )
+                              ],
+                            ),
                           ),
                         ),
                       )
@@ -90,7 +101,10 @@ class HomeView extends StatelessWidget {
                         Padding(
                           padding:
                               const EdgeInsets.all(Defaults.defaultPadding),
-                          child: Text('category'.tr),
+                          child: Text(
+                            'category'.tr,
+                            style: Styles.defualtmobile,
+                          ),
                         ),
                         Padding(
                           padding: const EdgeInsets.all(8.0),

@@ -13,7 +13,8 @@ class AdsService {
     List<AdsResponse> calendar = [];
     AdsStatus? status;
     ErrorResponse? error;
-    Uri url = Uri.http('${statusCode.url1}', '/api/public/ad');
+    Uri url = Uri.http(
+        '${statusCode.url1}', '/api/public/ad', {'lang': statusCode.Lang});
 
     try {
       var response = await http.get(url);

@@ -28,7 +28,8 @@ class ProductService {
       'SubCategoryId': subCategoryId,
       'offset': '$offset',
       'limit': '$limit',
-      'q': q
+      'q': q,
+      'lang': statusCode.Lang
     });
     try {
       var response;
@@ -152,17 +153,20 @@ class ProductService {
       if (from == '') {
         response = await dio.post(
             'http://' + statusCode.url1 + '/api/public/product/ids',
+            queryParameters: {'q': q, 'lang': statusCode.Lang},
+            data: {"ids": Listproduct});
+      } else {
+        response = await dio.post(
+            'http://' + statusCode.url1 + '/api/public/product/ids',
             queryParameters: {
               'q': q,
+              'from': from,
+              'to': to,
+              'lang': statusCode.Lang
             },
             data: {
               "ids": Listproduct
             });
-      } else {
-        response = await dio.post(
-            'http://' + statusCode.url1 + '/api/public/product/ids',
-            queryParameters: {'q': q, 'from': from, 'to': to},
-            data: {"ids": Listproduct});
       }
 
       if (response!.statusCode == statusCode.OK ||

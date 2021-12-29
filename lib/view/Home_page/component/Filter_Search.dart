@@ -22,7 +22,7 @@ class _Button_category_search extends State<Button_category_search> {
         padding: EdgeInsets.all(10),
         child: Text(
           widget.name!,
-          style: TextStyle(fontSize: 20),
+          style: Styles.defualtmobile,
         ),
       ),
       backgroundColor: !Selected ? Colors.grey[300] : AppColors.mainColor,

@@ -20,7 +20,8 @@ class AddressService {
 
     AddressStatus? status;
     ErrorResponse? error;
-    Uri url = Uri.http('${statusCode.url1}', '/api/private/user/address');
+    Uri url = Uri.http('${statusCode.url1}', '/api/private/user/address',
+        {'lang': statusCode.Lang});
 
     try {
       var response = await http
@@ -130,7 +131,10 @@ class AddressService {
     DeletePutPostResponse? calendar;
     AddressStatus? status;
     ErrorResponse? error;
-    Uri url = Uri.http('${statusCode.url1}', '/api/private/user/address');
+    Uri url = Uri.http(
+      '${statusCode.url1}',
+      '/api/private/user/address',
+    );
 
     try {
       var response = await http.post(
@@ -353,9 +357,7 @@ class AddressService {
     CitiesStatus? status;
     ErrorResponse? error;
     Uri url = Uri.http(
-      '${statusCode.url1}',
-      '/api/public/city',
-    );
+        '${statusCode.url1}', '/api/public/city', {'lang': statusCode.Lang});
 
     try {
       var response = await http
@@ -465,7 +467,8 @@ class AddressService {
     List<Townm> calendar = [];
     CityTownStatus? status;
     ErrorResponse? error;
-    Uri url = Uri.http('${statusCode.url1}', '/api/public/city/town/$id');
+    Uri url = Uri.http('${statusCode.url1}', '/api/public/city/town/$id',
+        {'lang': statusCode.Lang});
 
     try {
       var response = await http

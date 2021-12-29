@@ -20,8 +20,8 @@ class OrderService {
     List<OrderResponse> calendar = [];
     OrderStatus? status;
     ErrorResponse? error;
-    Uri url =
-        Uri.http('${statusCode.url1}', '/api/private/user/order', {'q': q});
+    Uri url = Uri.http('${statusCode.url1}', '/api/private/user/order',
+        {'q': q, 'lang': statusCode.Lang});
 
     try {
       var response = await http
@@ -352,7 +352,8 @@ class OrderService {
     List<ImgOrderResponse> calendar = [];
     ImgOrderStatus? status;
     ErrorResponse? error;
-    Uri url = Uri.http('${statusCode.url1}', '/api/public/order/asset');
+    Uri url = Uri.http('${statusCode.url1}', '/api/public/order/asset',
+        {'lang': statusCode.Lang});
 
     try {
       var response = await http

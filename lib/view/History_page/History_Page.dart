@@ -27,8 +27,8 @@ class _HistoryPageState extends State<HistoryPage> {
     inspect(controller.orders.value);
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: AppColors.whiteColor,
-        elevation: 0,
+        backgroundColor: AppColors.whiteappbarColor,
+        elevation: 1,
         centerTitle: true,
         leading: IconButton(
           splashColor: Colors.transparent,

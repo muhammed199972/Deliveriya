@@ -115,7 +115,7 @@ class SigninPage extends StatelessWidget {
   String? validateMobile(String? value) {
     if (value!.length == 0)
       return 'Please enter PhoneNumber';
-    else if (value.startsWith('0', 0)) {
+    else if (!value.startsWith('9', 0)) {
       return 'enter like 9********';
     } else
       return null;
@@ -124,8 +124,8 @@ class SigninPage extends StatelessWidget {
   String? validatePass(String? value) {
     if (value!.length == 0)
       return 'Please enter Password';
-    else if (value.length < 6) {
-      return 'Password value should contain more than 6 ';
+    else if (value.length < 8 || value.length > 32) {
+      return 'Password value range 8-32 char';
     } else
       return null;
   }

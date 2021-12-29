@@ -15,12 +15,12 @@ class OffersView extends StatelessWidget {
     Size size = MediaQuery.of(context).size;
     return Scaffold(
       appBar: AppBar(
-        elevation: 2,
+        elevation: 1,
         // leading: Icon(
         //   Icons.arrow_back_rounded,
         //   color: AppColors.blackColor,
         // ),
-        backgroundColor: AppColors.whiteColor,
+        backgroundColor: AppColors.whiteappbarColor,
         centerTitle: true,
         title: Text(
           'Offers',
@@ -85,7 +85,7 @@ class OffersView extends StatelessWidget {
                         //      padding: EdgeInsets.only(bottom: 50),
                         child: RichText(
                           text: TextSpan(
-                              style: TextStyle(color: Colors.black),
+                              style: Styles.defualtmobile,
                               text: offer.offers[index].description),
                         ),
                       ),

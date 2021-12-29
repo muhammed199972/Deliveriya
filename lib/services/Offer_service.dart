@@ -14,7 +14,8 @@ class OfferService {
     List<OffersResponse> calendar = [];
     OffersStatus? status;
     ErrorResponse? error;
-    Uri url = Uri.http('${statusCode.url1}', '/api/public/offer');
+    Uri url = Uri.http(
+        '${statusCode.url1}', '/api/public/offer', {'lang': statusCode.Lang});
     try {
       var response = await http.get(url);
       var responsebody = jsonDecode(response.body);

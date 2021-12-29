@@ -13,12 +13,14 @@ class CategoryService {
     List<CategoryResponse> calendar = [];
     CategoryStatus? status;
     ErrorResponse? error;
-    Uri url = Uri.http('${statusCode.url1}', '/api/public/category');
+    Uri url = Uri.http('${statusCode.url1}', '/api/public/category',
+        {'lang': statusCode.Lang});
 
     try {
       var response = await http.get(url);
       var responsebode = jsonDecode(response.body);
-
+      print('[[[[[[[[[[[[[[[object]]]]]]]]]]]]]]]');
+      print(responsebode);
       if (response.statusCode == statusCode.OK ||
           response.statusCode == statusCode.CREATED) {
         status = CategoryStatus.fromJson(responsebode['status']);

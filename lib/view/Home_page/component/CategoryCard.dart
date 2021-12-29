@@ -1,3 +1,4 @@
+import 'package:bot_toast/bot_toast.dart';
 import 'package:delivery_food/General/Constants.dart';
 import 'package:delivery_food/controller/Category_controller.dart';
 import 'package:delivery_food/controller/Products_controller.dart';
@@ -21,22 +22,27 @@ class CategorysCard extends StatelessWidget {
     return InkWell(
       highlightColor: Colors.transparent,
       onTap: () async {
-        controller.changevalue(datacontroller.id!);
-        controller.changecontrollerscroll(index);
-        await subcategory.getsubcategory(datacontroller.id);
-        prodController.offsetScroll = 0;
-        prodController.subcategoryId = subcategory.subcategorys[0].id!;
-        prodController.getproduct(
-            subCategoryId: '${subcategory.subcategorys[0].id}',
-            offset: 0,
-            limit: 16,
-            q: '');
+        try {
+          BotToast.showLoading();
+          controller.changevalue(datacontroller.id!);
+          controller.changecontrollerscroll(index);
+          await subcategory.getsubcategory(datacontroller.id);
+          prodController.offsetScroll = 0;
+          prodController.subcategoryId = subcategory.subcategorys[0].id!;
+          prodController.getproduct(
+              subCategoryId: '${subcategory.subcategorys[0].id}',
+              offset: 0,
+              limit: 16,
+              q: '');
+          Get.offAll(() => BottomBar(
+              intid: 2,
+              fu: ProduvtsView(
+                idcategory: datacontroller.id,
+              )));
+        } finally {
+          BotToast.closeAllLoading();
+        }
 
-        Get.offAll(() => BottomBar(
-            intid: 2,
-            fu: ProduvtsView(
-              idcategory: datacontroller.id,
-            )));
         // ProduvtsView(
         //       idcategory: datacontroller.id,
         //     ));
@@ -64,7 +70,11 @@ class CategorysCard extends StatelessWidget {
               child: Padding(
                 padding: const EdgeInsets.all(Defaults.defaultPadding / 2 - 5),
                 child: FittedBox(
-                    fit: BoxFit.scaleDown, child: Text(datacontroller.name)),
+                    fit: BoxFit.scaleDown,
+                    child: Text(
+                      datacontroller.name,
+                      style: Styles.defualtmobile,
+                    )),
               ),
             )
           ],

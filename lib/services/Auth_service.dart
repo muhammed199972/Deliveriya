@@ -349,9 +349,7 @@ class AuthService {
       var response = await http.post(url,
           headers: {'Authorization': 'Bearer ${statusCode.RefreshToken}'});
       var responsebode = jsonDecode(response.body);
-      print('[[[[[[[[[[[[[[[[[[[[[[[object]]]]]]]]]]]]]]]]]]]]]]]');
-      print(responsebode);
-      print('[[[[[[[[[[[[[[[[[[[[[[[object]]]]]]]]]]]]]]]]]]]]]]]');
+
       if (response.statusCode == statusCode.OK ||
           response.statusCode == statusCode.CREATED) {
         status = AuthStatus.fromJson(responsebode['status']);
@@ -369,7 +367,7 @@ class AuthService {
         error = ErrorResponse.fromJson(responsebode['errors'][0]);
         apiResult.errorMassage = error.msg;
         apiResult.codeError = status.code;
-
+        apiResult.rfreshToken = false;
         print('A bad request Please try again');
       } else if (response.statusCode == statusCode.UNAUTHORIZED) {
         status = AuthStatus.fromJson(responsebode['status']);

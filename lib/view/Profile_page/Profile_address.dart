@@ -17,8 +17,8 @@ class ProfileAddress extends StatelessWidget {
     return Scaffold(
       backgroundColor: AppColors.whiteColor,
       appBar: AppBar(
-        backgroundColor: AppColors.whiteColor,
-        elevation: 0,
+        backgroundColor: AppColors.whiteappbarColor,
+        elevation: 1,
         centerTitle: true,
         leading: IconButton(
           icon: Icon(

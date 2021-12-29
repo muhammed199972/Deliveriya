@@ -14,6 +14,7 @@ const Map<String, String> ar = {
   //===============profile================
   'myaddress': 'عنواني',
   'orderhistory': 'الطلبات السابقة',
+  'infoorder': 'الطلبات',
   'changelanguage': 'تغيير اللغة',
   'english': 'الإنكليزية',
   'arabic': 'العربية',
@@ -46,4 +47,6 @@ const Map<String, String> ar = {
   'confirmpassword': 'تأكيد كلمة المرور',
   'submit': 'إرسال',
   'update': 'تحديث',
+  'setdelivarytime': 'اختر وقت الطلب',
+  'setdelivarydate': 'اختر تاريخ الطلب'
 };

@@ -14,6 +14,7 @@ class StatusCode {
       'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png';
   var Token = Constansbox.box.read('accessToken');
   var RefreshToken = Constansbox.box.read('refreshToken');
+  var Lang = Constansbox.box.read('lang');
 
   var OK = 200; //                          * Normal
   var CREATED = 201; //                     * Create new entity
@@ -85,7 +86,7 @@ class AppColors {
   static const greyColor = Color(0xB7FAFAFA);
   static const darkgreyColor = Color(0x27464242);
   static const darkgreytextColor = Color(0xA2000000);
-
+  static const whiteappbarColor = Color(0xffFAFAFA);
   static const blackColor = Color(0xFF000000);
   static const lightgreyColor = Color(0xFFC4C4C4);
   static const lightgrey2Color = Color(0xFFEFEFEF);
@@ -102,6 +103,10 @@ class Styles {
   );
   static const priceStyle =
       TextStyle(color: AppColors.blackColor, fontSize: 12);
+  static const defualtmobile =
+      TextStyle(color: AppColors.blackColor, fontSize: 16);
+  static const defualttab =
+      TextStyle(color: AppColors.blackColor, fontSize: 15);
 }
 
 class Defaults {

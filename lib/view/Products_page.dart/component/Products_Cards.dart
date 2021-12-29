@@ -76,7 +76,7 @@ class FullCard extends StatelessWidget {
               children: <Widget>[
                 Stack(children: [
                   Container(
-                    height: size.height * 0.09,
+                    height: size.height * 0.1,
                     width: double.infinity,
                     decoration: BoxDecoration(
                       image: DecorationImage(
@@ -94,9 +94,12 @@ class FullCard extends StatelessWidget {
                 SizedBox(
                   height: 5,
                 ),
-                Text(product!.name!),
+                Text(
+                  product!.name!,
+                  style: Styles.defualtmobile,
+                ),
                 Container(
-                  height: size.height * 0.04,
+                  height: size.height * 0.03,
                   child: Row(
                     mainAxisSize: MainAxisSize.min,
                     mainAxisAlignment: MainAxisAlignment.center,
@@ -248,7 +251,7 @@ class FullCard extends StatelessWidget {
                                   decoration: product.afterOffer != null
                                       ? TextDecoration.lineThrough
                                       : TextDecoration.none,
-                                  fontSize: 12,
+                                  fontSize: size.width >= 550 ? 20 : 12,
                                 ),
                               ),
                               product.afterOffer != null
@@ -257,7 +260,7 @@ class FullCard extends StatelessWidget {
                                       textAlign: TextAlign.center,
                                       style: TextStyle(
                                         color: AppColors.blackColor,
-                                        fontSize: 12,
+                                        fontSize: size.width >= 550 ? 20 : 12,
                                       ),
                                     )
                                   : Container()

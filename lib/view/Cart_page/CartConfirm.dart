@@ -29,8 +29,8 @@ class ConfirmCart extends StatelessWidget {
     return Scaffold(
       backgroundColor: AppColors.whiteColor,
       appBar: AppBar(
-        backgroundColor: AppColors.whiteColor,
-        elevation: 0,
+        backgroundColor: AppColors.whiteappbarColor,
+        elevation: 1,
         centerTitle: true,
         leading: IconButton(
           icon: Icon(
@@ -42,7 +42,7 @@ class ConfirmCart extends StatelessWidget {
           },
         ),
         title: Text(
-          'Info Order',
+          'infoorder'.tr,
           style: TextStyle(color: AppColors.blackColor),
         ),
       ),
@@ -76,7 +76,7 @@ class ConfirmCart extends StatelessWidget {
                     controller: _dateController,
                     enabled: false,
                     // validator: validate,
-                    lebel: 'Set delivery date',
+                    lebel: 'setdelivarytime'.tr,
                   ),
                 ),
               ),
@@ -96,7 +96,7 @@ class ConfirmCart extends StatelessWidget {
                     controller: _timeController,
                     enabled: false,
                     // validator: validate,
-                    lebel: 'Set delivery Time',
+                    lebel: 'setdelivarydate'.tr,
                   ),
                 ),
               ),
@@ -111,7 +111,7 @@ class ConfirmCart extends StatelessWidget {
                     ],
                     // validator: validateMobile,
                     controller: _phoneController,
-                    lebel: 'Phone Number optinal',
+                    lebel: 'phone'.tr,
                     prefixtxt: '+963',
                   ),
                 ),
@@ -124,7 +124,7 @@ class ConfirmCart extends StatelessWidget {
                       size: size,
                       icon: SvgPicture.asset('assets/svg/address.svg'),
                       txt: controller.data.value.town == null
-                          ? 'select address'
+                          ? 'addaddress'.tr
                           : '${controller.data.value.town?.city?.name}-${controller.data.value.town?.name}',
                       subtitle: controller.data.value.town == null
                           ? ''
@@ -135,36 +135,35 @@ class ConfirmCart extends StatelessWidget {
                 padding: EdgeInsets.symmetric(horizontal: 150, vertical: 50),
                 child: ButtonWidget2(
                     size: size,
-                    txt: 'Submit',
+                    txt: 'submit'.tr,
                     onTap: () {
-                      // if (formkey.currentStatTe!.validate()) {
-                      if (_dateController.text == '' ||
-                          _timeController.text == '' ||
-                          controller.data.value.town == null) {
-                        BotToast.showText(
-                          text: 'some info need complete',
-                          align: Alignment.center,
-                        );
-                      } else {
-                        var body = _phoneController.text != ''
-                            ? {
-                                'date':
-                                    '${DateTime.parse(_dateController.text + _timeController.text)}',
-                                'phone': _phoneController.text,
-                                'AddressId':
-                                    controller.data.value.id.toString(),
-                              }
-                            : {
-                                'date':
-                                    '${DateTime.parse(_dateController.text + _timeController.text)}',
-                                'AddressId':
-                                    controller.data.value.id.toString(),
-                              };
-                        co.postOrder(body);
+                      if (formkey.currentState!.validate()) {
+                        if (_dateController.text == '' ||
+                            _timeController.text == '' ||
+                            controller.data.value.town == null) {
+                          BotToast.showText(
+                            text: 'some info need complete',
+                            align: Alignment.center,
+                          );
+                        } else {
+                          var body = _phoneController.text != ''
+                              ? {
+                                  'date':
+                                      '${DateTime.parse(_dateController.text + _timeController.text)}',
+                                  'phone': _phoneController.text,
+                                  'AddressId':
+                                      controller.data.value.id.toString(),
+                                }
+                              : {
+                                  'date':
+                                      '${DateTime.parse(_dateController.text + _timeController.text)}',
+                                  'AddressId':
+                                      controller.data.value.id.toString(),
+                                };
+                          co.postOrder(body);
+                        }
                       }
-                    }
-                    // }
-                    ),
+                    }),
               ),
             ],
           ),
@@ -180,12 +179,12 @@ class ConfirmCart extends StatelessWidget {
   //     return null;
   // }
 
-  // String? validateMobile(String? value) {
-  //   if (value!.length == 0)
-  //     return 'Please enter PhoneNumber';
-  //   else if (value.startsWith('0', 0)) {
-  //     return 'enter like 9********';
-  //   } else
-  //     return null;
-  // }
+  String? validateMobile(String? value) {
+    if (value!.length == 0)
+      return 'Please enter PhoneNumber';
+    else if (value.startsWith('0', 0)) {
+      return 'enter like 9********';
+    } else
+      return null;
+  }
 }

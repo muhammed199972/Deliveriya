@@ -23,7 +23,8 @@ class ProfileService {
 
     ProfileStatus? status;
     ErrorResponse? error;
-    Uri url = Uri.http('${statusCode.url1}', '/api/private/user/profile');
+    Uri url = Uri.http('${statusCode.url1}', '/api/private/user/profile',
+        {'lang': statusCode.Lang});
 
     try {
       var response = await http

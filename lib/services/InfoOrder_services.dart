@@ -17,8 +17,8 @@ class InfoOrderService {
     List<InfoOrderResponse> calendar = [];
     InfoOrderStatus? status;
     ErrorResponse? error;
-    Uri url =
-        Uri.http('${statusCode.url1}', '/api/private/user/order/address/:id');
+    Uri url = Uri.http('${statusCode.url1}',
+        '/api/private/user/order/address/:id', {'lang': statusCode.Lang});
 
     try {
       var response = await http

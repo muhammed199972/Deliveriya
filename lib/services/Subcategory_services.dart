@@ -14,7 +14,9 @@ class SubcategoryService {
     SubcategoryStatus? status;
     ErrorResponse? error;
     Uri url = Uri.http(
-        '${statusCode.url1}', '/api/public/category/$idcategory/sub-category');
+        '${statusCode.url1}',
+        '/api/public/category/$idcategory/sub-category',
+        {'lang': statusCode.Lang});
 
     try {
       var response = await http.get(url);

@@ -6,6 +6,7 @@ import 'package:delivery_food/controller/loclization_controller.dart';
 import 'package:delivery_food/view/Profile_page/Component/OptionProfile.dart';
 import 'package:delivery_food/view/Profile_page/Profile_address.dart';
 import 'package:delivery_food/view/Profile_page/Profile_info.dart';
+import 'package:delivery_food/view/Virefy_pages/Choose_Page.dart';
 import 'package:delivery_food/view/navbar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
@@ -139,7 +140,10 @@ class ProfileView extends StatelessWidget {
           ),
           OptionProfile(
             size: size,
-            icon: SvgPicture.asset('assets/svg/history.svg'),
+            icon: SvgPicture.asset(
+              'assets/svg/history.svg',
+              color: AppColors.mainColor,
+            ),
             txt: 'orderhistory'.tr,
             iconarrow: Icon(
               Icons.arrow_forward_ios_rounded,
@@ -180,15 +184,15 @@ class ProfileView extends StatelessWidget {
                       ],
                     ),
                   ),
-                  Text(
-                    Constansbox.box.read('lang') == 'ar'
-                        ? 'العربية'
-                        : 'English',
-                    style: TextStyle(fontSize: 15),
+                  SizedBox(
+                    width: 50,
                   ),
                   PopupMenuButton(
                       icon: Padding(
-                        padding: const EdgeInsets.only(left: 8.0),
+                        padding: EdgeInsets.only(
+                          left: Constansbox.box.read('lang') == 'ar' ? 0 : 8.2,
+                          right: Constansbox.box.read('lang') == 'ar' ? 8.2 : 0,
+                        ),
                         child: Icon(
                           Icons.arrow_forward_ios_rounded,
                           color: AppColors.darkgreytextColor.withOpacity(0.5),
@@ -248,6 +252,18 @@ class ProfileView extends StatelessWidget {
                   )
                 ],
               ),
+              onTap: () {
+                Constansbox.box.remove('New');
+                Constansbox.box.remove('cartsid');
+                Constansbox.box.remove('cartscounte');
+                Constansbox.box.remove('New');
+                Constansbox.box.remove('offers');
+                Constansbox.box.remove('cartsid');
+                Constansbox.box.remove('cartscounte');
+                Constansbox.box.remove('accessToken');
+                Constansbox.box.remove('refreshToken');
+                Get.offAll(() => ChoseSign());
+              },
             ),
           )
         ],

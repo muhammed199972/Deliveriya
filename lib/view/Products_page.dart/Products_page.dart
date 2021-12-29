@@ -49,8 +49,8 @@ class ProduvtsView extends StatelessWidget {
       // bottomNavigationBar:BottomBar(intid: 1,) ,
       backgroundColor: AppColors.whiteColor,
       appBar: AppBar(
-        elevation: 0,
-        backgroundColor: AppColors.greyColor,
+        elevation: 1,
+        backgroundColor: AppColors.whiteappbarColor,
         title: Center(
           child: Text(
             'Products',
@@ -221,8 +221,9 @@ class ProduvtsView extends StatelessWidget {
                               );
                             },
                             staggeredTileBuilder: (int index) =>
-                                new StaggeredTile.count(1, 1.2),
-                            mainAxisSpacing: 5,
+                                new StaggeredTile.count(
+                                    1, size.height >= 750 ? 1.22 : 1.1),
+                            mainAxisSpacing: 1,
                             crossAxisSpacing: 10,
                           ),
                         ),

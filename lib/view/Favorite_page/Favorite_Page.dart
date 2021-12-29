@@ -47,12 +47,15 @@ class _FavoriteViewState extends State<FavoriteView> {
     List Se = Constansbox.box.read('Search');
     List Search = new List.from(Se.reversed);
     DateTime now = DateTime.now();
-    //   print('${now.subtract(Duration(days: 7))}');
+    print('--------------');
+    print(size.width);
+    print(size.height);
+    print('--------------');
 
     return Scaffold(
         appBar: AppBar(
-          elevation: 0,
-          backgroundColor: AppColors.whiteColor,
+          elevation: 1,
+          backgroundColor: AppColors.whiteappbarColor,
           centerTitle: true,
           title: Text(
             'favorite'.tr,
@@ -492,8 +495,12 @@ class _FavoriteViewState extends State<FavoriteView> {
                                               );
                                             },
                                             staggeredTileBuilder: (int index) =>
-                                                new StaggeredTile.count(1, 1.2),
-                                            mainAxisSpacing: 5,
+                                                new StaggeredTile.count(
+                                                    1,
+                                                    size.height >= 750
+                                                        ? 1.22
+                                                        : 1.1),
+                                            mainAxisSpacing: 1,
                                             crossAxisSpacing: 1,
                                           ),
                                         ),
@@ -649,8 +656,11 @@ class _FavoriteViewState extends State<FavoriteView> {
                                                   staggeredTileBuilder: (int
                                                           index) =>
                                                       new StaggeredTile.count(
-                                                          1, 1.2),
-                                                  mainAxisSpacing: 5,
+                                                          1,
+                                                          size.height >= 750
+                                                              ? 1.22
+                                                              : 1.1),
+                                                  mainAxisSpacing: 1,
                                                   crossAxisSpacing: 1,
                                                 ),
                                               ),

@@ -6,6 +6,7 @@ import 'package:delivery_food/view/Cart_page/CartConfirm.dart';
 import 'package:delivery_food/view/Cart_page/Component/Categor_Sub_Cart.dart';
 import 'package:delivery_food/view/Cart_page/Component/TotalPrice.dart';
 import 'package:delivery_food/view/History_page/History_Page.dart';
+import 'package:delivery_food/view/Virefy_pages/Choose_Page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
@@ -14,7 +15,6 @@ class CartView extends StatelessWidget {
   CartView({Key? key}) : super(key: key);
   var controller = Get.put(CartController());
   var co = Get.put(OrderController());
-
   var prodController = Get.find<ProductsController>();
   @override
   StatusCode statusCode = StatusCode();
@@ -36,8 +36,8 @@ class CartView extends StatelessWidget {
     }
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: AppColors.whiteColor,
-        elevation: 2,
+        backgroundColor: AppColors.whiteappbarColor,
+        elevation: 1,
         centerTitle: true,
         title: Text(
           'cart'.tr,
@@ -49,8 +49,12 @@ class CartView extends StatelessWidget {
         actions: [
           IconButton(
               onPressed: () {
-                co.getorder('');
-                Get.to(() => HistoryPage());
+                if (statusCode.Token == '') {
+                  Get.to(ChoseSign());
+                } else {
+                  co.getorder('');
+                  Get.to(() => HistoryPage());
+                }
               },
               icon: SvgPicture.asset(
                 'assets/svg/history.svg',
