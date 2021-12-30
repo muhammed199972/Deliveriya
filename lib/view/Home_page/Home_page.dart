@@ -50,7 +50,9 @@ class HomeView extends StatelessWidget {
                       Expanded(
                           flex: 2,
                           child: Padding(
-                              padding: EdgeInsets.only(top: 20),
+                              padding: size.height > 550
+                                  ? const EdgeInsets.only(top: 20)
+                                  : const EdgeInsets.only(top: 10),
                               child: LogoStatus())),
                       Expanded(
                         child: Padding(

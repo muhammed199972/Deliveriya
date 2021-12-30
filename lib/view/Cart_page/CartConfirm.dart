@@ -122,7 +122,10 @@ class ConfirmCart extends StatelessWidget {
                 },
                 child: Obx(() => AddressWidget(
                       size: size,
-                      icon: SvgPicture.asset('assets/svg/address.svg'),
+                      icon: SvgPicture.asset(
+                        'assets/svg/address.svg',
+                        width: size.width <= 350 ? 20 : 25,
+                      ),
                       txt: controller.data.value.town == null
                           ? 'addaddress'.tr
                           : '${controller.data.value.town?.city?.name}-${controller.data.value.town?.name}',
@@ -132,7 +135,8 @@ class ConfirmCart extends StatelessWidget {
                     )),
               ),
               Padding(
-                padding: EdgeInsets.symmetric(horizontal: 150, vertical: 50),
+                padding: EdgeInsets.symmetric(
+                    horizontal: size.width <= 350 ? 80 : 150, vertical: 50),
                 child: ButtonWidget2(
                     size: size,
                     txt: 'submit'.tr,

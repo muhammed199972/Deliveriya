@@ -129,17 +129,23 @@ class CategoryCart extends StatelessWidget {
                   title: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Text(controller[indexcat].name!,
-                          style: size.width >= 600
-                              ? Styles.defualttab
-                              : Styles.defualtmobile),
+                      Expanded(
+                        child: Text(controller[indexcat].name!,
+                            style: size.width >= 600
+                                ? Styles.defualttab
+                                : size.width >= 350
+                                    ? Styles.defualtmobile
+                                    : Styles.priceStyle),
+                      ),
                       Row(
                         children: [
                           Text(
                             '${pricemcat.value} \$',
                             style: size.width >= 600
                                 ? Styles.defualttab
-                                : Styles.defualtmobile,
+                                : size.width >= 350
+                                    ? Styles.defualtmobile
+                                    : Styles.priceStyle,
                           ),
                           Obx(
                             () => Visibility(
@@ -321,7 +327,9 @@ class CategoryCart extends StatelessWidget {
                                                 .name!,
                                             style: size.width >= 600
                                                 ? Styles.defualttab
-                                                : Styles.defualtmobile,
+                                                : size.width >= 350
+                                                    ? Styles.defualtmobile
+                                                    : Styles.priceStyle,
                                           ),
                                           Row(
                                             children: [
@@ -329,7 +337,9 @@ class CategoryCart extends StatelessWidget {
                                                 '${pricesup.value} \$',
                                                 style: size.width >= 600
                                                     ? Styles.defualttab
-                                                    : Styles.defualtmobile,
+                                                    : size.width >= 350
+                                                        ? Styles.defualtmobile
+                                                        : Styles.priceStyle,
                                               ),
                                               IconButton(
                                                 splashColor: Colors.transparent,
@@ -434,7 +444,7 @@ class CategoryCart extends StatelessWidget {
                                                 },
                                                 icon: Image.asset(
                                                   'assets/png/remove.png',
-                                                  width: 50,
+                                                  width: 30,
                                                 ),
                                               ),
                                             ],

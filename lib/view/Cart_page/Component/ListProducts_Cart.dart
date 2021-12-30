@@ -194,10 +194,10 @@ class ListProdCart extends StatelessWidget {
                   Row(
                     children: [
                       Obx(() {
-                        return FittedBox(
-                          fit: BoxFit.scaleDown,
-                          child: Container(
-                            width: size.width >= 600 ? 92 : 52,
+                        return Container(
+                          width: size.width >= 600 ? 92 : 52,
+                          child: FittedBox(
+                            fit: BoxFit.scaleDown,
                             child: Text(
                                 '${controlleritem[index].price * counter.value} \$',
                                 style: size.width >= 600

@@ -3,7 +3,9 @@ import 'package:delivery_food/controller/Favorite_controller.dart';
 import 'package:delivery_food/controller/Products_controller.dart';
 import 'package:delivery_food/view/Favorite_page/Component/Category_favorite.dart';
 import 'package:delivery_food/view/Favorite_page/Component/Subcategory_favorite.dart';
+import 'package:delivery_food/view/Home_page/Home_page.dart';
 import 'package:delivery_food/view/Products_page.dart/component/Products_Cards.dart';
+import 'package:delivery_food/view/navbar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:flutter_svg/svg.dart';
@@ -556,20 +558,26 @@ class _FavoriteViewState extends State<FavoriteView> {
                         child: Center(
                           child: ListView(children: [
                             Padding(
-                              padding: const EdgeInsets.all(30),
-                              child:
-                                  SvgPicture.asset('assets/svg/subscribe.svg'),
+                              padding: size.height > 550
+                                  ? const EdgeInsets.all(30)
+                                  : const EdgeInsets.all(10),
+                              child: SvgPicture.asset(
+                                'assets/svg/subscribe.svg',
+                                height: 280,
+                              ),
                             ),
                             Padding(
-                              padding: const EdgeInsets.all(15),
+                              padding: size.height > 550
+                                  ? const EdgeInsets.all(15)
+                                  : const EdgeInsets.all(5),
                               child: SvgPicture.asset(
                                   'assets/svg/No favorite to show.svg'),
                             ),
                             InkWell(
                               onTap: () {
-                                // Get.off(BottomBar(
-                                //   fu: HomeView(),
-                                // ));
+                                Get.offAll(BottomBar(
+                                  fu: HomeView(),
+                                ));
                               },
                               child: Center(
                                 child: Text(
@@ -594,104 +602,100 @@ class _FavoriteViewState extends State<FavoriteView> {
                               image: DecorationImage(
                                   image:
                                       AssetImage('assets/png/background.png'))),
-                          child: Padding(
-                            padding: EdgeInsets.only(top: 10),
-                            child: Column(
-                              children: [
-                                Expanded(
-                                  child: Row(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    mainAxisAlignment: MainAxisAlignment.start,
-                                    children: [
-                                      CategorysFavorite(
-                                        size: size,
-                                        favoriteController: prodController
-                                            .prods, // subcategory: subcategory,
-                                      ),
-                                      Container(
-                                        height: double.infinity,
-                                        width: size.width / 1.51,
-                                        padding: EdgeInsets.only(top: 20),
-                                        child: Column(
-                                          crossAxisAlignment:
-                                              CrossAxisAlignment.start,
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.start,
-                                          children: [
-                                            Expanded(
-                                              flex: 0,
-                                              child: Container(
-                                                  color: AppColors.greyColor,
-                                                  child: SubcategoryFavorite(
-                                                    favoriteController:
-                                                        prodController
-                                                            .prods[
-                                                                favoriteController
-                                                                    .idcategory
-                                                                    .value]
-                                                            .subCategories,
-                                                    size: size,
-                                                    // subcategory: subcategory,
-                                                  )),
-                                            ),
-                                            Expanded(
-                                              flex: 11,
-                                              child: Container(
-                                                margin: EdgeInsets.symmetric(
-                                                    horizontal: Defaults
-                                                        .defaultPadding),
-                                                child: StaggeredGridView
-                                                    .countBuilder(
-                                                  shrinkWrap: true,
-                                                  crossAxisCount:
-                                                      size.width >= 600 ? 3 : 2,
-                                                  itemCount: prodController
-                                                      .prods[favoriteController
-                                                          .idcategory.value]
-                                                      .subCategories[
-                                                          favoriteController
-                                                              .idsupcategory
-                                                              .value]
-                                                      .products
-                                                      .length,
-                                                  itemBuilder:
-                                                      (BuildContext context,
-                                                          int index) {
-                                                    return FullCard(
-                                                      size: size,
-                                                      product: prodController
+                          child: Column(
+                            children: [
+                              Expanded(
+                                child: Row(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  mainAxisAlignment: MainAxisAlignment.start,
+                                  children: [
+                                    CategorysFavorite(
+                                      size: size,
+                                      favoriteController: prodController
+                                          .prods, // subcategory: subcategory,
+                                    ),
+                                    Container(
+                                      height: double.infinity,
+                                      width: size.width / 1.51,
+                                      padding: EdgeInsets.only(top: 20),
+                                      child: Column(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.start,
+                                        children: [
+                                          Expanded(
+                                            flex: 0,
+                                            child: Container(
+                                                color: AppColors.greyColor,
+                                                child: SubcategoryFavorite(
+                                                  favoriteController:
+                                                      prodController
                                                           .prods[
                                                               favoriteController
                                                                   .idcategory
                                                                   .value]
-                                                          .subCategories[
-                                                              favoriteController
-                                                                  .idsupcategory
-                                                                  .value]
-                                                          .products[index],
-                                                    );
-                                                  },
-                                                  staggeredTileBuilder: (int
-                                                          index) =>
-                                                      new StaggeredTile.count(
-                                                          1,
-                                                          size.height >= 750
-                                                              ? 1.22
-                                                              : 1.1),
-                                                  mainAxisSpacing: 1,
-                                                  crossAxisSpacing: 1,
-                                                ),
+                                                          .subCategories,
+                                                  size: size,
+                                                  // subcategory: subcategory,
+                                                )),
+                                          ),
+                                          Expanded(
+                                            flex: 11,
+                                            child: Container(
+                                              margin: EdgeInsets.symmetric(
+                                                  horizontal:
+                                                      Defaults.defaultPadding),
+                                              child: StaggeredGridView
+                                                  .countBuilder(
+                                                shrinkWrap: true,
+                                                crossAxisCount:
+                                                    size.width >= 600 ? 3 : 2,
+                                                itemCount: prodController
+                                                    .prods[favoriteController
+                                                        .idcategory.value]
+                                                    .subCategories[
+                                                        favoriteController
+                                                            .idsupcategory
+                                                            .value]
+                                                    .products
+                                                    .length,
+                                                itemBuilder:
+                                                    (BuildContext context,
+                                                        int index) {
+                                                  return FullCard(
+                                                    size: size,
+                                                    product: prodController
+                                                        .prods[
+                                                            favoriteController
+                                                                .idcategory
+                                                                .value]
+                                                        .subCategories[
+                                                            favoriteController
+                                                                .idsupcategory
+                                                                .value]
+                                                        .products[index],
+                                                  );
+                                                },
+                                                staggeredTileBuilder:
+                                                    (int index) =>
+                                                        new StaggeredTile.count(
+                                                            1,
+                                                            size.height >= 750
+                                                                ? 1.22
+                                                                : 1.1),
+                                                mainAxisSpacing: 1,
+                                                crossAxisSpacing: 1,
                                               ),
                                             ),
-                                          ],
-                                        ),
+                                          ),
+                                        ],
                                       ),
-                                    ],
-                                  ),
+                                    ),
+                                  ],
                                 ),
-                              ],
-                            ),
+                              ),
+                            ],
                           ),
                         )
                       : Center(
@@ -706,20 +710,26 @@ class _FavoriteViewState extends State<FavoriteView> {
                         child: Center(
                           child: ListView(children: [
                             Padding(
-                              padding: const EdgeInsets.all(30),
-                              child:
-                                  SvgPicture.asset('assets/svg/subscribe.svg'),
+                              padding: size.height > 550
+                                  ? const EdgeInsets.all(30)
+                                  : const EdgeInsets.all(10),
+                              child: SvgPicture.asset(
+                                'assets/svg/subscribe.svg',
+                                height: 280,
+                              ),
                             ),
                             Padding(
-                              padding: const EdgeInsets.all(15),
+                              padding: size.height > 550
+                                  ? const EdgeInsets.all(15)
+                                  : const EdgeInsets.all(5),
                               child: SvgPicture.asset(
                                   'assets/svg/No favorite to show.svg'),
                             ),
                             InkWell(
                               onTap: () {
-                                // Get.off(BottomBar(
-                                //   fu: HomeView(),
-                                // ));
+                                Get.offAll(BottomBar(
+                                  fu: HomeView(),
+                                ));
                               },
                               child: Center(
                                 child: Text(

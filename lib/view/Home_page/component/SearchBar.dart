@@ -39,7 +39,7 @@ class SearchBar extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               SizedBox(
-                width: 250.0,
+                width: size.width > 350 ? 250 : 220.0,
                 child: DefaultTextStyle(
                   style: TextStyle(
                     color: AppColors.darkgreytextColor,

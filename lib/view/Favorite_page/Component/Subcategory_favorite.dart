@@ -66,13 +66,16 @@ class SubcategoryFavorite extends StatelessWidget {
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
                             Center(
-                              child: Text(
-                                favoriteController[index].name.toString(),
-                                style: TextStyle(
-                                    color: fav.idsupcategory.value == index
-                                        ? AppColors.mainColor
-                                        : AppColors.darkgreytextColor,
-                                    fontSize: size.width >= 600 ? 25 : 16),
+                              child: FittedBox(
+                                fit: BoxFit.scaleDown,
+                                child: Text(
+                                  favoriteController[index].name.toString(),
+                                  style: TextStyle(
+                                      color: fav.idsupcategory.value == index
+                                          ? AppColors.mainColor
+                                          : AppColors.darkgreytextColor,
+                                      fontSize: size.width >= 600 ? 25 : 16),
+                                ),
                               ),
                             ),
                           ]),
