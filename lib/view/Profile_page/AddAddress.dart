@@ -76,7 +76,10 @@ class AddAddress extends StatelessWidget {
                                   color: Colors.black54,
                                   fontSize: 16,
                                 ),
-                                hint: Text('selectcity'.tr),
+                                hint: Text('selectcity'.tr,
+                                    style: size.width >= 600
+                                        ? Styles.defualttab
+                                        : Styles.defualtmobile),
                                 onChanged: (String? newValue) async {
                                   controller.vCity.value = newValue!;
                                   await controller.getTown(newValue);
@@ -86,7 +89,10 @@ class AddAddress extends StatelessWidget {
                                 items: controller.cities.isNotEmpty
                                     ? controller.cities.map((item) {
                                         return new DropdownMenuItem<String?>(
-                                          child: new Text(item.name!),
+                                          child: new Text(item.name!,
+                                              style: size.width >= 600
+                                                  ? Styles.defualttab
+                                                  : Styles.defualtmobile),
                                           value: item.id.toString(),
                                         );
                                       }).toList()
@@ -127,7 +133,10 @@ class AddAddress extends StatelessWidget {
                                     color: Colors.black54,
                                     fontSize: 16,
                                   ),
-                                  hint: Text('selecttown'.tr),
+                                  hint: Text('selecttown'.tr,
+                                      style: size.width >= 600
+                                          ? Styles.defualttab
+                                          : Styles.defualtmobile),
                                   onChanged: (String? newValue) {
                                     controller.vTown.value = newValue!;
                                   },
@@ -135,7 +144,10 @@ class AddAddress extends StatelessWidget {
                                       ? controller.towns.map((item) {
                                           print(item.name);
                                           return new DropdownMenuItem<String?>(
-                                            child: Text(item.name!),
+                                            child: Text(item.name!,
+                                                style: size.width >= 600
+                                                    ? Styles.defualttab
+                                                    : Styles.defualtmobile),
                                             value: item.id.toString(),
                                           );
                                         }).toList()

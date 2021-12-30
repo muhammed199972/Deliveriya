@@ -88,6 +88,7 @@ class CategorysScroll extends StatelessWidget {
                                         category.categorys[index].id
                                     ? AppColors.mainColor
                                     : AppColors.darkgreytextColor,
+                                scale: size.width >= 600 ? 0.5 : 1,
                               ),
                             ),
                             Expanded(

@@ -123,16 +123,16 @@ class CategoryCart extends StatelessWidget {
                 child: ExpansionTile(
                   leading: Image.network(
                     statusCode.urlimage + controller[indexcat].icon!,
-                    width: 30,
+                    width: size.width >= 600 ? 60 : 30,
                     color: AppColors.mainColor,
                   ),
                   title: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Text(
-                        controller[indexcat].name!,
-                        style: TextStyle(color: Colors.black),
-                      ),
+                      Text(controller[indexcat].name!,
+                          style: size.width >= 600
+                              ? Styles.defualttab
+                              : Styles.defualtmobile),
                       Row(
                         children: [
                           Text(

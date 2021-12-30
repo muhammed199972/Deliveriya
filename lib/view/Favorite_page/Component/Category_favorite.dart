@@ -75,6 +75,7 @@ class CategorysFavorite extends StatelessWidget {
                                 color: fav.idcategory.value == index
                                     ? AppColors.mainColor
                                     : AppColors.darkgreytextColor,
+                                scale: size.width >= 600 ? 0.5 : 1,
                               ),
                             ),
                             Expanded(

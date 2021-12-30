@@ -64,7 +64,7 @@ class ListProdCart extends StatelessWidget {
                     children: [
                       Image.network(
                         statusCode.urlimage + controlleritem[index].avatar,
-                        width: 30,
+                        width: size.width >= 600 ? 80 : 35,
                       ),
                       SizedBox(
                         width: 5,
@@ -96,8 +96,8 @@ class ListProdCart extends StatelessWidget {
                           }
                         },
                         child: Container(
-                          height: 25,
-                          width: 25,
+                          height: size.width >= 600 ? 40 : 25,
+                          width: size.width >= 600 ? 40 : 25,
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(3.0),
                             color: AppColors.whiteColor,
@@ -114,7 +114,7 @@ class ListProdCart extends StatelessWidget {
                               '-',
                               style: TextStyle(
                                 fontWeight: FontWeight.w500,
-                                fontSize: 20,
+                                fontSize: size.width >= 600 ? 40 : 20,
                               ),
                             ),
                           ),
@@ -124,7 +124,7 @@ class ListProdCart extends StatelessWidget {
                         width: 5,
                       ),
                       Container(
-                        height: 25,
+                        height: size.width >= 600 ? 40 : 25,
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(3.0),
                           color: AppColors.whiteColor,
@@ -139,7 +139,10 @@ class ListProdCart extends StatelessWidget {
                         child: Obx(() {
                           return Center(
                             child: Text(
-                                '${counter.value} ${item[index].measuringUnit}'),
+                                '${counter.value} ${item[index].measuringUnit}',
+                                style: size.width >= 600
+                                    ? Styles.defualttab
+                                    : Styles.defualtmobile),
                           );
                         }),
                       ),
@@ -162,8 +165,8 @@ class ListProdCart extends StatelessWidget {
                           }
                         },
                         child: Container(
-                          height: 25,
-                          width: 25,
+                          height: size.width >= 600 ? 40 : 25,
+                          width: size.width >= 600 ? 40 : 25,
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(3.0),
                             color: AppColors.whiteColor,
@@ -180,7 +183,7 @@ class ListProdCart extends StatelessWidget {
                               '+',
                               style: TextStyle(
                                 fontWeight: FontWeight.w500,
-                                fontSize: 20,
+                                fontSize: size.width >= 600 ? 35 : 20,
                               ),
                             ),
                           ),
@@ -194,15 +197,18 @@ class ListProdCart extends StatelessWidget {
                         return FittedBox(
                           fit: BoxFit.scaleDown,
                           child: Container(
-                            width: 52,
+                            width: size.width >= 600 ? 92 : 52,
                             child: Text(
-                                '${controlleritem[index].price * counter.value} \$'),
+                                '${controlleritem[index].price * counter.value} \$',
+                                style: size.width >= 600
+                                    ? Styles.defualttab
+                                    : Styles.defualtmobile),
                           ),
                         );
                       }),
-                      IconButton(
+                      InkWell(
                         splashColor: Colors.transparent,
-                        onPressed: () {
+                        onTap: () {
                           DialogsUtils.showdialogdelete(
                               m: 'Proceed ?',
                               onPressedCancel: () {
@@ -231,9 +237,9 @@ class ListProdCart extends StatelessWidget {
                                 }
                               });
                         },
-                        icon: Image.asset(
+                        child: Image.asset(
                           'assets/png/remove.png',
-                          width: 50,
+                          scale: size.width >= 600 ? 0.5 : 1,
                         ),
                       )
                     ],

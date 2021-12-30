@@ -206,7 +206,10 @@ class CartView extends StatelessWidget {
               },
               splashColor: AppColors.lightmainColor,
               backgroundColor: AppColors.mainColor,
-              child: Text('submit'.tr),
+              child: Text('submit'.tr,
+                  style: size.width >= 600
+                      ? Styles.defualttab
+                      : Styles.defualtmobile),
             ),
           )),
     );

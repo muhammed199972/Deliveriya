@@ -76,9 +76,9 @@ class ButtonUpdate extends StatelessWidget {
           ],
         ),
         child: Center(
-          child: Text(
-            'update'.tr,
-          ),
+          child: Text('update'.tr,
+              style:
+                  size.width >= 600 ? Styles.defualttab : Styles.defualtmobile),
         ),
       ),
     );

@@ -70,6 +70,7 @@ class _BottomBarState extends State<BottomBar> {
 
   @override
   Widget build(BuildContext context) {
+    Size size = MediaQuery.of(context).size;
     return Scaffold(
       body: _screens[_currentIndex],
       bottomNavigationBar: BottomNavigationBar(
@@ -77,10 +78,10 @@ class _BottomBarState extends State<BottomBar> {
         currentIndex: _currentIndex,
         onTap: _updateIndex,
         selectedItemColor: AppColors.mainColor,
-        selectedFontSize: 13,
-        unselectedFontSize: 13,
+        selectedFontSize: size.width >= 600 ? 20 : 13,
+        unselectedFontSize: size.width >= 600 ? 20 : 13,
         selectedIconTheme: IconThemeData(size: 30),
-        iconSize: 30,
+        iconSize: size.width >= 600 ? 70 : 30,
         backgroundColor: Color(0xFFFFFFFF),
         items: [
           BottomNavigationBarItem(
@@ -90,7 +91,9 @@ class _BottomBarState extends State<BottomBar> {
               color: _currentIndex == 0
                   ? AppColors.mainColor
                   : AppColors.darkgreytextColor,
-              width: _currentIndex == 0 ? 35 : 25,
+              width: size.width >= 600
+                  ? (_currentIndex == 0 ? 50 : 40)
+                  : (_currentIndex == 0 ? 35 : 25),
             ),
           ),
           BottomNavigationBarItem(
@@ -100,7 +103,9 @@ class _BottomBarState extends State<BottomBar> {
               color: _currentIndex == 1
                   ? AppColors.mainColor
                   : AppColors.darkgreytextColor,
-              width: _currentIndex == 1 ? 35 : 25,
+              width: size.width >= 600
+                  ? (_currentIndex == 1 ? 50 : 40)
+                  : (_currentIndex == 1 ? 35 : 25),
             ),
           ),
           BottomNavigationBarItem(
@@ -110,7 +115,9 @@ class _BottomBarState extends State<BottomBar> {
               color: _currentIndex == 2
                   ? AppColors.mainColor
                   : AppColors.darkgreytextColor,
-              width: _currentIndex == 2 ? 35 : 25,
+              width: size.width >= 600
+                  ? (_currentIndex == 2 ? 50 : 40)
+                  : (_currentIndex == 2 ? 35 : 25),
             ),
           ),
           BottomNavigationBarItem(
@@ -120,7 +127,9 @@ class _BottomBarState extends State<BottomBar> {
               color: _currentIndex == 3
                   ? AppColors.mainColor
                   : AppColors.darkgreytextColor,
-              width: _currentIndex == 3 ? 35 : 25,
+              width: size.width >= 600
+                  ? (_currentIndex == 3 ? 50 : 40)
+                  : (_currentIndex == 3 ? 35 : 25),
             ),
           ),
           BottomNavigationBarItem(
@@ -130,7 +139,9 @@ class _BottomBarState extends State<BottomBar> {
               color: _currentIndex == 4
                   ? AppColors.mainColor
                   : AppColors.darkgreytextColor,
-              width: _currentIndex == 4 ? 35 : 25,
+              width: size.width >= 600
+                  ? (_currentIndex == 4 ? 50 : 40)
+                  : (_currentIndex == 4 ? 35 : 25),
             ),
           ),
         ],

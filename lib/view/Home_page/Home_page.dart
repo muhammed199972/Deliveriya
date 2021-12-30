@@ -66,21 +66,17 @@ class HomeView extends StatelessWidget {
                             },
                             child: Row(
                               children: [
-                                Expanded(
-                                  flex: 2,
-                                  child: Text(
-                                    'help'.tr,
-                                    style: size.width >= 600
-                                        ? Styles.defualttab
-                                        : Styles.defualtmobile,
-                                  ),
+                                Text(
+                                  'help'.tr,
+                                  style: size.width >= 600
+                                      ? Styles.defualttab
+                                      : Styles.defualtmobile,
                                 ),
-                                Expanded(
-                                  child: InkWell(
-                                    child: Icon(
-                                      Icons.help_sharp,
-                                      color: AppColors.darkgreytextColor,
-                                    ),
+                                InkWell(
+                                  child: Icon(
+                                    Icons.help_sharp,
+                                    color: AppColors.darkgreytextColor,
+                                    size: size.width >= 600 ? 30 : 15,
                                   ),
                                 )
                               ],

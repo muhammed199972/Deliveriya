@@ -44,8 +44,14 @@ class AddressWidget extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(txt!),
-                Text(subtitle ?? ''),
+                Text(txt!,
+                    style: size!.width >= 600
+                        ? Styles.defualttab
+                        : Styles.defualtmobile),
+                Text(subtitle ?? '',
+                    style: size!.width >= 600
+                        ? Styles.defualttab
+                        : Styles.defualtmobile),
               ],
             ),
           ],

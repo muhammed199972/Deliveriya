@@ -14,6 +14,8 @@ class SearchBar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    Size size = MediaQuery.of(context).size;
+
     return InkWell(
       highlightColor: Colors.transparent,
       onTap: () {
@@ -39,9 +41,9 @@ class SearchBar extends StatelessWidget {
               SizedBox(
                 width: 250.0,
                 child: DefaultTextStyle(
-                  style: const TextStyle(
+                  style: TextStyle(
                     color: AppColors.darkgreytextColor,
-                    fontSize: 15.0,
+                    fontSize: size.width >= 600 ? 30 : 15.0,
                     fontFamily: 'Roboto',
                   ),
                   child: AnimatedTextKit(
@@ -53,7 +55,11 @@ class SearchBar extends StatelessWidget {
                   ),
                 ),
               ),
-              Icon(Icons.search, color: AppColors.darkgreytextColor)
+              Icon(
+                Icons.search,
+                color: AppColors.darkgreytextColor,
+                size: size.width >= 600 ? 30 : 15,
+              )
             ],
           )),
     );

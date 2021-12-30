@@ -85,7 +85,7 @@ class ProduvtsView extends StatelessWidget {
                     icon: SvgPicture.asset(
                       'assets/svg/Cart icon.svg',
                       color: AppColors.mainColor,
-                      width: 40,
+                      width: size.width >= 600 ? 60 : 40,
                     ),
                   ),
                 ),

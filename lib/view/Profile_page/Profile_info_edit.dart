@@ -246,7 +246,10 @@ class ProfileInfoEdit extends StatelessWidget {
                                     elevation: 1,
                                     itemBuilder: (context) => [
                                           PopupMenuItem(
-                                            child: Text("male".tr),
+                                            child: Text("male".tr,
+                                                style: size.width >= 600
+                                                    ? Styles.defualttab
+                                                    : Styles.defualtmobile),
                                             value: 1,
                                             onTap: () {
                                               controller.gender.value =
@@ -254,7 +257,10 @@ class ProfileInfoEdit extends StatelessWidget {
                                             },
                                           ),
                                           PopupMenuItem(
-                                            child: Text("female".tr),
+                                            child: Text("female".tr,
+                                                style: size.width >= 600
+                                                    ? Styles.defualttab
+                                                    : Styles.defualtmobile),
                                             value: 2,
                                             onTap: () {
                                               controller.gender.value =
@@ -487,12 +493,10 @@ class ProfileInfoEdit extends StatelessWidget {
                         ),
                       );
                     },
-                    child: Text(
-                      'resetpassword'.tr,
-                      style: TextStyle(
-                        fontSize: 17,
-                      ),
-                    )),
+                    child: Text('resetpassword'.tr,
+                        style: size.width >= 600
+                            ? Styles.defualttab
+                            : Styles.defualtmobile)),
               ),
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 50),

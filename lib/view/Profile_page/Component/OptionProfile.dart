@@ -47,7 +47,12 @@ class OptionProfile extends StatelessWidget {
                         width: 8,
                       )
                     : Container(),
-                Text(txt!),
+                Text(
+                  txt!,
+                  style: size.width >= 600
+                      ? Styles.defualttab
+                      : Styles.defualtmobile,
+                ),
               ],
             ),
             trailing: iconarrow!),

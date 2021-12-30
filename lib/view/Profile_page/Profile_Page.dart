@@ -49,7 +49,7 @@ class ProfileView extends StatelessWidget {
               child: SvgPicture.asset(
                 'assets/svg/Cart icon.svg',
                 color: AppColors.mainColor,
-                width: 23,
+                width: size.width >= 600 ? 40 : 23,
               ),
             ),
             // Text(
@@ -74,6 +74,7 @@ class ProfileView extends StatelessWidget {
               child: Icon(
                 Icons.favorite_border_outlined,
                 color: AppColors.mainColor,
+                size: size.width >= 600 ? 40 : 23,
               ),
             ),
             //     Text(
@@ -109,7 +110,10 @@ class ProfileView extends StatelessWidget {
                     margin:
                         EdgeInsets.only(bottom: 0, left: 17, top: 10, right: 8),
                   )),
-              Obx(() => Text(controller.profile.value.name ?? '')),
+              Obx(() => Text(controller.profile.value.name ?? '',
+                  style: size.width >= 600
+                      ? Styles.defualttab
+                      : Styles.defualtmobile)),
             ],
           ),
           SizedBox(
@@ -117,7 +121,10 @@ class ProfileView extends StatelessWidget {
           ),
           OptionProfile(
             size: size,
-            icon: SvgPicture.asset('assets/svg/edit.svg'),
+            icon: SvgPicture.asset(
+              'assets/svg/edit.svg',
+              width: size.width >= 600 ? 40 : 20,
+            ),
             txt: 'personalinfo'.tr,
             iconarrow: Icon(
               Icons.arrow_forward_ios_rounded,
@@ -129,7 +136,10 @@ class ProfileView extends StatelessWidget {
           ),
           OptionProfile(
             size: size,
-            icon: SvgPicture.asset('assets/svg/address.svg'),
+            icon: SvgPicture.asset(
+              'assets/svg/address.svg',
+              width: size.width >= 600 ? 40 : 20,
+            ),
             txt: 'myaddress'.tr,
             iconarrow: Icon(
               Icons.arrow_forward_ios_rounded,
@@ -143,6 +153,7 @@ class ProfileView extends StatelessWidget {
             icon: SvgPicture.asset(
               'assets/svg/history.svg',
               color: AppColors.mainColor,
+              width: size.width >= 600 ? 40 : 20,
             ),
             txt: 'orderhistory'.tr,
             iconarrow: Icon(
@@ -173,13 +184,18 @@ class ProfileView extends StatelessWidget {
                     padding: const EdgeInsets.symmetric(horizontal: 8),
                     child: Row(
                       children: [
-                        SvgPicture.asset('assets/svg/net.svg'),
+                        SvgPicture.asset(
+                          'assets/svg/net.svg',
+                          width: size.width >= 600 ? 40 : 20,
+                        ),
                         SizedBox(
                           width: 8,
                         ),
                         Text(
                           'changelanguage'.tr,
-                          style: TextStyle(fontSize: 17),
+                          style: size.width >= 600
+                              ? Styles.defualttab
+                              : Styles.defualtmobile,
                         ),
                       ],
                     ),
@@ -202,14 +218,20 @@ class ProfileView extends StatelessWidget {
                       elevation: 1,
                       itemBuilder: (context) => [
                             PopupMenuItem(
-                              child: Text("arabic".tr),
+                              child: Text("arabic".tr,
+                                  style: size.width >= 600
+                                      ? Styles.defualttab
+                                      : Styles.defualtmobile),
                               value: 1,
                               onTap: () {
                                 contr.changeLanguage('ar');
                               },
                             ),
                             PopupMenuItem(
-                              child: Text("english".tr),
+                              child: Text("english".tr,
+                                  style: size.width >= 600
+                                      ? Styles.defualttab
+                                      : Styles.defualtmobile),
                               value: 2,
                               onTap: () {
                                 contr.changeLanguage('en');
@@ -222,7 +244,10 @@ class ProfileView extends StatelessWidget {
           ),
           OptionProfile(
             size: size,
-            icon: SvgPicture.asset('assets/svg/help.svg'),
+            icon: SvgPicture.asset(
+              'assets/svg/help.svg',
+              width: size.width >= 600 ? 40 : 20,
+            ),
             txt: 'help'.tr,
             iconarrow: Icon(
               Icons.arrow_forward_ios_rounded,
@@ -242,13 +267,18 @@ class ProfileView extends StatelessWidget {
               highlightColor: Colors.transparent,
               child: Row(
                 children: [
-                  SvgPicture.asset('assets/svg/logout.svg'),
+                  SvgPicture.asset(
+                    'assets/svg/logout.svg',
+                    width: size.width >= 600 ? 40 : 20,
+                  ),
                   SizedBox(
                     width: 8,
                   ),
                   Text(
                     'logout'.tr,
-                    style: TextStyle(color: AppColors.mainColor, fontSize: 20),
+                    style: TextStyle(
+                        color: AppColors.mainColor,
+                        fontSize: size.width >= 600 ? 40 : 20),
                   )
                 ],
               ),

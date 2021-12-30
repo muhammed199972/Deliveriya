@@ -66,7 +66,10 @@ class ProfileInfo extends StatelessWidget {
                             bottom: 0, left: 17, top: 10, right: 8),
                       )),
                   // ),
-                  Obx(() => Text(controller.profile.value.name ?? '')),
+                  Obx(() => Text(controller.profile.value.name ?? '',
+                      style: size.width >= 600
+                          ? Styles.defualttab
+                          : Styles.defualtmobile)),
                 ],
               ),
               SizedBox(

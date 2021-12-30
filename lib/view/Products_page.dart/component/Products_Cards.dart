@@ -96,7 +96,9 @@ class FullCard extends StatelessWidget {
                 ),
                 Text(
                   product!.name!,
-                  style: Styles.defualtmobile,
+                  style: size.width >= 600
+                      ? Styles.defualttab
+                      : Styles.defualtmobile,
                 ),
                 Container(
                   height: size.height * 0.03,
@@ -188,7 +190,7 @@ class FullCard extends StatelessWidget {
                                       //  cart.value
                                       ? AppColors.mainColor
                                       : Colors.grey[800],
-                                  width: 20,
+                                  width: size.width >= 600 ? 40 : 20,
                                 );
                               })),
                         ),
@@ -230,7 +232,7 @@ class FullCard extends StatelessWidget {
                                     ? Icons.favorite
                                     : Icons.favorite_border,
                                 color: AppColors.mainColor,
-                                size: 20,
+                                size: size.width >= 600 ? 40 : 20,
                               ),
                             ),
                           ),
@@ -253,7 +255,7 @@ class FullCard extends StatelessWidget {
                                   decoration: product.afterOffer != null
                                       ? TextDecoration.lineThrough
                                       : TextDecoration.none,
-                                  fontSize: size.width >= 550 ? 20 : 12,
+                                  fontSize: size.width >= 600 ? 20 : 12,
                                 ),
                               ),
                               product.afterOffer != null
@@ -299,8 +301,8 @@ class FullCard extends StatelessWidget {
                     child: Container(
                       margin: EdgeInsets.only(
                           bottom: Defaults.defaultPadding / 3.5),
-                      height: 20,
-                      width: 20,
+                      height: size.width >= 600 ? 40 : 20,
+                      width: size.width >= 600 ? 40 : 20,
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(3.0),
                         color: AppColors.whiteColor,
@@ -319,7 +321,7 @@ class FullCard extends StatelessWidget {
                           '+',
                           style: TextStyle(
                             fontWeight: FontWeight.w500,
-                            fontSize: 20,
+                            fontSize: size.width >= 600 ? 40 : 20,
                           ),
                         ),
                       ),
@@ -330,7 +332,7 @@ class FullCard extends StatelessWidget {
                     child: Container(
                       margin: EdgeInsets.only(
                           bottom: Defaults.defaultPadding / 3.5),
-                      height: 35,
+                      height: size.width >= 600 ? 40 : 35,
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(3.0),
                         color: AppColors.whiteColor,
@@ -349,11 +351,17 @@ class FullCard extends StatelessWidget {
                           child: Padding(
                             padding: EdgeInsets.only(left: 4, right: 4),
                             child: Column(children: [
-                              Expanded(child: Text('${counter.value}')),
+                              Expanded(
+                                  child: Text(
+                                '${counter.value}',
+                                style: TextStyle(
+                                    fontSize: size.width >= 600 ? 20 : 10),
+                              )),
                               Expanded(
                                   child: Text(
                                 '${product.measuringUnit}',
-                                style: TextStyle(fontSize: 10),
+                                style: TextStyle(
+                                    fontSize: size.width >= 600 ? 20 : 10),
                               ))
                             ]),
                           ),
@@ -374,8 +382,8 @@ class FullCard extends StatelessWidget {
                         }
                       },
                       child: Container(
-                          height: 20,
-                          width: 20,
+                          height: size.width >= 600 ? 40 : 20,
+                          width: size.width >= 600 ? 40 : 10,
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(3.0),
                             color: AppColors.whiteColor,
@@ -395,7 +403,7 @@ class FullCard extends StatelessWidget {
                                     '-',
                                     style: TextStyle(
                                       fontWeight: FontWeight.w500,
-                                      fontSize: 20,
+                                      fontSize: size.width >= 600 ? 40 : 20,
                                     ),
                                   ),
                                 )
@@ -406,7 +414,7 @@ class FullCard extends StatelessWidget {
                                     },
                                     child: Icon(
                                       Icons.delete_outlined,
-                                      size: 20,
+                                      size: size.width >= 600 ? 40 : 20,
                                     ),
                                   ),
                                 )),
