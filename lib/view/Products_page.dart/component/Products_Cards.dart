@@ -255,16 +255,22 @@ class FullCard extends StatelessWidget {
                                   decoration: product.afterOffer != null
                                       ? TextDecoration.lineThrough
                                       : TextDecoration.none,
-                                  fontSize: size.width >= 600 ? 20 : 12,
+                                  fontSize: size.width >= 600
+                                      ? 20
+                                      : product.afterOffer != null
+                                          ? 10
+                                          : 12,
                                 ),
                               ),
                               product.afterOffer != null
-                                  ? Text(
-                                      '${product.afterOffer}\$',
-                                      textAlign: TextAlign.center,
-                                      style: TextStyle(
-                                        color: AppColors.blackColor,
-                                        fontSize: size.width >= 550 ? 20 : 12,
+                                  ? Expanded(
+                                      child: Text(
+                                        '${product.afterOffer}\$',
+                                        textAlign: TextAlign.center,
+                                        style: TextStyle(
+                                          color: AppColors.blackColor,
+                                          fontSize: size.width >= 550 ? 20 : 10,
+                                        ),
                                       ),
                                     )
                                   : Container()

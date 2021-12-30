@@ -468,13 +468,6 @@ class _FavoriteViewState extends State<FavoriteView> {
                                         CrossAxisAlignment.start,
                                     mainAxisAlignment: MainAxisAlignment.start,
                                     children: [
-                                      Divider(
-                                        height: 1,
-                                        thickness: 1,
-                                        indent: 0,
-                                        endIndent: 0,
-                                        color: Colors.grey,
-                                      ),
                                       Expanded(
                                         flex: 0,
                                         child: Container(
@@ -551,13 +544,6 @@ class _FavoriteViewState extends State<FavoriteView> {
                                     AssetImage('assets/png/background.png'))),
                         child: Center(
                           child: ListView(children: [
-                            Divider(
-                              height: 1,
-                              thickness: 1,
-                              indent: 0,
-                              endIndent: 0,
-                              color: Colors.grey,
-                            ),
                             Padding(
                               padding: const EdgeInsets.all(30),
                               child:
@@ -601,13 +587,6 @@ class _FavoriteViewState extends State<FavoriteView> {
                             padding: EdgeInsets.only(top: 10),
                             child: Column(
                               children: [
-                                Divider(
-                                  height: 1,
-                                  thickness: 1,
-                                  indent: 0,
-                                  endIndent: 0,
-                                  color: Colors.grey,
-                                ),
                                 Expanded(
                                   child: Row(
                                     crossAxisAlignment:
@@ -715,13 +694,6 @@ class _FavoriteViewState extends State<FavoriteView> {
                                     AssetImage('assets/png/background.png'))),
                         child: Center(
                           child: ListView(children: [
-                            Divider(
-                              height: 1,
-                              thickness: 1,
-                              indent: 0,
-                              endIndent: 0,
-                              color: Colors.grey,
-                            ),
                             Padding(
                               padding: const EdgeInsets.all(30),
                               child:

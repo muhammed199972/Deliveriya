@@ -1,6 +1,8 @@
 import 'package:delivery_food/General/Constants.dart';
 import 'package:delivery_food/General/Dialogs.dart';
+import 'package:delivery_food/controller/Order_controller.dart';
 import 'package:delivery_food/controller/Profile_controller.dart';
+import 'package:delivery_food/view/History_page/History_Page.dart';
 import 'package:delivery_food/view/Home_page/Home_page.dart';
 import 'package:delivery_food/controller/loclization_controller.dart';
 import 'package:delivery_food/view/Profile_page/Component/OptionProfile.dart';
@@ -16,7 +18,7 @@ class ProfileView extends StatelessWidget {
   ProfileView({Key? key}) : super(key: key);
   var status = StatusCode();
   var contr = Get.put(LanguageController());
-
+  var co = Get.put(OrderController());
   var controller = Get.put(ProfileController());
   @override
   Widget build(BuildContext context) {
@@ -159,7 +161,10 @@ class ProfileView extends StatelessWidget {
             iconarrow: Icon(
               Icons.arrow_forward_ios_rounded,
             ),
-            ontap: () {},
+            ontap: () async {
+              await co.getorder('');
+              Get.to(() => HistoryPage());
+            },
           ),
           Container(
             height: 50,

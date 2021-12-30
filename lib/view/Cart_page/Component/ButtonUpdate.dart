@@ -50,14 +50,17 @@ class ButtonUpdate extends StatelessWidget {
             Map body = {"ids": cart.updata};
             // Get.back();
             cart.patchcart(body);
+            body = {};
           } else if (cart.updata.length == 0) {
             Map body = {"deleteIds": cart.updatadelete};
             // Get.back();
             cart.patchcart(body);
+            body = {};
           } else {
             Map body = {"ids": cart.updata, "deleteIds": cart.updatadelete};
             // Get.back();
             cart.patchcart(body);
+            body = {};
           }
         }
       },

@@ -91,7 +91,7 @@ class ListProdCart extends StatelessWidget {
                             } else {
                               cart.updata[index]['quantity'] =
                                   cart.updata[index]['quantity']! -
-                                      int.parse(item[index].min);
+                                      item[index].min;
                             }
                           }
                         },
@@ -160,7 +160,7 @@ class ListProdCart extends StatelessWidget {
                             } else {
                               cart.updata[index]['quantity'] =
                                   cart.updata[index]['quantity']! +
-                                      int.parse(item[index].min);
+                                      item[index].min;
                             }
                           }
                         },
