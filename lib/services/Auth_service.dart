@@ -4,7 +4,9 @@ import 'dart:io';
 import 'package:delivery_food/General/Api_Result.dart';
 import 'package:delivery_food/General/Constants.dart';
 import 'package:delivery_food/model/Auth_model.dart';
+import 'package:delivery_food/model/DeletePutPost.dart';
 import 'package:delivery_food/model/Error.dart';
+import 'package:dio/dio.dart';
 import 'package:http/http.dart' as http;
 
 class AuthService {
@@ -234,15 +236,13 @@ class AuthService {
     Uri url = Uri.http('${statusCode.url1}', '/api/public/auth/login');
 
     try {
-      print(num);
-      print(password);
       var body = {'phone': num, 'password': password};
       var response = await http.post(
         url,
         body: body,
       );
       var responsebode = jsonDecode(response.body);
-      print(responsebode);
+
       if (response.statusCode == statusCode.OK ||
           response.statusCode == statusCode.CREATED) {
         status = AuthStatus.fromJson(responsebode['status']);
@@ -439,6 +439,202 @@ class AuthService {
       print('There is a problem with the admin');
     } catch (e) {
       apiResult.errorMassage = '${e}';
+      apiResult.codeError = statusCode.connection;
+
+      print('${e}');
+    }
+    return apiResult;
+  }
+
+  Future<ApiResult> postfavorateData() async {
+    StatusCode statusCode = StatusCode();
+    ApiResult apiResult = ApiResult();
+    DeletePutPostResponse? calendar;
+    ErrorResponse? error;
+    Dio dio = Dio();
+
+    try {
+      List<int> body = [];
+      var favorite = Constansbox.box.read('favorite');
+
+      favorite.forEach((element) {
+        body.add(element);
+      });
+
+      var response = await dio.post(
+        'http://' + statusCode.url1 + '/api/private/user/favorite',
+        data: jsonEncode({'ids': body}),
+        options: Options(
+          headers: {'Authorization': 'Bearer ${statusCode.Token}'},
+        ),
+      );
+
+      if (response.statusCode == statusCode.OK ||
+          response.statusCode == statusCode.CREATED) {
+        Constansbox.box.remove('favorite');
+        calendar = DeletePutPostResponse.fromJson(response.data);
+
+        apiResult.isEmpty = false;
+
+        apiResult.hasError = false;
+        apiResult.data = calendar;
+      } else if (response.statusCode == statusCode.UNAUTHORIZED) {
+        error = ErrorResponse.fromJson(response.data['errors']);
+        apiResult.errorMassage = error.msg;
+
+        apiResult.rfreshToken = false;
+        await postrefreshToken();
+        print('A bad request Please try again');
+      } else if (response.statusCode == statusCode.FORBIDDEN) {
+        error = ErrorResponse.fromJson(response.data['errors']);
+        apiResult.errorMassage = error.msg;
+
+        print('A bad request Please try again');
+      } else if (response.statusCode == statusCode.NOT_FOUND) {
+        error = ErrorResponse.fromJson(response.data['errors']);
+        apiResult.errorMassage = error.msg;
+
+        print('Endpoint not found Please try again');
+      } else if (response.statusCode == statusCode.DUPLICATED_ENTRY) {
+        error = ErrorResponse.fromJson(response.data['errors']);
+        apiResult.errorMassage = error.msg;
+
+        print('Input error Please try again');
+      } else if (response.statusCode == statusCode.VALIDATION_ERROR) {
+        error = ErrorResponse.fromJson(response.data['errors']);
+        apiResult.errorMassage = error.msg;
+
+        print('Input error Please try again');
+      } else if (response.statusCode == statusCode.INTERNAL_SERVER_ERROR) {
+        error = ErrorResponse.fromJson(response.data['errors']);
+        apiResult.errorMassage = error.msg;
+
+        print('Server error Please try again');
+      } else {
+        error = ErrorResponse.fromJson(response.data['errors']);
+        apiResult.errorMassage = error.msg;
+
+        print(' error Please try again');
+      }
+    } on SocketException {
+      apiResult.errorMassage = 'Make sure you are connected to the internet';
+      apiResult.codeError = statusCode.connection;
+
+      print('Make sure you are connected to the internet');
+    } on FormatException {
+      apiResult.errorMassage = 'There is a problem with the admin';
+      apiResult.codeError = statusCode.parsing;
+
+      print('There is a problem with the admin');
+    } on DioError catch (e) {
+      if (e.response!.statusCode == statusCode.UNAUTHORIZED) {
+        error = ErrorResponse.fromJson(e.response!.data['errors']);
+        apiResult.errorMassage = error.msg;
+
+        apiResult.rfreshToken = false;
+        await postrefreshToken();
+        print('A bad request Please try again');
+      }
+      apiResult.errorMassage = 'حدث خطأ غير متوقع';
+      apiResult.codeError = statusCode.connection;
+
+      print('${e}');
+    }
+    return apiResult;
+  }
+
+  Future<ApiResult> postcartData() async {
+    StatusCode statusCode = StatusCode();
+    ApiResult apiResult = ApiResult();
+    DeletePutPostResponse? calendar;
+    ErrorResponse? error;
+    Dio dio = Dio();
+
+    try {
+      List<Map<String, int>> body = [];
+      var productId = Constansbox.box.read('cartsid');
+      var quantity = Constansbox.box.read('cartscounte');
+      for (int i = 0; i < productId.length; i++) {
+        body.add({"productId": productId[i], "quantity": quantity[i]});
+      }
+      print({"ids": body});
+      var response = await dio.post(
+        'http://' + statusCode.url1 + '/api/private/user/cart',
+        data: jsonEncode({"ids": body}),
+        options: Options(
+          headers: {'Authorization': 'Bearer ${statusCode.Token}'},
+        ),
+      );
+
+      if (response.statusCode == statusCode.OK ||
+          response.statusCode == statusCode.CREATED) {
+        Constansbox.box.remove('cartsid');
+        Constansbox.box.remove('cartscounte');
+
+        calendar = DeletePutPostResponse.fromJson(response.data);
+
+        apiResult.isEmpty = false;
+
+        apiResult.hasError = false;
+        apiResult.data = calendar;
+      } else if (response.statusCode == statusCode.UNAUTHORIZED) {
+        error = ErrorResponse.fromJson(response.data['errors']);
+        apiResult.errorMassage = error.msg;
+
+        apiResult.rfreshToken = false;
+        await postrefreshToken();
+        print('A bad request Please try again');
+      } else if (response.statusCode == statusCode.FORBIDDEN) {
+        error = ErrorResponse.fromJson(response.data['errors']);
+        apiResult.errorMassage = error.msg;
+
+        print('A bad request Please try again');
+      } else if (response.statusCode == statusCode.NOT_FOUND) {
+        error = ErrorResponse.fromJson(response.data['errors']);
+        apiResult.errorMassage = error.msg;
+
+        print('Endpoint not found Please try again');
+      } else if (response.statusCode == statusCode.DUPLICATED_ENTRY) {
+        error = ErrorResponse.fromJson(response.data['errors']);
+        apiResult.errorMassage = error.msg;
+
+        print('Input error Please try again');
+      } else if (response.statusCode == statusCode.VALIDATION_ERROR) {
+        error = ErrorResponse.fromJson(response.data['errors']);
+        apiResult.errorMassage = error.msg;
+
+        print('Input error Please try again');
+      } else if (response.statusCode == statusCode.INTERNAL_SERVER_ERROR) {
+        error = ErrorResponse.fromJson(response.data['errors']);
+        apiResult.errorMassage = error.msg;
+
+        print('Server error Please try again');
+      } else {
+        error = ErrorResponse.fromJson(response.data['errors']);
+        apiResult.errorMassage = error.msg;
+
+        print(' error Please try again');
+      }
+    } on SocketException {
+      apiResult.errorMassage = 'Make sure you are connected to the internet';
+      apiResult.codeError = statusCode.connection;
+
+      print('Make sure you are connected to the internet');
+    } on FormatException {
+      apiResult.errorMassage = 'There is a problem with the admin';
+      apiResult.codeError = statusCode.parsing;
+
+      print('There is a problem with the admin');
+    } on DioError catch (e) {
+      if (e.response!.statusCode == statusCode.UNAUTHORIZED) {
+        error = ErrorResponse.fromJson(e.response!.data['errors']);
+        apiResult.errorMassage = error.msg;
+
+        apiResult.rfreshToken = false;
+
+        print('A bad request Please try again');
+      }
+      apiResult.errorMassage = 'حدث خطأ غير متوقع';
       apiResult.codeError = statusCode.connection;
 
       print('${e}');

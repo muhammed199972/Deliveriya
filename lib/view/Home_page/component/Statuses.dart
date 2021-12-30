@@ -16,7 +16,7 @@ class Statuses extends StatelessWidget {
         child: GetBuilder<StatusesController>(
             init: StatusesController(),
             builder: (statuse) {
-              print(statuse.boollogo.value);
+              var isShow = true.obs;
               if (statusebool) {
                 statusebool = false;
                 if (typeclass == 'logo') {
@@ -30,14 +30,18 @@ class Statuses extends StatelessWidget {
               return Stack(
                 children: <Widget>[
                   statuse.statusItems.length != 0
-                      ?
-                      // box.write('statuse', statuse.statusItems);
-                      // print(box.read('statuse'));
-                      Material(
+                      ? Material(
                           type: MaterialType.transparency,
                           child: StoryView(
                             onStoryShow: (items) {
-                              statuse.storeStatuses(items, typeclass!);
+                              if (statuse.offers.length <=
+                                  statuse.statusItems.indexOf(items)) {
+                                isShow.value = false;
+                              } else {
+                                isShow.value = true;
+                              }
+
+                              statuse.storeStatuses(typeclass!);
                             },
                             storyItems: statuse.statusItems,
                             controller: statuse.controller,
@@ -53,38 +57,40 @@ class Statuses extends StatelessWidget {
                             color: Colors.white,
                           ),
                         ),
-                  statuse.boollogo.value
-                      ? Positioned(
-                          bottom: 10,
-                          right: 160,
-                          child: Center(
-                            child: TextButton(
-                              onPressed: () {},
-                              child: Container(
-                                height: 60,
-                                width: 60,
-                                decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(100),
-                                    // shape: BoxShape.circle,
-                                    border: Border.all(
-                                        color: Colors.red,
-                                        width: 3.0,
-                                        style: BorderStyle.solid
-                                        // Color color = const Color(0xFF000000),
-                                        // double width = 1.0,
-                                        // BorderStyle style = BorderStyle.solid,
-                                        )),
-                                child: Icon(
-                                  Icons.add_shopping_cart_rounded,
-                                  color: Colors.red,
-                                  size: 40,
+                  Obx(() {
+                    return isShow.value && typeclass != 'New'
+                        ? Positioned(
+                            bottom: 10,
+                            right: 160,
+                            child: Center(
+                              child: TextButton(
+                                onPressed: () {},
+                                child: Container(
+                                  height: 60,
+                                  width: 60,
+                                  decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(100),
+                                      // shape: BoxShape.circle,
+                                      border: Border.all(
+                                          color: Colors.red,
+                                          width: 3.0,
+                                          style: BorderStyle.solid
+                                          // Color color = const Color(0xFF000000),
+                                          // double width = 1.0,
+                                          // BorderStyle style = BorderStyle.solid,
+                                          )),
+                                  child: Icon(
+                                    Icons.add_shopping_cart_rounded,
+                                    color: Colors.red,
+                                    size: 40,
+                                  ),
+                                  // tooltip: 'Increase volume by 10',
                                 ),
-                                // tooltip: 'Increase volume by 10',
                               ),
                             ),
-                          ),
-                        )
-                      : Container(),
+                          )
+                        : Container();
+                  }),
                 ],
               );
             }),

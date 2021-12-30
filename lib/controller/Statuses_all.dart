@@ -42,7 +42,6 @@ class StatusesController extends GetxController {
   var boolnew = false.obs;
   var booloff = false.obs;
   var boollogo = true.obs;
-
   var date = '';
 
   @override
@@ -119,10 +118,9 @@ class StatusesController extends GetxController {
     });
   }
 
-  storeStatuses(var items, String typeclass) {
+  storeStatuses(String typeclass) {
     if (typeclass == 'logo') {
       if (ilogo < offers.length) {
-        print(boollogo.value);
         boollogo.value = true;
         var off = Constansbox.box.read('offers');
         for (int i = ioffers; i < offers.length; i++) {
@@ -141,11 +139,7 @@ class StatusesController extends GetxController {
         }
         box.remove('offers');
         Constansbox.box.write('offers', off);
-
-        // print(Constansbox.box.read('offers'));
       } else {
-        print(boollogo.value);
-
         boollogo.value = false;
         var New = Constansbox.box.read('New');
         for (int i = iNew; i < adss.length; i++) {
@@ -166,8 +160,6 @@ class StatusesController extends GetxController {
       }
     }
 
-    // print(Constansbox.box.read('New'));
-
     if (typeclass == 'New') {
       boollogo.value = false;
 
@@ -186,7 +178,6 @@ class StatusesController extends GetxController {
       }
       box.remove('New');
       Constansbox.box.write('New', New);
-      // print(Constansbox.box.read('New'));
     }
 
     if (typeclass == 'Offers') {
@@ -206,7 +197,6 @@ class StatusesController extends GetxController {
       }
       box.remove('offers');
       Constansbox.box.write('offers', off);
-      // print(Constansbox.box.read('offers'));
     }
   }
 
@@ -248,16 +238,12 @@ class StatusesController extends GetxController {
         hasError = apiResultAds.hasError!;
         statusItems = [];
         var ads = [];
-        print('[[[[[[[[[object]]]]]]]]]');
         adss.forEach((ad) {
-          print(ad.type);
           if (ad.type == 'ad') {
             ads.add(ad);
           }
         });
-
         mediastatuse(ads);
-
         update();
       } else {
         hasError = apiResultAds.hasError!;
@@ -281,16 +267,13 @@ class StatusesController extends GetxController {
     try {
       apiResultOffer = (await offer.getofferData())!;
       apiResultAds = await ads.getAdsData();
-
       if (!apiResultOffer.hasError! && !apiResultAds.hasError!) {
         offers = apiResultOffer.data;
         adss = apiResultAds.data;
         hasError = apiResultOffer.hasError!;
         statusItems = [];
         mediastatuse(offers);
-
         mediastatuse(adss);
-
         update();
       } else {
         hasError = apiResultOffer.hasError!;

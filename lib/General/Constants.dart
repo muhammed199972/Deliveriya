@@ -16,6 +16,9 @@ class StatusCode {
   var RefreshToken = Constansbox.box.read('refreshToken');
   var Lang = Constansbox.box.read('lang');
 
+  var favorite = Constansbox.box.read('favorite');
+  var cartsid = Constansbox.box.read('cartsid');
+
   var OK = 200; //                          * Normal
   var CREATED = 201; //                     * Create new entity
   var UPDATED = 200; //                     * PUT/PATCH Requests
