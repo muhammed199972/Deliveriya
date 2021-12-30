@@ -49,10 +49,6 @@ class _FavoriteViewState extends State<FavoriteView> {
     List Se = Constansbox.box.read('Search');
     List Search = new List.from(Se.reversed);
     DateTime now = DateTime.now();
-    print('--------------');
-    print(size.width);
-    print(size.height);
-    print('--------------');
 
     return Scaffold(
         appBar: AppBar(
@@ -531,7 +527,7 @@ class _FavoriteViewState extends State<FavoriteView> {
                                             staggeredTileBuilder: (int index) =>
                                                 new StaggeredTile.count(
                                                     1,
-                                                    size.height >= 750
+                                                    size.height >= 650
                                                         ? 1.22
                                                         : 1.1),
                                             mainAxisSpacing: 1,
@@ -708,40 +704,43 @@ class _FavoriteViewState extends State<FavoriteView> {
                                 image:
                                     AssetImage('assets/png/background.png'))),
                         child: Center(
-                          child: ListView(children: [
-                            Padding(
-                              padding: size.height > 550
-                                  ? const EdgeInsets.all(30)
-                                  : const EdgeInsets.all(10),
-                              child: SvgPicture.asset(
-                                'assets/svg/subscribe.svg',
-                                height: 280,
-                              ),
-                            ),
-                            Padding(
-                              padding: size.height > 550
-                                  ? const EdgeInsets.all(15)
-                                  : const EdgeInsets.all(5),
-                              child: SvgPicture.asset(
-                                  'assets/svg/No favorite to show.svg'),
-                            ),
-                            InkWell(
-                              onTap: () {
-                                Get.offAll(BottomBar(
-                                  fu: HomeView(),
-                                ));
-                              },
-                              child: Center(
-                                child: Text(
-                                  'Find your favorite',
-                                  style: TextStyle(
-                                      color: Colors.red,
-                                      decoration: TextDecoration.underline,
-                                      fontSize: size.width >= 600 ? 25 : 16),
+                          child: ListView(
+                              padding: EdgeInsets.only(top: size.height / 13),
+                              children: [
+                                Padding(
+                                  padding: size.height > 550
+                                      ? const EdgeInsets.all(30)
+                                      : const EdgeInsets.all(10),
+                                  child: SvgPicture.asset(
+                                    'assets/svg/subscribe.svg',
+                                    height: 280,
+                                  ),
                                 ),
-                              ),
-                            )
-                          ]),
+                                Padding(
+                                  padding: size.height > 550
+                                      ? const EdgeInsets.all(15)
+                                      : const EdgeInsets.all(5),
+                                  child: SvgPicture.asset(
+                                      'assets/svg/No favorite to show.svg'),
+                                ),
+                                InkWell(
+                                  onTap: () {
+                                    Get.offAll(BottomBar(
+                                      fu: HomeView(),
+                                    ));
+                                  },
+                                  child: Center(
+                                    child: Text(
+                                      'Find your favorite',
+                                      style: TextStyle(
+                                          color: Colors.red,
+                                          decoration: TextDecoration.underline,
+                                          fontSize:
+                                              size.width >= 600 ? 25 : 16),
+                                    ),
+                                  ),
+                                )
+                              ]),
                         ),
                       ),
                     );

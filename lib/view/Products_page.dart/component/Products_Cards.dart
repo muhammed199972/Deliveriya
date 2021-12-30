@@ -77,7 +77,7 @@ class FullCard extends StatelessWidget {
                 Stack(children: [
                   Container(
                     height: size.width <= 350
-                        ? size.height * 0.14
+                        ? size.height * 0.17
                         : size.height * 0.1,
                     width: double.infinity,
                     decoration: BoxDecoration(
@@ -103,9 +103,7 @@ class FullCard extends StatelessWidget {
                       : Styles.defualtmobile,
                 ),
                 Container(
-                  height: size.height * 0.03,
                   child: Row(
-                    mainAxisSize: MainAxisSize.min,
                     mainAxisAlignment: MainAxisAlignment.center,
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
@@ -189,12 +187,8 @@ class FullCard extends StatelessWidget {
                                 return SvgPicture.asset(
                                   'assets/svg/Cart icon.svg',
                                   color: isCart.value
-                                      //  cart.value
                                       ? AppColors.mainColor
                                       : Colors.grey[800],
-                                  width: size.width <= 350
-                                      ? 30
-                                      : (size.width >= 600 ? 40 : 20),
                                 );
                               })),
                         ),
@@ -237,7 +231,7 @@ class FullCard extends StatelessWidget {
                                     : Icons.favorite_border,
                                 color: AppColors.mainColor,
                                 size: size.width <= 350
-                                    ? 30
+                                    ? 20
                                     : (size.width >= 600 ? 40 : 20),
                               ),
                             ),

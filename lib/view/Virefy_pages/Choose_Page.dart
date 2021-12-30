@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:delivery_food/General/Constants.dart';
 import 'package:delivery_food/controller/Auth_controller.dart';
 import 'package:delivery_food/view/Home_page/Home_page.dart';
@@ -13,10 +15,15 @@ import 'package:get/get.dart';
 class ChoseSign extends StatelessWidget {
   ChoseSign({Key? key}) : super(key: key);
   var controller = Get.put(AuthController());
+
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
+    print('--------------');
+    log('${size.width}');
+    log('${size.height}');
 
+    print('--------------');
     return Scaffold(
       body: SingleChildScrollView(
         child: Container(

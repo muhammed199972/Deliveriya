@@ -2,6 +2,7 @@ import 'package:delivery_food/General/Constants.dart';
 import 'package:delivery_food/General/Dialogs.dart';
 import 'package:delivery_food/controller/Order_controller.dart';
 import 'package:delivery_food/controller/Profile_controller.dart';
+import 'package:delivery_food/main.dart';
 import 'package:delivery_food/view/History_page/History_Page.dart';
 import 'package:delivery_food/view/Home_page/Home_page.dart';
 import 'package:delivery_food/controller/loclization_controller.dart';
@@ -20,6 +21,7 @@ class ProfileView extends StatelessWidget {
   var contr = Get.put(LanguageController());
   var co = Get.put(OrderController());
   var controller = Get.put(ProfileController());
+
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
@@ -295,16 +297,21 @@ class ProfileView extends StatelessWidget {
                     )
                   ],
                 ),
-                onTap: () {
-                  Constansbox.box.remove('New');
-                  Constansbox.box.remove('cartsid');
-                  Constansbox.box.remove('cartscounte');
-                  Constansbox.box.remove('New');
-                  Constansbox.box.remove('offers');
-                  Constansbox.box.remove('cartsid');
-                  Constansbox.box.remove('cartscounte');
-                  Constansbox.box.remove('accessToken');
-                  Constansbox.box.remove('refreshToken');
+                onTap: () async {
+                  print(status.Token);
+                  await Constansbox.box.remove('New');
+                  await Constansbox.box.remove('cartsid');
+                  await Constansbox.box.remove('cartscounte');
+                  await Constansbox.box.remove('New');
+                  await Constansbox.box.remove('offers');
+                  await Constansbox.box.remove('cartsid');
+                  await Constansbox.box.remove('cartscounte');
+                  await Constansbox.box.remove('accessToken');
+                  await Constansbox.box.remove('refreshToken');
+                  status.Token = '';
+                  print(status.Token);
+
+                  main();
                   Get.offAll(() => ChoseSign());
                 },
               ),
