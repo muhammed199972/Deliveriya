@@ -1,6 +1,7 @@
 import 'package:bot_toast/bot_toast.dart';
 import 'package:delivery_food/General/Constants.dart';
 import 'package:delivery_food/General/Dialogs.dart';
+import 'package:delivery_food/controller/Auth_controller.dart';
 import 'package:delivery_food/controller/Profile_controller.dart';
 import 'package:delivery_food/view/Profile_page/Component/OptionProfile.dart';
 import 'package:delivery_food/view/Profile_page/Component/TextField.dart';
@@ -339,12 +340,10 @@ class ProfileInfoEdit extends StatelessWidget {
                                       txttype: TextInputType.number,
                                       validator: validateMobile,
                                       controller: _phoneController,
-                                      lebel: 'phone'.tr,
-                                      prefixtxt: '+963',
-                                      icon: Icon(
-                                        Icons.phone_android,
-                                        color: AppColors.darkgreytextColor,
-                                      ),
+                                      lebel: '',
+                                      // prefixtxt: '+963',
+                                      icon: Get.find<AuthController>()
+                                          .showCountryCode(),
                                     ),
                                     Padding(
                                       padding: EdgeInsets.symmetric(
@@ -519,9 +518,10 @@ class ProfileInfoEdit extends StatelessWidget {
   String? validateMobile(String? value) {
     if (value!.length == 0)
       return 'Please enter PhoneNumber';
-    else if (value.startsWith('0', 0)) {
-      return 'enter like 9********';
-    } else
+    // else if (value.startsWith('0', 0)) {
+    //   return 'enter like 9********';
+    // }
+    else
       return null;
   }
 

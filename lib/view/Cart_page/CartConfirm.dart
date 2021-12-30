@@ -2,6 +2,7 @@ import 'package:bot_toast/bot_toast.dart';
 import 'package:delivery_food/General/Constants.dart';
 import 'package:delivery_food/General/Dialogs.dart';
 import 'package:delivery_food/controller/Address_controller.dart';
+import 'package:delivery_food/controller/Auth_controller.dart';
 import 'package:delivery_food/controller/Order_controller.dart';
 import 'package:delivery_food/view/Profile_page/Component/AddressWidget.dart';
 import 'package:delivery_food/view/Profile_page/Component/TextField.dart';
@@ -111,8 +112,9 @@ class ConfirmCart extends StatelessWidget {
                     ],
                     // validator: validateMobile,
                     controller: _phoneController,
-                    lebel: 'phone'.tr,
-                    prefixtxt: '+963',
+                    lebel: '',
+                    // prefixtxt: '+963',
+                    icon: Get.find<AuthController>().showCountryCode(),
                   ),
                 ),
               ),
@@ -154,7 +156,9 @@ class ConfirmCart extends StatelessWidget {
                               ? {
                                   'date':
                                       '${DateTime.parse(_dateController.text + _timeController.text)}',
-                                  'phone': _phoneController.text,
+                                  'phone':
+                                      Get.find<AuthController>().countryCode +
+                                          _phoneController.text,
                                   'AddressId':
                                       controller.data.value.id.toString(),
                                 }
@@ -186,9 +190,10 @@ class ConfirmCart extends StatelessWidget {
   String? validateMobile(String? value) {
     if (value!.length == 0)
       return 'Please enter PhoneNumber';
-    else if (value.startsWith('0', 0)) {
-      return 'enter like 9********';
-    } else
+    // else if (value.startsWith('0', 0)) {
+    //   return 'enter like 9********';
+    // }
+    else
       return null;
   }
 }

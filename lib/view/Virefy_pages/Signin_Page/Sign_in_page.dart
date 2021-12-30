@@ -41,16 +41,15 @@ class SigninPage extends StatelessWidget {
                     TextFieldwidget(
                       inputFormatters: [
                         FilteringTextInputFormatter.digitsOnly,
-                        LengthLimitingTextInputFormatter(9),
+                        LengthLimitingTextInputFormatter(14),
                       ],
                       validator: validateMobile,
                       controller: _phoneController,
-                      lebel: 'phone'.tr,
-                      prefixtxt: '+963',
-                      icon: Icon(
-                        Icons.phone_android,
-                        color: AppColors.darkgreytextColor,
-                      ),
+                      lebel: '',
+                      // prifix: controller.showCountryCode(),
+
+                      // prefixtxt: '+963',
+                      icon: controller.showCountryCode(),
                     ),
                     SizedBox(
                       height: 20,
@@ -103,9 +102,10 @@ class SigninPage extends StatelessWidget {
   String? validateMobile(String? value) {
     if (value!.length == 0)
       return 'Please enter PhoneNumber';
-    else if (!value.startsWith('9', 0)) {
-      return 'enter like 9********';
-    } else
+    // else if (!value.startsWith('9', 0)) {
+    //   return 'enter like 9********';
+    // }
+    else
       return null;
   }
 
