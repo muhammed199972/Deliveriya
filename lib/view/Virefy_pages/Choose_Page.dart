@@ -18,63 +18,66 @@ class ChoseSign extends StatelessWidget {
     Size size = MediaQuery.of(context).size;
 
     return Scaffold(
-      body: Container(
-        width: size.width,
-        height: size.height,
-        decoration: BoxDecoration(
-          image: DecorationImage(
-            image: AssetImage('assets/png/background.png'),
+      body: SingleChildScrollView(
+        child: Container(
+          width: size.width,
+          height: size.height,
+          decoration: BoxDecoration(
+            image: DecorationImage(
+              image: AssetImage('assets/png/background.png'),
+            ),
           ),
-        ),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Padding(
-              padding: const EdgeInsets.only(top: Defaults.defaultPadding * 4),
-              child: SvgPicture.asset('assets/svg/mainlogo.svg'),
-            ),
-            Spacer(),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 40),
-              child: Column(
-                children: [
-                  ButtonWidget(
-                    size: size,
-                    txt: 'Sign Up',
-                    onTap: () {
-                      controller.authType.value = 'signup';
-                      Get.to(() => VerificationPage(
-                            txtButton: 'Virefy Code',
-                          ));
-                    },
-                  ),
-                  ButtonWidget(
-                    size: size,
-                    txt: 'Sign In',
-                    onTap: () {
-                      controller.authType.value = 'login';
-                      Get.to(() => SigninPage(txtButton: 'Sign in'));
-                    },
-                  ),
-                  ButtonWidget(
-                    size: size,
-                    txt: 'Guest',
-                    onTap: () {
-                      controller.authType.value = 'login';
-                      Get.offAll(
-                        () => BottomBar(
-                          fu: HomeView(),
-                        ),
-                      );
-                    },
-                  ),
-                ],
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Padding(
+                padding:
+                    const EdgeInsets.only(top: Defaults.defaultPadding * 4),
+                child: SvgPicture.asset('assets/svg/mainlogo.svg'),
               ),
-            ),
-            Spacer(
-              flex: 1,
-            ),
-          ],
+              Spacer(),
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 40),
+                child: Column(
+                  children: [
+                    ButtonWidget(
+                      size: size,
+                      txt: 'Sign Up',
+                      onTap: () {
+                        controller.authType.value = 'signup';
+                        Get.to(() => VerificationPage(
+                              txtButton: 'Virefy Code',
+                            ));
+                      },
+                    ),
+                    ButtonWidget(
+                      size: size,
+                      txt: 'Sign In',
+                      onTap: () {
+                        controller.authType.value = 'login';
+                        Get.to(() => SigninPage(txtButton: 'Sign in'));
+                      },
+                    ),
+                    ButtonWidget(
+                      size: size,
+                      txt: 'Guest',
+                      onTap: () {
+                        controller.authType.value = 'login';
+                        Get.offAll(
+                          () => BottomBar(
+                            fu: HomeView(),
+                          ),
+                        );
+                      },
+                    ),
+                  ],
+                ),
+              ),
+              Spacer(
+                flex: 1,
+              ),
+            ],
+          ),
         ),
       ),
     );

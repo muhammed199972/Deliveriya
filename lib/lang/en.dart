@@ -10,7 +10,7 @@ const Map<String, String> en = {
   'home': 'Home',
   'cart': 'Cart',
   'personalinfo': 'Personal Info',
-  'searchhelper': ' ...How can we help you',
+  'searchhelper': ' How can we help you...',
   //===============profile================
   'myaddress': 'My Address',
   'orderhistory': 'Order History',

@@ -212,7 +212,9 @@ class ProduvtsView extends StatelessWidget {
                           child: StaggeredGridView.countBuilder(
                             controller: prodController.scrollController,
                             shrinkWrap: true,
-                            crossAxisCount: size.width >= 600 ? 4 : 3,
+                            crossAxisCount: size.width <= 350
+                                ? 2
+                                : (size.width >= 600 ? 4 : 3),
                             itemCount: prodController.products.length,
                             itemBuilder: (BuildContext context, int index) {
                               return FullCard(

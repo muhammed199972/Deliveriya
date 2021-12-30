@@ -79,7 +79,7 @@ class VerificationPage extends StatelessWidget {
                             textFieldAlignment: MainAxisAlignment.spaceAround,
                             fieldStyle: FieldStyle.underline,
                             outlineBorderRadius: 4,
-                            fieldWidth: 40,
+                            fieldWidth: size.width <= 350 ? 20 : 40,
                             style: TextStyle(color: Colors.black),
                             otpFieldStyle: OtpFieldStyle(
                               backgroundColor: Colors.grey.shade50,

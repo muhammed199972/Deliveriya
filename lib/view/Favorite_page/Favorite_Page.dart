@@ -130,11 +130,13 @@ class _FavoriteViewState extends State<FavoriteView> {
                                     Get.back();
                                   });
                                 },
-                                child: Text(
-                                  'all'.tr,
-                                  style: size.width >= 600
-                                      ? Styles.defualttab
-                                      : Styles.defualtmobile,
+                                child: Center(
+                                  child: Text(
+                                    'all'.tr,
+                                    style: size.width >= 600
+                                        ? Styles.defualttab
+                                        : Styles.defualtmobile,
+                                  ),
                                 )),
                             Divider(
                               color: AppColors.darkgreytextColor,
@@ -169,11 +171,13 @@ class _FavoriteViewState extends State<FavoriteView> {
                                     Get.back();
                                   });
                                 },
-                                child: Text(
-                                  'thisweek'.tr,
-                                  style: size.width >= 600
-                                      ? Styles.defualttab
-                                      : Styles.defualtmobile,
+                                child: Center(
+                                  child: Text(
+                                    'thisweek'.tr,
+                                    style: size.width >= 600
+                                        ? Styles.defualttab
+                                        : Styles.defualtmobile,
+                                  ),
                                 )),
                             Divider(
                               color: AppColors.darkgreytextColor,
@@ -208,11 +212,13 @@ class _FavoriteViewState extends State<FavoriteView> {
                                     Get.back();
                                   });
                                 },
-                                child: Text(
-                                  'lastmonth'.tr,
-                                  style: size.width >= 600
-                                      ? Styles.defualttab
-                                      : Styles.defualtmobile,
+                                child: Center(
+                                  child: Text(
+                                    'lastmonth'.tr,
+                                    style: size.width >= 600
+                                        ? Styles.defualttab
+                                        : Styles.defualtmobile,
+                                  ),
                                 )),
                             Divider(
                               color: AppColors.darkgreytextColor,
@@ -247,11 +253,13 @@ class _FavoriteViewState extends State<FavoriteView> {
                                     Get.back();
                                   });
                                 },
-                                child: Text(
-                                  'last6month'.tr,
-                                  style: size.width >= 600
-                                      ? Styles.defualttab
-                                      : Styles.defualtmobile,
+                                child: Center(
+                                  child: Text(
+                                    'last6month'.tr,
+                                    style: size.width >= 600
+                                        ? Styles.defualttab
+                                        : Styles.defualtmobile,
+                                  ),
                                 )),
                             Divider(
                               color: AppColors.darkgreytextColor,
@@ -286,11 +294,13 @@ class _FavoriteViewState extends State<FavoriteView> {
                                     Get.back();
                                   });
                                 },
-                                child: Text(
-                                  'lastyear'.tr,
-                                  style: size.width >= 600
-                                      ? Styles.defualttab
-                                      : Styles.defualtmobile,
+                                child: Center(
+                                  child: Text(
+                                    'lastyear'.tr,
+                                    style: size.width >= 600
+                                        ? Styles.defualttab
+                                        : Styles.defualtmobile,
+                                  ),
                                 )),
                           ],
                         ),
@@ -491,7 +501,8 @@ class _FavoriteViewState extends State<FavoriteView> {
                                                   Defaults.defaultPadding),
                                           child: StaggeredGridView.countBuilder(
                                             shrinkWrap: true,
-                                            crossAxisCount: 2,
+                                            crossAxisCount:
+                                                size.width <= 350 ? 1 : 2,
                                             itemCount: favoriteController
                                                 .favorites[favoriteController
                                                     .idcategory.value]

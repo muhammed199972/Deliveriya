@@ -133,7 +133,7 @@ class _BottomBarState extends State<BottomBar> {
             ),
           ),
           BottomNavigationBarItem(
-            label: "personalinfo".tr,
+            label: "profile".tr,
             icon: SvgPicture.asset(
               'assets/svg/Profile icon.svg',
               color: _currentIndex == 4
