@@ -335,7 +335,7 @@ class ProfileInfoEdit extends StatelessWidget {
                                     TextFieldwidget(
                                       inputFormatters: [
                                         FilteringTextInputFormatter.digitsOnly,
-                                        LengthLimitingTextInputFormatter(9),
+                                        LengthLimitingTextInputFormatter(14),
                                       ],
                                       txttype: TextInputType.number,
                                       validator: validateMobile,

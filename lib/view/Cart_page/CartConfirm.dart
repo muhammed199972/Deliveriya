@@ -108,7 +108,7 @@ class ConfirmCart extends StatelessWidget {
                   child: TextFieldProfwidget(
                     inputFormatters: [
                       FilteringTextInputFormatter.digitsOnly,
-                      LengthLimitingTextInputFormatter(9),
+                      LengthLimitingTextInputFormatter(14),
                     ],
                     // validator: validateMobile,
                     controller: _phoneController,

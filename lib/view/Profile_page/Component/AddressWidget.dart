@@ -50,12 +50,16 @@ class AddressWidget extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(txt!,
-                    style: size!.width >= 600
-                        ? Styles.defualttab
+                    style: size?.width != null
+                        ? (size!.width >= 600
+                            ? Styles.defualttab
+                            : Styles.defualtmobile)
                         : Styles.defualtmobile),
                 Text(subtitle ?? '',
-                    style: size!.width >= 600
-                        ? Styles.defualttab
+                    style: size?.width != null
+                        ? (size!.width >= 600
+                            ? Styles.defualttab
+                            : Styles.defualtmobile)
                         : Styles.defualtmobile),
               ],
             ),

@@ -528,7 +528,7 @@ class _FavoriteViewState extends State<FavoriteView> {
                                                 new StaggeredTile.count(
                                                     1,
                                                     size.height >= 650
-                                                        ? 1.22
+                                                        ? 1.25
                                                         : 1.1),
                                             mainAxisSpacing: 1,
                                             crossAxisSpacing: 1,
@@ -677,8 +677,8 @@ class _FavoriteViewState extends State<FavoriteView> {
                                                     (int index) =>
                                                         new StaggeredTile.count(
                                                             1,
-                                                            size.height >= 750
-                                                                ? 1.22
+                                                            size.height >= 650
+                                                                ? 1.25
                                                                 : 1.1),
                                                 mainAxisSpacing: 1,
                                                 crossAxisSpacing: 1,
