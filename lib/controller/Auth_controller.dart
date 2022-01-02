@@ -60,7 +60,7 @@ class AuthController extends GetxController {
   postsignup(String password) async {
     try {
       BotToast.showLoading();
-      apiResult = await authservice.postsignup(password);
+      apiResult = await authservice.postsignup(countryCode, password);
       if (!apiResult.hasError!) {
         signUpResponse.value = apiResult.data;
         await Constansbox.box

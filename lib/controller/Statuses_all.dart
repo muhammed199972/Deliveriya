@@ -1,3 +1,4 @@
+import 'package:bot_toast/bot_toast.dart';
 import 'package:delivery_food/General/Api_Result.dart';
 import 'package:delivery_food/General/Constants.dart';
 import 'package:delivery_food/General/Dialogs.dart';
@@ -43,16 +44,20 @@ class StatusesController extends GetxController {
   var booloff = false.obs;
   var boollogo = true.obs;
   var date = '';
-
+  List<int> idOfferCart = [];
   @override
-  void onInit() {
+  void onInit() async {
+    addStatusItems();
     controller = StoryController();
+    idOffers = await Constansbox.box.read('offersId');
     super.onInit();
   }
 
+  var idOffers = [];
   @override
   void onClose() {
     controller.dispose();
+
     super.onClose();
   }
 
@@ -292,12 +297,36 @@ class StatusesController extends GetxController {
   }
 
   void handleCompletedoffers() {
+    if (idOfferCart.isNotEmpty)
+      for (int i = 0; i < idOfferCart.length; i++) {
+        var isIdOffer =
+            idOffers.any((element) => element == offers[idOfferCart[i]].id).obs;
+
+        if (!isIdOffer.value) {
+          offer.postofferData(offers[idOfferCart[i]].id.toString());
+
+          idOffers.add(offers[idOfferCart[i]].id);
+          Constansbox.box.write('offersId', idOffers);
+        }
+      }
     ioffers = 0;
     booloff.value = true;
     Get.back();
   }
 
   void handleCompletedall() {
+    if (idOfferCart.isNotEmpty)
+      for (int i = 0; i < idOfferCart.length; i++) {
+        var isIdOffer =
+            idOffers.any((element) => element == offers[idOfferCart[i]].id).obs;
+
+        if (!isIdOffer.value) {
+          offer.postofferData(offers[idOfferCart[i]].id.toString());
+
+          idOffers.add(offers[idOfferCart[i]].id);
+          Constansbox.box.write('offersId', idOffers);
+        }
+      }
     ioffers = 0;
     iNew = 0;
     ilogo = 0;

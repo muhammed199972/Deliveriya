@@ -118,7 +118,7 @@ class AuthService {
     return apiResult;
   }
 
-  Future<ApiResult> postsignup(String password) async {
+  Future<ApiResult> postsignup(String countryCode, String password) async {
     StatusCode statusCode = StatusCode();
     ApiResult apiResult = ApiResult();
     SignUpResponse? calendar;
@@ -129,7 +129,11 @@ class AuthService {
     try {
       var response = await http.post(
         url,
-        body: {"code": code, 'phone': phone, 'password': password},
+        body: {
+          "code": code,
+          'phone': countryCode + phone,
+          'password': password
+        },
       );
       var responsebode = jsonDecode(response.body);
       print(responsebode);

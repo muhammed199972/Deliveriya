@@ -17,7 +17,7 @@ class Binds extends Bindings {
     Get.put(CategorysController(), permanent: true);
     Get.put(SubcategorysControllers());
     Get.put(CartController());
-    Get.put(StatusesController());
+    Get.put(StatusesController(), permanent: true);
     Get.put(OfferController(), permanent: true);
     Get.put(AdssController());
     Get.put(ProductsController());

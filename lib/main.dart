@@ -35,6 +35,7 @@ class MyApp extends StatelessWidget {
     Constansbox.box.writeIfNull('accessToken', '');
     Constansbox.box.writeIfNull('refreshToken', '');
     Constansbox.box.writeIfNull('lang', 'en');
+    Constansbox.box.writeIfNull('offersId', []);
 
     //Constansbox.box.remove('New');
     // Constansbox.box.remove('cartsid');

@@ -12,6 +12,7 @@ class OffersView extends StatelessWidget {
   StatusCode statusCode = StatusCode();
   @override
   Widget build(BuildContext context) {
+    offer.getoffers();
     Size size = MediaQuery.of(context).size;
     return Scaffold(
       appBar: AppBar(
@@ -41,7 +42,9 @@ class OffersView extends StatelessWidget {
           crossAxisCount: 1,
           itemCount: offer.offers.length,
           itemBuilder: (BuildContext context, int index) {
-            var isCart = false.obs;
+            var isCart = offer.idOffers
+                .any((element) => element == offer.offers[index].id)
+                .obs;
             return Obx(() {
               return Container(
                 decoration: BoxDecoration(
@@ -60,29 +63,52 @@ class OffersView extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.end,
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    InkWell(
-                      onTap: () {
-                        isCart.value
-                            ? isCart.value = false
-                            : isCart.value = true;
-                      },
-                      child: Container(
-                        // height: 15,
-                        // width: 15,
-                        padding: EdgeInsets.only(bottom: 10, left: 10),
-                        child: SvgPicture.asset(
-                          'assets/svg/Cart icon.svg',
-                          color: isCart.value
-                              ? AppColors.blackColor
-                              : AppColors.mainColor,
-                          width: 30,
+                    if (offer.offers[index].type == 'group')
+                      InkWell(
+                        onTap: () {
+                          if (!isCart.value) {
+                            isCart.value = true;
+                            offer.postofferData(
+                                offer.offers[index].id.toString());
+
+                            offer.idOffers.add(offer.offers[index].id);
+                            Constansbox.box.write('offersId', offer.idOffers);
+                          } else {
+                            isCart.value = false;
+                            offer.deleteofferData(
+                                offer.offers[index].id.toString());
+                            for (int i = 0; i < offer.offers.length; i++) {
+                              for (int j = 0; j < offer.idOffers.length; j++) {
+                                if (offer.offers[i].id == offer.idOffers[j]) {
+                                  offer.idOffers.removeAt(j);
+                                }
+                              }
+                            }
+                            Constansbox.box.write('offersId', offer.idOffers);
+                          }
+                        },
+                        child: Container(
+                          // height: 15,
+                          // width: 15,
+                          padding: EdgeInsets.only(bottom: 10, left: 10),
+                          child: SvgPicture.asset(
+                            'assets/svg/Cart icon.svg',
+                            color: isCart.value
+                                ? AppColors.blackColor
+                                : AppColors.mainColor,
+                            width: 30,
+                          ),
                         ),
                       ),
-                    ),
+                    if (offer.offers[index].type != 'group')
+                      InkWell(
+                        onTap: () {},
+                        child: Container(
+                          padding: EdgeInsets.only(bottom: 10, left: 40),
+                        ),
+                      ),
                     Center(
                       child: Container(
-                        //   width: 150,
-                        //      padding: EdgeInsets.only(bottom: 50),
                         child: RichText(
                           text: TextSpan(
                               style: size.width >= 600
