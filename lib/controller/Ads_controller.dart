@@ -30,7 +30,6 @@ class AdssController extends GetxController {
 
         break;
       }
-      print(New);
     }
   }
 

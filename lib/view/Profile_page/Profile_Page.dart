@@ -298,7 +298,6 @@ class ProfileView extends StatelessWidget {
                   ],
                 ),
                 onTap: () async {
-                  print(status.Token);
                   await Constansbox.box.remove('New');
                   await Constansbox.box.remove('cartsid');
                   await Constansbox.box.remove('cartscounte');
@@ -309,7 +308,6 @@ class ProfileView extends StatelessWidget {
                   await Constansbox.box.remove('accessToken');
                   await Constansbox.box.remove('refreshToken');
                   status.Token = '';
-                  print(status.Token);
 
                   main();
                   Get.offAll(() => ChoseSign());

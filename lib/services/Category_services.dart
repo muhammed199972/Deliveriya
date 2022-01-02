@@ -19,8 +19,6 @@ class CategoryService {
     try {
       var response = await http.get(url);
       var responsebode = jsonDecode(response.body);
-      print('[[[[[[[[[[[[[[[object]]]]]]]]]]]]]]]');
-      print(responsebode);
       if (response.statusCode == statusCode.OK ||
           response.statusCode == statusCode.CREATED) {
         status = CategoryStatus.fromJson(responsebode['status']);

@@ -45,16 +45,13 @@ class TotalPrice extends StatelessWidget {
                 l < prodController.prods[k].subCategories[i].products.length;
                 l++) {
               if (k != 0)
-                print(prodController
-                        .prods[k - 1].subCategories[i].products.length +
-                    l);
-              pricemcat += (prodController
-                      .prods[k].subCategories[i].products[l].price!) *
-                  (cartscounte[k == 0
-                      ? l
-                      : prodController
-                              .prods[k - 1].subCategories[i].products.length +
-                          l]);
+                pricemcat += (prodController
+                        .prods[k].subCategories[i].products[l].price!) *
+                    (cartscounte[k == 0
+                        ? l
+                        : prodController
+                                .prods[k - 1].subCategories[i].products.length +
+                            l]);
             }
           }
         }

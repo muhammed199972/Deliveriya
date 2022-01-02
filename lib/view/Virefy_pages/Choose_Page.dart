@@ -19,11 +19,7 @@ class ChoseSign extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
-    print('--------------');
-    log('${size.width}');
-    log('${size.height}');
 
-    print('--------------');
     return Scaffold(
       body: SingleChildScrollView(
         child: Container(

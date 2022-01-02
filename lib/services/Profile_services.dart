@@ -30,7 +30,6 @@ class ProfileService {
       var response = await http
           .get(url, headers: {'Authorization': 'Bearer ${statusCode.Token}'});
       var responsebode = jsonDecode(response.body);
-      print(responsebode);
       if (response.statusCode == statusCode.OK ||
           response.statusCode == statusCode.CREATED) {
         status = ProfileStatus.fromJson(responsebode['status']);

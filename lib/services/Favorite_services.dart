@@ -29,7 +29,7 @@ class FavoriteService {
     try {
       var response = await http
           .get(url, headers: {'Authorization': 'Bearer ${statusCode.Token}'});
-      print(response);
+
       var responsebode = jsonDecode(response.body);
 
       if (response.statusCode == statusCode.OK ||
@@ -150,7 +150,6 @@ class FavoriteService {
         headers: {'Authorization': 'Bearer ${statusCode.Token}'},
       );
       var responsebode = jsonDecode(response.body);
-      print(responsebode);
 
       if (response.statusCode == statusCode.OK ||
           response.statusCode == statusCode.CREATED) {

@@ -142,7 +142,6 @@ class AddAddress extends StatelessWidget {
                                   },
                                   items: controller.towns.isNotEmpty
                                       ? controller.towns.map((item) {
-                                          print(item.name);
                                           return new DropdownMenuItem<String?>(
                                             child: Text(item.name!,
                                                 style: size.width >= 600

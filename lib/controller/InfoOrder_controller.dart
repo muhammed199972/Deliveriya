@@ -24,7 +24,6 @@ class InfoOrderController extends GetxController {
         if (!apiResult.hasError!) {
           infoOrders.value = apiResult.data;
           hasError.value = apiResult.hasError!;
-          print(infoOrders[0].price);
         } else {
           hasError.value = apiResult.hasError!;
           massage.value = apiResult.errorMassage!;
