@@ -22,6 +22,7 @@ class MyApp extends StatelessWidget {
   Constans Constansbox = Constans();
   final botToastBuilder = BotToastInit();
   StatusCode statusCode = StatusCode();
+
   @override
   Widget build(BuildContext context) {
     Constansbox.box.writeIfNull('New', []);
@@ -53,11 +54,9 @@ class MyApp extends StatelessWidget {
         initialBinding: Binds(),
         debugShowCheckedModeBanner: false,
         title: 'Flutter Demo',
-        //   color: Colors.transparent,
         theme: ThemeData(
           primarySwatch: Colors.red,
         ),
-
         home: statusCode.Token == ''
             ? ChoseSign()
             : BottomBar(
@@ -67,7 +66,6 @@ class MyApp extends StatelessWidget {
         locale: Locale(Constansbox.box.read('lang')),
         fallbackLocale: Locale(Constansbox.box.read('lang')),
       ),
-      // getPages: [GetPage(name: '/home', page: () => SigninPage())],
     );
   }
 }

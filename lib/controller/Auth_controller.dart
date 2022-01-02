@@ -1,11 +1,11 @@
 import 'package:bot_toast/bot_toast.dart';
+import 'package:country_code_picker/country_code_picker.dart';
 import 'package:delivery_food/General/Api_Result.dart';
 import 'package:delivery_food/General/Constants.dart';
 import 'package:delivery_food/General/Dialogs.dart';
 import 'package:delivery_food/model/Auth_model.dart';
 import 'package:delivery_food/services/Auth_service.dart';
 import 'package:delivery_food/view/Home_page/Home_page.dart';
-import 'package:delivery_food/view/Virefy_pages/Signup_Page/Sign_up_page.dart';
 import 'package:delivery_food/view/navbar.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -22,6 +22,8 @@ class AuthController extends GetxController {
   AuthService authservice = AuthService();
   Constans Constansbox = Constans();
   StatusCode statusCode = StatusCode();
+  String _initialCountryCode = "+1";
+  String countryCode = "1";
   @override
   void onInit() {
     super.onInit();
@@ -29,7 +31,7 @@ class AuthController extends GetxController {
 
   getcode(String phone) async {
     try {
-      apiResult = await authservice.getauthCode(phone);
+      apiResult = await authservice.getauthCode(countryCode + phone);
       if (!apiResult.hasError!) {
         auth.value = apiResult.data;
         hasError.value = apiResult.hasError!;
@@ -98,7 +100,7 @@ class AuthController extends GetxController {
   postsignin(String num, String password) async {
     try {
       BotToast.showLoading();
-      apiResult = await authservice.postsignin(num, password);
+      apiResult = await authservice.postsignin(countryCode + num, password);
       if (!apiResult.hasError!) {
         signUpResponse.value = apiResult.data;
         await Constansbox.box
@@ -235,5 +237,16 @@ class AuthController extends GetxController {
     } finally {
       BotToast.closeAllLoading();
     }
+  }
+
+  Widget showCountryCode() {
+    return CountryCodePicker(
+      flagWidth: 30,
+      onChanged: (v) {
+        countryCode = v.dialCode!.replaceAll("+", "");
+      },
+      initialSelection: _initialCountryCode,
+      // alignLeft: true,
+    );
   }
 }

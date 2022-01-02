@@ -25,7 +25,7 @@ class OptionProfile extends StatelessWidget {
       highlightColor: Colors.transparent,
       onTap: ontap,
       child: Container(
-        height: size.height * 0.065,
+        height: size.width <= 350 ? size.height * 0.07 : size.height * 0.065,
         margin: EdgeInsets.symmetric(horizontal: padd ?? 17, vertical: 5),
         decoration: BoxDecoration(
             color: Colors.white,

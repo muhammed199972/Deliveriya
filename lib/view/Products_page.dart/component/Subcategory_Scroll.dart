@@ -71,16 +71,19 @@ class SubcategoryScroll extends StatelessWidget {
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
                               Center(
-                                child: Text(
-                                  subController.subcategorys[index].name
-                                      .toString(),
-                                  style: TextStyle(
-                                      color: subController.idsub.value ==
-                                              subController
-                                                  .subcategorys[index].id
-                                          ? AppColors.mainColor
-                                          : AppColors.darkgreytextColor,
-                                      fontSize: size.width >= 600 ? 25 : 16),
+                                child: FittedBox(
+                                  fit: BoxFit.scaleDown,
+                                  child: Text(
+                                    subController.subcategorys[index].name
+                                        .toString(),
+                                    style: TextStyle(
+                                        color: subController.idsub.value ==
+                                                subController
+                                                    .subcategorys[index].id
+                                            ? AppColors.mainColor
+                                            : AppColors.darkgreytextColor,
+                                        fontSize: size.width >= 600 ? 25 : 16),
+                                  ),
                                 ),
                               ),
                             ]),

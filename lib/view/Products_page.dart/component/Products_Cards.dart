@@ -51,7 +51,7 @@ class FullCard extends StatelessWidget {
     return Stack(
       children: [
         Container(
-          height: size.height * 0.2,
+          height: size.width <= 350 ? size.height * 0.3 : size.height * 0.2,
           padding: EdgeInsets.only(right: Defaults.defaultPadding / 2),
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(5.0),
@@ -76,7 +76,9 @@ class FullCard extends StatelessWidget {
               children: <Widget>[
                 Stack(children: [
                   Container(
-                    height: size.height * 0.1,
+                    height: size.width <= 350
+                        ? size.height * 0.17
+                        : size.height * 0.1,
                     width: double.infinity,
                     decoration: BoxDecoration(
                       image: DecorationImage(
@@ -101,9 +103,7 @@ class FullCard extends StatelessWidget {
                       : Styles.defualtmobile,
                 ),
                 Container(
-                  height: size.height * 0.03,
                   child: Row(
-                    mainAxisSize: MainAxisSize.min,
                     mainAxisAlignment: MainAxisAlignment.center,
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
@@ -187,10 +187,8 @@ class FullCard extends StatelessWidget {
                                 return SvgPicture.asset(
                                   'assets/svg/Cart icon.svg',
                                   color: isCart.value
-                                      //  cart.value
                                       ? AppColors.mainColor
                                       : Colors.grey[800],
-                                  width: size.width >= 600 ? 40 : 20,
                                 );
                               })),
                         ),
@@ -232,7 +230,9 @@ class FullCard extends StatelessWidget {
                                     ? Icons.favorite
                                     : Icons.favorite_border,
                                 color: AppColors.mainColor,
-                                size: size.width >= 600 ? 40 : 20,
+                                size: size.width <= 350
+                                    ? 20
+                                    : (size.width >= 600 ? 40 : 20),
                               ),
                             ),
                           ),
@@ -307,8 +307,12 @@ class FullCard extends StatelessWidget {
                     child: Container(
                       margin: EdgeInsets.only(
                           bottom: Defaults.defaultPadding / 3.5),
-                      height: size.width >= 600 ? 40 : 20,
-                      width: size.width >= 600 ? 40 : 20,
+                      height: size.width <= 350
+                          ? 25
+                          : (size.width >= 600 ? 40 : 20),
+                      width: size.width <= 350
+                          ? 25
+                          : (size.width >= 600 ? 40 : 20),
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(3.0),
                         color: AppColors.whiteColor,
@@ -327,7 +331,9 @@ class FullCard extends StatelessWidget {
                           '+',
                           style: TextStyle(
                             fontWeight: FontWeight.w500,
-                            fontSize: size.width >= 600 ? 40 : 20,
+                            fontSize: size.width <= 350
+                                ? 25
+                                : (size.width >= 600 ? 40 : 20),
                           ),
                         ),
                       ),
@@ -361,13 +367,15 @@ class FullCard extends StatelessWidget {
                                   child: Text(
                                 '${counter.value}',
                                 style: TextStyle(
-                                    fontSize: size.width >= 600 ? 20 : 10),
+                                  fontSize: (size.width >= 600 ? 20 : 10),
+                                ),
                               )),
                               Expanded(
                                   child: Text(
                                 '${product.measuringUnit}',
                                 style: TextStyle(
-                                    fontSize: size.width >= 600 ? 20 : 10),
+                                  fontSize: (size.width >= 600 ? 20 : 10),
+                                ),
                               ))
                             ]),
                           ),
@@ -388,8 +396,12 @@ class FullCard extends StatelessWidget {
                         }
                       },
                       child: Container(
-                          height: size.width >= 600 ? 40 : 20,
-                          width: size.width >= 600 ? 40 : 10,
+                          height: size.width <= 350
+                              ? 25
+                              : (size.width >= 600 ? 40 : 20),
+                          width: size.width <= 350
+                              ? 25
+                              : (size.width >= 600 ? 40 : 20),
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(3.0),
                             color: AppColors.whiteColor,
@@ -409,7 +421,9 @@ class FullCard extends StatelessWidget {
                                     '-',
                                     style: TextStyle(
                                       fontWeight: FontWeight.w500,
-                                      fontSize: size.width >= 600 ? 40 : 20,
+                                      fontSize: size.width <= 350
+                                          ? 25
+                                          : (size.width >= 600 ? 40 : 20),
                                     ),
                                   ),
                                 )
@@ -420,7 +434,9 @@ class FullCard extends StatelessWidget {
                                     },
                                     child: Icon(
                                       Icons.delete_outlined,
-                                      size: size.width >= 600 ? 40 : 20,
+                                      size: size.width <= 350
+                                          ? 15
+                                          : (size.width >= 600 ? 40 : 20),
                                     ),
                                   ),
                                 )),

@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:delivery_food/General/Constants.dart';
 import 'package:delivery_food/controller/Auth_controller.dart';
 import 'package:delivery_food/view/Home_page/Home_page.dart';
@@ -13,68 +15,76 @@ import 'package:get/get.dart';
 class ChoseSign extends StatelessWidget {
   ChoseSign({Key? key}) : super(key: key);
   var controller = Get.put(AuthController());
+
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
+    print('--------------');
+    log('${size.width}');
+    log('${size.height}');
 
+    print('--------------');
     return Scaffold(
-      body: Container(
-        width: size.width,
-        height: size.height,
-        decoration: BoxDecoration(
-          image: DecorationImage(
-            image: AssetImage('assets/png/background.png'),
+      body: SingleChildScrollView(
+        child: Container(
+          width: size.width,
+          height: size.height,
+          decoration: BoxDecoration(
+            image: DecorationImage(
+              image: AssetImage('assets/png/background.png'),
+            ),
           ),
-        ),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Padding(
-              padding: const EdgeInsets.only(top: Defaults.defaultPadding * 4),
-              child: SvgPicture.asset('assets/svg/mainlogo.svg'),
-            ),
-            Spacer(),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 40),
-              child: Column(
-                children: [
-                  ButtonWidget(
-                    size: size,
-                    txt: 'Sign Up',
-                    onTap: () {
-                      controller.authType.value = 'signup';
-                      Get.to(() => VerificationPage(
-                            txtButton: 'Virefy Code',
-                          ));
-                    },
-                  ),
-                  ButtonWidget(
-                    size: size,
-                    txt: 'Sign In',
-                    onTap: () {
-                      controller.authType.value = 'login';
-                      Get.to(() => SigninPage(txtButton: 'Sign in'));
-                    },
-                  ),
-                  ButtonWidget(
-                    size: size,
-                    txt: 'Guest',
-                    onTap: () {
-                      controller.authType.value = 'login';
-                      Get.offAll(
-                        () => BottomBar(
-                          fu: HomeView(),
-                        ),
-                      );
-                    },
-                  ),
-                ],
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Padding(
+                padding:
+                    const EdgeInsets.only(top: Defaults.defaultPadding * 4),
+                child: SvgPicture.asset('assets/svg/mainlogo.svg'),
               ),
-            ),
-            Spacer(
-              flex: 1,
-            ),
-          ],
+              Spacer(),
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 40),
+                child: Column(
+                  children: [
+                    ButtonWidget(
+                      size: size,
+                      txt: 'Sign Up',
+                      onTap: () {
+                        controller.authType.value = 'signup';
+                        Get.to(() => VerificationPage(
+                              txtButton: 'Virefy Code',
+                            ));
+                      },
+                    ),
+                    ButtonWidget(
+                      size: size,
+                      txt: 'Sign In',
+                      onTap: () {
+                        controller.authType.value = 'login';
+                        Get.to(() => SigninPage(txtButton: 'Sign in'));
+                      },
+                    ),
+                    ButtonWidget(
+                      size: size,
+                      txt: 'Guest',
+                      onTap: () {
+                        controller.authType.value = 'login';
+                        Get.offAll(
+                          () => BottomBar(
+                            fu: HomeView(),
+                          ),
+                        );
+                      },
+                    ),
+                  ],
+                ),
+              ),
+              Spacer(
+                flex: 1,
+              ),
+            ],
+          ),
         ),
       ),
     );

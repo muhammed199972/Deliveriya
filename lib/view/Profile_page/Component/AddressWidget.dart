@@ -20,7 +20,7 @@ class AddressWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: size == null ? 66 : size!.height * 0.080,
+      height: size == null ? 66 : (size!.height * 0.080),
       margin: EdgeInsets.symmetric(horizontal: 17, vertical: 5),
       decoration: BoxDecoration(
           color: Colors.white,
@@ -35,8 +35,13 @@ class AddressWidget extends StatelessWidget {
           ]),
       child: ListTile(
         title: Row(
+          //mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            icon!,
+            Padding(
+              padding: const EdgeInsets.only(bottom: 15.0),
+              child: icon!,
+            ),
             SizedBox(
               width: 8,
             ),

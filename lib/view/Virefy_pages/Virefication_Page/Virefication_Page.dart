@@ -55,16 +55,14 @@ class VerificationPage extends StatelessWidget {
                           child: TextFieldwidget(
                             inputFormatters: [
                               FilteringTextInputFormatter.digitsOnly,
-                              LengthLimitingTextInputFormatter(9),
+                              LengthLimitingTextInputFormatter(14),
                             ],
+                            // prifix: controller.showCountryCode(),
                             validator: validateMobile,
                             controller: _phoneController,
-                            lebel: 'phone'.tr,
-                            prefixtxt: '+963',
-                            icon: Icon(
-                              Icons.phone_android,
-                              color: AppColors.darkgreytextColor,
-                            ),
+                            lebel: '',
+                            // prefixtxt: '+963',
+                            icon: controller.showCountryCode(),
                           ),
                         ),
                         SizedBox(
@@ -79,7 +77,7 @@ class VerificationPage extends StatelessWidget {
                             textFieldAlignment: MainAxisAlignment.spaceAround,
                             fieldStyle: FieldStyle.underline,
                             outlineBorderRadius: 4,
-                            fieldWidth: 40,
+                            fieldWidth: size.width <= 350 ? 20 : 40,
                             style: TextStyle(color: Colors.black),
                             otpFieldStyle: OtpFieldStyle(
                               backgroundColor: Colors.grey.shade50,
@@ -131,9 +129,10 @@ class VerificationPage extends StatelessWidget {
   String? validateMobile(String? value) {
     if (value!.length == 0)
       return 'Please enter PhoneNumber';
-    else if (!value.startsWith('9', 0)) {
-      return 'enter like 9********';
-    } else
+    // else if (!value.startsWith('9', 0)) {
+    //   return 'enter like 9********';
+    // }
+    else
       return null;
   }
 }

@@ -6,7 +6,9 @@ import 'package:delivery_food/view/Cart_page/CartConfirm.dart';
 import 'package:delivery_food/view/Cart_page/Component/Categor_Sub_Cart.dart';
 import 'package:delivery_food/view/Cart_page/Component/TotalPrice.dart';
 import 'package:delivery_food/view/History_page/History_Page.dart';
+import 'package:delivery_food/view/Home_page/Home_page.dart';
 import 'package:delivery_food/view/Virefy_pages/Choose_Page.dart';
+import 'package:delivery_food/view/navbar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
@@ -102,20 +104,24 @@ class CartView extends StatelessWidget {
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
                             Padding(
-                              padding: const EdgeInsets.all(30),
+                              padding: size.height > 550
+                                  ? const EdgeInsets.all(30)
+                                  : const EdgeInsets.all(10),
                               child:
                                   SvgPicture.asset('assets/svg/empty-cart.svg'),
                             ),
                             Padding(
-                              padding: const EdgeInsets.all(15),
+                              padding: size.height > 550
+                                  ? const EdgeInsets.all(15)
+                                  : const EdgeInsets.all(5),
                               child: SvgPicture.asset(
                                   'assets/svg/Your cart is empty.svg'),
                             ),
                             InkWell(
                               onTap: () {
-                                // Get.off(BottomBar(
-                                //   fu: HomeView(),
-                                // ));
+                                Get.offAll(BottomBar(
+                                  fu: HomeView(),
+                                ));
                               },
                               child: Center(
                                 child: Text(
@@ -169,20 +175,24 @@ class CartView extends StatelessWidget {
                           crossAxisAlignment: CrossAxisAlignment.center,
                           children: [
                             Padding(
-                              padding: const EdgeInsets.all(30),
+                              padding: size.height > 550
+                                  ? const EdgeInsets.all(30)
+                                  : const EdgeInsets.all(10),
                               child:
                                   SvgPicture.asset('assets/svg/empty-cart.svg'),
                             ),
                             Padding(
-                              padding: const EdgeInsets.all(15),
+                              padding: size.height > 550
+                                  ? const EdgeInsets.all(15)
+                                  : const EdgeInsets.all(5),
                               child: SvgPicture.asset(
                                   'assets/svg/Your cart is empty.svg'),
                             ),
                             InkWell(
                               onTap: () {
-                                // Get.off(BottomBar(
-                                //   fu: HomeView(),
-                                // ));
+                                Get.offAll(BottomBar(
+                                  fu: HomeView(),
+                                ));
                               },
                               child: Center(
                                 child: Text(
@@ -206,10 +216,9 @@ class CartView extends StatelessWidget {
               },
               splashColor: AppColors.lightmainColor,
               backgroundColor: AppColors.mainColor,
-              child: Text('submit'.tr,
-                  style: size.width >= 600
-                      ? Styles.defualttab
-                      : Styles.defualtmobile),
+              child: Text(
+                'submit'.tr,
+              ),
             ),
           )),
     );

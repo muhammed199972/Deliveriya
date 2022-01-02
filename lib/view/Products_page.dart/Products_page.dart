@@ -207,12 +207,16 @@ class ProduvtsView extends StatelessWidget {
                   child: prodController.isLoading.value
                       ? ShimmerWidget.productsLoading()
                       : Container(
-                          margin: EdgeInsets.symmetric(
-                              horizontal: Defaults.defaultPadding),
+                          margin: EdgeInsets.only(
+                            left: Defaults.defaultPadding,
+                            right: Defaults.defaultPadding / 2,
+                          ),
                           child: StaggeredGridView.countBuilder(
                             controller: prodController.scrollController,
                             shrinkWrap: true,
-                            crossAxisCount: size.width >= 600 ? 4 : 3,
+                            crossAxisCount: size.width <= 350
+                                ? 2
+                                : (size.width >= 600 ? 4 : 3),
                             itemCount: prodController.products.length,
                             itemBuilder: (BuildContext context, int index) {
                               return FullCard(
@@ -222,7 +226,7 @@ class ProduvtsView extends StatelessWidget {
                             },
                             staggeredTileBuilder: (int index) =>
                                 new StaggeredTile.count(
-                                    1, size.height >= 750 ? 1.22 : 1.1),
+                                    1, size.height >= 650 ? 1.22 : 1.1),
                             mainAxisSpacing: 1,
                             crossAxisSpacing: 10,
                           ),

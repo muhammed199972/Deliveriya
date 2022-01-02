@@ -31,6 +31,7 @@ if (keystorePropertiesFile.exists()) {
    keystoreProperties.load(new FileInputStream(keystorePropertiesFile))
 }
 
+
 android {
     aaptOptions {
         noCompress 'tflite'

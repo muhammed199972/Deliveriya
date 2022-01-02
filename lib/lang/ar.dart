@@ -5,10 +5,10 @@ const Map<String, String> ar = {
   'new': 'الجديد',
   'offers': 'العروض',
   'category': 'الأصناف',
-  'profile': 'الملف االشخصي',
+  'profile': 'الحساب',
   'home': 'الرئيسية',
   'favorite': 'المفضلة',
-  'cart': 'سلة المشتريات',
+  'cart': 'السلة',
   'personalinfo': 'المعلومات الشخصية',
   'searchhelper': 'كيف يمكننا مساعدتك ...',
   //===============profile================
