@@ -298,7 +298,7 @@ class AuthService {
         status = AuthStatus.fromJson(responsebode['status']);
 
         // error = ErrorResponse.fromJson(responsebode['errors'][0]);
-        // apiResult.errorMassage = error.msg;
+        apiResult.errorMassage = status.msg;
         apiResult.codeError = status.code;
 
         print('Input error Please try again');
@@ -407,7 +407,7 @@ class AuthService {
         status = AuthStatus.fromJson(responsebode['status']);
 
         // error = ErrorResponse.fromJson(responsebode['errors'][0]);
-        // apiResult.errorMassage = error.msg;
+        apiResult.errorMassage = status.msg;
         apiResult.codeError = status.code;
 
         print('Input error Please try again');
