@@ -4,6 +4,7 @@ import 'package:delivery_food/controller/Products_controller.dart';
 import 'package:delivery_food/controller/Search_controller.dart';
 import 'package:delivery_food/view/Home_page/component/Filter_Search.dart';
 import 'package:delivery_food/view/Products_page.dart/component/Products_Cards.dart';
+import 'package:delivery_food/view/Products_page.dart/component/Products_Cards2.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:get/get.dart';
@@ -72,7 +73,7 @@ class Datasesrch extends SearchDelegate<String> {
                 crossAxisCount: 3,
                 itemCount: prodController.products.length,
                 itemBuilder: (BuildContext context, int index) {
-                  return FullCard(
+                  return FullCardSearch(
                     size: size,
                     product: prodController.products[index],
                   );
@@ -159,7 +160,7 @@ class Datasesrch extends SearchDelegate<String> {
                   crossAxisCount: 3,
                   itemCount: prodController.products.length,
                   itemBuilder: (BuildContext context, int index) {
-                    return FullCard(
+                    return FullCardSearch(
                       size: size,
                       product: prodController.products[index],
                     );
