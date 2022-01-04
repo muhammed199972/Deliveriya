@@ -529,7 +529,9 @@ class _FavoriteViewState extends State<FavoriteView> {
                                                     1,
                                                     size.height >= 650
                                                         ? 1.25
-                                                        : 1.1),
+                                                        : size.height >= 550
+                                                            ? 1.25
+                                                            : 1.1),
                                             mainAxisSpacing: 1,
                                             crossAxisSpacing: 1,
                                           ),
@@ -673,11 +675,13 @@ class _FavoriteViewState extends State<FavoriteView> {
                                                         .products[index],
                                                   );
                                                 },
-                                                staggeredTileBuilder:
-                                                    (int index) =>
-                                                        new StaggeredTile.count(
-                                                            1,
-                                                            size.height >= 650
+                                                staggeredTileBuilder: (int
+                                                        index) =>
+                                                    new StaggeredTile.count(
+                                                        1,
+                                                        size.height >= 650
+                                                            ? 1.25
+                                                            : size.height >= 550
                                                                 ? 1.25
                                                                 : 1.1),
                                                 mainAxisSpacing: 1,

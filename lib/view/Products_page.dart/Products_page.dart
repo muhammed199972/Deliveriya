@@ -45,6 +45,7 @@ class ProduvtsView extends StatelessWidget {
     }
 
     Size size = MediaQuery.of(context).size;
+    print(size.height);
     return Scaffold(
       // bottomNavigationBar:BottomBar(intid: 1,) ,
       backgroundColor: AppColors.whiteColor,
@@ -226,7 +227,7 @@ class ProduvtsView extends StatelessWidget {
                             },
                             staggeredTileBuilder: (int index) =>
                                 new StaggeredTile.count(
-                                    1, size.height >= 650 ? 1.22 : 1.1),
+                                    1, size.height >= 650 ? 1.22 : 1.18),
                             mainAxisSpacing: 1,
                             crossAxisSpacing: 10,
                           ),
