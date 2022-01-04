@@ -1,5 +1,6 @@
 import 'package:delivery_food/General/Constants.dart';
 import 'package:delivery_food/controller/Cart_controller.dart';
+import 'package:delivery_food/controller/Offer_controller.dart';
 import 'package:delivery_food/controller/Products_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -11,6 +12,7 @@ class TotalPrice extends StatelessWidget {
   var controller = Get.put(CartController());
   StatusCode statusCode = StatusCode();
   var prodController = Get.find<ProductsController>();
+  var offerController = Get.find<OfferController>();
 
   @override
   Widget build(BuildContext context) {
@@ -57,9 +59,13 @@ class TotalPrice extends StatelessWidget {
         }
       }
     }
+
     return Obx(() {
+      pricemcat.value = pricemcat.value + offerController.totalprice.value;
+
       return Container(
         color: AppColors.whiteColor,
+        height: 70,
         padding: EdgeInsets.symmetric(horizontal: Defaults.defaultPadding),
         child: Row(
           children: [

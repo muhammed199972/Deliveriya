@@ -466,7 +466,6 @@ class OfferService {
           headers: {'Authorization': 'Bearer ${statusCode.Token}'},
           body: {'quantity': q});
       var responsebody = jsonDecode(response.body);
-      log('${responsebody} == $q ', name: 'wwwwwwww');
       if (response.statusCode == statusCode.OK ||
           response.statusCode == statusCode.CREATED) {
         status = OfferUserStatus.fromJson(responsebody['status']);

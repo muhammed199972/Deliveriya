@@ -4,6 +4,7 @@ import 'package:delivery_food/General/Api_Result.dart';
 import 'package:delivery_food/General/Constants.dart';
 import 'package:delivery_food/General/Dialogs.dart';
 import 'package:delivery_food/model/Auth_model.dart';
+import 'package:delivery_food/model/DeletePutPost.dart';
 import 'package:delivery_food/services/Auth_service.dart';
 import 'package:delivery_food/view/Home_page/Home_page.dart';
 import 'package:delivery_food/view/navbar.dart';
@@ -13,6 +14,7 @@ import 'package:get/get.dart';
 class AuthController extends GetxController {
   var auth = AuthResponse().obs;
   var signUpResponse = SignUpResponse().obs;
+  var putpass = DeletePutPostResponse().obs;
   var hasError = true.obs;
   var massage = ''.obs;
   var sendcode = false.obs;
@@ -31,6 +33,7 @@ class AuthController extends GetxController {
 
   getcode(String phone) async {
     try {
+      BotToast.showLoading();
       apiResult = await authservice.getauthCode(countryCode + phone);
       if (!apiResult.hasError!) {
         auth.value = apiResult.data;
@@ -54,6 +57,8 @@ class AuthController extends GetxController {
           onPressed: () {
             Get.back();
           });
+    } finally {
+      BotToast.closeAllLoading();
     }
   }
 
@@ -248,5 +253,36 @@ class AuthController extends GetxController {
       initialSelection: _initialCountryCode,
       // alignLeft: true,
     );
+  }
+
+  putPassword(String oldpass, String newpass) async {
+    try {
+      BotToast.showLoading();
+      apiResult = await authservice.putpassword(oldpass, newpass);
+      if (apiResult.rfreshToken) {
+        if (!apiResult.hasError!) {
+          putpass.value = apiResult.data;
+          hasError.value = apiResult.hasError!;
+
+          Get.back();
+        } else {
+          hasError.value = apiResult.hasError!;
+          massage.value = apiResult.errorMassage!;
+          DialogsUtils.showdialog(
+              m: massage.value,
+              onPressed: () {
+                Get.back();
+              });
+        }
+      } else {
+        putPassword(oldpass, newpass);
+      }
+    } catch (e) {
+      hasError.value = apiResult.hasError!;
+      massage.value = apiResult.errorMassage!;
+      print(e);
+    } finally {
+      BotToast.closeAllLoading();
+    }
   }
 }

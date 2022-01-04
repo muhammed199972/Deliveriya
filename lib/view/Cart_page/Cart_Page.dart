@@ -85,22 +85,22 @@ class CartView extends StatelessWidget {
             ],
           ),
         ),
-        body: TabBarView(
-          children: <Widget>[
-            Column(
-              children: [
-                Expanded(
-                  flex: 10,
-                  child: ListOfferCart(
-                      offerController: offerController,
-                      size: size,
-                      statusCode: statusCode),
-                ),
-                Expanded(child: TotalPrice())
-              ],
-            ),
-            Obx(() {
-              return statusCode.Token != ''
+        body: Obx(() {
+          return TabBarView(
+            children: <Widget>[
+              Column(
+                children: [
+                  Expanded(
+                    flex: 10,
+                    child: ListOfferCart(
+                        offerController: offerController,
+                        size: size,
+                        statusCode: statusCode),
+                  ),
+                  // Expanded(child: TotalPrice())
+                ],
+              ),
+              statusCode.Token != ''
                   ? !controller.isEmpty.value
                       ? controller.carts.length != 0
                           ? Container(
@@ -250,10 +250,10 @@ class CartView extends StatelessWidget {
                                   )
                                 ]),
                           ),
-                        );
-            }),
-          ],
-        ),
+                        ),
+            ],
+          );
+        }),
         floatingActionButton: Obx(() => Visibility(
               visible: controller.carts.length != 0,
               child: FloatingActionButton(

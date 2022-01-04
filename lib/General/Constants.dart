@@ -12,9 +12,7 @@ class StatusCode {
   var urlimage = 'https://delivery-food12.herokuapp.com/';
   var imgdefault =
       'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png';
-  var Token =
-      'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MywiaWF0IjoxNjQxMTIxOTQ2LCJleHAiOjE2NDE1NTM5NDZ9.t6OQb54yD99L58fDsXVuUIlZnsj53fUMhJLefBfSQBg';
-  //  Constansbox.box.read('accessToken');
+  var Token = Constansbox.box.read('accessToken');
   var RefreshToken = Constansbox.box.read('refreshToken');
   var Lang = Constansbox.box.read('lang');
 

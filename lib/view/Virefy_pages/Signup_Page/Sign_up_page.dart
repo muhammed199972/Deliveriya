@@ -109,7 +109,7 @@ class SignupPage extends StatelessWidget {
                                           fontWeight: FontWeight.bold),
                                     ),
                                     Text(
-                                      'Be at least 6 characters long.',
+                                      'Be at least 8 characters long.',
                                       style: TextStyle(
                                         fontSize: 15,
                                       ),

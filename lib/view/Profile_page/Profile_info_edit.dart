@@ -472,15 +472,23 @@ class ProfileInfoEdit extends StatelessWidget {
                                     child: ButtonWidget2(
                                         size: size,
                                         txt: 'submit'.tr,
-                                        onTap: () {
+                                        onTap: () async {
                                           if (formkey2.currentState!
                                               .validate()) {
                                             if (_newpassController.text !=
-                                                _confirmPassController) {
+                                                _confirmPassController.text) {
                                               BotToast.showText(
                                                 text: 'not correct!',
                                                 align: Alignment.center,
                                               );
+                                            } else {
+                                              await Get.find<AuthController>()
+                                                  .putPassword(
+                                                      _oldpassController.text,
+                                                      _newpassController.text);
+                                              _newpassController.text = '';
+                                              _oldpassController.text = '';
+                                              _confirmPassController.text = '';
                                             }
                                           }
                                         }),

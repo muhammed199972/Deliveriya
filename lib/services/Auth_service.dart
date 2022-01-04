@@ -3,6 +3,7 @@ import 'dart:developer';
 import 'dart:io';
 import 'package:delivery_food/General/Api_Result.dart';
 import 'package:delivery_food/General/Constants.dart';
+import 'package:delivery_food/controller/Auth_controller.dart';
 import 'package:delivery_food/model/Auth_model.dart';
 import 'package:delivery_food/model/DeletePutPost.dart';
 import 'package:delivery_food/model/Error.dart';
@@ -638,6 +639,117 @@ class AuthService {
 
         print('A bad request Please try again');
       }
+      apiResult.errorMassage = 'حدث خطأ غير متوقع';
+      apiResult.codeError = statusCode.connection;
+
+      print('${e}');
+    }
+    return apiResult;
+  }
+
+  Future<ApiResult> putpassword(String oldpas, String newpas) async {
+    StatusCode statusCode = StatusCode();
+    ApiResult apiResult = ApiResult();
+    DeletePutPostResponse? calendar;
+    AuthStatus? status;
+    ErrorResponse? error;
+
+    Uri url = Uri.http(
+      '${statusCode.url1}',
+      '/api/private/auth/password',
+    );
+    try {
+      var response = await http.put(url,
+          headers: {'Authorization': 'Bearer ${statusCode.Token}'},
+          body: {'password': newpas, 'oldPassword': oldpas});
+      var responsebody = jsonDecode(response.body);
+      log('${responsebody}', name: 'aaaaa');
+      if (response.statusCode == statusCode.OK ||
+          response.statusCode == statusCode.CREATED) {
+        status = AuthStatus.fromJson(responsebody['status']);
+        if (responsebody['response'] != null) {
+          calendar = DeletePutPostResponse.fromJson(responsebody);
+
+          apiResult.errorMassage = status.msg;
+          apiResult.codeError = status.code;
+          apiResult.hasError = false;
+          apiResult.data = calendar;
+        }
+      } else if (response.statusCode == statusCode.BAD_REQUEST) {
+        status = AuthStatus.fromJson(responsebody['status']);
+        error = ErrorResponse.fromJson(responsebody['errors'][0]);
+        apiResult.errorMassage = error.msg;
+        apiResult.codeError = status.code;
+
+        apiResult.data = calendar;
+        print('A bad request Please try again');
+      } else if (response.statusCode == statusCode.UNAUTHORIZED) {
+        status = AuthStatus.fromJson(responsebody['status']);
+
+        error = ErrorResponse.fromJson(responsebody['errors'][0]);
+        apiResult.errorMassage = error.msg;
+        apiResult.codeError = status.code;
+
+        print('A bad request Please try again');
+      } else if (response.statusCode == statusCode.FORBIDDEN) {
+        status = AuthStatus.fromJson(responsebody['status']);
+
+        error = ErrorResponse.fromJson(responsebody['errors'][0]);
+        apiResult.errorMassage = error.msg;
+        apiResult.codeError = status.code;
+
+        print('A bad request Please try again');
+      } else if (response.statusCode == statusCode.NOT_FOUND) {
+        status = AuthStatus.fromJson(responsebody['status']);
+
+        error = ErrorResponse.fromJson(responsebody['errors'][0]);
+        apiResult.errorMassage = error.msg;
+        apiResult.codeError = status.code;
+
+        print('Endpoint not found Please try again');
+      } else if (response.statusCode == statusCode.DUPLICATED_ENTRY) {
+        status = AuthStatus.fromJson(responsebody['status']);
+
+        error = ErrorResponse.fromJson(responsebody['errors'][0]);
+        apiResult.errorMassage = error.msg;
+        apiResult.codeError = status.code;
+
+        print('Input error Please try again');
+      } else if (response.statusCode == statusCode.VALIDATION_ERROR) {
+        status = AuthStatus.fromJson(responsebody['status']);
+
+        error = ErrorResponse.fromJson(responsebody['errors'][0]);
+        apiResult.errorMassage = error.msg;
+        apiResult.codeError = status.code;
+
+        print('Input error Please try again');
+      } else if (response.statusCode == statusCode.INTERNAL_SERVER_ERROR) {
+        status = AuthStatus.fromJson(responsebody['status']);
+
+        error = ErrorResponse.fromJson(responsebody['errors'][0]);
+        apiResult.errorMassage = error.msg;
+        apiResult.codeError = status.code;
+
+        print('Server error Please try again');
+      } else {
+        status = AuthStatus.fromJson(responsebody['status']);
+        error = ErrorResponse.fromJson(responsebody['errors'][0]);
+        apiResult.errorMassage = error.msg;
+        apiResult.codeError = status.code;
+
+        print(' error Please try again');
+      }
+    } on SocketException {
+      apiResult.errorMassage = 'Make sure you are connected to the internet';
+      apiResult.codeError = statusCode.connection;
+
+      print('Make sure you are connected to the internet');
+    } on FormatException {
+      apiResult.errorMassage = 'There is a problem with the admin';
+      apiResult.codeError = statusCode.parsing;
+
+      print('There is a problem with the admin');
+    } catch (e) {
       apiResult.errorMassage = 'حدث خطأ غير متوقع';
       apiResult.codeError = statusCode.connection;
 

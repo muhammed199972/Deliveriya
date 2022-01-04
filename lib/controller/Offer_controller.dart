@@ -21,6 +21,7 @@ class OfferController extends GetxController {
   Constans Constansbox = Constans();
   var isOffStatuts = true.obs;
   var idOffers = [];
+  var totalprice = 0.obs;
   @override
   void onInit() async {
     await getoffers();
@@ -106,6 +107,8 @@ class OfferController extends GetxController {
 
   deleteofferData(String id) async {
     try {
+      BotToast.showLoading();
+
       apiResult = await offer.deleteofferData(id);
       if (apiResult.rfreshToken) {
         if (!apiResult.hasError!) {
@@ -146,6 +149,14 @@ class OfferController extends GetxController {
         if (!apiResult.hasError!) {
           offersuser.value = apiResult.data;
           hasError.value = apiResult.hasError!;
+          totalprice.value = 0;
+          offersuser.value.forEach((element) {
+            totalprice.value +=
+                element.afterPrice! * element.userOffers![0].quantity!;
+            print('totalprice.value');
+
+            print(totalprice.value);
+          });
         } else {
           hasError.value = apiResult.hasError!;
           massage.value = apiResult.errorMassage!;
