@@ -98,9 +98,13 @@ class FullCard extends StatelessWidget {
                 ),
                 Text(
                   product!.name!,
-                  style: size.width >= 600
-                      ? Styles.defualttab
-                      : Styles.defualtmobile,
+                  style: statusCode.Lang == 'en'
+                      ? size.width >= 600
+                          ? Styles.defualttab
+                          : Styles.defualtmobile
+                      : size.width >= 600
+                          ? Styles.priceStyle2
+                          : Styles.priceStyle,
                 ),
                 Container(
                   child: Row(

@@ -28,7 +28,7 @@ class ListOfferCart extends StatelessWidget {
                 offerController.offersuser[index].userOffers![0].quantity!.obs;
 
             return Padding(
-              padding: const EdgeInsets.all(18.0),
+              padding: const EdgeInsets.only(top: 18.0, left: 10, right: 10),
               child: Container(
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(5.0),

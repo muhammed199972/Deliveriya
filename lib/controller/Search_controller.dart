@@ -5,7 +5,7 @@ class SearchController extends GetxController {
   var SearchHome = [].obs;
   @override
   void onInit() async {
-    var Search = Constansbox.box.read('SearchHome');
+    var Search = await Constansbox.box.read('SearchHome');
     SearchHome.value = new List.from(Search.reversed);
     super.onInit();
   }

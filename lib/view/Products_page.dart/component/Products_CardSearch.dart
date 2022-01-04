@@ -93,7 +93,16 @@ class FullCardSearch extends StatelessWidget {
                 SizedBox(
                   height: 5,
                 ),
-                Text(product!.name!),
+                Text(
+                  product!.name!,
+                  style: statusCode.Lang == 'en'
+                      ? size.width >= 600
+                          ? Styles.defualttab
+                          : Styles.defualtmobile
+                      : size.width >= 600
+                          ? Styles.priceStyle2
+                          : Styles.priceStyle,
+                ),
                 Container(
                   height: size.height * 0.04,
                   child: Row(
@@ -251,12 +260,14 @@ class FullCardSearch extends StatelessWidget {
                                 ),
                               ),
                               product.afterOffer != null
-                                  ? Text(
-                                      '${product.afterOffer}\$',
-                                      textAlign: TextAlign.center,
-                                      style: TextStyle(
-                                        color: AppColors.blackColor,
-                                        fontSize: 12,
+                                  ? Expanded(
+                                      child: Text(
+                                        '${product.afterOffer}\$',
+                                        textAlign: TextAlign.center,
+                                        style: TextStyle(
+                                          color: AppColors.blackColor,
+                                          fontSize: size.width >= 550 ? 20 : 10,
+                                        ),
                                       ),
                                     )
                                   : Container()

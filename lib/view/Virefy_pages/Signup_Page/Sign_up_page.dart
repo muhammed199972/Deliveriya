@@ -143,9 +143,9 @@ class SignupPage extends StatelessWidget {
                                           fontWeight: FontWeight.bold),
                                     ),
                                     FittedBox(
-                                      fit: BoxFit.fill,
+                                      fit: BoxFit.contain,
                                       child: Text(
-                                        'Includes at least one of the following \nspecial characters: <=>?@[|]~, or a space.',
+                                        'Includes at least one of the following \nspecial characters: <=>?@[|]~,\n or a space.',
                                         style: TextStyle(
                                           fontSize: 15,
                                         ),

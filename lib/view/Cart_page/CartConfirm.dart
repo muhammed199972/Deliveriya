@@ -53,7 +53,8 @@ class ConfirmCart extends StatelessWidget {
           child: Column(
             children: [
               Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 17),
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 17, vertical: 10),
                 child: InkWell(
                   onTap: () {
                     DatePicker.showDatePicker(

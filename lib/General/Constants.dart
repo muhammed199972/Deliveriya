@@ -105,7 +105,9 @@ class Styles {
     fontSize: 16,
   );
   static const priceStyle =
-      TextStyle(color: AppColors.blackColor, fontSize: 12);
+      TextStyle(color: AppColors.blackColor, fontSize: 11);
+  static const priceStyle2 =
+      TextStyle(color: AppColors.blackColor, fontSize: 10);
   static const defualtmobile =
       TextStyle(color: AppColors.blackColor, fontSize: 16);
   static const defualttab =

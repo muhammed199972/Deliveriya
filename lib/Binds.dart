@@ -23,6 +23,5 @@ class Binds extends Bindings {
     Get.put(ProductsController());
     Get.put(FavoriteController());
     Get.put(AuthController());
-    Get.put(SearchController());
   }
 }

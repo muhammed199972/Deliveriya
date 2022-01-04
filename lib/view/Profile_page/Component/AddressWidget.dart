@@ -20,7 +20,7 @@ class AddressWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: size == null ? 66 : (size!.height * 0.080),
+      height: size == null ? 66 : (size!.height * 0.1),
       margin: EdgeInsets.symmetric(horizontal: 17, vertical: 5),
       decoration: BoxDecoration(
           color: Colors.white,

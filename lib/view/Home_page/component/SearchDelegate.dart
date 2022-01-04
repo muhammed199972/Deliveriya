@@ -4,14 +4,15 @@ import 'package:delivery_food/controller/Products_controller.dart';
 import 'package:delivery_food/controller/Search_controller.dart';
 import 'package:delivery_food/view/Home_page/component/Filter_Search.dart';
 import 'package:delivery_food/view/Products_page.dart/component/Products_Cards.dart';
-import 'package:delivery_food/view/Products_page.dart/component/Products_Cards2.dart';
+import 'package:delivery_food/view/Products_page.dart/component/Products_CardSearch.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:get/get.dart';
 
 class Datasesrch extends SearchDelegate<String> {
   var prodController = Get.find<ProductsController>();
-  var searchController = Get.find<SearchController>();
+  StatusCode statusCode = StatusCode();
+  var searchController = Get.put(SearchController());
   String q = '';
   @override
   List<Widget> buildActions(BuildContext context) {
@@ -78,9 +79,9 @@ class Datasesrch extends SearchDelegate<String> {
                     product: prodController.products[index],
                   );
                 },
-                staggeredTileBuilder: (int index) =>
-                    new StaggeredTile.count(1, 1.2),
-                mainAxisSpacing: 5,
+                staggeredTileBuilder: (int index) => new StaggeredTile.count(
+                    1, size.height >= 650 ? 1.22 : 1.18),
+                mainAxisSpacing: 1,
                 crossAxisSpacing: 10,
               ),
             );
@@ -115,7 +116,9 @@ class Datasesrch extends SearchDelegate<String> {
                 query = searchController.SearchHome[index];
               },
               child: Padding(
-                padding: const EdgeInsets.only(left: 20.0),
+                padding: statusCode.Lang == 'en'
+                    ? EdgeInsets.only(left: 20.0)
+                    : EdgeInsets.only(right: 20.0),
                 child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
@@ -165,9 +168,9 @@ class Datasesrch extends SearchDelegate<String> {
                       product: prodController.products[index],
                     );
                   },
-                  staggeredTileBuilder: (int index) =>
-                      new StaggeredTile.count(1, 1.2),
-                  mainAxisSpacing: 5,
+                  staggeredTileBuilder: (int index) => new StaggeredTile.count(
+                      1, size.height >= 650 ? 1.22 : 1.18),
+                  mainAxisSpacing: 1,
                   crossAxisSpacing: 10,
                 ),
               );
