@@ -17,6 +17,7 @@ class Statuses extends StatelessWidget {
   List<int> idoff = [];
   @override
   Widget build(BuildContext context) {
+    Size size = MediaQuery.of(context).size;
     return Scaffold(
       backgroundColor: Colors.black,
       body: WillPopScope(
@@ -88,7 +89,8 @@ class Statuses extends StatelessWidget {
                                   statuse.offers[id.value].type == 'group'
                               ? Positioned(
                                   bottom: 10,
-                                  right: 160,
+                                  right: size.width / 3,
+                                  left: size.width / 3,
                                   child: Center(
                                     child: TextButton(
                                       onPressed: () {
