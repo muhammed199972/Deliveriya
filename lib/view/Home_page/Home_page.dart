@@ -14,12 +14,13 @@ import 'package:get/get.dart';
 class HomeView extends StatelessWidget {
   CategorysController controller = Get.put(CategorysController());
   // AddressController ca = Get.put(AddressController());
-
+  GlobalKey<FormState> _abcKey = GlobalKey<FormState>();
   @override
   Widget build(BuildContext context) {
     controller.getcategory();
     Size size = MediaQuery.of(context).size;
     return Scaffold(
+        key: _abcKey,
         backgroundColor: AppColors.whiteColor,
         extendBodyBehindAppBar: true,
         resizeToAvoidBottomInset: true,
