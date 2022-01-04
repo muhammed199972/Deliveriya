@@ -90,9 +90,8 @@ class Datasesrch extends SearchDelegate<String> {
   @override
   Widget buildSuggestions(BuildContext context) {
     Size size = MediaQuery.of(context).size;
-
-    if (query.isEmpty) {
-      return Obx(() {
+    return Obx(() {
+      if (query.isEmpty) {
         return ListView.builder(
           scrollDirection: Axis.vertical,
           itemCount: searchController.SearchHome.length,
@@ -140,38 +139,34 @@ class Datasesrch extends SearchDelegate<String> {
             ),
           ),
         );
-      });
-    } else {
-      return GetBuilder<ProductsController>(
-          init: ProductsController(),
-          builder: (products) {
-            if (q != query) {
-              products.getproduct(
-                  subCategoryId: '', offset: 0, limit: 50, q: query);
-            }
-            q = query;
-            return Obx(() {
-              return Container(
-                margin:
-                    EdgeInsets.symmetric(horizontal: Defaults.defaultPadding),
-                child: StaggeredGridView.countBuilder(
-                  shrinkWrap: true,
-                  crossAxisCount: 3,
-                  itemCount: prodController.products.length,
-                  itemBuilder: (BuildContext context, int index) {
-                    return FullCard(
-                      size: size,
-                      product: prodController.products[index],
-                    );
-                  },
-                  staggeredTileBuilder: (int index) =>
-                      new StaggeredTile.count(1, 1.2),
-                  mainAxisSpacing: 5,
-                  crossAxisSpacing: 10,
-                ),
-              );
-            });
-          });
-    }
+      } else {
+        if (q != query) {
+          prodController.getproduct(
+              subCategoryId: '', offset: 0, limit: 50, q: query);
+        }
+        q = query;
+
+        return Container(
+          margin: EdgeInsets.symmetric(horizontal: Defaults.defaultPadding),
+          child: StaggeredGridView.countBuilder(
+            shrinkWrap: true,
+            crossAxisCount: 3,
+            itemCount: prodController.products.length,
+            itemBuilder: (BuildContext context, int p) {
+              return Obx(() {
+                return FullCard(
+                  size: size,
+                  product: prodController.products[p],
+                );
+              });
+            },
+            staggeredTileBuilder: (int index) =>
+                new StaggeredTile.count(1, 1.2),
+            mainAxisSpacing: 5,
+            crossAxisSpacing: 10,
+          ),
+        );
+      }
+    });
   }
 }
