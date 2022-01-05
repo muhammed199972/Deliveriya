@@ -65,13 +65,29 @@ class TotalPrice extends StatelessWidget {
             ),
             Spacer(),
             Center(
-              child: Text(
-                  prodController.isTotal.value
-                      ? '${NumberFormat.decimalPattern().format(pricemcat.value)} \$'
-                      : '0',
-                  style: size.width >= 600
-                      ? Styles.defualttab
-                      : Styles.defualtmobile),
+              child: statusCode.Token != ''
+                  ? cartController.loadingtotal.value
+                      ? (Text(
+                          prodController.isTotal.value
+                              ? '${NumberFormat.decimalPattern().format(pricemcat.value)} \$'
+                              : '0',
+                          style: size.width >= 600
+                              ? Styles.defualttab
+                              : Styles.defualtmobile))
+                      : Container(
+                          width: 20,
+                          height: 20,
+                          child: CircularProgressIndicator(
+                            strokeWidth: 2,
+                          ),
+                        )
+                  : Text(
+                      prodController.isTotal.value
+                          ? '${NumberFormat.decimalPattern().format(pricemcat.value)} \$'
+                          : '0',
+                      style: size.width >= 600
+                          ? Styles.defualttab
+                          : Styles.defualtmobile),
             ),
             Spacer(
               flex: 2,

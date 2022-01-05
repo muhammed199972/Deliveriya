@@ -77,10 +77,10 @@ class CartView extends StatelessWidget {
             labelColor: AppColors.blackColor,
             tabs: <Widget>[
               Tab(
-                text: 'Offers',
+                text: 'offers'.tr,
               ),
               Tab(
-                text: 'Products',
+                text: 'category'.tr,
               ),
             ],
           ),

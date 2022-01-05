@@ -45,7 +45,6 @@ dependencies:
   story_view: ^0.13.1
   intl: ^0.16.0
 
-
 dev_dependencies:
   flutter_test:
     sdk: flutter

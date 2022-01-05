@@ -108,6 +108,7 @@ class OfferController extends GetxController {
 
   deleteofferData(String id) async {
     try {
+      Get.find<CartController>().loadingtotal.value = false;
       apiResult = await offer.deleteofferData(id);
       if (apiResult.rfreshToken) {
         if (!apiResult.hasError!) {
@@ -135,7 +136,9 @@ class OfferController extends GetxController {
           onPressed: () {
             Get.back();
           });
-    } finally {}
+    } finally {
+      Get.find<CartController>().loadingtotal.value = true;
+    }
   }
 
   getofferuser() async {

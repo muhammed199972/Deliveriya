@@ -31,6 +31,7 @@ class CartController extends GetxController {
   var maxscroll = false.obs;
   var isEmpty = false.obs;
   var totalprice = 0.obs;
+  var loadingtotal = true.obs;
 
   @override
   void onInit() {
@@ -84,6 +85,7 @@ class CartController extends GetxController {
 
   getcarttotal() async {
     try {
+      loadingtotal = false.obs;
       apiResult = await cartService.getcartTotal();
       if (apiResult.rfreshToken) {
         if (!apiResult.hasError!) {
@@ -110,7 +112,9 @@ class CartController extends GetxController {
             Get.back();
             Get.back();
           });
-    } finally {}
+    } finally {
+      loadingtotal.value = true;
+    }
   }
 
   addTocart(int quantity, String id) async {
@@ -220,7 +224,8 @@ class CartController extends GetxController {
         if (!apiResult.hasError!) {
           deleteCarts.value = apiResult.data;
           hasError.value = apiResult.hasError!;
-          BotToast.showLoading();
+          Get.find<CartController>().loadingtotal.value = false;
+
           await getcart();
           Get.back();
         } else {
@@ -244,7 +249,7 @@ class CartController extends GetxController {
             Get.back();
           });
     } finally {
-      BotToast.closeAllLoading();
+      Get.find<CartController>().loadingtotal.value = true;
     }
   }
 
@@ -255,7 +260,8 @@ class CartController extends GetxController {
         if (!apiResult.hasError!) {
           deleteCarts.value = apiResult.data;
           hasError.value = apiResult.hasError!;
-          BotToast.showLoading();
+          Get.find<CartController>().loadingtotal.value = false;
+
           await getcart();
 
           Get.back();
@@ -280,7 +286,7 @@ class CartController extends GetxController {
             Get.back();
           });
     } finally {
-      BotToast.closeAllLoading();
+      Get.find<CartController>().loadingtotal.value = true;
     }
   }
 
