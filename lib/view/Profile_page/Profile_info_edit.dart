@@ -60,9 +60,9 @@ class ProfileInfoEdit extends StatelessWidget {
                     onTap: () {
                       Get.bottomSheet(
                         Container(
-                            padding: EdgeInsets.symmetric(
-                                horizontal: Defaults.defaultPadding * 2.5,
-                                vertical: Defaults.defaultPadding * 2),
+                            padding: EdgeInsets.only(
+                                top: Defaults.defaultPadding * 2,
+                                bottom: Defaults.defaultPadding * 2),
                             height: size.height * 0.191,
                             decoration: BoxDecoration(
                               color: Colors.white,
@@ -182,15 +182,18 @@ class ProfileInfoEdit extends StatelessWidget {
                               left: 70,
                               right: 0,
                               child: Container(
-                                padding: EdgeInsets.all(5),
+                                height: 25,
+                                width: 25,
                                 decoration: BoxDecoration(
                                   color: AppColors.mainColor,
                                   shape: BoxShape.circle,
                                 ),
-                                child: Icon(
-                                  Icons.edit,
-                                  size: 15,
-                                  color: AppColors.whiteColor,
+                                child: Container(
+                                  child: Icon(
+                                    Icons.edit,
+                                    size: 15,
+                                    color: AppColors.whiteColor,
+                                  ),
                                 ),
                               ),
                             )

@@ -5,6 +5,7 @@ import 'package:delivery_food/controller/Favorite_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
+import 'package:intl/intl.dart';
 
 class FullCard extends StatelessWidget {
   FullCard({
@@ -250,7 +251,7 @@ class FullCard extends StatelessWidget {
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
                               Text(
-                                '${product.price}\$',
+                                '${NumberFormat.decimalPattern().format(product.price)}\$',
                                 textAlign: TextAlign.center,
                                 style: TextStyle(
                                   color: product.afterOffer != null
@@ -267,14 +268,12 @@ class FullCard extends StatelessWidget {
                                 ),
                               ),
                               product.afterOffer != null
-                                  ? Expanded(
-                                      child: Text(
-                                        '${product.afterOffer}\$',
-                                        textAlign: TextAlign.center,
-                                        style: TextStyle(
-                                          color: AppColors.blackColor,
-                                          fontSize: size.width >= 550 ? 20 : 10,
-                                        ),
+                                  ? Text(
+                                      '${NumberFormat.decimalPattern().format(product.afterOffer)}\$',
+                                      textAlign: TextAlign.center,
+                                      style: TextStyle(
+                                        color: AppColors.blackColor,
+                                        fontSize: size.width >= 550 ? 20 : 10,
                                       ),
                                     )
                                   : Container()

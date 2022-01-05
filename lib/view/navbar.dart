@@ -73,76 +73,87 @@ class _BottomBarState extends State<BottomBar> {
     Size size = MediaQuery.of(context).size;
     return Scaffold(
       body: _screens[_currentIndex],
-      bottomNavigationBar: BottomNavigationBar(
-        type: BottomNavigationBarType.fixed,
-        currentIndex: _currentIndex,
-        onTap: _updateIndex,
-        selectedItemColor: AppColors.mainColor,
-        selectedFontSize: size.width >= 600 ? 20 : 13,
-        unselectedFontSize: size.width >= 600 ? 20 : 13,
-        selectedIconTheme: IconThemeData(size: 30),
-        iconSize: size.width >= 600 ? 70 : 30,
-        backgroundColor: Color(0xFFFFFFFF),
-        items: [
-          BottomNavigationBarItem(
-            label: "cart".tr,
-            icon: SvgPicture.asset(
-              'assets/svg/Cart icon.svg',
-              color: _currentIndex == 0
-                  ? AppColors.mainColor
-                  : AppColors.darkgreytextColor,
-              width: size.width >= 600
-                  ? (_currentIndex == 0 ? 50 : 40)
-                  : (_currentIndex == 0 ? 35 : 25),
-            ),
+      bottomNavigationBar: Stack(
+        children: [
+          BottomNavigationBar(
+            type: BottomNavigationBarType.fixed,
+            currentIndex: _currentIndex,
+            onTap: _updateIndex,
+            selectedItemColor: AppColors.mainColor,
+            selectedFontSize: size.width >= 600 ? 20 : 11,
+            unselectedFontSize: size.width >= 600 ? 20 : 11,
+            selectedIconTheme: IconThemeData(size: 30),
+            iconSize: size.width >= 600 ? 70 : 30,
+            backgroundColor: Color(0xFFFFFFFF),
+            items: [
+              BottomNavigationBarItem(
+                label: "cart".tr,
+                icon: SvgPicture.asset(
+                  'assets/svg/Cart icon.svg',
+                  color: _currentIndex == 0
+                      ? AppColors.mainColor
+                      : AppColors.darkgreytextColor,
+                  width: size.width >= 600
+                      ? (_currentIndex == 0 ? 50 : 40)
+                      : (_currentIndex == 0 ? 32 : 22),
+                ),
+              ),
+              BottomNavigationBarItem(
+                label: "favorite".tr,
+                icon: SvgPicture.asset(
+                  'assets/svg/Favorate icon.svg',
+                  color: _currentIndex == 1
+                      ? AppColors.mainColor
+                      : AppColors.darkgreytextColor,
+                  width: size.width >= 600
+                      ? (_currentIndex == 1 ? 50 : 40)
+                      : (_currentIndex == 1 ? 32 : 22),
+                ),
+              ),
+              BottomNavigationBarItem(
+                label: "home".tr,
+                icon: SvgPicture.asset(
+                  'assets/svg/Home icon.svg',
+                  color: _currentIndex == 2
+                      ? AppColors.mainColor
+                      : AppColors.darkgreytextColor,
+                  width: size.width >= 600
+                      ? (_currentIndex == 2 ? 50 : 40)
+                      : (_currentIndex == 2 ? 32 : 22),
+                ),
+              ),
+              BottomNavigationBarItem(
+                label: "offers".tr,
+                icon: SvgPicture.asset(
+                  'assets/svg/Offers icon.svg',
+                  color: _currentIndex == 3
+                      ? AppColors.mainColor
+                      : AppColors.darkgreytextColor,
+                  width: size.width >= 600
+                      ? (_currentIndex == 3 ? 50 : 40)
+                      : (_currentIndex == 3 ? 32 : 22),
+                ),
+              ),
+              BottomNavigationBarItem(
+                label: "profile".tr,
+                icon: SvgPicture.asset(
+                  'assets/svg/Profile icon.svg',
+                  color: _currentIndex == 4
+                      ? AppColors.mainColor
+                      : AppColors.darkgreytextColor,
+                  width: size.width >= 600
+                      ? (_currentIndex == 4 ? 50 : 40)
+                      : (_currentIndex == 4 ? 32 : 22),
+                ),
+              ),
+            ],
           ),
-          BottomNavigationBarItem(
-            label: "favorite".tr,
-            icon: SvgPicture.asset(
-              'assets/svg/Favorate icon.svg',
-              color: _currentIndex == 1
-                  ? AppColors.mainColor
-                  : AppColors.darkgreytextColor,
-              width: size.width >= 600
-                  ? (_currentIndex == 1 ? 50 : 40)
-                  : (_currentIndex == 1 ? 35 : 25),
-            ),
-          ),
-          BottomNavigationBarItem(
-            label: "home".tr,
-            icon: SvgPicture.asset(
-              'assets/svg/Home icon.svg',
-              color: _currentIndex == 2
-                  ? AppColors.mainColor
-                  : AppColors.darkgreytextColor,
-              width: size.width >= 600
-                  ? (_currentIndex == 2 ? 50 : 40)
-                  : (_currentIndex == 2 ? 35 : 25),
-            ),
-          ),
-          BottomNavigationBarItem(
-            label: "offers".tr,
-            icon: SvgPicture.asset(
-              'assets/svg/Offers icon.svg',
-              color: _currentIndex == 3
-                  ? AppColors.mainColor
-                  : AppColors.darkgreytextColor,
-              width: size.width >= 600
-                  ? (_currentIndex == 3 ? 50 : 40)
-                  : (_currentIndex == 3 ? 35 : 25),
-            ),
-          ),
-          BottomNavigationBarItem(
-            label: "profile".tr,
-            icon: SvgPicture.asset(
-              'assets/svg/Profile icon.svg',
-              color: _currentIndex == 4
-                  ? AppColors.mainColor
-                  : AppColors.darkgreytextColor,
-              width: size.width >= 600
-                  ? (_currentIndex == 4 ? 50 : 40)
-                  : (_currentIndex == 4 ? 35 : 25),
-            ),
+          Divider(
+            height: 2,
+            thickness: 1.5,
+            indent: 0,
+            endIndent: 0,
+            color: AppColors.darkgreyColor,
           ),
         ],
       ),

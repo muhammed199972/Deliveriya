@@ -5,6 +5,7 @@ import 'package:delivery_food/view/Home_page/Home_page.dart';
 import 'package:delivery_food/view/navbar.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:intl/intl.dart';
 
 class ListOfferCart extends StatelessWidget {
   ListOfferCart({
@@ -279,11 +280,8 @@ class ListOfferCart extends StatelessWidget {
                                                   style: size.width >= 600
                                                       ? Styles.defualttab
                                                       : Styles.defualtmobile,
-                                                  text: (offerController
-                                                              .offersuser[index]
-                                                              .afterPrice! *
-                                                          counter.value)
-                                                      .toString()),
+                                                  text:
+                                                      '${NumberFormat.decimalPattern().format(offerController.offersuser[index].afterPrice! * counter.value)}'),
                                             )),
                                         RichText(
                                           text: TextSpan(
@@ -298,11 +296,8 @@ class ListOfferCart extends StatelessWidget {
                                                       fontSize: 16,
                                                       decoration: TextDecoration
                                                           .lineThrough),
-                                              text: (offerController
-                                                          .offersuser[index]
-                                                          .beforePrice! *
-                                                      counter.value)
-                                                  .toString()),
+                                              text:
+                                                  '${NumberFormat.decimalPattern().format(offerController.offersuser[index].beforePrice! * counter.value)}'),
                                         ),
                                       ],
                                     )),

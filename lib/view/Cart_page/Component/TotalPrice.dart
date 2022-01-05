@@ -4,6 +4,7 @@ import 'package:delivery_food/controller/Offer_controller.dart';
 import 'package:delivery_food/controller/Products_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:intl/intl.dart';
 
 class TotalPrice extends StatelessWidget {
   TotalPrice({
@@ -77,7 +78,9 @@ class TotalPrice extends StatelessWidget {
             Spacer(),
             Center(
               child: Text(
-                  prodController.isTotal.value ? '${pricemcat.value} \$' : '0',
+                  prodController.isTotal.value
+                      ? '${NumberFormat.decimalPattern().format(pricemcat.value)} \$'
+                      : '0',
                   style: size.width >= 600
                       ? Styles.defualttab
                       : Styles.defualtmobile),

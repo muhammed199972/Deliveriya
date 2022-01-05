@@ -86,7 +86,7 @@ class ProduvtsView extends StatelessWidget {
                     icon: SvgPicture.asset(
                       'assets/svg/Cart icon.svg',
                       color: AppColors.mainColor,
-                      width: size.width >= 600 ? 60 : 40,
+                      width: size.width >= 600 ? 45 : 25,
                     ),
                   ),
                 ),
@@ -95,24 +95,21 @@ class ProduvtsView extends StatelessWidget {
                     return cartController.lenghcart.value == 0
                         ? Container()
                         : Padding(
-                            padding: const EdgeInsets.only(top: 5, right: 5),
+                            padding: const EdgeInsets.only(top: 10, right: 10),
                             child: Align(
                               alignment: Alignment.topCenter,
                               child: Row(
-                                mainAxisAlignment: MainAxisAlignment.end,
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceAround,
                                 children: [
                                   SizedBox(
                                     width: size.width * 0.03,
                                   ),
-                                  CircleAvatar(
-                                    radius: 13,
-                                    backgroundColor: AppColors.mainColor,
-                                    child: Text(
-                                      '${cartController.lenghcart.value}',
-                                      style: TextStyle(
-                                          fontSize: size.width >= 600 ? 25 : 16,
-                                          color: AppColors.whiteColor),
-                                    ),
+                                  Text(
+                                    '${cartController.lenghcart.value}',
+                                    style: TextStyle(
+                                        fontSize: size.width >= 600 ? 25 : 16,
+                                        color: AppColors.mainColor),
                                   ),
                                 ],
                               ),
