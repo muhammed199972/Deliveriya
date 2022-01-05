@@ -62,16 +62,33 @@ class ListOfferCart extends StatelessWidget {
                                     children: [
                                       InkWell(
                                         onTap: () async {
-                                          await offerController.deleteofferData(
+                                          for (int i = 0;
+                                              i <
+                                                  offerController
+                                                      .offersuser.length;
+                                              i++) {
+                                            for (int j = 0;
+                                                j <
+                                                    offerController
+                                                        .idOffers.length;
+                                                j++) {
+                                              if (offerController
+                                                      .offersuser[i].id ==
+                                                  offerController.idOffers[j]) {
+                                                offerController.idOffers
+                                                    .removeAt(j);
+                                              }
+                                            }
+                                          }
+                                          Constansbox.box.write('offersId',
+                                              offerController.idOffers);
+
+                                          offerController.deleteofferData(
                                               offerController
                                                   .offersuser[index].id
                                                   .toString());
                                           offerController.offersuser
                                               .removeAt(index);
-                                          Get.offAll(BottomBar(
-                                            intid: 0,
-                                            fu: HomeView(),
-                                          ));
                                         },
                                         child: Icon(Icons.delete_outline,
                                             size: 30,
@@ -170,7 +187,9 @@ class ListOfferCart extends StatelessWidget {
                                               return Center(
                                                 child: Padding(
                                                   padding: EdgeInsets.only(
-                                                      left: 4, right: 4),
+                                                      left: 4,
+                                                      right: 4,
+                                                      top: 4),
                                                   child: Column(children: [
                                                     Expanded(
                                                       child: Text(

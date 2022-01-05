@@ -22,7 +22,7 @@ class CartService {
     CartStatus? status;
     ErrorResponse? error;
     Uri url = Uri.http('${statusCode.url1}', '/api/private/user/cart',
-        {'lang': statusCode.Lang});
+        {'lang': statusCode.Lang, 'sum': 'true'});
 
     try {
       var response = await http
@@ -33,9 +33,10 @@ class CartService {
         status = CartStatus.fromJson(responsebode['status']);
 
         if (responsebode['response']['data'] != []) {
-          for (var item in responsebode['response']['data']) {
+          for (var item in responsebode['response']['data']['item']) {
             calendar.add(CartResponse.fromJson(item));
           }
+          apiResult.totalprice = responsebode['response']['data']['total'];
           apiResult.isEmpty = false;
 
           apiResult.errorMassage = status.msg;
@@ -683,6 +684,119 @@ class CartService {
 
         print('${e}');
       }
+    }
+    return apiResult;
+  }
+
+  Future<ApiResult> getcartTotal() async {
+    StatusCode statusCode = StatusCode();
+    ApiResult apiResult = ApiResult();
+    List<CartResponse> calendar = [];
+
+    CartStatus? status;
+    ErrorResponse? error;
+    Uri url = Uri.http('${statusCode.url1}', '/api/private/user/cart', {
+      'lang': statusCode.Lang,
+      'item': 'false',
+      'sum': 'true',
+    });
+
+    try {
+      var response = await http
+          .get(url, headers: {'Authorization': 'Bearer ${statusCode.Token}'});
+      var responsebode = jsonDecode(response.body);
+      if (response.statusCode == statusCode.OK ||
+          response.statusCode == statusCode.CREATED) {
+        status = CartStatus.fromJson(responsebode['status']);
+
+        if (responsebode['response']['data'] != []) {
+          apiResult.totalprice = responsebode['response']['data']['total'];
+
+          apiResult.isEmpty = false;
+
+          apiResult.errorMassage = status.msg;
+          apiResult.codeError = status.code;
+          apiResult.hasError = false;
+          apiResult.data = calendar;
+        } else {
+          calendar = [];
+          apiResult.isEmpty = false;
+
+          apiResult.hasError = false;
+        }
+        if (responsebode['response']['data'].isEmpty) {
+          apiResult.isEmpty = true;
+        }
+      } else if (response.statusCode == statusCode.BAD_REQUEST) {
+        status = CartStatus.fromJson(responsebode['status']);
+        error = ErrorResponse.fromJson(responsebode['errors'][0]);
+        apiResult.errorMassage = error.msg;
+        apiResult.codeError = status.code;
+        print('A bad request Please try again');
+      } else if (response.statusCode == statusCode.UNAUTHORIZED) {
+        status = CartStatus.fromJson(responsebode['status']);
+        print('A bad request Please try Token Muhammed');
+        error = ErrorResponse.fromJson(responsebode['errors'][0]);
+        apiResult.errorMassage = error.msg;
+        apiResult.codeError = status.code;
+        apiResult.rfreshToken = false;
+        await authController.postrefreshToken();
+
+        print('A bad request Please try Token Muhammed');
+      } else if (response.statusCode == statusCode.FORBIDDEN) {
+        status = CartStatus.fromJson(responsebode['status']);
+
+        error = ErrorResponse.fromJson(responsebode['errors'][0]);
+        apiResult.errorMassage = error.msg;
+        apiResult.codeError = status.code;
+        print('A bad request Please try again');
+      } else if (response.statusCode == statusCode.NOT_FOUND) {
+        status = CartStatus.fromJson(responsebode['status']);
+
+        error = ErrorResponse.fromJson(responsebode['errors'][0]);
+        apiResult.errorMassage = error.msg;
+        apiResult.codeError = status.code;
+        print('Endpoint not found Please try again');
+      } else if (response.statusCode == statusCode.DUPLICATED_ENTRY) {
+        status = CartStatus.fromJson(responsebode['status']);
+
+        error = ErrorResponse.fromJson(responsebode['errors'][0]);
+        apiResult.errorMassage = error.msg;
+        apiResult.codeError = status.code;
+        print('Input error Please try again');
+      } else if (response.statusCode == statusCode.VALIDATION_ERROR) {
+        status = CartStatus.fromJson(responsebode['status']);
+
+        error = ErrorResponse.fromJson(responsebode['errors'][0]);
+        apiResult.errorMassage = error.msg;
+        apiResult.codeError = status.code;
+        print('Input error Please try again');
+      } else if (response.statusCode == statusCode.INTERNAL_SERVER_ERROR) {
+        status = CartStatus.fromJson(responsebode['status']);
+
+        error = ErrorResponse.fromJson(responsebode['errors'][0]);
+        apiResult.errorMassage = error.msg;
+        apiResult.codeError = status.code;
+        print('Server error Please try again');
+      } else {
+        status = CartStatus.fromJson(responsebode['status']);
+        error = ErrorResponse.fromJson(responsebode['errors'][0]);
+        apiResult.errorMassage = error.msg;
+        apiResult.codeError = status.code;
+        print(' error Please try again');
+      }
+    } on SocketException {
+      apiResult.errorMassage = 'Make sure you are connected to the internet';
+      apiResult.codeError = statusCode.connection;
+      print('Make sure you are connected to the internet');
+    } on FormatException {
+      apiResult.errorMassage = 'There is a problem with the admin';
+      apiResult.codeError = statusCode.parsing;
+      print('There is a problem with the admin');
+    } catch (e) {
+      apiResult.errorMassage = 'حدث خطأ غير متوقع';
+      apiResult.codeError = statusCode.connection;
+      print('${e}');
     }
     return apiResult;
   }

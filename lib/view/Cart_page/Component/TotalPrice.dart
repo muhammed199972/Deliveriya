@@ -10,7 +10,7 @@ class TotalPrice extends StatelessWidget {
   TotalPrice({
     Key? key,
   }) : super(key: key);
-  var controller = Get.put(CartController());
+  var cartController = Get.put(CartController());
   StatusCode statusCode = StatusCode();
   var prodController = Get.find<ProductsController>();
   var offerController = Get.find<OfferController>();
@@ -19,20 +19,7 @@ class TotalPrice extends StatelessWidget {
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
     var pricemcat = 0.obs;
-    if (statusCode.Token != '') {
-      for (int k = 0; k < controller.carts.length; k++) {
-        for (int i = 0; i < controller.carts[k].subCategories.length; i++) {
-          for (int l = 0;
-              l < controller.carts[k].subCategories[i].products.length;
-              l++) {
-            pricemcat +=
-                (controller.carts[k].subCategories[i].products[l].price!) *
-                    (controller.carts[k].subCategories[i].products[l].Cartid[0]
-                        .quantity!);
-          }
-        }
-      }
-    } else {
+    if (statusCode.Token == '') {
       List cart = prodController.cartscounte;
       if (cart != []) {
         List<int> cartscounte = [];
@@ -62,8 +49,9 @@ class TotalPrice extends StatelessWidget {
     }
 
     return Obx(() {
-      pricemcat.value = pricemcat.value + offerController.totalprice.value;
-
+      if (statusCode.Token != '') {
+        pricemcat.value = cartController.totalprice.value;
+      }
       return Container(
         color: AppColors.whiteColor,
         height: 70,

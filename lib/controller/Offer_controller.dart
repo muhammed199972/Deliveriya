@@ -2,6 +2,7 @@ import 'package:bot_toast/bot_toast.dart';
 import 'package:delivery_food/General/Api_Result.dart';
 import 'package:delivery_food/General/Constants.dart';
 import 'package:delivery_food/General/Dialogs.dart';
+import 'package:delivery_food/controller/Cart_controller.dart';
 import 'package:delivery_food/model/DeletePutPost.dart';
 import 'package:delivery_food/model/Offer_model.dart';
 import 'package:delivery_food/model/offer_user_model.dart';
@@ -10,7 +11,7 @@ import 'package:get/get.dart';
 
 class OfferController extends GetxController {
   var offers = <OffersResponse>[].obs;
-  var offersuser = <OfferUserResponse>[].obs;
+  var offersuser = <Item>[].obs;
   var patchoffer = DeletePutPostResponse().obs;
 
   var hasError = true.obs;
@@ -107,14 +108,12 @@ class OfferController extends GetxController {
 
   deleteofferData(String id) async {
     try {
-      BotToast.showLoading();
-
       apiResult = await offer.deleteofferData(id);
       if (apiResult.rfreshToken) {
         if (!apiResult.hasError!) {
           offerPost.value = apiResult.data;
           hasError.value = apiResult.hasError!;
-          BotToast.showLoading();
+          await Get.find<CartController>().getcarttotal();
           Get.back();
         } else {
           hasError.value = apiResult.hasError!;
@@ -136,9 +135,7 @@ class OfferController extends GetxController {
           onPressed: () {
             Get.back();
           });
-    } finally {
-      BotToast.closeAllLoading();
-    }
+    } finally {}
   }
 
   getofferuser() async {
@@ -147,12 +144,11 @@ class OfferController extends GetxController {
       apiResult = (await offer.getofferUserData())!;
       if (apiResult.rfreshToken) {
         if (!apiResult.hasError!) {
-          offersuser.value = apiResult.data;
+          offersuser.value = apiResult.data.item;
           hasError.value = apiResult.hasError!;
           totalprice.value = 0;
           offersuser.value.forEach((element) {
-            totalprice.value +=
-                element.afterPrice! * element.userOffers![0].quantity!;
+            totalprice.value = apiResult.data.total;
             print('totalprice.value');
 
             print(totalprice.value);
@@ -193,6 +189,7 @@ class OfferController extends GetxController {
           patchoffer.value = apiResult.data;
           hasError.value = apiResult.hasError!;
           await getofferuser();
+          await Get.find<CartController>().getcarttotal();
           Get.back();
           return true;
         } else {

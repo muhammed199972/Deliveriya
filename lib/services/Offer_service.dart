@@ -344,11 +344,11 @@ class OfferService {
   Future<ApiResult?> getofferUserData() async {
     StatusCode statusCode = StatusCode();
     ApiResult apiResult = ApiResult();
-    List<OfferUserResponse> calendar = [];
+    OfferUserResponse calendar;
     OfferUserStatus? status;
     ErrorResponse? error;
     Uri url = Uri.http('${statusCode.url1}', '/api/private/user/offer',
-        {'lang': statusCode.Lang});
+        {'lang': statusCode.Lang, 'sum': 'true'});
     try {
       var response = await http
           .get(url, headers: {'Authorization': 'Bearer ${statusCode.Token}'});
@@ -358,9 +358,9 @@ class OfferService {
           response.statusCode == statusCode.CREATED) {
         status = OfferUserStatus.fromJson(responsebody['status']);
         if (responsebody['response'] != null) {
-          for (var item in responsebody['response']) {
-            calendar.add(OfferUserResponse.fromJson(item));
-          }
+          calendar =
+              OfferUserResponse.fromJson(responsebody['response']['data']);
+
           apiResult.errorMassage = status.msg;
           apiResult.codeError = status.code;
           apiResult.hasError = false;
@@ -371,8 +371,6 @@ class OfferService {
         error = ErrorResponse.fromJson(responsebody['errors'][0]);
         apiResult.errorMassage = error.msg;
         apiResult.codeError = status.code;
-
-        apiResult.data = calendar;
         print('A bad request Please try again');
       } else if (response.statusCode == statusCode.UNAUTHORIZED) {
         status = OfferUserStatus.fromJson(responsebody['status']);

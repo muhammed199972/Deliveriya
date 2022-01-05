@@ -1,22 +1,32 @@
 class OfferUserResponse {
-  OfferUserResponse({
-    this.id,
-    this.afterPrice,
-    this.beforePrice,
-    this.type,
-    this.media,
-    this.mediaType,
-    this.color,
-    this.name,
-    this.description,
-    this.quantity,
-    this.min,
-    this.max,
-    this.createdAt,
-    this.updatedAt,
-    this.userOffers,
-  });
+  List<Item> item = [];
+  int? total;
 
+  static var obs;
+
+  OfferUserResponse({required this.item, this.total});
+
+  OfferUserResponse.fromJson(Map<String, dynamic> json) {
+    if (json['item'] != null) {
+      item = <Item>[];
+      json['item'].forEach((v) {
+        item.add(new Item.fromJson(v));
+      });
+    }
+    total = json['total'];
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+    if (this.item != null) {
+      data['item'] = this.item.map((v) => v.toJson()).toList();
+    }
+    data['total'] = this.total;
+    return data;
+  }
+}
+
+class Item {
   int? id;
   int? afterPrice;
   int? beforePrice;
@@ -29,83 +39,116 @@ class OfferUserResponse {
   int? quantity;
   int? min;
   int? max;
-  DateTime? createdAt;
-  DateTime? updatedAt;
-  List<UserOffer>? userOffers;
+  String? category;
+  String? subCategory;
+  String? createdAt;
+  String? updatedAt;
+  List<UserOffers>? userOffers;
 
-  factory OfferUserResponse.fromJson(Map<String, dynamic> json) =>
-      OfferUserResponse(
-        id: json["id"],
-        afterPrice: json["afterPrice"] == null ? null : json["afterPrice"],
-        beforePrice: json["beforePrice"] == null ? null : json["beforePrice"],
-        type: json["type"],
-        media: json["media"],
-        mediaType: json["mediaType"],
-        color: json["color"],
-        name: json["name"],
-        description: json["description"],
-        quantity: json["quantity"] == null ? null : json["quantity"],
-        min: json["min"],
-        max: json["max"] == null ? null : json["max"],
-        createdAt: DateTime.parse(json["createdAt"]),
-        updatedAt: DateTime.parse(json["updatedAt"]),
-        userOffers: List<UserOffer>.from(
-            json["UserOffers"].map((x) => UserOffer.fromJson(x))),
-      );
+  Item(
+      {this.id,
+      this.afterPrice,
+      this.beforePrice,
+      this.type,
+      this.media,
+      this.mediaType,
+      this.color,
+      this.name,
+      this.description,
+      this.quantity,
+      this.min,
+      this.max,
+      this.category,
+      this.subCategory,
+      this.createdAt,
+      this.updatedAt,
+      this.userOffers});
 
-  Map<String, dynamic> toJson() => {
-        "id": id,
-        "afterPrice": afterPrice == null ? null : afterPrice,
-        "beforePrice": beforePrice == null ? null : beforePrice,
-        "type": type,
-        "media": media,
-        "mediaType": mediaType,
-        "color": color,
-        "name": name,
-        "description": description,
-        "quantity": quantity == null ? null : quantity,
-        "min": min,
-        "max": max == null ? null : max,
-        "createdAt": createdAt!.toIso8601String(),
-        "updatedAt": updatedAt!.toIso8601String(),
-        "UserOffers": List<dynamic>.from(userOffers!.map((x) => x.toJson())),
-      };
+  Item.fromJson(Map<String, dynamic> json) {
+    id = json['id'];
+    afterPrice = json['afterPrice'];
+    beforePrice = json['beforePrice'];
+    type = json['type'];
+    media = json['media'];
+    mediaType = json['mediaType'];
+    color = json['color'];
+    name = json['name'];
+    description = json['description'];
+    quantity = json['quantity'];
+    min = json['min'];
+    max = json['max'];
+    category = json['Category'];
+    subCategory = json['SubCategory'];
+    createdAt = json['createdAt'];
+    updatedAt = json['updatedAt'];
+    if (json['UserOffers'] != null) {
+      userOffers = <UserOffers>[];
+      json['UserOffers'].forEach((v) {
+        userOffers!.add(new UserOffers.fromJson(v));
+      });
+    }
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+    data['id'] = this.id;
+    data['afterPrice'] = this.afterPrice;
+    data['beforePrice'] = this.beforePrice;
+    data['type'] = this.type;
+    data['media'] = this.media;
+    data['mediaType'] = this.mediaType;
+    data['color'] = this.color;
+    data['name'] = this.name;
+    data['description'] = this.description;
+    data['quantity'] = this.quantity;
+    data['min'] = this.min;
+    data['max'] = this.max;
+    data['Category'] = this.category;
+    data['SubCategory'] = this.subCategory;
+    data['createdAt'] = this.createdAt;
+    data['updatedAt'] = this.updatedAt;
+    if (this.userOffers != null) {
+      data['UserOffers'] = this.userOffers!.map((v) => v.toJson()).toList();
+    }
+    return data;
+  }
 }
 
-class UserOffer {
-  UserOffer({
-    this.id,
-    this.quantity,
-    this.createdAt,
-    this.updatedAt,
-    this.userId,
-    this.offerId,
-  });
-
+class UserOffers {
   int? id;
   int? quantity;
-  DateTime? createdAt;
-  DateTime? updatedAt;
+  String? createdAt;
+  String? updatedAt;
   int? userId;
   int? offerId;
 
-  factory UserOffer.fromJson(Map<String, dynamic> json) => UserOffer(
-        id: json["id"],
-        quantity: json["quantity"],
-        createdAt: DateTime.parse(json["createdAt"]),
-        updatedAt: DateTime.parse(json["updatedAt"]),
-        userId: json["UserId"],
-        offerId: json["OfferId"],
-      );
+  UserOffers(
+      {this.id,
+      this.quantity,
+      this.createdAt,
+      this.updatedAt,
+      this.userId,
+      this.offerId});
 
-  Map<String, dynamic> toJson() => {
-        "id": id,
-        "quantity": quantity,
-        "createdAt": createdAt!.toIso8601String(),
-        "updatedAt": updatedAt!.toIso8601String(),
-        "UserId": userId,
-        "OfferId": offerId,
-      };
+  UserOffers.fromJson(Map<String, dynamic> json) {
+    id = json['id'];
+    quantity = json['quantity'];
+    createdAt = json['createdAt'];
+    updatedAt = json['updatedAt'];
+    userId = json['UserId'];
+    offerId = json['OfferId'];
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+    data['id'] = this.id;
+    data['quantity'] = this.quantity;
+    data['createdAt'] = this.createdAt;
+    data['updatedAt'] = this.updatedAt;
+    data['UserId'] = this.userId;
+    data['OfferId'] = this.offerId;
+    return data;
+  }
 }
 
 class OfferUserStatus {

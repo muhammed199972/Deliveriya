@@ -5,4 +5,5 @@ class ApiResult {
   dynamic data;
   dynamic isEmpty;
   dynamic rfreshToken = true;
+  var totalprice = 0;
 }

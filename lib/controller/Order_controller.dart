@@ -1,5 +1,6 @@
 import 'package:bot_toast/bot_toast.dart';
 import 'package:delivery_food/General/Api_Result.dart';
+import 'package:delivery_food/General/Constants.dart';
 import 'package:delivery_food/General/Dialogs.dart';
 import 'package:delivery_food/controller/Cart_controller.dart';
 import 'package:delivery_food/model/DeletePutPost.dart';
@@ -97,6 +98,7 @@ class OrderController extends GetxController {
         hasError.value = apiResult.hasError!;
         BotToast.showLoading();
         await getorder('');
+        await Constansbox.box.remove('offersId');
         Get.find<CartController>().getcart();
         Get.back();
       } else {

@@ -86,178 +86,150 @@ class CartView extends StatelessWidget {
           ),
         ),
         body: Obx(() {
-          return TabBarView(
-            children: <Widget>[
-              Column(
-                children: [
-                  Expanded(
-                    flex: 10,
-                    child: ListOfferCart(
-                        offerController: offerController,
-                        size: size,
-                        statusCode: statusCode),
-                  ),
-                  Expanded(child: TotalPrice())
+          return Stack(
+            children: [
+              TabBarView(
+                children: <Widget>[
+                  ListOfferCart(
+                      offerController: offerController,
+                      size: size,
+                      statusCode: statusCode),
+                  statusCode.Token != ''
+                      ? !controller.isEmpty.value
+                          ? controller.carts.length != 0
+                              ? Container(
+                                  width: size.width,
+                                  height: size.height,
+                                  decoration: BoxDecoration(
+                                    image: DecorationImage(
+                                      image: AssetImage(
+                                          'assets/png/background.png'),
+                                    ),
+                                  ),
+                                  child: CategoryCart(
+                                      size: size, control: controller.carts),
+                                )
+                              : Container()
+                          : Container(
+                              decoration: BoxDecoration(
+                                  image: DecorationImage(
+                                      image: AssetImage(
+                                          'assets/png/background.png'))),
+                              child: Center(
+                                child: Column(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      Padding(
+                                        padding: size.height > 550
+                                            ? const EdgeInsets.all(30)
+                                            : const EdgeInsets.all(10),
+                                        child: SvgPicture.asset(
+                                            'assets/svg/empty-cart.svg'),
+                                      ),
+                                      Padding(
+                                        padding: size.height > 550
+                                            ? const EdgeInsets.all(15)
+                                            : const EdgeInsets.all(5),
+                                        child: SvgPicture.asset(
+                                            'assets/svg/Your cart is empty.svg'),
+                                      ),
+                                      InkWell(
+                                        onTap: () {
+                                          Get.offAll(BottomBar(
+                                            fu: HomeView(),
+                                          ));
+                                        },
+                                        child: Center(
+                                          child: Text(
+                                            'Find your favorite',
+                                            style: TextStyle(
+                                                color: Colors.red,
+                                                decoration:
+                                                    TextDecoration.underline,
+                                                fontSize: size.width >= 600
+                                                    ? 25
+                                                    : 16),
+                                          ),
+                                        ),
+                                      )
+                                    ]),
+                              ),
+                            )
+                      : !prodController.isEmpty.value
+                          ? prodController.prods.length != 0
+                              ? Container(
+                                  width: size.width,
+                                  height: size.height,
+                                  decoration: BoxDecoration(
+                                    image: DecorationImage(
+                                      image: AssetImage(
+                                          'assets/png/background.png'),
+                                    ),
+                                  ),
+                                  child: CategoryCart(
+                                      size: size,
+                                      control: prodController.prods),
+                                )
+                              : Container()
+                          : Container(
+                              decoration: BoxDecoration(
+                                  image: DecorationImage(
+                                      image: AssetImage(
+                                          'assets/png/background.png'))),
+                              child: Center(
+                                child: Column(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.center,
+                                    children: [
+                                      Padding(
+                                        padding: size.height > 550
+                                            ? const EdgeInsets.all(30)
+                                            : const EdgeInsets.all(10),
+                                        child: SvgPicture.asset(
+                                            'assets/svg/empty-cart.svg'),
+                                      ),
+                                      Padding(
+                                        padding: size.height > 550
+                                            ? const EdgeInsets.all(15)
+                                            : const EdgeInsets.all(5),
+                                        child: SvgPicture.asset(
+                                            'assets/svg/Your cart is empty.svg'),
+                                      ),
+                                      InkWell(
+                                        onTap: () {
+                                          Get.offAll(BottomBar(
+                                            fu: HomeView(),
+                                          ));
+                                        },
+                                        child: Center(
+                                          child: Text(
+                                            'Find your favorite',
+                                            style: TextStyle(
+                                                color: Colors.red,
+                                                decoration:
+                                                    TextDecoration.underline,
+                                                fontSize: size.width >= 600
+                                                    ? 25
+                                                    : 16),
+                                          ),
+                                        ),
+                                      )
+                                    ]),
+                              ),
+                            ),
                 ],
               ),
-              statusCode.Token != ''
-                  ? !controller.isEmpty.value
-                      ? controller.carts.length != 0
-                          ? Container(
-                              width: size.width,
-                              height: size.height,
-                              decoration: BoxDecoration(
-                                image: DecorationImage(
-                                  image:
-                                      AssetImage('assets/png/background.png'),
-                                ),
-                              ),
-                              child: Column(
-                                children: [
-                                  Divider(
-                                    height: 1,
-                                    thickness: 1,
-                                    indent: 0,
-                                    endIndent: 0,
-                                    color: Colors.grey,
-                                  ),
-                                  Expanded(
-                                    flex: 10,
-                                    child: CategoryCart(
-                                        size: size, control: controller.carts),
-                                  ),
-                                  Expanded(child: TotalPrice())
-                                ],
-                              ),
-                            )
-                          : Container()
-                      : Container(
-                          decoration: BoxDecoration(
-                              image: DecorationImage(
-                                  image:
-                                      AssetImage('assets/png/background.png'))),
-                          child: Center(
-                            child: Column(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  Padding(
-                                    padding: size.height > 550
-                                        ? const EdgeInsets.all(30)
-                                        : const EdgeInsets.all(10),
-                                    child: SvgPicture.asset(
-                                        'assets/svg/empty-cart.svg'),
-                                  ),
-                                  Padding(
-                                    padding: size.height > 550
-                                        ? const EdgeInsets.all(15)
-                                        : const EdgeInsets.all(5),
-                                    child: SvgPicture.asset(
-                                        'assets/svg/Your cart is empty.svg'),
-                                  ),
-                                  InkWell(
-                                    onTap: () {
-                                      Get.offAll(BottomBar(
-                                        fu: HomeView(),
-                                      ));
-                                    },
-                                    child: Center(
-                                      child: Text(
-                                        'Find your favorite',
-                                        style: TextStyle(
-                                            color: Colors.red,
-                                            decoration:
-                                                TextDecoration.underline,
-                                            fontSize:
-                                                size.width >= 600 ? 25 : 16),
-                                      ),
-                                    ),
-                                  )
-                                ]),
-                          ),
-                        )
-                  : !prodController.isEmpty.value
-                      ? prodController.prods.length != 0
-                          ? Container(
-                              width: size.width,
-                              height: size.height,
-                              decoration: BoxDecoration(
-                                image: DecorationImage(
-                                  image:
-                                      AssetImage('assets/png/background.png'),
-                                ),
-                              ),
-                              child: Column(
-                                children: [
-                                  Divider(
-                                    height: 1,
-                                    thickness: 1,
-                                    indent: 0,
-                                    endIndent: 0,
-                                    color: Colors.grey,
-                                  ),
-                                  Expanded(
-                                    flex: 10,
-                                    child: CategoryCart(
-                                        size: size,
-                                        control: prodController.prods),
-                                  ),
-                                  Expanded(child: TotalPrice())
-                                ],
-                              ),
-                            )
-                          : Container()
-                      : Container(
-                          decoration: BoxDecoration(
-                              image: DecorationImage(
-                                  image:
-                                      AssetImage('assets/png/background.png'))),
-                          child: Center(
-                            child: Column(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                crossAxisAlignment: CrossAxisAlignment.center,
-                                children: [
-                                  Padding(
-                                    padding: size.height > 550
-                                        ? const EdgeInsets.all(30)
-                                        : const EdgeInsets.all(10),
-                                    child: SvgPicture.asset(
-                                        'assets/svg/empty-cart.svg'),
-                                  ),
-                                  Padding(
-                                    padding: size.height > 550
-                                        ? const EdgeInsets.all(15)
-                                        : const EdgeInsets.all(5),
-                                    child: SvgPicture.asset(
-                                        'assets/svg/Your cart is empty.svg'),
-                                  ),
-                                  InkWell(
-                                    onTap: () {
-                                      Get.offAll(BottomBar(
-                                        fu: HomeView(),
-                                      ));
-                                    },
-                                    child: Center(
-                                      child: Text(
-                                        'Find your favorite',
-                                        style: TextStyle(
-                                            color: Colors.red,
-                                            decoration:
-                                                TextDecoration.underline,
-                                            fontSize:
-                                                size.width >= 600 ? 25 : 16),
-                                      ),
-                                    ),
-                                  )
-                                ]),
-                          ),
-                        ),
+              Positioned(bottom: 0, right: 0, left: 0, child: TotalPrice())
             ],
           );
         }),
         floatingActionButton: Obx(() => Visibility(
-              visible: controller.carts.length != 0,
+              visible: controller.carts.length != 0 ||
+                  offerController.offersuser.length != 0,
               child: FloatingActionButton(
                 onPressed: () {
+                  print(offerController.offers.length);
                   Get.to(() => ConfirmCart());
                 },
                 splashColor: AppColors.lightmainColor,

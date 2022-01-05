@@ -30,6 +30,7 @@ class CartController extends GetxController {
   ScrollController listScrollController = ScrollController();
   var maxscroll = false.obs;
   var isEmpty = false.obs;
+  var totalprice = 0.obs;
 
   @override
   void onInit() {
@@ -53,6 +54,7 @@ class CartController extends GetxController {
           isEmpty.value = apiResult.isEmpty;
           carts.value = apiResult.data;
           hasError.value = apiResult.hasError!;
+          totalprice.value = apiResult.totalprice;
         } else {
           hasError.value = apiResult.hasError!;
           massage.value = apiResult.errorMassage!;
@@ -78,6 +80,37 @@ class CartController extends GetxController {
     } finally {
       BotToast.closeAllLoading();
     }
+  }
+
+  getcarttotal() async {
+    try {
+      apiResult = await cartService.getcartTotal();
+      if (apiResult.rfreshToken) {
+        if (!apiResult.hasError!) {
+          totalprice.value = apiResult.totalprice;
+        } else {
+          hasError.value = apiResult.hasError!;
+          massage.value = apiResult.errorMassage!;
+          DialogsUtils.showdialog(
+              m: massage.value,
+              onPressed: () {
+                Get.back();
+                Get.back();
+              });
+        }
+      } else {
+        getcarttotal();
+      }
+    } catch (e) {
+      hasError.value = apiResult.hasError!;
+      massage.value = apiResult.errorMassage!;
+      DialogsUtils.showdialog(
+          m: 'حدث خطأ غير متوقع',
+          onPressed: () {
+            Get.back();
+            Get.back();
+          });
+    } finally {}
   }
 
   addTocart(int quantity, String id) async {
