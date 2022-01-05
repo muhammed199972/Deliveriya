@@ -113,8 +113,11 @@ class ProfileView extends StatelessWidget {
                       ),
                       width: size.width * 0.165,
                       height: size.height * 0.093,
-                      margin: EdgeInsets.only(
-                          bottom: 0, left: 17, top: 10, right: 8),
+                      margin: status.Lang == 'en'
+                          ? EdgeInsets.only(
+                              bottom: 0, left: 17, top: 10, right: 8)
+                          : EdgeInsets.only(
+                              bottom: 0, left: 8, top: 10, right: 17),
                     )),
                 Obx(() => Text(controller.profile.value.name ?? '',
                     style: size.width >= 600

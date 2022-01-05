@@ -4,6 +4,7 @@ import 'package:delivery_food/controller/Cart_controller.dart';
 import 'package:delivery_food/controller/Products_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:intl/intl.dart';
 
 class ListProdCart extends StatelessWidget {
   ListProdCart({
@@ -199,7 +200,7 @@ class ListProdCart extends StatelessWidget {
                           child: FittedBox(
                             fit: BoxFit.scaleDown,
                             child: Text(
-                                '${controlleritem[index].price * counter.value} \$',
+                                '${NumberFormat.decimalPattern().format(controlleritem[index].price * counter.value)} \$',
                                 style: size.width >= 600
                                     ? Styles.defualttab
                                     : Styles.defualtmobile),

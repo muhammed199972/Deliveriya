@@ -10,6 +10,7 @@ import 'package:delivery_food/view/Home_page/Home_page.dart';
 import 'package:delivery_food/view/navbar.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:intl/intl.dart';
 
 class CategoryCart extends StatelessWidget {
   CategoryCart({
@@ -140,7 +141,7 @@ class CategoryCart extends StatelessWidget {
                       Row(
                         children: [
                           Text(
-                            '${pricemcat.value} \$',
+                            '${NumberFormat.decimalPattern().format(pricemcat.value)} \$',
                             style: size.width >= 600
                                 ? Styles.defualttab
                                 : size.width >= 350
@@ -334,7 +335,7 @@ class CategoryCart extends StatelessWidget {
                                           Row(
                                             children: [
                                               Text(
-                                                '${pricesup.value} \$',
+                                                '${NumberFormat.decimalPattern().format(pricesup.value)} \$',
                                                 style: size.width >= 600
                                                     ? Styles.defualttab
                                                     : size.width >= 350
