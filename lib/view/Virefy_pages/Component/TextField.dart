@@ -15,6 +15,7 @@ class TextFieldwidget extends StatelessWidget {
     this.suffixPressed,
     this.ispassword,
     this.prifix,
+    this.hint,
     this.txttype,
   });
 
@@ -23,7 +24,7 @@ class TextFieldwidget extends StatelessWidget {
   String? prefixtxt;
   Widget? icon;
   Widget? prifix;
-
+  String? hint;
   List<TextInputFormatter>? inputFormatters;
   String? Function(String?)? validator;
   IconData? suffixIcon;
@@ -41,12 +42,13 @@ class TextFieldwidget extends StatelessWidget {
 
       decoration: InputDecoration(
         prefix: prifix,
+        hintText: hint ?? '',
         fillColor: AppColors.lightgreyColor.withOpacity(0.5),
         filled: true,
-        floatingLabelStyle: TextStyle(color: AppColors.mainColor),
-        focusedBorder: OutlineInputBorder(
-          borderSide: BorderSide(color: AppColors.mainColor, width: 1.0),
-        ),
+        // floatingLabelStyle: TextStyle(color: AppColors.mainColor),
+        // focusedBorder: OutlineInputBorder(
+        //   borderSide: BorderSide(color: AppColors.mainColor, width: 1.0),
+        // ),
         prefixIcon: icon,
         contentPadding:
             new EdgeInsets.symmetric(vertical: 10.0, horizontal: 10.0),

@@ -39,7 +39,7 @@ class TextFieldProfwidget extends StatelessWidget {
       height: h ?? 50,
       margin: EdgeInsets.symmetric(vertical: 5),
       decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(5.0),
+        borderRadius: BorderRadius.circular(10),
         color: AppColors.whiteColor,
         boxShadow: [
           BoxShadow(
@@ -59,16 +59,17 @@ class TextFieldProfwidget extends StatelessWidget {
         decoration: InputDecoration(
           fillColor: AppColors.whiteColor.withOpacity(0.5),
           filled: true,
-          floatingLabelStyle: TextStyle(color: AppColors.mainColor),
-          focusedBorder: OutlineInputBorder(
-            borderSide: BorderSide(color: AppColors.mainColor, width: 1.0),
-          ),
+          // floatingLabelStyle: TextStyle(color: AppColors.mainColor),
+          // focusedBorder: OutlineInputBorder(
+          //   borderSide: BorderSide(color: AppColors.mainColor, width: 1.0),
+          // ),
+          border: InputBorder.none,
           prefixIcon: icon,
           contentPadding:
               new EdgeInsets.symmetric(vertical: 10.0, horizontal: 10.0),
           prefixText: prefixtxt,
           labelText: lebel,
-          border: OutlineInputBorder(borderSide: BorderSide.none),
+          // border: OutlineInputBorder(borderSide: BorderSide.none),
           suffixIcon: suffixIcon != null
               ? IconButton(icon: Icon(suffixIcon), onPressed: suffixPressed)
               : null,

@@ -170,91 +170,6 @@ class ProfileView extends StatelessWidget {
                 Get.to(() => HistoryPage());
               },
             ),
-            Container(
-              height: 50,
-              margin: EdgeInsets.symmetric(vertical: 5, horizontal: 17),
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(3.0),
-                color: AppColors.whiteColor,
-                boxShadow: [
-                  BoxShadow(
-                    color: Colors.black.withOpacity(0.1),
-                    spreadRadius: 1,
-                    blurRadius: 3,
-                  ),
-                ],
-              ),
-              child: Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 8),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 8),
-                      child: Row(
-                        children: [
-                          SvgPicture.asset(
-                            'assets/svg/net.svg',
-                            width: size.width <= 350
-                                ? 15
-                                : (size.width >= 600 ? 40 : 20),
-                          ),
-                          SizedBox(
-                            width: 8,
-                          ),
-                          Text(
-                            'changelanguage'.tr,
-                            style: size.width >= 600
-                                ? Styles.defualttab
-                                : Styles.defualtmobile,
-                          ),
-                        ],
-                      ),
-                    ),
-                    SizedBox(
-                      width: 50,
-                    ),
-                    PopupMenuButton(
-                        icon: Padding(
-                          padding: EdgeInsets.only(
-                            left:
-                                Constansbox.box.read('lang') == 'ar' ? 0 : 8.2,
-                            right:
-                                Constansbox.box.read('lang') == 'ar' ? 8.2 : 0,
-                          ),
-                          child: Icon(
-                            Icons.arrow_forward_ios_rounded,
-                            color: AppColors.darkgreytextColor.withOpacity(0.5),
-                            size: 25,
-                          ),
-                        ),
-                        elevation: 1,
-                        itemBuilder: (context) => [
-                              PopupMenuItem(
-                                child: Text("arabic".tr,
-                                    style: size.width >= 600
-                                        ? Styles.defualttab
-                                        : Styles.defualtmobile),
-                                value: 1,
-                                onTap: () {
-                                  contr.changeLanguage('ar');
-                                },
-                              ),
-                              PopupMenuItem(
-                                child: Text("english".tr,
-                                    style: size.width >= 600
-                                        ? Styles.defualttab
-                                        : Styles.defualtmobile),
-                                value: 2,
-                                onTap: () {
-                                  contr.changeLanguage('en');
-                                },
-                              ),
-                            ]),
-                  ],
-                ),
-              ),
-            ),
             OptionProfile(
               size: size,
               icon: SvgPicture.asset(
@@ -272,6 +187,77 @@ class ProfileView extends StatelessWidget {
                       Get.back();
                     });
               },
+            ),
+            Container(
+              height: 50,
+              margin: EdgeInsets.symmetric(vertical: 5, horizontal: 17),
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(10),
+                color: AppColors.whiteColor,
+                boxShadow: [
+                  BoxShadow(
+                    color: Colors.black.withOpacity(0.1),
+                    spreadRadius: 1,
+                    blurRadius: 3,
+                  ),
+                ],
+              ),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 15),
+                    child: Row(
+                      children: [
+                        SvgPicture.asset(
+                          'assets/svg/net.svg',
+                          width: size.width <= 350
+                              ? 15
+                              : (size.width >= 600 ? 40 : 20),
+                        ),
+                        SizedBox(
+                          width: 8,
+                        ),
+                        Text(
+                          'changelanguage'.tr,
+                          style: size.width >= 600
+                              ? Styles.defualttab
+                              : Styles.defualtmobile,
+                        ),
+                      ],
+                    ),
+                  ),
+                  PopupMenuButton(
+                      icon: Icon(
+                        Icons.translate_outlined,
+                        color: AppColors.darkgreytextColor.withOpacity(0.5),
+                        size: 25,
+                      ),
+                      elevation: 1,
+                      itemBuilder: (context) => [
+                            PopupMenuItem(
+                              child: Text("arabic".tr,
+                                  style: size.width >= 600
+                                      ? Styles.defualttab
+                                      : Styles.defualtmobile),
+                              value: 1,
+                              onTap: () {
+                                contr.changeLanguage('ar');
+                              },
+                            ),
+                            PopupMenuItem(
+                              child: Text("english".tr,
+                                  style: size.width >= 600
+                                      ? Styles.defualttab
+                                      : Styles.defualtmobile),
+                              value: 2,
+                              onTap: () {
+                                contr.changeLanguage('en');
+                              },
+                            ),
+                          ]),
+                ],
+              ),
             ),
             Padding(
               padding: const EdgeInsets.all(30),

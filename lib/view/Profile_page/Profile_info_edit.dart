@@ -217,7 +217,7 @@ class ProfileInfoEdit extends StatelessWidget {
                       height: 50,
                       margin: EdgeInsets.symmetric(vertical: 5),
                       decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(3.0),
+                        borderRadius: BorderRadius.circular(10),
                         color: AppColors.whiteColor,
                         boxShadow: [
                           BoxShadow(
@@ -227,51 +227,52 @@ class ProfileInfoEdit extends StatelessWidget {
                           ),
                         ],
                       ),
-                      child: Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 8),
-                        child: Obx(() => Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                Text(
+                      child: Obx(() => Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Padding(
+                                padding:
+                                    const EdgeInsets.symmetric(horizontal: 25),
+                                child: Text(
                                   controller.gender.value == ''
                                       ? 'gender'.tr
                                       : controller.gender.value,
                                   style: TextStyle(fontSize: 17),
                                 ),
-                                PopupMenuButton(
-                                    icon: Icon(
-                                      Icons.arrow_forward_ios_rounded,
-                                      color: AppColors.blackColor,
-                                      size: 15,
-                                    ),
-                                    elevation: 1,
-                                    itemBuilder: (context) => [
-                                          PopupMenuItem(
-                                            child: Text("male".tr,
-                                                style: size.width >= 600
-                                                    ? Styles.defualttab
-                                                    : Styles.defualtmobile),
-                                            value: 1,
-                                            onTap: () {
-                                              controller.gender.value =
-                                                  'Male'.tr;
-                                            },
-                                          ),
-                                          PopupMenuItem(
-                                            child: Text("female".tr,
-                                                style: size.width >= 600
-                                                    ? Styles.defualttab
-                                                    : Styles.defualtmobile),
-                                            value: 2,
-                                            onTap: () {
-                                              controller.gender.value =
-                                                  'Female'.tr;
-                                            },
-                                          ),
-                                        ]),
-                              ],
-                            )),
-                      ),
+                              ),
+                              PopupMenuButton(
+                                  icon: Icon(
+                                    Icons.arrow_forward_ios_rounded,
+                                    color: AppColors.darkgreytextColor
+                                        .withOpacity(0.5),
+                                    size: 25,
+                                  ),
+                                  elevation: 1,
+                                  itemBuilder: (context) => [
+                                        PopupMenuItem(
+                                          child: Text("male".tr,
+                                              style: size.width >= 600
+                                                  ? Styles.defualttab
+                                                  : Styles.defualtmobile),
+                                          value: 1,
+                                          onTap: () {
+                                            controller.gender.value = 'Male'.tr;
+                                          },
+                                        ),
+                                        PopupMenuItem(
+                                          child: Text("female".tr,
+                                              style: size.width >= 600
+                                                  ? Styles.defualttab
+                                                  : Styles.defualtmobile),
+                                          value: 2,
+                                          onTap: () {
+                                            controller.gender.value =
+                                                'Female'.tr;
+                                          },
+                                        ),
+                                      ]),
+                            ],
+                          )),
                     ),
                     Obx(() => OptionProfile(
                           padd: 0,
@@ -500,10 +501,22 @@ class ProfileInfoEdit extends StatelessWidget {
                         ),
                       );
                     },
-                    child: Text('resetpassword'.tr,
-                        style: size.width >= 600
-                            ? Styles.defualttab
-                            : Styles.defualtmobile)),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: [
+                        Text('resetpassword'.tr,
+                            style: size.width >= 600
+                                ? Styles.defualttab
+                                : Styles.defualtmobile),
+                        SizedBox(
+                          width: 8,
+                        ),
+                        Icon(
+                          Icons.security_outlined,
+                          color: AppColors.darkgreytextColor,
+                        ),
+                      ],
+                    )),
               ),
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 50),

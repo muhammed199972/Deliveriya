@@ -1,5 +1,7 @@
 import 'package:delivery_food/General/Constants.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
+import 'package:get/get_utils/src/extensions/internacionalization.dart';
 
 class OptionProfile extends StatelessWidget {
   OptionProfile(
@@ -25,37 +27,49 @@ class OptionProfile extends StatelessWidget {
       highlightColor: Colors.transparent,
       onTap: ontap,
       child: Container(
-        height: size.width <= 350 ? size.height * 0.07 : size.height * 0.065,
-        margin: EdgeInsets.symmetric(horizontal: padd ?? 17, vertical: 5),
+        height: 50,
+        margin: EdgeInsets.symmetric(vertical: 5, horizontal: padd ?? 17),
         decoration: BoxDecoration(
-            color: Colors.white,
-            borderRadius: BorderRadius.circular(10),
-            boxShadow: [
-              BoxShadow(
-                color: AppColors.darkgreyColor.withOpacity(0.2),
-                offset: Offset(0, 1),
-                blurRadius: 2,
-                spreadRadius: 1,
-              )
-            ]),
-        child: ListTile(
-            title: Row(
-              children: [
-                icon ?? Container(),
-                icon != null
-                    ? SizedBox(
-                        width: 8,
-                      )
-                    : Container(),
-                Text(
-                  txt!,
-                  style: size.width >= 600
-                      ? Styles.defualttab
-                      : Styles.defualtmobile,
-                ),
-              ],
+          borderRadius: BorderRadius.circular(10),
+          color: AppColors.whiteColor,
+          boxShadow: [
+            BoxShadow(
+              color: Colors.black.withOpacity(0.1),
+              spreadRadius: 1,
+              blurRadius: 3,
             ),
-            trailing: iconarrow!),
+          ],
+        ),
+        child: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 8),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 8),
+                child: Row(
+                  children: [
+                    icon ?? Container(),
+                    SizedBox(
+                      width: 8,
+                    ),
+                    Text(
+                      txt ?? '',
+                      style: size.width >= 600
+                          ? Styles.defualttab
+                          : Styles.defualtmobile,
+                    ),
+                  ],
+                ),
+              ),
+              Icon(
+                Icons.arrow_forward_ios_rounded,
+                color: AppColors.darkgreytextColor.withOpacity(0.5),
+                size: 25,
+              )
+            ],
+          ),
+        ),
       ),
     );
   }

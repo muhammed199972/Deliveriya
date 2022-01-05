@@ -49,7 +49,7 @@ class HomeView extends StatelessWidget {
                     children: [
                       Spacer(),
                       Expanded(
-                          flex: 2,
+                          flex: 4,
                           child: Padding(
                               padding: size.height > 550
                                   ? const EdgeInsets.only(top: 20)
@@ -67,22 +67,12 @@ class HomeView extends StatelessWidget {
                                     Get.back();
                                   });
                             },
-                            child: Row(
-                              children: [
-                                Text(
-                                  'help'.tr,
-                                  style: size.width >= 600
-                                      ? Styles.defualttab
-                                      : Styles.defualtmobile,
-                                ),
-                                InkWell(
-                                  child: Icon(
-                                    Icons.help_sharp,
-                                    color: AppColors.darkgreytextColor,
-                                    size: size.width >= 600 ? 30 : 15,
-                                  ),
-                                )
-                              ],
+                            child: InkWell(
+                              child: Icon(
+                                Icons.help_outline_rounded,
+                                color: AppColors.darkgreytextColor,
+                                size: size.width >= 600 ? 30 : 30,
+                              ),
                             ),
                           ),
                         ),

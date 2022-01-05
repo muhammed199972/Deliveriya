@@ -97,7 +97,7 @@ class CartView extends StatelessWidget {
                         size: size,
                         statusCode: statusCode),
                   ),
-                  // Expanded(child: TotalPrice())
+                  Expanded(child: TotalPrice())
                 ],
               ),
               statusCode.Token != ''
