@@ -19,9 +19,12 @@ class TotalPrice extends StatelessWidget {
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
     var pricemcat = 0.obs;
+
     if (statusCode.Token == '') {
       List cart = prodController.cartscounte;
+
       if (cart != []) {
+        prodController.isTotal.value = true;
         List<int> cartscounte = [];
         cart.forEach((element) {
           cartscounte.add(element);
@@ -52,6 +55,7 @@ class TotalPrice extends StatelessWidget {
       if (statusCode.Token != '') {
         pricemcat.value = cartController.totalprice.value;
       }
+
       return Container(
         color: AppColors.whiteColor,
         height: 70,
@@ -64,31 +68,33 @@ class TotalPrice extends StatelessWidget {
                   size.width >= 600 ? Styles.defualttab : Styles.defualtmobile,
             ),
             Spacer(),
-            Center(
-              child: statusCode.Token != ''
-                  ? cartController.loadingtotal.value
-                      ? (Text(
-                          prodController.isTotal.value
-                              ? '${NumberFormat.decimalPattern().format(pricemcat.value)} \$'
-                              : '0',
-                          style: size.width >= 600
-                              ? Styles.defualttab
-                              : Styles.defualtmobile))
-                      : Container(
-                          width: 20,
-                          height: 20,
-                          child: CircularProgressIndicator(
-                            strokeWidth: 2,
-                          ),
-                        )
-                  : Text(
-                      prodController.isTotal.value
-                          ? '${NumberFormat.decimalPattern().format(pricemcat.value)} \$'
-                          : '0',
-                      style: size.width >= 600
-                          ? Styles.defualttab
-                          : Styles.defualtmobile),
-            ),
+            Obx(() {
+              return Center(
+                child: statusCode.Token != ''
+                    ? cartController.loadingtotal.value
+                        ? Text(
+                            prodController.isTotal.value
+                                ? '${NumberFormat.decimalPattern().format(pricemcat.value)} \$'
+                                : '${NumberFormat.decimalPattern().format(pricemcat.value = 0)} \$',
+                            style: size.width >= 600
+                                ? Styles.defualttab
+                                : Styles.defualtmobile)
+                        : Container(
+                            width: 20,
+                            height: 20,
+                            child: CircularProgressIndicator(
+                              strokeWidth: 2,
+                            ),
+                          )
+                    : Text(
+                        prodController.isTotal.value
+                            ? '${NumberFormat.decimalPattern().format(pricemcat.value)} \$'
+                            : '${NumberFormat.decimalPattern().format(pricemcat.value = 0)} \$',
+                        style: size.width >= 600
+                            ? Styles.defualttab
+                            : Styles.defualtmobile),
+              );
+            }),
             Spacer(
               flex: 2,
             ),

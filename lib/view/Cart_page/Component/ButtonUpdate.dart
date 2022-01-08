@@ -40,9 +40,13 @@ class ButtonUpdate extends StatelessWidget {
               fu: HomeView(),
             ),
           );
-
-          prodController.getListproduct(
-              Listproduct: carts, q: '', from: '', to: '');
+          if (carts.isNotEmpty) {
+            prodController.isEmpty.value = false;
+            prodController.getListproduct(
+                Listproduct: carts, q: '', from: '', to: '');
+          } else {
+            prodController.isEmpty.value = true;
+          }
         } else {
           if (cart.updatadelete.length == 0 && cart.updata.length == 0) {
             // Get.back();
