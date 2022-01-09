@@ -71,7 +71,7 @@ class CartView extends StatelessWidget {
                 },
                 icon: SvgPicture.asset(
                   'assets/svg/history.svg',
-                  width: 40,
+                  width: 25,
                 )),
           ],
           bottom: TabBar(

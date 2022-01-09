@@ -209,12 +209,14 @@ class _HistoryPageState extends State<HistoryPage> {
                       var index1 = index.obs;
 
                       ImgOrderResponse? temp;
-                      controller.orders.forEach((e) {
-                        temp = controller.ordersImg
-                            .where((p0) =>
-                                p0.month ==
-                                e.orderHistory.toString().split(' ')[1])
-                            .first;
+
+                      controller.ordersImg.forEach((e) {
+                        if (e.month ==
+                            controller.orders[index].orderHistory
+                                .toString()
+                                .split(' ')[1]) {
+                          temp = e;
+                        }
                       });
 
                       return Container(

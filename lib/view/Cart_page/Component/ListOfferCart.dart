@@ -101,18 +101,21 @@ class ListOfferCart extends StatelessWidget {
                                             CrossAxisAlignment.center,
                                         children: [
                                           InkWell(
-                                            onTap: () {
+                                            onTap: () async {
                                               if (counter <
                                                   offerController
                                                       .offersuser[index].max!) {
                                                 counter = counter +
                                                     offerController
                                                         .offersuser[index].min!;
-                                                offerController.patchofferuser(
-                                                    counter.value.toString(),
-                                                    offerController
-                                                        .offersuser[index].id
-                                                        .toString());
+                                                await offerController
+                                                    .patchofferuser(
+                                                        counter.value
+                                                            .toString(),
+                                                        offerController
+                                                            .offersuser[index]
+                                                            .id
+                                                            .toString());
                                               }
                                             },
                                             child: Container(
