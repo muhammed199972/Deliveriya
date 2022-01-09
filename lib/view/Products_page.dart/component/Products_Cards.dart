@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:bot_toast/bot_toast.dart';
 import 'package:delivery_food/General/Constants.dart';
 import 'package:delivery_food/controller/Cart_controller.dart';
@@ -193,18 +195,19 @@ class FullCard extends StatelessWidget {
                     }
 
                     loadingcart.value = true;
-                    statusCode.Token != ''
-                        ? isCart.value
-                            ? await cartController.patchcart({
-                                "ids": [
-                                  {
-                                    'productId': product!.id,
-                                    'quantity': counter.value,
-                                  }
-                                ]
-                              })
-                            : addtocart()
-                        : addtocart();
+                    if (counter.value - product.min != product.max)
+                      statusCode.Token != ''
+                          ? isCart.value
+                              ? await cartController.patchcart({
+                                  "ids": [
+                                    {
+                                      'productId': product!.id,
+                                      'quantity': counter.value,
+                                    }
+                                  ]
+                                })
+                              : addtocart()
+                          : addtocart();
                     loadingcart.value = false;
                   },
                   child: Container(
@@ -300,18 +303,19 @@ class FullCard extends StatelessWidget {
                       } else {
                         counter = counter - product.min;
                         loadingcart.value = true;
-                        statusCode.Token != ''
-                            ? isCart.value
-                                ? await cartController.patchcart({
-                                    "ids": [
-                                      {
-                                        'productId': product!.id,
-                                        'quantity': counter.value,
-                                      }
-                                    ]
-                                  })
-                                : null
-                            : addtocart();
+                        if (counter.value - product.min != product.max)
+                          statusCode.Token != ''
+                              ? isCart.value
+                                  ? await cartController.patchcart({
+                                      "ids": [
+                                        {
+                                          'productId': product!.id,
+                                          'quantity': counter.value,
+                                        }
+                                      ]
+                                    })
+                                  : null
+                              : addtocart();
                         loadingcart.value = false;
                       }
                     },
@@ -349,8 +353,34 @@ class FullCard extends StatelessWidget {
                               )
                             : Center(
                                 child: InkWell(
-                                  onTap: () {
-                                    if (isCart.value) addtocart();
+                                  onTap: () async {
+                                    if (statusCode.Token != '') {
+                                      if (isCart.value) addtocart();
+                                    } else {
+                                      List cartsid =
+                                          await Constansbox.box.read('cartsid');
+                                      List cartscount = await Constansbox.box
+                                          .read('cartscounte');
+
+                                      for (int i = 0; i < cartsid.length; i++) {
+                                        if (cartsid[i] == product!.id) {
+                                          cartsid.removeAt(i);
+                                          cartscount.removeAt(i);
+                                        }
+                                      }
+                                      cartController.lenghcart.value =
+                                          cartsid.length;
+
+                                      Constansbox.box
+                                          .write('cartscounte', cartscount);
+
+                                      Constansbox.box.write('cartsid', cartsid);
+                                      counter.value == product.min
+                                          ? isCart.value = false
+                                          : isCart.value = true;
+                                      counter.value = 0;
+                                    }
+
                                     cleckevent1.value = false;
                                   },
                                   child: Icon(
@@ -425,54 +455,34 @@ class FullCard extends StatelessWidget {
     }
   }
 
-  void addtocart() {
+  void addtocart() async {
     if (isCart.value) {
       if (statusCode.Token == '') {
-        if (counter.value == product.min) {
-          List cartsid = Constansbox.box.read('cartsid');
-          List cartscount = Constansbox.box.read('cartscounte');
-
-          for (int i = 0; i < cartsid.length; i++) {
-            if (cartsid[i] == product!.id) {
-              cartsid.removeAt(i);
-              cartscount.removeAt(i);
-            }
+        List cartsid = Constansbox.box.read('cartsid');
+        bool l = false;
+        int ii = 0;
+        for (int i = 0; i < cartsid.length; i++) {
+          if (cartsid[i] == product!.id) {
+            l = true;
+            ii = i;
           }
-          cartController.lenghcart.value = cartsid.length;
+        }
+        if (l) {
+          List cartscount = Constansbox.box.read('cartscounte');
+          cartscount[ii] = counter.value;
 
           Constansbox.box.write('cartscounte', cartscount);
-
-          Constansbox.box.write('cartsid', cartsid);
-          counter.value == product.min
-              ? isCart.value = false
-              : isCart.value = true;
-          isCart.value = false;
         } else {
-          List cartsid = Constansbox.box.read('cartsid');
-          for (int i = 0; i < cartsid.length; i++) {
-            if (cartsid[i] == product!.id) {
-              print('[[[[[[[[[[[[[object]]]]]]]]]]]]]');
-              print(counter.value);
-              print('[[[[[[[[[[[[[object]]]]]]]]]]]]]');
+          cartsid.add(product!.id);
+          Constansbox.box.write('cartsid', cartsid);
 
-              List cartscount = Constansbox.box.read('cartscounte');
-              cartscount[i] = counter.value;
+          List cartscount = Constansbox.box.read('cartscounte');
 
-              Constansbox.box.write('cartscounte', cartscount);
-            } else {
-              cartsid.add(product!.id);
-              Constansbox.box.write('cartsid', cartsid);
+          cartscount.add(counter.value);
 
-              List cartscount = Constansbox.box.read('cartscounte');
-
-              cartscount.add(counter.value);
-
-              Constansbox.box.write('cartscounte', cartscount);
-            }
-          }
-
-          cartController.lenghcart.value = cartsid.length;
+          Constansbox.box.write('cartscounte', cartscount);
         }
+        cartController.lenghcart.value = cartsid.length;
       } else {
         cartController.deletecart(product!.id.toString());
         cartController.lenghcart.value--;
