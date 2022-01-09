@@ -182,6 +182,8 @@ class OfferController extends GetxController {
 
   Future patchofferuser(String q, String id) async {
     try {
+      Get.find<CartController>().loadingtotal.value = false;
+
       apiResult = await offer.patchofferUserData(q, id);
       if (apiResult.rfreshToken) {
         if (!apiResult.hasError!) {
@@ -206,6 +208,8 @@ class OfferController extends GetxController {
       hasError.value = apiResult.hasError!;
       massage.value = apiResult.errorMassage!;
       print(e);
-    } finally {}
+    } finally {
+      Get.find<CartController>().loadingtotal.value = true;
+    }
   }
 }

@@ -162,6 +162,7 @@ class AddressController extends GetxController {
           hasError.value = apiResult.hasError!;
           BotToast.showLoading();
           await getaddress();
+          Get.back();
         } else {
           hasError.value = apiResult.hasError!;
           massage.value = apiResult.errorMassage!;
