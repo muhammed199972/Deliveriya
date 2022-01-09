@@ -193,15 +193,17 @@ class FullCard extends StatelessWidget {
                     }
 
                     loadingcart.value = true;
-                    isCart.value
-                        ? await cartController.patchcart({
-                            "ids": [
-                              {
-                                'productId': product!.id,
-                                'quantity': counter.value,
-                              }
-                            ]
-                          })
+                    statusCode.Token != ''
+                        ? isCart.value
+                            ? await cartController.patchcart({
+                                "ids": [
+                                  {
+                                    'productId': product!.id,
+                                    'quantity': counter.value,
+                                  }
+                                ]
+                              })
+                            : addtocart()
                         : addtocart();
                     loadingcart.value = false;
                   },
@@ -298,16 +300,18 @@ class FullCard extends StatelessWidget {
                       } else {
                         counter = counter - product.min;
                         loadingcart.value = true;
-                        isCart.value
-                            ? await cartController.patchcart({
-                                "ids": [
-                                  {
-                                    'productId': product!.id,
-                                    'quantity': counter.value,
-                                  }
-                                ]
-                              })
-                            : null;
+                        statusCode.Token != ''
+                            ? isCart.value
+                                ? await cartController.patchcart({
+                                    "ids": [
+                                      {
+                                        'productId': product!.id,
+                                        'quantity': counter.value,
+                                      }
+                                    ]
+                                  })
+                                : null
+                            : addtocart();
                         loadingcart.value = false;
                       }
                     },
@@ -381,6 +385,14 @@ class FullCard extends StatelessWidget {
       List cart = Constansbox.box.read('cartsid');
       isCart.value =
           cart.any((element) => element != product.id ? false : true);
+
+      List cartcounter = Constansbox.box.read('cartscounte');
+
+      for (int i = 0; i < cart.length; i++) {
+        if (cart[i] == product.id) {
+          counter.value = cartcounter[i];
+        }
+      }
     } else {
       if (product.carts.isNotEmpty) {
         isCart.value = true;
@@ -416,21 +428,51 @@ class FullCard extends StatelessWidget {
   void addtocart() {
     if (isCart.value) {
       if (statusCode.Token == '') {
-        List cartsid = Constansbox.box.read('cartsid');
-        List cartscount = Constansbox.box.read('cartscounte');
+        if (counter.value == product.min) {
+          List cartsid = Constansbox.box.read('cartsid');
+          List cartscount = Constansbox.box.read('cartscounte');
 
-        for (int i = 0; i < cartsid.length; i++) {
-          if (cartsid[i] == product!.id) {
-            cartsid.removeAt(i);
-            cartscount.removeAt(i);
+          for (int i = 0; i < cartsid.length; i++) {
+            if (cartsid[i] == product!.id) {
+              cartsid.removeAt(i);
+              cartscount.removeAt(i);
+            }
           }
+          cartController.lenghcart.value = cartsid.length;
+
+          Constansbox.box.write('cartscounte', cartscount);
+
+          Constansbox.box.write('cartsid', cartsid);
+          counter.value == product.min
+              ? isCart.value = false
+              : isCart.value = true;
+          isCart.value = false;
+        } else {
+          List cartsid = Constansbox.box.read('cartsid');
+          for (int i = 0; i < cartsid.length; i++) {
+            if (cartsid[i] == product!.id) {
+              print('[[[[[[[[[[[[[object]]]]]]]]]]]]]');
+              print(counter.value);
+              print('[[[[[[[[[[[[[object]]]]]]]]]]]]]');
+
+              List cartscount = Constansbox.box.read('cartscounte');
+              cartscount[i] = counter.value;
+
+              Constansbox.box.write('cartscounte', cartscount);
+            } else {
+              cartsid.add(product!.id);
+              Constansbox.box.write('cartsid', cartsid);
+
+              List cartscount = Constansbox.box.read('cartscounte');
+
+              cartscount.add(counter.value);
+
+              Constansbox.box.write('cartscounte', cartscount);
+            }
+          }
+
+          cartController.lenghcart.value = cartsid.length;
         }
-        cartController.lenghcart.value = cartsid.length;
-
-        Constansbox.box.write('cartscounte', cartscount);
-
-        Constansbox.box.write('cartsid', cartsid);
-        isCart.value = false;
       } else {
         cartController.deletecart(product!.id.toString());
         cartController.lenghcart.value--;
@@ -459,7 +501,6 @@ class FullCard extends StatelessWidget {
 
           Constansbox.box.write('cartscounte', cartscount);
           cartController.lenghcart.value = cartsid.length;
-
           isCart.value = true;
         } else {
           cartController.addTocart(counter.value, product!.id.toString());
