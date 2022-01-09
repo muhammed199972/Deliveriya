@@ -37,7 +37,7 @@ class TotalPrice extends StatelessWidget {
             for (int l = 0;
                 l < prodController.prods[k].subCategories[i].products.length;
                 l++) {
-              if (prodController.prods.length != 0)
+              if (prodController.prods.length != 0) if (cartscounte.isNotEmpty)
                 pricemcat += (prodController
                         .prods[k].subCategories[i].products[l].price!) *
                     (cartscounte[k == 0

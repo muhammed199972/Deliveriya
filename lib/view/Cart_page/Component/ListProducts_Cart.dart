@@ -20,6 +20,7 @@ class ListProdCart extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    prodController.getstoragcart();
     Size size = MediaQuery.of(context).size;
     List controlleritem = [].obs;
     item.forEach((element) {
@@ -43,7 +44,7 @@ class ListProdCart extends StatelessWidget {
               counter.value = controlleritem[index].Cartid[0].quantity;
             } else {
               print(prodController.cartsid);
-              print(controlleritem);
+              print(prodController.cartscountupdate);
 
               for (int u = 0; u < prodController.cartsid.length; u++) {
                 if (controlleritem[index].id == prodController.cartsid[u]) {
