@@ -45,28 +45,25 @@ class MyApp extends StatelessWidget {
     // Constansbox.box.remove('cartsid');
     // Constansbox.box.remove('cartscounte');
 
-    return ScreenUtilInit(
-      designSize: Size(411, 683),
-      builder: () => GetMaterialApp(
-        builder: (context, child) {
-          child = botToastBuilder(context, child);
-          return child;
-        },
-        initialBinding: Binds(),
-        debugShowCheckedModeBanner: false,
-        title: 'Flutter Demo',
-        theme: ThemeData(
-          primarySwatch: Colors.red,
-        ),
-        home: statusCode.Token == ''
-            ? ChoseSign()
-            : BottomBar(
-                fu: HomeView(),
-              ),
-        translations: Translation(),
-        locale: Locale(Constansbox.box.read('lang')),
-        fallbackLocale: Locale(Constansbox.box.read('lang')),
+    return GetMaterialApp(
+      builder: (context, child) {
+        child = botToastBuilder(context, child);
+        return child;
+      },
+      initialBinding: Binds(),
+      debugShowCheckedModeBanner: false,
+      title: 'Flutter Demo',
+      theme: ThemeData(
+        primarySwatch: Colors.red,
       ),
+      home: statusCode.Token == ''
+          ? ChoseSign()
+          : BottomBar(
+              fu: HomeView(),
+            ),
+      translations: Translation(),
+      locale: Locale(Constansbox.box.read('lang')),
+      fallbackLocale: Locale(Constansbox.box.read('lang')),
     );
   }
 }
