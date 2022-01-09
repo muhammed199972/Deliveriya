@@ -131,7 +131,7 @@ class StatusesController extends GetxController {
         for (int i = ioffers; i < offers.length; i++) {
           var bo = off.any((element) => element != offers[i].id ? false : true);
           if (!bo) {
-            off.add(offers[i].id!);
+            off.add(offers[i].id ?? []);
             ioffers++;
             ilogo++;
             break;
@@ -150,7 +150,7 @@ class StatusesController extends GetxController {
         for (int i = iNew; i < adss.length; i++) {
           var bo = New.any((element) => element != adss[i].id ? false : true);
           if (!bo) {
-            New.add(adss[i].id!);
+            New.add(adss[i].id ?? []);
             iNew++;
             ilogo++;
             break;
@@ -192,7 +192,7 @@ class StatusesController extends GetxController {
       for (int i = ioffers; i < offers.length; i++) {
         var bo = off.any((element) => element != offers[i].id ? false : true);
         if (!bo) {
-          off.add(offers[i].id!);
+          off.add(offers[i].id ?? []);
           ioffers++;
           break;
         } else {
