@@ -86,7 +86,7 @@ class CartController extends GetxController {
 
   getcarttotal() async {
     try {
-      loadingtotal = false.obs;
+      loadingtotal.value = false;
       apiResult = await cartService.getcartTotal();
       if (apiResult.rfreshToken) {
         if (!apiResult.hasError!) {

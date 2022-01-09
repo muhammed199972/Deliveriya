@@ -25,8 +25,6 @@ class ListProdCart extends StatelessWidget {
     item.forEach((element) {
       controlleritem.add(element);
     });
-    prodController.cartscountupdate = [];
-    prodController.cartsdeleteupdate = [];
 
     return Obx(() {
       cart.updata = [];
@@ -44,6 +42,9 @@ class ListProdCart extends StatelessWidget {
               });
               counter.value = controlleritem[index].Cartid[0].quantity;
             } else {
+              print(prodController.cartsid);
+              print(controlleritem);
+
               for (int u = 0; u < prodController.cartsid.length; u++) {
                 if (controlleritem[index].id == prodController.cartsid[u]) {
                   ind = u;
@@ -53,9 +54,9 @@ class ListProdCart extends StatelessWidget {
               List cartscounte = prodController.cartscounte;
               List cartsid = prodController.cartsid;
 
-              prodController.cartscountupdate = prodController.cartscounte;
-              prodController.cartsdeleteupdate = prodController.cartsid;
-              counter.value = cartscounte[ind ?? 0];
+              if (ind != null) {
+                counter.value = cartscounte[ind];
+              }
             }
             return Container(
               child: Row(
@@ -122,10 +123,11 @@ class ListProdCart extends StatelessWidget {
                         ),
                       ),
                       SizedBox(
-                        width: 5,
+                        width: 10,
                       ),
                       Container(
                         height: size.width >= 600 ? 40 : 25,
+                        padding: EdgeInsets.symmetric(horizontal: 10),
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(3.0),
                           color: AppColors.whiteColor,
@@ -140,7 +142,7 @@ class ListProdCart extends StatelessWidget {
                         child: Obx(() {
                           return Center(
                             child: Text(
-                                '${counter.value} ${item[index].measuringUnit}',
+                                '${counter.value}  ${item[index].measuringUnit}',
                                 style: size.width >= 600
                                     ? Styles.defualttab
                                     : Styles.defualtmobile),
@@ -148,7 +150,7 @@ class ListProdCart extends StatelessWidget {
                         }),
                       ),
                       SizedBox(
-                        width: 5,
+                        width: 10,
                       ),
                       InkWell(
                         onTap: () {
@@ -218,15 +220,17 @@ class ListProdCart extends StatelessWidget {
                               onPressedOk: () {
                                 if (statusCode.Token == '') {
                                   var item = controlleritem;
-                                  item.removeAt(index);
+
                                   prodController.cartscountupdate
                                       .removeAt(ind!);
                                   prodController.cartsdeleteupdate
                                       .removeAt(ind);
+                                  item.removeAt(index);
                                   Get.back();
-                                  ListProdCart(
-                                    item: item,
-                                  );
+                                  // ListProdCart(
+                                  //   item: item,
+                                  // );
+                                  return false;
                                 } else {
                                   var item = controlleritem;
                                   cart.updatadelete.add(item[index].id);

@@ -34,6 +34,9 @@ class ProductsController extends GetxController {
   void onInit() async {
     cartscounte = await Constansbox.box.read('cartscounte');
     cartsid = await Constansbox.box.read('cartsid');
+
+    cartscountupdate = await [...cartscounte];
+    cartsdeleteupdate = await [...cartsid];
     scrollController.addListener(() {
       if (scrollController.position.pixels ==
           scrollController.position.maxScrollExtent) {
@@ -46,6 +49,11 @@ class ProductsController extends GetxController {
     });
 
     super.onInit();
+  }
+
+  getstoragcart() async {
+    cartscounte = await Constansbox.box.read('cartscounte');
+    cartsid = await Constansbox.box.read('cartsid');
   }
 
   getproduct({

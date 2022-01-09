@@ -30,10 +30,11 @@ class CartView extends StatelessWidget {
     statusCode.Token != '' ? offerController.getofferuser() : null;
     Size size = MediaQuery.of(context).size;
     if (statusCode.Token == '') {
-      List<dynamic> cart = Constansbox.box.read('cartsid');
+      List<dynamic> cart = prodController.cartsid;
       List<int> carts = [];
       cart.forEach((e) => carts.add(e));
-      if (carts.length != 0) {
+      print(prodController.isEmpty.value);
+      if (carts.isNotEmpty) {
         prodController.isEmpty.value = false;
         prodController.getListproduct(
             Listproduct: carts, q: '', from: '', to: '');
@@ -70,7 +71,7 @@ class CartView extends StatelessWidget {
                 },
                 icon: SvgPicture.asset(
                   'assets/svg/history.svg',
-                  width: 40,
+                  width: 25,
                 )),
           ],
           bottom: TabBar(
@@ -220,7 +221,13 @@ class CartView extends StatelessWidget {
                             ),
                 ],
               ),
-              Positioned(bottom: 0, right: 0, left: 0, child: TotalPrice())
+              statusCode.Token == ''
+                  ? statusCode.cartsid.isNotEmpty
+                      ? Positioned(
+                          bottom: 0, right: 0, left: 0, child: TotalPrice())
+                      : Container()
+                  : Positioned(
+                      bottom: 0, right: 0, left: 0, child: TotalPrice())
             ],
           );
         }),

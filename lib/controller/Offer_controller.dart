@@ -152,9 +152,6 @@ class OfferController extends GetxController {
           totalprice.value = 0;
           offersuser.value.forEach((element) {
             totalprice.value = apiResult.data.total;
-            print('totalprice.value');
-
-            print(totalprice.value);
           });
         } else {
           hasError.value = apiResult.hasError!;
@@ -185,7 +182,6 @@ class OfferController extends GetxController {
 
   Future patchofferuser(String q, String id) async {
     try {
-      BotToast.showLoading();
       apiResult = await offer.patchofferUserData(q, id);
       if (apiResult.rfreshToken) {
         if (!apiResult.hasError!) {
@@ -194,7 +190,6 @@ class OfferController extends GetxController {
           await getofferuser();
           await Get.find<CartController>().getcarttotal();
           Get.back();
-          return true;
         } else {
           hasError.value = apiResult.hasError!;
           massage.value = apiResult.errorMassage!;
@@ -203,7 +198,6 @@ class OfferController extends GetxController {
               onPressed: () {
                 Get.back();
               });
-          return false;
         }
       } else {
         patchofferuser(q, id);
@@ -212,9 +206,6 @@ class OfferController extends GetxController {
       hasError.value = apiResult.hasError!;
       massage.value = apiResult.errorMassage!;
       print(e);
-      return false;
-    } finally {
-      BotToast.closeAllLoading();
-    }
+    } finally {}
   }
 }
