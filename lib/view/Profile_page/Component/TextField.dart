@@ -66,7 +66,7 @@ class TextFieldProfwidget extends StatelessWidget {
           border: InputBorder.none,
           prefixIcon: icon,
           contentPadding:
-              new EdgeInsets.symmetric(vertical: 10.0, horizontal: 10.0),
+              new EdgeInsets.symmetric(vertical: 12.0, horizontal: 10.0),
           prefixText: prefixtxt,
           labelText: lebel,
           // border: OutlineInputBorder(borderSide: BorderSide.none),

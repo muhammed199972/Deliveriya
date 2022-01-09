@@ -78,7 +78,7 @@ class ConfirmCart extends StatelessWidget {
                     controller: _dateController,
                     enabled: false,
                     // validator: validate,
-                    lebel: 'setdelivarytime'.tr,
+                    lebel: 'setdelivarydate'.tr,
                   ),
                 ),
               ),
@@ -98,25 +98,25 @@ class ConfirmCart extends StatelessWidget {
                     controller: _timeController,
                     enabled: false,
                     // validator: validate,
-                    lebel: 'setdelivarydate'.tr,
+                    lebel: 'setdelivarytime'.tr,
                   ),
                 ),
               ),
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 17),
-                child: InkWell(
-                  onTap: () {},
-                  child: TextFieldProfwidget(
-                    inputFormatters: [
-                      FilteringTextInputFormatter.digitsOnly,
-                      LengthLimitingTextInputFormatter(14),
-                    ],
-                    // validator: validateMobile,
-                    controller: _phoneController,
-                    lebel: '',
-                    // prefixtxt: '+963',
-                    icon: Get.find<AuthController>().showCountryCode(),
-                  ),
+                child: TextFieldProfwidget(
+                  inputFormatters: [
+                    FilteringTextInputFormatter.digitsOnly,
+                    LengthLimitingTextInputFormatter(14),
+                  ],
+                  h: 45,
+                  validator: validateMobile,
+                  txttype: TextInputType.phone,
+                  // validator: validateMobile,
+                  controller: _phoneController,
+                  lebel: null,
+                  // prefixtxt: '+963',
+                  icon: Get.find<AuthController>().showCountryCode(),
                 ),
               ),
               InkWell(

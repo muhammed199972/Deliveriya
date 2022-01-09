@@ -73,13 +73,15 @@ class Datasesrch extends SearchDelegate<String> {
                 crossAxisCount: 3,
                 itemCount: prodController.products.length,
                 itemBuilder: (BuildContext context, int index) {
+                  var loadingcart = false.obs;
                   return FullCard(
+                    loadingcart: loadingcart,
                     size: size,
                     product: prodController.products[index],
                   );
                 },
-                staggeredTileBuilder: (int index) => new StaggeredTile.count(
-                    1, size.height >= 650 ? 1.22 : 1.18),
+                staggeredTileBuilder: (int index) =>
+                    new StaggeredTile.count(1, size.height >= 650 ? 1.3 : 1.2),
                 mainAxisSpacing: 1,
                 crossAxisSpacing: 10,
               ),
@@ -162,13 +164,15 @@ class Datasesrch extends SearchDelegate<String> {
                   crossAxisCount: 3,
                   itemCount: prodController.products.length,
                   itemBuilder: (BuildContext context, int index) {
+                    var loadingcart = false.obs;
                     return FullCard(
+                      loadingcart: loadingcart,
                       size: size,
                       product: prodController.products[index],
                     );
                   },
                   staggeredTileBuilder: (int index) => new StaggeredTile.count(
-                      1, size.height >= 650 ? 1.22 : 1.18),
+                      1, size.height >= 650 ? 1.3 : 1.2),
                   mainAxisSpacing: 1,
                   crossAxisSpacing: 10,
                 ),

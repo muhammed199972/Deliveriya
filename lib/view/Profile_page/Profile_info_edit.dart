@@ -174,12 +174,23 @@ class ProfileInfoEdit extends StatelessWidget {
                                     ),
                                     width: size.width * 0.17,
                                     height: size.height * 0.1,
-                                    margin: EdgeInsets.only(
-                                        bottom: 0, left: 17, top: 10, right: 8),
+                                    margin: Constansbox.box.read('lang') == 'en'
+                                        ? EdgeInsets.only(
+                                            bottom: 0,
+                                            left: 17,
+                                            top: 10,
+                                            right: 8)
+                                        : EdgeInsets.only(
+                                            bottom: 0,
+                                            left: 8,
+                                            top: 10,
+                                            right: 17),
                                   ),
                             Positioned(
                               top: 9,
-                              left: 70,
+                              left: Constansbox.box.read('lang') == 'en'
+                                  ? 70
+                                  : 50,
                               right: 0,
                               child: Container(
                                 height: 25,
@@ -315,7 +326,7 @@ class ProfileInfoEdit extends StatelessWidget {
                             padding: EdgeInsets.symmetric(
                                 horizontal: Defaults.defaultPadding * 3,
                                 vertical: Defaults.defaultPadding * 2),
-                            height: size.height * 0.25,
+                            height: size.height * 0.3,
                             decoration: BoxDecoration(
                               color: Colors.white,
                               borderRadius: BorderRadius.only(
@@ -351,7 +362,7 @@ class ProfileInfoEdit extends StatelessWidget {
                                     ),
                                     Padding(
                                       padding: EdgeInsets.symmetric(
-                                        horizontal: 100,
+                                        horizontal: size.width / 4,
                                       ),
                                       child: ButtonWidget2(
                                         size: size,
@@ -472,7 +483,8 @@ class ProfileInfoEdit extends StatelessWidget {
                                       )),
                                   Padding(
                                     padding: EdgeInsets.symmetric(
-                                        horizontal: 100, vertical: 25),
+                                        horizontal: size.width / 4,
+                                        vertical: 25),
                                     child: ButtonWidget2(
                                         size: size,
                                         txt: 'submit'.tr,

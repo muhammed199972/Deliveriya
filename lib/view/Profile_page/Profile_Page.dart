@@ -28,8 +28,8 @@ class ProfileView extends StatelessWidget {
     return Scaffold(
       backgroundColor: AppColors.whiteColor,
       appBar: AppBar(
-        backgroundColor: AppColors.whiteColor,
-        elevation: 0,
+        backgroundColor: AppColors.whiteappbarColor,
+        elevation: 1,
         centerTitle: true,
         title: Text(
           'profile'.tr,
@@ -113,7 +113,7 @@ class ProfileView extends StatelessWidget {
                       ),
                       width: size.width * 0.165,
                       height: size.height * 0.093,
-                      margin: status.Lang == 'en'
+                      margin: Constansbox.box.read('lang') == 'en'
                           ? EdgeInsets.only(
                               bottom: 0, left: 17, top: 10, right: 8)
                           : EdgeInsets.only(

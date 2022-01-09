@@ -32,6 +32,7 @@ class CartController extends GetxController {
   var isEmpty = false.obs;
   var totalprice = 0.obs;
   var loadingtotal = true.obs;
+  var loadincart = false.obs;
 
   @override
   void onInit() {
@@ -48,7 +49,7 @@ class CartController extends GetxController {
 
   getcart() async {
     try {
-      BotToast.showLoading();
+      // BotToast.showLoading();
       apiResult = await cartService.getcartData();
       if (apiResult.rfreshToken) {
         if (!apiResult.hasError!) {
@@ -79,7 +80,7 @@ class CartController extends GetxController {
             Get.back();
           });
     } finally {
-      BotToast.closeAllLoading();
+      // BotToast.closeAllLoading();
     }
   }
 
@@ -154,12 +155,13 @@ class CartController extends GetxController {
 
   patchcart(var body) async {
     try {
+      loadincart.value = true;
       apiResult = await cartService.patchcartData(body);
       if (apiResult.rfreshToken) {
         if (!apiResult.hasError!) {
           patchCarts.value = apiResult.data;
           hasError.value = apiResult.hasError!;
-          BotToast.showLoading();
+          // BotToast.showLoading();
           await getcart();
           Get.back();
         } else {
@@ -179,7 +181,8 @@ class CartController extends GetxController {
       massage.value = apiResult.errorMassage!;
       print(e);
     } finally {
-      BotToast.closeAllLoading();
+      loadincart.value = false;
+      // BotToast.closeAllLoading();
     }
   }
 

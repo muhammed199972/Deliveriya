@@ -55,7 +55,7 @@ class ListProdCart extends StatelessWidget {
 
               prodController.cartscountupdate = prodController.cartscounte;
               prodController.cartsdeleteupdate = prodController.cartsid;
-              counter.value = cartscounte[ind!];
+              counter.value = cartscounte[ind ?? 0];
             }
             return Container(
               child: Row(

@@ -511,7 +511,9 @@ class _FavoriteViewState extends State<FavoriteView> {
                                                 .length,
                                             itemBuilder: (BuildContext context,
                                                 int index) {
+                                              var loadingcart = false.obs;
                                               return FullCard(
+                                                loadingcart: loadingcart,
                                                 size: size,
                                                 product: favoriteController
                                                     .favorites[
@@ -661,7 +663,9 @@ class _FavoriteViewState extends State<FavoriteView> {
                                                 itemBuilder:
                                                     (BuildContext context,
                                                         int index) {
+                                                  var loadingcart = false.obs;
                                                   return FullCard(
+                                                    loadingcart: loadingcart,
                                                     size: size,
                                                     product: prodController
                                                         .prods[

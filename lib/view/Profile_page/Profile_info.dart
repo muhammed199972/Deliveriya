@@ -19,8 +19,8 @@ class ProfileInfo extends StatelessWidget {
     return Scaffold(
       backgroundColor: AppColors.whiteColor,
       appBar: AppBar(
-        backgroundColor: AppColors.whiteColor,
-        elevation: 0,
+        backgroundColor: AppColors.whiteappbarColor,
+        elevation: 1,
         centerTitle: true,
         leading: IconButton(
           icon: Icon(
@@ -62,8 +62,11 @@ class ProfileInfo extends StatelessWidget {
                         ),
                         width: size.width * 0.165,
                         height: size.height * 0.093,
-                        margin: EdgeInsets.only(
-                            bottom: 0, left: 17, top: 10, right: 8),
+                        margin: Constansbox.box.read('lang') == 'en'
+                            ? EdgeInsets.only(
+                                bottom: 0, left: 17, top: 10, right: 8)
+                            : EdgeInsets.only(
+                                bottom: 0, left: 8, top: 10, right: 17),
                       )),
                   // ),
                   Obx(() => Text(controller.profile.value.name ?? '',

@@ -589,6 +589,7 @@ class CartService {
           headers: {'Authorization': 'Bearer ${statusCode.Token}'},
         ),
       );
+      print(response);
 
       if (response.statusCode == statusCode.OK ||
           response.statusCode == statusCode.CREATED) {

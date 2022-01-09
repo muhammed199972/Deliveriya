@@ -21,18 +21,18 @@ class ProduvtsView extends StatelessWidget {
   int? idcategory;
   var prodController = Get.find<ProductsController>();
   var cartController = Get.find<CartController>();
-  List<ProductsResponse> temp = [];
-  List<int>? list = [];
-  void move() async {
-    await cartController.getcart();
-    cartController.lenghcart.value = 0;
-    for (int k = 0; k < cartController.carts.length; k++) {
-      for (int i = 0; i < cartController.carts[k].subCategories.length; i++) {
-        cartController.lenghcart.value = cartController.lenghcart.value +
-            cartController.carts[k].subCategories[i].products.length;
-      }
-    }
-  }
+  // List<ProductsResponse> temp = [];
+  // List<int>? list = [];
+  // void move() async {
+  //   await cartController.getcart();
+  //   cartController.lenghcart.value = 0;
+  //   for (int k = 0; k < cartController.carts.length; k++) {
+  //     for (int i = 0; i < cartController.carts[k].subCategories.length; i++) {
+  //       cartController.lenghcart.value = cartController.lenghcart.value +
+  //           cartController.carts[k].subCategories[i].products.length;
+  //     }
+  //   }
+  // }
 
   StatusCode statusCode = StatusCode();
   @override
@@ -41,7 +41,7 @@ class ProduvtsView extends StatelessWidget {
       List cart = Constansbox.box.read('cartsid');
       cartController.lenghcart.value = cart.length;
     } else {
-      move();
+      // move();
     }
 
     Size size = MediaQuery.of(context).size;
@@ -121,7 +121,7 @@ class ProduvtsView extends StatelessWidget {
                     () => cartController.lenghcart.value == 0
                         ? Container()
                         : Padding(
-                            padding: const EdgeInsets.only(top: 5, right: 5),
+                            padding: const EdgeInsets.only(top: 10, right: 10),
                             child: Align(
                               alignment: Alignment.topCenter,
                               child: Row(
@@ -130,15 +130,11 @@ class ProduvtsView extends StatelessWidget {
                                   SizedBox(
                                     width: size.width * 0.03,
                                   ),
-                                  CircleAvatar(
-                                    radius: 13,
-                                    backgroundColor: AppColors.mainColor,
-                                    child: Text(
-                                      '${cartController.lenghcart.value}',
-                                      style: TextStyle(
-                                          fontSize: size.width >= 600 ? 20 : 14,
-                                          color: AppColors.whiteColor),
-                                    ),
+                                  Text(
+                                    '${cartController.lenghcart.value}',
+                                    style: TextStyle(
+                                        fontSize: size.width >= 600 ? 20 : 14,
+                                        color: AppColors.mainColor),
                                   ),
                                 ],
                               ),
@@ -217,7 +213,13 @@ class ProduvtsView extends StatelessWidget {
                                 : (size.width >= 600 ? 4 : 3),
                             itemCount: prodController.products.length,
                             itemBuilder: (BuildContext context, int index) {
+                              // print('object');
+                              // print(prodController.products[index].carts[0]
+                              //     ['quantity']);
+
+                              var loadingcart = false.obs;
                               return FullCard(
+                                loadingcart: loadingcart,
                                 size: size,
                                 product: prodController.products[index],
                               );

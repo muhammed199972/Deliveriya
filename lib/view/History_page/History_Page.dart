@@ -1,5 +1,4 @@
 import 'dart:developer';
-
 import 'package:delivery_food/General/Constants.dart';
 import 'package:delivery_food/controller/Order_controller.dart';
 import 'package:delivery_food/model/Img_History.dart';
@@ -24,7 +23,6 @@ class _HistoryPageState extends State<HistoryPage> {
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
-    inspect(controller.orders.value);
     return Scaffold(
       appBar: AppBar(
         backgroundColor: AppColors.whiteappbarColor,
@@ -107,7 +105,6 @@ class _HistoryPageState extends State<HistoryPage> {
           //       'assets/svg/calender.svg',
           //       width: 40,
           //     )),
-
           !opensearch
               ? IconButton(
                   splashColor: Colors.transparent,
@@ -216,7 +213,6 @@ class _HistoryPageState extends State<HistoryPage> {
                                 e.orderHistory.toString().split(' ')[1])
                             .first;
                       });
-
                       return Container(
                         margin:
                             EdgeInsets.symmetric(horizontal: 17, vertical: 5),
