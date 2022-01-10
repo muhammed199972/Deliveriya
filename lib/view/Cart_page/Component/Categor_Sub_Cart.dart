@@ -125,7 +125,7 @@ class CategoryCart extends StatelessWidget {
                   leading: Image.network(
                     statusCode.urlimage + controller[indexcat].icon!,
                     width: size.width >= 600 ? 60 : 30,
-                    color: AppColors.mainColor,
+                    // color: AppColors.mainColor,
                   ),
                   title: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -315,7 +315,7 @@ class CategoryCart extends StatelessWidget {
                                             controller[idcategory.value]
                                                 .subCategories[indexsup]
                                                 .icon!,
-                                        color: AppColors.mainColor,
+                                        // color: AppColors.mainColor,
                                         width: 20,
                                       ),
                                       title: Row(
