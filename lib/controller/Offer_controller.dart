@@ -27,8 +27,12 @@ class OfferController extends GetxController {
   void onInit() async {
     await getoffers();
     checkStatuses();
-    idOffers = await Constansbox.box.read('offersId');
+    getOfferid();
     super.onInit();
+  }
+
+  getOfferid() async {
+    idOffers = await Constansbox.box.read('offersId');
   }
 
   checkStatuses() {
