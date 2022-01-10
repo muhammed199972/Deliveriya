@@ -72,9 +72,9 @@ class CategorysFavorite extends StatelessWidget {
                               child: Image.network(
                                 statusCode.urlimage +
                                     favoriteController[index].icon!,
-                                color: fav.idcategory.value == index
-                                    ? AppColors.mainColor
-                                    : AppColors.darkgreytextColor,
+                                // color: fav.idcategory.value == index
+                                //     ? AppColors.mainColor
+                                //     : AppColors.darkgreytextColor,
                                 scale: size.width >= 600 ? 0.5 : 1,
                               ),
                             ),

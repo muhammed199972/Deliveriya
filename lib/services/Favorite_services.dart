@@ -31,7 +31,7 @@ class FavoriteService {
           .get(url, headers: {'Authorization': 'Bearer ${statusCode.Token}'});
 
       var responsebode = jsonDecode(response.body);
-
+      print(responsebode);
       if (response.statusCode == statusCode.OK ||
           response.statusCode == statusCode.CREATED) {
         status = FavoriteStatus.fromJson(responsebode['status']);

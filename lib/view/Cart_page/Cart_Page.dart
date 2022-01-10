@@ -33,7 +33,6 @@ class CartView extends StatelessWidget {
       List<dynamic> cart = prodController.cartsid;
       List<int> carts = [];
       cart.forEach((e) => carts.add(e));
-      print(prodController.isEmpty.value);
       if (carts.isNotEmpty) {
         prodController.isEmpty.value = false;
         prodController.getListproduct(
@@ -87,6 +86,7 @@ class CartView extends StatelessWidget {
           ),
         ),
         body: Obx(() {
+          log('${controller.isEmpty.value}');
           return Stack(
             children: [
               TabBarView(
@@ -226,14 +226,18 @@ class CartView extends StatelessWidget {
                       ? Positioned(
                           bottom: 0, right: 0, left: 0, child: TotalPrice())
                       : Container()
-                  : Positioned(
-                      bottom: 0, right: 0, left: 0, child: TotalPrice())
+                  : !controller.isEmpty.value ||
+                          offerController.offersuser.length != 0
+                      ? Positioned(
+                          bottom: 0, right: 0, left: 0, child: TotalPrice())
+                      : Container()
             ],
           );
         }),
         floatingActionButton: Obx(() => Visibility(
-              visible: controller.carts.length != 0 ||
-                  offerController.offersuser.length != 0,
+              visible: (controller.carts.length != 0 ||
+                      offerController.offersuser.length != 0) &&
+                  statusCode.Token != '',
               child: FloatingActionButton(
                 onPressed: () {
                   print(offerController.offers.length);

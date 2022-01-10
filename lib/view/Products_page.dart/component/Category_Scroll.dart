@@ -84,10 +84,10 @@ class CategorysScroll extends StatelessWidget {
                               child: Image.network(
                                 statusCode.urlimage +
                                     category.categorys[index].icon!,
-                                color: category.value.value ==
-                                        category.categorys[index].id
-                                    ? AppColors.mainColor
-                                    : AppColors.darkgreytextColor,
+                                // color: category.value.value ==
+                                //         category.categorys[index].id
+                                //     ? AppColors.mainColor
+                                //     : AppColors.darkgreytextColor,
                                 scale: size.width >= 600 ? 0.5 : 1,
                               ),
                             ),

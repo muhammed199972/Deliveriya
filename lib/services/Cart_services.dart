@@ -49,7 +49,7 @@ class CartService {
 
           apiResult.hasError = false;
         }
-        if (responsebode['response']['data'].isEmpty) {
+        if (responsebode['response']['data']['item'].isEmpty) {
           apiResult.isEmpty = true;
         }
       } else if (response.statusCode == statusCode.BAD_REQUEST) {
