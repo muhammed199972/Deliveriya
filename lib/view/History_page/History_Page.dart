@@ -299,7 +299,7 @@ class _HistoryPageState extends State<HistoryPage> {
                             onExpansionChanged: (p) {},
                             children: [
                               Container(
-                                height: 75 *
+                                height: 58 *
                                     controller.orders[index].orders!.length
                                         .toDouble(),
                                 child: ListView.builder(
@@ -492,7 +492,7 @@ class _HistoryPageState extends State<HistoryPage> {
                                               },
                                             ),
                                           ),
-                                          Divider(),
+                                          // Divider(),
                                         ],
                                       );
                                     }),

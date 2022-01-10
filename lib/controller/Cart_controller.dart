@@ -120,13 +120,15 @@ class CartController extends GetxController {
 
   addTocart(int quantity, String id) async {
     try {
+      loadincart.value = true;
+
       apiResult = await cartService.postcartData(quantity, id);
       if (apiResult.rfreshToken) {
         if (!apiResult.hasError!) {
           carts.value = [];
           postCarts.value = apiResult.data;
           hasError.value = apiResult.hasError!;
-          BotToast.showLoading();
+          // BotToast.showLoading();
           await getcart();
         } else {
           hasError.value = apiResult.hasError!;
@@ -149,7 +151,8 @@ class CartController extends GetxController {
             Get.back();
           });
     } finally {
-      BotToast.closeAllLoading();
+      loadincart.value = false;
+      // BotToast.closeAllLoading();
     }
   }
 

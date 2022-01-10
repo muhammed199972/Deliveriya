@@ -264,8 +264,8 @@ class FullCard extends StatelessWidget {
                       return Center(
                         child: loadingcart.value
                             ? Container(
-                                width: 20,
-                                height: 20,
+                                width: 15,
+                                height: 15,
                                 child: CircularProgressIndicator(
                                   strokeWidth: 2,
                                 ))
