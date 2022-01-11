@@ -3,7 +3,9 @@
 import 'package:bot_toast/bot_toast.dart';
 import 'package:delivery_food/Binds.dart';
 import 'package:delivery_food/General/Constants.dart';
+import 'package:delivery_food/lang/traranslation.dart';
 import 'package:delivery_food/view/Home_page/Home_page.dart';
+import 'package:delivery_food/view/Virefy_pages/Choose_Page.dart';
 import 'package:delivery_food/view/navbar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -19,28 +21,49 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   Constans Constansbox = Constans();
   final botToastBuilder = BotToastInit();
+  StatusCode statusCode = StatusCode();
+
   @override
   Widget build(BuildContext context) {
-    Constansbox.box.writeIfNull('New', [1999]);
-    Constansbox.box.writeIfNull('offers', [1999]);
-    Constansbox.box.writeIfNull('favorite', [1999]);
+    Constansbox.box.writeIfNull('New', []);
+    Constansbox.box.writeIfNull('offers', []);
+    Constansbox.box.writeIfNull('favorite', []);
+    Constansbox.box.writeIfNull('cartsid', []);
+    Constansbox.box.writeIfNull('cartscounte', []);
+    Constansbox.box.writeIfNull('Search', []);
+    Constansbox.box.writeIfNull('SearchHome', []);
+    Constansbox.box.writeIfNull('accessToken', '');
+    Constansbox.box.writeIfNull('refreshToken', '');
+    Constansbox.box.writeIfNull('lang', 'en');
+    Constansbox.box.writeIfNull('offersId', []);
 
-    return ScreenUtilInit(
-        designSize: Size(411, 683),
-        builder: () => GetMaterialApp(
-              builder: (context, child) {
-                child = botToastBuilder(context, child);
-                return child;
-              },
-              initialBinding: Binds(),
-              debugShowCheckedModeBanner: false,
-              title: 'Flutter Demo',
-              //   color: Colors.transparent,
-              theme: ThemeData(
-                primarySwatch: Colors.red,
-              ),
-              home: BottomBar(),
-              getPages: [GetPage(name: '/home', page: () => HomeView())],
-            ));
+    //Constansbox.box.remove('New');
+    // Constansbox.box.remove('cartsid');
+    // Constansbox.box.remove('cartscounte');
+    //Constansbox.box.remove('New');
+    //Constansbox.box.remove('offers');
+    // Constansbox.box.remove('cartsid');
+    // Constansbox.box.remove('cartscounte');
+
+    return GetMaterialApp(
+      builder: (context, child) {
+        child = botToastBuilder(context, child);
+        return child;
+      },
+      initialBinding: Binds(),
+      debugShowCheckedModeBanner: false,
+      title: 'Flutter Demo',
+      theme: ThemeData(
+        primarySwatch: Colors.red,
+      ),
+      home: statusCode.Token == ''
+          ? ChoseSign()
+          : BottomBar(
+              fu: HomeView(),
+            ),
+      translations: Translation(),
+      locale: Locale(Constansbox.box.read('lang')),
+      fallbackLocale: Locale(Constansbox.box.read('lang')),
+    );
   }
 }

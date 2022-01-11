@@ -1,71 +1,94 @@
-class FavoriteResponse {
-  FavoriteResponse({
-    this.id,
-    this.name,
-    this.type,
-    this.avatar,
-    this.price,
-    this.quantity,
-    this.createdAt,
-    this.updatedAt,
-    this.subCategoryId,
-    this.favorites,
-  });
+import 'package:delivery_food/model/Products_model.dart';
 
+class FavoriteResponse {
   int? id;
   String? name;
-  String? type;
+  String? icon;
   String? avatar;
-  int? price;
-  int? quantity;
-  DateTime? createdAt;
-  DateTime? updatedAt;
-  int? subCategoryId;
-  List<Favorite>? favorites;
+  List<SubCategories> subCategories = [];
 
-  factory FavoriteResponse.fromJson(Map<String, dynamic> json) =>
-      FavoriteResponse(
-        id: json["id"],
-        name: json["name"],
-        type: json["type"],
-        avatar: json["avatar"],
-        price: json["price"],
-        quantity: json["quantity"],
-        createdAt: DateTime.parse(json["createdAt"]),
-        updatedAt: DateTime.parse(json["updatedAt"]),
-        subCategoryId: json["SubCategoryId"],
-        favorites: List<Favorite>.from(
-            json["Favorites"].map((x) => Favorite.fromJson(x))),
-      );
+  FavoriteResponse(
+      {this.id,
+      this.name,
+      this.icon,
+      this.avatar,
+      required this.subCategories});
 
-  Map<String, dynamic> toJson() => {
-        "id": id,
-        "name": name,
-        "type": type,
-        "avatar": avatar,
-        "price": price,
-        "quantity": quantity,
-        "createdAt": createdAt!.toIso8601String(),
-        "updatedAt": updatedAt!.toIso8601String(),
-        "SubCategoryId": subCategoryId,
-        "Favorites": List<dynamic>.from(favorites!.map((x) => x.toJson())),
-      };
+  FavoriteResponse.fromJson(Map<String, dynamic> json) {
+    id = json['id'];
+    name = json['name'];
+    icon = json['icon'];
+    avatar = json['avatar'];
+    if (json['SubCategories'] != null) {
+      json['SubCategories'].forEach((v) {
+        subCategories.add(SubCategories.fromJson(v));
+      });
+    }
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+    data['id'] = this.id;
+    data['name'] = this.name;
+    data['icon'] = this.icon;
+    data['avatar'] = this.avatar;
+    if (this.subCategories != null) {
+      data['SubCategories'] =
+          this.subCategories.map((v) => v.toJson()).toList();
+    }
+    return data;
+  }
 }
 
-class Favorite {
-  Favorite({
-    this.id,
-  });
+class SubCategories {
+  int? id;
+  String? name;
+  String? icon;
+  String? avatar;
+  List<ProductsResponse> products = [];
 
+  SubCategories(
+      {this.id, this.name, this.icon, this.avatar, required this.products});
+
+  SubCategories.fromJson(Map<String, dynamic> json) {
+    id = json['id'];
+    name = json['name'];
+    icon = json['icon'];
+    avatar = json['avatar'];
+    if (json['Products'] != null) {
+      json['Products'].forEach((v) {
+        products.add(new ProductsResponse.fromJson(v));
+      });
+    }
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+    data['id'] = this.id;
+    data['name'] = this.name;
+    data['icon'] = this.icon;
+    data['avatar'] = this.avatar;
+    if (this.products != null) {
+      data['Products'] = this.products.map((v) => v.toJson()).toList();
+    }
+    return data;
+  }
+}
+
+class Favorites {
   int? id;
 
-  factory Favorite.fromJson(Map<String, dynamic> json) => Favorite(
-        id: json["id"],
-      );
+  Favorites({this.id});
 
-  Map<String, dynamic> toJson() => {
-        "id": id,
-      };
+  Favorites.fromJson(Map<String, dynamic> json) {
+    id = json['id'];
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+    data['id'] = this.id;
+    return data;
+  }
 }
 
 class FavoriteStatus {

@@ -1,4 +1,5 @@
 import 'package:delivery_food/General/Api_Result.dart';
+import 'package:delivery_food/General/Dialogs.dart';
 import 'package:delivery_food/model/InfoOrder_model.dart';
 import 'package:delivery_food/services/InfoOrder_services.dart';
 import 'package:get/get.dart';
@@ -19,17 +20,32 @@ class InfoOrderController extends GetxController {
   getinfoOrder() async {
     try {
       apiResult = await infoOrderService.getinfoOrderData();
-      if (!apiResult.hasError!) {
-        infoOrders.value = apiResult.data;
-        hasError.value = apiResult.hasError!;
-        print(infoOrders[0].price);
+      if (apiResult.rfreshToken) {
+        if (!apiResult.hasError!) {
+          infoOrders.value = apiResult.data;
+          hasError.value = apiResult.hasError!;
+        } else {
+          hasError.value = apiResult.hasError!;
+          massage.value = apiResult.errorMassage!;
+          DialogsUtils.showdialog(
+              m: massage.value,
+              onPressed: () {
+                Get.back();
+                Get.back();
+              });
+        }
       } else {
-        hasError.value = apiResult.hasError!;
-        massage.value = apiResult.errorMassage!;
+        getinfoOrder();
       }
-    } finally {
+    } catch (e) {
       hasError.value = apiResult.hasError!;
       massage.value = apiResult.errorMassage!;
+      DialogsUtils.showdialog(
+          m: 'حدث خطأ غير متوقع',
+          onPressed: () {
+            Get.back();
+            Get.back();
+          });
     }
   }
 }

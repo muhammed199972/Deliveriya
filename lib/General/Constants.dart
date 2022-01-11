@@ -3,10 +3,22 @@
 import 'package:flutter/material.dart';
 import 'package:get_storage/get_storage.dart';
 
+Constans Constansbox = Constans();
+var code = '';
+String phone = '';
+
 class StatusCode {
   String url1 = 'delivery-food12.herokuapp.com';
-  var Token =
-      'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MywiaWF0IjoxNjM3OTk4NTgwLCJleHAiOjE2Mzg0MzA1ODB9.eVKTqw68PAb4zImUCdLv-VHirc1HOEZRbV_IjYxO9Bw';
+  var urlimage = 'https://delivery-food12.herokuapp.com/';
+  var imgdefault =
+      'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png';
+  var Token = Constansbox.box.read('accessToken');
+  var RefreshToken = Constansbox.box.read('refreshToken');
+  var Lang = Constansbox.box.read('lang');
+
+  var favorite = Constansbox.box.read('favorite');
+  var cartsid = Constansbox.box.read('cartsid');
+
   var OK = 200; //                          * Normal
   var CREATED = 201; //                     * Create new entity
   var UPDATED = 200; //                     * PUT/PATCH Requests
@@ -72,12 +84,35 @@ final box = GetStorage();
 
 class AppColors {
   static const mainColor = Color(0xFFE73352);
+  static const lightmainColor = Color(0xFFFFE8EC);
   static const whiteColor = Color(0xFFFFFFFF);
-  static const greyColor = Color(0xFF757272);
+  static const greyColor = Color(0xB7FAFAFA);
+  static const darkgreyColor = Color(0x27464242);
+  static const darkgreytextColor = Color(0xA2000000);
+  static const whiteappbarColor = Color(0xffFAFAFA);
   static const blackColor = Color(0xFF000000);
+  static const lightgreyColor = Color(0xFFC4C4C4);
+  static const lightgrey2Color = Color(0xFFEFEFEF);
 }
 
-class Styles {}
+class Styles {
+  static const buttonStyle =
+      TextStyle(color: AppColors.mainColor, fontSize: 16);
+  static const buttonStyle2 =
+      TextStyle(color: AppColors.whiteColor, fontSize: 16);
+  static const categoryStyle = TextStyle(
+    color: AppColors.whiteColor,
+    fontSize: 16,
+  );
+  static const priceStyle =
+      TextStyle(color: AppColors.blackColor, fontSize: 11);
+  static const priceStyle2 =
+      TextStyle(color: AppColors.blackColor, fontSize: 10);
+  static const defualtmobile =
+      TextStyle(color: AppColors.blackColor, fontSize: 16);
+  static const defualttab =
+      TextStyle(color: AppColors.blackColor, fontSize: 25);
+}
 
 class Defaults {
   static const defaultPadding = 20.0;

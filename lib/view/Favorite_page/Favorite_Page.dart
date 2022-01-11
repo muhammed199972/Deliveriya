@@ -1,91 +1,757 @@
 import 'package:delivery_food/General/Constants.dart';
 import 'package:delivery_food/controller/Favorite_controller.dart';
 import 'package:delivery_food/controller/Products_controller.dart';
-import 'package:delivery_food/model/Products_model.dart';
+import 'package:delivery_food/view/Favorite_page/Component/Category_favorite.dart';
+import 'package:delivery_food/view/Favorite_page/Component/Subcategory_favorite.dart';
+import 'package:delivery_food/view/Home_page/Home_page.dart';
 import 'package:delivery_food/view/Products_page.dart/component/Products_Cards.dart';
+import 'package:delivery_food/view/navbar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 
-class FavoriteView extends StatelessWidget {
+class FavoriteView extends StatefulWidget {
   FavoriteView({Key? key}) : super(key: key);
 
+  @override
+  State<FavoriteView> createState() => _FavoriteViewState();
+}
+
+class _FavoriteViewState extends State<FavoriteView> {
   var favoriteController = Get.find<FavoriteController>();
+
+  var prodController = Get.find<ProductsController>();
+
+  var _searchController = TextEditingController();
+  var opensearch = false;
+  StatusCode statusCode = StatusCode();
+  @override
+  void initState() {
+    if (statusCode.Token == '') {
+      List<dynamic> fav = Constansbox.box.read('favorite');
+      List<int> favo = [];
+      fav.forEach((e) => favo.add(e));
+      if (favo.length != 0)
+        prodController.getListproduct(
+            Listproduct: favo, q: '', from: '', to: '');
+      else
+        prodController.isEmpty.value = true;
+    } else {
+      favoriteController.getfavorite('', '', '');
+    }
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
-    favoriteController.getfavorite(0, 8);
+    List Se = Constansbox.box.read('Search');
+    List Search = new List.from(Se.reversed);
+    DateTime now = DateTime.now();
 
     return Scaffold(
-        backgroundColor: AppColors.whiteColor,
         appBar: AppBar(
-          elevation: 0,
-          backgroundColor: AppColors.whiteColor,
-          title: Center(
-            child: Text(
-              'Favorite',
-              style: TextStyle(color: Colors.black),
-            ),
-          ),
-          leading: Icon(
-            Icons.arrow_back_rounded,
-            color: Colors.transparent,
+          elevation: 1,
+          backgroundColor: AppColors.whiteappbarColor,
+          centerTitle: true,
+          title: Text(
+            'favorite'.tr,
+            style: size.width >= 600 ? Styles.defualttab : Styles.defualtmobile,
           ),
           actions: [
-            PopupMenuButton(
-                icon: Icon(
-                  Icons.more_horiz,
-                  color: AppColors.blackColor,
-                ),
-                elevation: 1,
-                itemBuilder: (context) => [
-                      PopupMenuItem(
-                        child: Text("Sort by date"),
-                        value: 1,
-                      ),
-                      PopupMenuItem(
-                        child: Text("Sort by category"),
-                        value: 2,
-                      ),
-                    ])
-          ],
-        ),
-        body: Obx(() {
-          return favoriteController.favorites.length != 0
-              ? Column(
-                  children: [
-                    Expanded(
-                      flex: 5,
-                      child: Container(
-                        margin: EdgeInsets.symmetric(
-                            horizontal: Defaults.defaultPadding),
-                        child:
-                            //  Obx(() {
-                            //   return
-                            StaggeredGridView.countBuilder(
-                          shrinkWrap: true,
-                          crossAxisCount: 2,
-                          itemCount: favoriteController.favorites.length,
-                          itemBuilder: (BuildContext context, int index) {
-                            return FullCard(
-                                isCart: true,
-                                size: size,
-                                product: favoriteController.favorites[index]);
-                          },
-                          staggeredTileBuilder: (int index) =>
-                              new StaggeredTile.count(1, 1.3),
-                          mainAxisSpacing: 25,
-                          crossAxisSpacing: 15,
+            !opensearch
+                ? IconButton(
+                    splashColor: Colors.transparent,
+                    highlightColor: Colors.transparent,
+                    icon: SvgPicture.asset(
+                      'assets/svg/search.svg',
+                      width: 30,
+                    ),
+                    onPressed: () {
+                      setState(() {
+                        opensearch = !opensearch;
+                      });
+                    },
+                  )
+                : Container(),
+            !opensearch
+                ? IconButton(
+                    splashColor: Colors.transparent,
+                    highlightColor: Colors.transparent,
+                    icon: SvgPicture.asset(
+                      'assets/svg/menu.svg',
+                      width: 30,
+                    ),
+                    onPressed: () {
+                      Get.bottomSheet(Container(
+                        padding: EdgeInsets.symmetric(
+                            horizontal: Defaults.defaultPadding * 2.5,
+                            vertical: Defaults.defaultPadding / 2),
+                        height: size.height * 0.26,
+                        decoration: BoxDecoration(
+                          color: Colors.white,
+                          borderRadius: BorderRadius.only(
+                            topLeft: Radius.circular(20),
+                            topRight: Radius.circular(20),
+                          ),
+                          boxShadow: [
+                            BoxShadow(
+                              color: AppColors.darkgreyColor,
+                              offset: Offset(0, -2),
+                              blurRadius: 5,
+                              spreadRadius: 2,
+                            )
+                          ],
                         ),
-                        // }),
+                        child: ListView(
+                          children: [
+                            InkWell(
+                                splashColor: Colors.transparent,
+                                highlightColor: Colors.transparent,
+                                onTap: () {
+                                  setState(() {
+                                    if (statusCode.Token == '') {
+                                      List<dynamic> fav =
+                                          Constansbox.box.read('favorite');
+                                      List<int> favo = [];
+                                      fav.forEach((e) => favo.add(e));
+                                      prodController.getListproduct(
+                                          Listproduct: favo,
+                                          q: '',
+                                          from: '',
+                                          to: '');
+                                    } else {
+                                      favoriteController.getfavorite(
+                                          '', '', '');
+                                    }
+                                    Get.back();
+                                  });
+                                },
+                                child: Center(
+                                  child: Text(
+                                    'all'.tr,
+                                    style: size.width >= 600
+                                        ? Styles.defualttab
+                                        : Styles.defualtmobile,
+                                  ),
+                                )),
+                            Divider(
+                              color: AppColors.darkgreytextColor,
+                            ),
+                            InkWell(
+                                splashColor: Colors.transparent,
+                                highlightColor: Colors.transparent,
+                                onTap: () {
+                                  setState(() {
+                                    if (statusCode.Token == '') {
+                                      List<dynamic> fav =
+                                          Constansbox.box.read('favorite');
+                                      List<int> favo = [];
+                                      fav.forEach((e) => favo.add(e));
+                                      prodController.getListproduct(
+                                          Listproduct: favo,
+                                          q: _searchController.text,
+                                          from: now
+                                              .subtract(Duration(days: 7))
+                                              .toString()
+                                              .split(' ')[0],
+                                          to: now.toString().split(' ')[0]);
+                                    } else {
+                                      favoriteController.getfavorite(
+                                          _searchController.text,
+                                          now
+                                              .subtract(Duration(days: 7))
+                                              .toString()
+                                              .split(' ')[0],
+                                          now.toString().split(' ')[0]);
+                                    }
+                                    Get.back();
+                                  });
+                                },
+                                child: Center(
+                                  child: Text(
+                                    'thisweek'.tr,
+                                    style: size.width >= 600
+                                        ? Styles.defualttab
+                                        : Styles.defualtmobile,
+                                  ),
+                                )),
+                            Divider(
+                              color: AppColors.darkgreytextColor,
+                            ),
+                            InkWell(
+                                splashColor: Colors.transparent,
+                                highlightColor: Colors.transparent,
+                                onTap: () {
+                                  setState(() {
+                                    if (statusCode.Token == '') {
+                                      List<dynamic> fav =
+                                          Constansbox.box.read('favorite');
+                                      List<int> favo = [];
+                                      fav.forEach((e) => favo.add(e));
+                                      prodController.getListproduct(
+                                          Listproduct: favo,
+                                          q: _searchController.text,
+                                          from: now
+                                              .subtract(Duration(days: 30))
+                                              .toString()
+                                              .split(' ')[0],
+                                          to: now.toString().split(' ')[0]);
+                                    } else {
+                                      favoriteController.getfavorite(
+                                          _searchController.text,
+                                          now
+                                              .subtract(Duration(days: 30))
+                                              .toString()
+                                              .split(' ')[0],
+                                          now.toString().split(' ')[0]);
+                                    }
+                                    Get.back();
+                                  });
+                                },
+                                child: Center(
+                                  child: Text(
+                                    'lastmonth'.tr,
+                                    style: size.width >= 600
+                                        ? Styles.defualttab
+                                        : Styles.defualtmobile,
+                                  ),
+                                )),
+                            Divider(
+                              color: AppColors.darkgreytextColor,
+                            ),
+                            InkWell(
+                                splashColor: Colors.transparent,
+                                highlightColor: Colors.transparent,
+                                onTap: () {
+                                  setState(() {
+                                    if (statusCode.Token == '') {
+                                      List<dynamic> fav =
+                                          Constansbox.box.read('favorite');
+                                      List<int> favo = [];
+                                      fav.forEach((e) => favo.add(e));
+                                      prodController.getListproduct(
+                                          Listproduct: favo,
+                                          q: _searchController.text,
+                                          from: now
+                                              .subtract(Duration(days: 180))
+                                              .toString()
+                                              .split(' ')[0],
+                                          to: now.toString().split(' ')[0]);
+                                    } else {
+                                      favoriteController.getfavorite(
+                                          _searchController.text,
+                                          now
+                                              .subtract(Duration(days: 180))
+                                              .toString()
+                                              .split(' ')[0],
+                                          now.toString().split(' ')[0]);
+                                    }
+                                    Get.back();
+                                  });
+                                },
+                                child: Center(
+                                  child: Text(
+                                    'last6month'.tr,
+                                    style: size.width >= 600
+                                        ? Styles.defualttab
+                                        : Styles.defualtmobile,
+                                  ),
+                                )),
+                            Divider(
+                              color: AppColors.darkgreytextColor,
+                            ),
+                            InkWell(
+                                splashColor: Colors.transparent,
+                                highlightColor: Colors.transparent,
+                                onTap: () {
+                                  setState(() {
+                                    if (statusCode.Token == '') {
+                                      List<dynamic> fav =
+                                          Constansbox.box.read('favorite');
+                                      List<int> favo = [];
+                                      fav.forEach((e) => favo.add(e));
+                                      prodController.getListproduct(
+                                          Listproduct: favo,
+                                          q: _searchController.text,
+                                          from: now
+                                              .subtract(Duration(days: 362))
+                                              .toString()
+                                              .split(' ')[0],
+                                          to: now.toString().split(' ')[0]);
+                                    } else {
+                                      favoriteController.getfavorite(
+                                          _searchController.text,
+                                          now
+                                              .subtract(Duration(days: 362))
+                                              .toString()
+                                              .split(' ')[0],
+                                          now.toString().split(' ')[0]);
+                                    }
+                                    Get.back();
+                                  });
+                                },
+                                child: Center(
+                                  child: Text(
+                                    'lastyear'.tr,
+                                    style: size.width >= 600
+                                        ? Styles.defualttab
+                                        : Styles.defualtmobile,
+                                  ),
+                                )),
+                          ],
+                        ),
+                      ));
+                    },
+                  )
+                : Container()
+          ],
+          bottom: PreferredSize(
+            preferredSize: Size.fromHeight(opensearch ? 60 : 0),
+            child: !opensearch
+                ? Container()
+                : Padding(
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: Defaults.defaultPadding),
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        Row(
+                          children: [
+                            Expanded(
+                              flex: 10,
+                              child: Container(
+                                height: 30,
+                                child: TextFormField(
+                                  keyboardType: TextInputType.text,
+                                  decoration: InputDecoration(
+                                    fillColor:
+                                        AppColors.greyColor.withOpacity(0.5),
+                                    filled: true,
+                                    floatingLabelStyle:
+                                        TextStyle(color: AppColors.mainColor),
+                                    focusedBorder: OutlineInputBorder(
+                                      borderSide: BorderSide(
+                                          color: AppColors.mainColor,
+                                          width: 1.0),
+                                    ),
+                                    contentPadding: new EdgeInsets.symmetric(
+                                        vertical: 10.0, horizontal: 10.0),
+                                    labelText: 'search'.tr,
+                                    border: OutlineInputBorder(
+                                      borderRadius: BorderRadius.circular(5),
+                                    ),
+                                  ),
+                                  controller: _searchController,
+                                ),
+                              ),
+                            ),
+                            SizedBox(
+                              width: 15,
+                            ),
+                            Expanded(
+                              flex: 1,
+                              child: InkWell(
+                                onTap: () {
+                                  setState(() {
+                                    List Search =
+                                        Constansbox.box.read('Search');
+                                    var sh = Search.any((e) {
+                                      return e == _searchController.text;
+                                    });
+                                    if (!sh) {
+                                      if (_searchController.text != '') {
+                                        Search.add(_searchController.text);
+                                        Constansbox.box.write('Search', Search);
+                                      }
+                                    }
+
+                                    opensearch = !opensearch;
+                                    if (statusCode.Token == '') {
+                                      List<dynamic> fav =
+                                          Constansbox.box.read('favorite');
+                                      List<int> favo = [];
+                                      fav.forEach((e) => favo.add(e));
+                                      prodController.getListproduct(
+                                          Listproduct: favo,
+                                          q: _searchController.text,
+                                          from: '',
+                                          to: '');
+                                    } else {
+                                      favoriteController.getfavorite(
+                                          _searchController.text, '', '');
+                                    }
+                                  });
+                                },
+                                splashColor: Colors.transparent,
+                                highlightColor: Colors.transparent,
+                                child: SvgPicture.asset(
+                                  'assets/svg/search.svg',
+                                  width: 30,
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                        Container(
+                          padding: EdgeInsets.only(
+                            top: 10,
+                          ),
+                          height: 40,
+                          child: ListView.builder(
+                            scrollDirection: Axis.horizontal,
+                            itemCount: Search.length > 4 ? 4 : Search.length,
+                            itemBuilder: (context, int index) => Container(
+                              height: size.height * 0.027,
+                              width: size.width * 0.1505,
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(5.0),
+                                color: Colors.white,
+                                border: Border.all(
+                                  color: AppColors.darkgreyColor,
+                                  width: 1.5,
+                                ),
+                              ),
+                              margin: EdgeInsets.only(
+                                  left: Defaults.defaultPadding / 4,
+                                  right: Defaults.defaultPadding / 1.5),
+                              child: InkWell(
+                                onTap: () {
+                                  setState(() {
+                                    _searchController = TextEditingController(
+                                        text: Search[index]);
+                                  });
+                                },
+                                child: Center(
+                                  child: FittedBox(
+                                    fit: BoxFit.scaleDown,
+                                    child: Text(
+                                      Search[index],
+                                      style: size.width >= 600
+                                          ? Styles.defualttab
+                                          : Styles.defualtmobile,
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ),
+                        )
+                      ],
+                    ),
+                  ),
+          ),
+        ),
+        backgroundColor: AppColors.whiteColor,
+        body: Obx(() {
+          return statusCode.Token != ''
+              ? !favoriteController.isEmpty.value
+                  ? favoriteController.favorites.length != 0
+                      ? Container(
+                          width: size.width,
+                          height: size.height,
+                          decoration: BoxDecoration(
+                              image: DecorationImage(
+                                  image:
+                                      AssetImage('assets/png/background.png'))),
+                          child: Padding(
+                            padding: EdgeInsets.only(top: 10),
+                            child: Row(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              children: [
+                                CategorysFavorite(
+                                  size: size,
+                                  favoriteController: favoriteController
+                                      .favorites, // subcategory: subcategory,
+                                ),
+                                Container(
+                                  height: double.infinity,
+                                  width: size.width / 1.51,
+                                  padding: EdgeInsets.only(top: 20),
+                                  child: Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    mainAxisAlignment: MainAxisAlignment.start,
+                                    children: [
+                                      Expanded(
+                                        flex: 0,
+                                        child: Container(
+                                            color: AppColors.greyColor,
+                                            child: SubcategoryFavorite(
+                                              favoriteController:
+                                                  favoriteController
+                                                      .favorites[
+                                                          favoriteController
+                                                              .idcategory.value]
+                                                      .subCategories,
+                                              size: size,
+                                              // subcategory: subcategory,
+                                            )),
+                                      ),
+                                      Expanded(
+                                        flex: 11,
+                                        child: Container(
+                                          margin: EdgeInsets.symmetric(
+                                              horizontal:
+                                                  Defaults.defaultPadding),
+                                          child: StaggeredGridView.countBuilder(
+                                            shrinkWrap: true,
+                                            crossAxisCount:
+                                                size.width <= 350 ? 1 : 2,
+                                            itemCount: favoriteController
+                                                .favorites[favoriteController
+                                                    .idcategory.value]
+                                                .subCategories[
+                                                    favoriteController
+                                                        .idsupcategory.value]
+                                                .products
+                                                .length,
+                                            itemBuilder: (BuildContext context,
+                                                int index) {
+                                              var loadingcart = false.obs;
+                                              return FullCard(
+                                                loadingcart: loadingcart,
+                                                size: size,
+                                                product: favoriteController
+                                                    .favorites[
+                                                        favoriteController
+                                                            .idcategory.value]
+                                                    .subCategories[
+                                                        favoriteController
+                                                            .idsupcategory
+                                                            .value]
+                                                    .products[index],
+                                              );
+                                            },
+                                            staggeredTileBuilder: (int index) =>
+                                                new StaggeredTile.count(
+                                                    1,
+                                                    size.height >= 650
+                                                        ? 1.25
+                                                        : size.height >= 550
+                                                            ? 1.25
+                                                            : 1.1),
+                                            mainAxisSpacing: 1,
+                                            crossAxisSpacing: 1,
+                                          ),
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                        )
+                      : Center(
+                          child: CircularProgressIndicator(),
+                        )
+                  : Center(
+                      child: Container(
+                        decoration: BoxDecoration(
+                            image: DecorationImage(
+                                image:
+                                    AssetImage('assets/png/background.png'))),
+                        child: Center(
+                          child: ListView(children: [
+                            Padding(
+                              padding: size.height > 550
+                                  ? const EdgeInsets.all(30)
+                                  : const EdgeInsets.all(10),
+                              child: SvgPicture.asset(
+                                'assets/svg/subscribe.svg',
+                                height: 280,
+                              ),
+                            ),
+                            Padding(
+                              padding: size.height > 550
+                                  ? const EdgeInsets.all(15)
+                                  : const EdgeInsets.all(5),
+                              child: SvgPicture.asset(
+                                  'assets/svg/No favorite to show.svg'),
+                            ),
+                            InkWell(
+                              onTap: () {
+                                Get.offAll(BottomBar(
+                                  fu: HomeView(),
+                                ));
+                              },
+                              child: Center(
+                                child: Text(
+                                  'Find your favorite',
+                                  style: TextStyle(
+                                      color: Colors.red,
+                                      decoration: TextDecoration.underline,
+                                      fontSize: size.width >= 600 ? 25 : 16),
+                                ),
+                              ),
+                            )
+                          ]),
+                        ),
                       ),
                     )
-                  ],
-                )
-              : Center(
-                  child: CircularProgressIndicator(),
-                );
+              : !prodController.isEmpty.value
+                  ? prodController.prods.length != 0
+                      ? Container(
+                          width: size.width,
+                          height: size.height,
+                          decoration: BoxDecoration(
+                              image: DecorationImage(
+                                  image:
+                                      AssetImage('assets/png/background.png'))),
+                          child: Column(
+                            children: [
+                              Expanded(
+                                child: Row(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  mainAxisAlignment: MainAxisAlignment.start,
+                                  children: [
+                                    CategorysFavorite(
+                                      size: size,
+                                      favoriteController: prodController
+                                          .prods, // subcategory: subcategory,
+                                    ),
+                                    Container(
+                                      height: double.infinity,
+                                      width: size.width / 1.51,
+                                      padding: EdgeInsets.only(top: 20),
+                                      child: Column(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.start,
+                                        children: [
+                                          Expanded(
+                                            flex: 0,
+                                            child: Container(
+                                                color: AppColors.greyColor,
+                                                child: SubcategoryFavorite(
+                                                  favoriteController:
+                                                      prodController
+                                                          .prods[
+                                                              favoriteController
+                                                                  .idcategory
+                                                                  .value]
+                                                          .subCategories,
+                                                  size: size,
+                                                  // subcategory: subcategory,
+                                                )),
+                                          ),
+                                          Expanded(
+                                            flex: 11,
+                                            child: Container(
+                                              margin: EdgeInsets.symmetric(
+                                                  horizontal:
+                                                      Defaults.defaultPadding),
+                                              child: StaggeredGridView
+                                                  .countBuilder(
+                                                shrinkWrap: true,
+                                                crossAxisCount:
+                                                    size.width >= 600 ? 3 : 2,
+                                                itemCount: prodController
+                                                    .prods[favoriteController
+                                                        .idcategory.value]
+                                                    .subCategories[
+                                                        favoriteController
+                                                            .idsupcategory
+                                                            .value]
+                                                    .products
+                                                    .length,
+                                                itemBuilder:
+                                                    (BuildContext context,
+                                                        int index) {
+                                                  var loadingcart = false.obs;
+                                                  return FullCard(
+                                                    loadingcart: loadingcart,
+                                                    size: size,
+                                                    product: prodController
+                                                        .prods[
+                                                            favoriteController
+                                                                .idcategory
+                                                                .value]
+                                                        .subCategories[
+                                                            favoriteController
+                                                                .idsupcategory
+                                                                .value]
+                                                        .products[index],
+                                                  );
+                                                },
+                                                staggeredTileBuilder: (int
+                                                        index) =>
+                                                    new StaggeredTile.count(
+                                                        1,
+                                                        size.height >= 650
+                                                            ? 1.25
+                                                            : size.height >= 550
+                                                                ? 1.25
+                                                                : 1.1),
+                                                mainAxisSpacing: 1,
+                                                crossAxisSpacing: 1,
+                                              ),
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ],
+                          ),
+                        )
+                      : Center(
+                          child: CircularProgressIndicator(),
+                        )
+                  : Center(
+                      child: Container(
+                        decoration: BoxDecoration(
+                            image: DecorationImage(
+                                image:
+                                    AssetImage('assets/png/background.png'))),
+                        child: Center(
+                          child: ListView(
+                              padding: EdgeInsets.only(top: size.height / 13),
+                              children: [
+                                Padding(
+                                  padding: size.height > 550
+                                      ? const EdgeInsets.all(30)
+                                      : const EdgeInsets.all(10),
+                                  child: SvgPicture.asset(
+                                    'assets/svg/subscribe.svg',
+                                    height: 280,
+                                  ),
+                                ),
+                                Padding(
+                                  padding: size.height > 550
+                                      ? const EdgeInsets.all(15)
+                                      : const EdgeInsets.all(5),
+                                  child: SvgPicture.asset(
+                                      'assets/svg/No favorite to show.svg'),
+                                ),
+                                InkWell(
+                                  onTap: () {
+                                    Get.offAll(BottomBar(
+                                      fu: HomeView(),
+                                    ));
+                                  },
+                                  child: Center(
+                                    child: Text(
+                                      'Find your favorite',
+                                      style: TextStyle(
+                                          color: Colors.red,
+                                          decoration: TextDecoration.underline,
+                                          fontSize:
+                                              size.width >= 600 ? 25 : 16),
+                                    ),
+                                  ),
+                                )
+                              ]),
+                        ),
+                      ),
+                    );
         }));
   }
 }

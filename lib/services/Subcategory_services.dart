@@ -14,7 +14,9 @@ class SubcategoryService {
     SubcategoryStatus? status;
     ErrorResponse? error;
     Uri url = Uri.http(
-        '${statusCode.url1}', '/api/public/category/$idcategory/sub-category');
+        '${statusCode.url1}',
+        '/api/public/category/$idcategory/sub-category',
+        {'lang': statusCode.Lang});
 
     try {
       var response = await http.get(url);
@@ -36,7 +38,7 @@ class SubcategoryService {
       } else if (response.statusCode == statusCode.BAD_REQUEST) {
         status = SubcategoryStatus.fromJson(responsebode['status']);
 
-        error = ErrorResponse.fromJson(responsebode['errors']);
+        error = ErrorResponse.fromJson(responsebode['errors'][0]);
         apiResult.errorMassage = error.msg;
         apiResult.codeError = status.code;
         apiResult.hasError = true;
@@ -44,7 +46,7 @@ class SubcategoryService {
       } else if (response.statusCode == statusCode.UNAUTHORIZED) {
         status = SubcategoryStatus.fromJson(responsebode['status']);
 
-        error = ErrorResponse.fromJson(responsebode['errors']);
+        error = ErrorResponse.fromJson(responsebode['errors'][0]);
         apiResult.errorMassage = error.msg;
         apiResult.codeError = status.code;
         apiResult.hasError = true;
@@ -52,7 +54,7 @@ class SubcategoryService {
       } else if (response.statusCode == statusCode.FORBIDDEN) {
         status = SubcategoryStatus.fromJson(responsebode['status']);
 
-        error = ErrorResponse.fromJson(responsebode['errors']);
+        error = ErrorResponse.fromJson(responsebode['errors'][0]);
         apiResult.errorMassage = error.msg;
         apiResult.codeError = status.code;
         apiResult.hasError = true;
@@ -60,7 +62,7 @@ class SubcategoryService {
       } else if (response.statusCode == statusCode.NOT_FOUND) {
         status = SubcategoryStatus.fromJson(responsebode['status']);
 
-        error = ErrorResponse.fromJson(responsebode['errors']);
+        error = ErrorResponse.fromJson(responsebode['errors'][0]);
         apiResult.errorMassage = error.msg;
         apiResult.codeError = status.code;
         apiResult.hasError = true;
@@ -68,7 +70,7 @@ class SubcategoryService {
       } else if (response.statusCode == statusCode.DUPLICATED_ENTRY) {
         status = SubcategoryStatus.fromJson(responsebode['status']);
 
-        error = ErrorResponse.fromJson(responsebode['errors']);
+        error = ErrorResponse.fromJson(responsebode['errors'][0]);
         apiResult.errorMassage = error.msg;
         apiResult.codeError = status.code;
         apiResult.hasError = true;
@@ -76,7 +78,7 @@ class SubcategoryService {
       } else if (response.statusCode == statusCode.VALIDATION_ERROR) {
         status = SubcategoryStatus.fromJson(responsebode['status']);
 
-        error = ErrorResponse.fromJson(responsebode['errors']);
+        error = ErrorResponse.fromJson(responsebode['errors'][0]);
         apiResult.errorMassage = error.msg;
         apiResult.codeError = status.code;
         apiResult.hasError = true;
@@ -84,14 +86,14 @@ class SubcategoryService {
       } else if (response.statusCode == statusCode.INTERNAL_SERVER_ERROR) {
         status = SubcategoryStatus.fromJson(responsebode['status']);
 
-        error = ErrorResponse.fromJson(responsebode['errors']);
+        error = ErrorResponse.fromJson(responsebode['errors'][0]);
         apiResult.errorMassage = error.msg;
         apiResult.codeError = status.code;
         apiResult.hasError = true;
         print('Server error Please try again');
       } else {
         status = SubcategoryStatus.fromJson(responsebode['status']);
-        error = ErrorResponse.fromJson(responsebode['errors']);
+        error = ErrorResponse.fromJson(responsebode['errors'][0]);
         apiResult.errorMassage = error.msg;
         apiResult.codeError = status.code;
         apiResult.hasError = true;
@@ -108,7 +110,7 @@ class SubcategoryService {
       apiResult.hasError = true;
       print('There is a problem with the admin');
     } catch (e) {
-      apiResult.errorMassage = '${e}';
+      apiResult.errorMassage = 'حدث خطأ غير متوقع';
       apiResult.codeError = statusCode.connection;
       apiResult.hasError = true;
       print('${e}');

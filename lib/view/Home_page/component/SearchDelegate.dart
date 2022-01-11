@@ -1,12 +1,17 @@
 import 'package:delivery_food/General/Constants.dart';
-import 'package:delivery_food/controller/Category_controller.dart';
+
 import 'package:delivery_food/controller/Products_controller.dart';
+import 'package:delivery_food/controller/Search_controller.dart';
 import 'package:delivery_food/view/Home_page/component/Filter_Search.dart';
+import 'package:delivery_food/view/Products_page.dart/component/Products_Cards.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:get/get.dart';
 
 class Datasesrch extends SearchDelegate<String> {
-  CategorysController categorys = Get.find<CategorysController>();
+  var prodController = Get.find<ProductsController>();
+  StatusCode statusCode = StatusCode();
+  var searchController = Get.put(SearchController());
   String q = '';
   @override
   List<Widget> buildActions(BuildContext context) {
@@ -36,6 +41,22 @@ class Datasesrch extends SearchDelegate<String> {
 
   @override
   Widget buildResults(BuildContext context) {
+    Size size = MediaQuery.of(context).size;
+
+    if (query != '') {
+      bool isem = true;
+      var SearchHome = Constansbox.box.read('SearchHome');
+      for (int i = 0; i < SearchHome.length; i++) {
+        if (SearchHome[i] == query) {
+          isem = false;
+        }
+      }
+      if (isem) {
+        SearchHome.add(query);
+
+        Constansbox.box.write('SearchHome', SearchHome);
+      }
+    }
     return GetBuilder<ProductsController>(
         init: ProductsController(),
         builder: (products) {
@@ -44,27 +65,87 @@ class Datasesrch extends SearchDelegate<String> {
                 subCategoryId: '', offset: 0, limit: 50, q: query);
           }
           q = query;
-
-          return ListView.builder(
-              shrinkWrap: true,
-              itemCount: products.products.length,
-              itemBuilder: (context, i) {
-                return Text(products.products[i].name.toString());
-              });
+          return Obx(() {
+            return Container(
+              margin: EdgeInsets.symmetric(horizontal: Defaults.defaultPadding),
+              child: StaggeredGridView.countBuilder(
+                shrinkWrap: true,
+                crossAxisCount: 3,
+                itemCount: prodController.products.length,
+                itemBuilder: (BuildContext context, int index) {
+                  var loadingcart = false.obs;
+                  return FullCard(
+                    loadingcart: loadingcart,
+                    size: size,
+                    product: prodController.products[index],
+                  );
+                },
+                staggeredTileBuilder: (int index) =>
+                    new StaggeredTile.count(1, size.height >= 650 ? 1.3 : 1.2),
+                mainAxisSpacing: 1,
+                crossAxisSpacing: 10,
+              ),
+            );
+          });
         });
   }
 
   @override
   Widget buildSuggestions(BuildContext context) {
+    Size size = MediaQuery.of(context).size;
+
     if (query.isEmpty) {
-      return Wrap(
-          children: new List.generate(
-              categorys.categorys.length,
-              (index) => Padding(
-                    padding: EdgeInsets.only(left: 20, top: 20),
-                    child: Button_category_search(
-                        categorys.categorys[index].name.toString()),
-                  )));
+      return Obx(() {
+        return ListView.builder(
+          scrollDirection: Axis.vertical,
+          itemCount: searchController.SearchHome.length,
+          itemBuilder: (context, int index) => Container(
+            height: size.height * 0.06,
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(5.0),
+              color: Colors.white,
+              border: Border.all(
+                color: AppColors.darkgreyColor,
+                width: 0.5,
+              ),
+            ),
+            // margin: EdgeInsets.only(
+            //     left: Defaults.defaultPadding / 4,
+            //     right: Defaults.defaultPadding / 1.5),
+            child: InkWell(
+              onTap: () {
+                query = searchController.SearchHome[index];
+              },
+              child: Padding(
+                padding: statusCode.Lang == 'en'
+                    ? EdgeInsets.only(left: 20.0)
+                    : EdgeInsets.only(right: 20.0),
+                child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      FittedBox(
+                        fit: BoxFit.scaleDown,
+                        child: Text(
+                          searchController.SearchHome[index],
+                          style: size.width >= 600
+                              ? Styles.defualttab
+                              : Styles.defualtmobile,
+                        ),
+                      ),
+                      IconButton(
+                          icon: Icon(
+                            Icons.clear,
+                            color: AppColors.mainColor,
+                          ),
+                          onPressed: () {
+                            searchController.SearchHome.removeAt(index);
+                          })
+                    ]),
+              ),
+            ),
+          ),
+        );
+      });
     } else {
       return GetBuilder<ProductsController>(
           init: ProductsController(),
@@ -74,13 +155,29 @@ class Datasesrch extends SearchDelegate<String> {
                   subCategoryId: '', offset: 0, limit: 50, q: query);
             }
             q = query;
-
-            return ListView.builder(
-                shrinkWrap: true,
-                itemCount: products.products.length,
-                itemBuilder: (context, i) {
-                  return Text(products.products[i].name.toString());
-                });
+            return Obx(() {
+              return Container(
+                margin:
+                    EdgeInsets.symmetric(horizontal: Defaults.defaultPadding),
+                child: StaggeredGridView.countBuilder(
+                  shrinkWrap: true,
+                  crossAxisCount: 3,
+                  itemCount: prodController.products.length,
+                  itemBuilder: (BuildContext context, int index) {
+                    var loadingcart = false.obs;
+                    return FullCard(
+                      loadingcart: loadingcart,
+                      size: size,
+                      product: prodController.products[index],
+                    );
+                  },
+                  staggeredTileBuilder: (int index) => new StaggeredTile.count(
+                      1, size.height >= 650 ? 1.3 : 1.2),
+                  mainAxisSpacing: 1,
+                  crossAxisSpacing: 10,
+                ),
+              );
+            });
           });
     }
   }

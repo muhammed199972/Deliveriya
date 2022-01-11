@@ -33,3 +33,39 @@ class AuthStatus {
         "msg": msg,
       };
 }
+
+class SignUpResponse {
+  SignUpResponse({
+    this.data,
+  });
+
+  Data? data;
+
+  factory SignUpResponse.fromJson(Map<String, dynamic> json) => SignUpResponse(
+        data: Data.fromJson(json["data"]),
+      );
+
+  Map<String, dynamic> toJson() => {
+        "data": data!.toJson(),
+      };
+}
+
+class Data {
+  Data({
+    this.accessToken,
+    this.refreshToken,
+  });
+
+  String? accessToken;
+  String? refreshToken;
+
+  factory Data.fromJson(Map<String, dynamic> json) => Data(
+        accessToken: json["accessToken"],
+        refreshToken: json["refreshToken"],
+      );
+
+  Map<String, dynamic> toJson() => {
+        "accessToken": accessToken,
+        "refreshToken": refreshToken,
+      };
+}

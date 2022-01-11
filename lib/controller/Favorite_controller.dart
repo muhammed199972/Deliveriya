@@ -1,7 +1,7 @@
 import 'package:delivery_food/General/Api_Result.dart';
-import 'package:delivery_food/model/Delete.dart';
+import 'package:delivery_food/General/Dialogs.dart';
+import 'package:delivery_food/model/DeletePutPost.dart';
 import 'package:delivery_food/model/Favorite_model.dart';
-import 'package:delivery_food/model/Post_data.dart';
 import 'package:delivery_food/services/Favorite_services.dart';
 import 'package:get/get.dart';
 
@@ -9,8 +9,12 @@ class FavoriteController extends GetxController {
   var favorites = <FavoriteResponse>[].obs;
   var hasError = true.obs;
   var massage = ''.obs;
-  var postFavorite = PostResponse().obs;
-  var deleteFavorite = DeleteResponse().obs;
+  var postFavorite = DeletePutPostResponse().obs;
+  var deleteFavorite = DeletePutPostResponse().obs;
+  var opensearch = false.obs;
+  var idcategory = 0.obs;
+  var idsupcategory = 0.obs;
+  var isEmpty = false.obs;
 
   ApiResult apiResult = ApiResult();
   FavoriteService favoriteService = FavoriteService();
@@ -21,56 +25,98 @@ class FavoriteController extends GetxController {
     super.onInit();
   }
 
-  getfavorite(int offset, int limit) async {
+  getfavorite(String q, String from, String to) async {
+    favorites = <FavoriteResponse>[].obs;
     try {
-      apiResult = await favoriteService.getfavoriteData(offset, limit);
-      if (!apiResult.hasError!) {
-        favorites.value = apiResult.data;
-        hasError.value = apiResult.hasError!;
-        print(favorites.value);
+      apiResult = await favoriteService.getfavoriteData(q, from, to);
+      if (apiResult.rfreshToken) {
+        if (!apiResult.hasError!) {
+          isEmpty.value = apiResult.isEmpty;
+
+          favorites.value = apiResult.data;
+          hasError.value = apiResult.hasError!;
+        } else {
+          hasError.value = apiResult.hasError!;
+          massage.value = apiResult.errorMassage!;
+          DialogsUtils.showdialog(
+              m: massage.value,
+              onPressed: () {
+                Get.back();
+                Get.back();
+              });
+        }
       } else {
-        hasError.value = apiResult.hasError!;
-        massage.value = apiResult.errorMassage!;
+        getfavorite(q, from, to);
       }
-    } finally {
+    } catch (e) {
       hasError.value = apiResult.hasError!;
       massage.value = apiResult.errorMassage!;
+      DialogsUtils.showdialog(
+          m: 'حدث خطأ غير متوقع',
+          onPressed: () {
+            Get.back();
+            Get.back();
+          });
     }
   }
 
   deleteFavorites(int id) async {
     try {
       apiResult = await favoriteService.deletefavoriteData(id);
-      if (!apiResult.hasError!) {
-        deleteFavorite.value = apiResult.data;
-        hasError.value = apiResult.hasError!;
+      if (apiResult.rfreshToken) {
+        if (!apiResult.hasError!) {
+          deleteFavorite.value = apiResult.data;
+          hasError.value = apiResult.hasError!;
+        } else {
+          hasError.value = apiResult.hasError!;
+          massage.value = apiResult.errorMassage!;
+          DialogsUtils.showdialog(
+              m: massage.value,
+              onPressed: () {
+                Get.back();
+              });
+        }
       } else {
-        hasError.value = apiResult.hasError!;
-        massage.value = apiResult.errorMassage!;
+        deleteFavorites(id);
       }
     } catch (e) {
       hasError.value = apiResult.hasError!;
       massage.value = apiResult.errorMassage!;
-      print(e);
+      DialogsUtils.showdialog(
+          m: 'حدث خطأ غير متوقع',
+          onPressed: () {
+            Get.back();
+          });
     }
   }
 
   addFavorite(int id) async {
-    print('[[[[[[[[[[[[[[object]]]]]]]]]]]]]]');
-
     try {
       apiResult = await favoriteService.postfavoriteData(id);
-      if (!apiResult.hasError!) {
-        postFavorite.value = apiResult.data;
-        hasError.value = apiResult.hasError!;
+      if (apiResult.rfreshToken) {
+        if (!apiResult.hasError!) {
+          postFavorite.value = apiResult.data;
+          hasError.value = apiResult.hasError!;
+        } else {
+          hasError.value = apiResult.hasError!;
+          massage.value = apiResult.errorMassage!;
+          DialogsUtils.showdialog(
+              m: massage.value,
+              onPressed: () {
+                Get.back();
+              });
+        }
       } else {
-        hasError.value = apiResult.hasError!;
-        massage.value = apiResult.errorMassage!;
+        addFavorite(id);
       }
     } catch (e) {
       hasError.value = apiResult.hasError!;
       massage.value = apiResult.errorMassage!;
-      print(e);
+      DialogsUtils.showdialog(
+          m: 'حدث خطأ غير متوقع',
+          onPressed: () {
+            Get.back();
+          });
     }
   }
 }

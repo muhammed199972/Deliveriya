@@ -1,5 +1,6 @@
 import 'package:delivery_food/General/Api_Result.dart';
 import 'package:delivery_food/General/Constants.dart';
+import 'package:delivery_food/General/Dialogs.dart';
 import 'package:delivery_food/model/Ads_model.dart';
 import 'package:delivery_food/services/Ads_services.dart';
 import 'package:get/get.dart';
@@ -14,22 +15,22 @@ class AdssController extends GetxController {
   var isNewStatuts = true.obs;
   @override
   void onInit() async {
-    getAds();
+    await getAds();
+    checkStatuses();
     super.onInit();
   }
 
   checkStatuses() {
     var New = Constansbox.box.read('New');
-    bool? check;
+    bool check = true;
     for (int i = 0; i < adss.length; i++) {
       check = New.any((element) => element == adss[i].id ? true : false);
-      if (!check!) {
+      if (!check) {
+        isNewStatuts.value = check;
+
         break;
       }
-      print(New);
     }
-
-    isNewStatuts.value = check!;
   }
 
   getAds() async {
@@ -41,10 +42,22 @@ class AdssController extends GetxController {
       } else {
         hasError.value = apiResult.hasError!;
         massage.value = apiResult.errorMassage!;
+        DialogsUtils.showdialog(
+            m: massage.value,
+            onPressed: () {
+              Get.back();
+              Get.back();
+            });
       }
-    } finally {
+    } catch (e) {
       hasError.value = apiResult.hasError!;
       massage.value = apiResult.errorMassage!;
+      DialogsUtils.showdialog(
+          m: 'حدث خطأ غير متوقع',
+          onPressed: () {
+            Get.back();
+            Get.back();
+          });
     }
   }
 }

@@ -1,41 +1,62 @@
 class OffersResponse {
-  OffersResponse({
-    this.id,
-    this.afterPrice,
-    this.beforePrice,
-    this.avatar,
-    this.name,
-    this.createdAt,
-    this.updatedAt,
-  });
-
   int? id;
   int? afterPrice;
   int? beforePrice;
-  String? avatar;
+  String? media;
+  String? mediaType;
+  String? color;
   String? name;
-  DateTime? createdAt;
-  DateTime? updatedAt;
+  String? description;
+  String? type;
 
-  factory OffersResponse.fromJson(Map<String, dynamic> json) => OffersResponse(
-        id: json["id"],
-        afterPrice: json["afterPrice"],
-        beforePrice: json["beforePrice"],
-        avatar: json["avatar"],
-        name: json["name"],
-        createdAt: DateTime.parse(json["createdAt"]),
-        updatedAt: DateTime.parse(json["updatedAt"]),
-      );
+  String? createdAt;
+  String? updatedAt;
 
-  Map<String, dynamic> toJson() => {
-        "id": id,
-        "afterPrice": afterPrice,
-        "beforePrice": beforePrice,
-        "avatar": avatar,
-        "name": name,
-        "createdAt": createdAt!.toIso8601String(),
-        "updatedAt": updatedAt!.toIso8601String(),
-      };
+  OffersResponse(
+      {this.id,
+      this.afterPrice,
+      this.beforePrice,
+      this.media,
+      this.mediaType,
+      this.color,
+      this.name,
+      this.type,
+      this.description,
+      this.createdAt,
+      this.updatedAt});
+
+  OffersResponse.fromJson(Map<String, dynamic> json) {
+    id = json['id'];
+    afterPrice = json['afterPrice'];
+    beforePrice = json['beforePrice'];
+    media = json['media'];
+    mediaType = json['mediaType'];
+    color = json['color'];
+    name = json['name'];
+    type = json['type'];
+
+    description = json['description'];
+    createdAt = json['createdAt'];
+    updatedAt = json['updatedAt'];
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+    data['id'] = this.id;
+    data['afterPrice'] = this.afterPrice;
+    data['beforePrice'] = this.beforePrice;
+    data['media'] = this.media;
+    data['mediaType'] = this.mediaType;
+    data['color'] = this.color;
+    data['name'] = this.name;
+
+    data['type'] = this.type;
+
+    data['description'] = this.description;
+    data['createdAt'] = this.createdAt;
+    data['updatedAt'] = this.updatedAt;
+    return data;
+  }
 }
 
 class OffersStatus {

@@ -29,65 +29,67 @@ class SubcategoryScroll extends StatelessWidget {
               if ((index % 2) == 0) {
                 even_or_odd = false;
               }
-              return Obx(() {
-                return Container(
-                    height: size.height * 0.0293,
-                    width:
-                        even_or_odd ? size.width * 0.3405 : size.width * 0.2189,
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(5.0),
-                      color: Colors.white,
-                      border: Border.all(
-                        color: subController.value.value ==
-                                subController.subcategorys[index].id
-                            ? AppColors.mainColor
-                            : AppColors.greyColor,
-                        width: 1,
-                      ),
+
+              return Container(
+                  height: size.height * 0.0293,
+                  width:
+                      even_or_odd ? size.width * 0.3405 : size.width * 0.2189,
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(5.0),
+                    color: Colors.white,
+                    border: Border.all(
+                      color: AppColors.darkgreyColor,
+                      width: 1.5,
                     ),
-                    margin: EdgeInsets.only(
-                        left: Defaults.defaultPadding / 4,
-                        right: Defaults.defaultPadding / 1.5),
-                    child: Obx(
-                      () {
-                        return InkWell(
-                          onTap: () {
-                            subController.changevalue(
-                                subController.subcategorys[index].id!);
-                            prodController.getproduct(
-                                subCategoryId:
-                                    '${subController.subcategorys[index].id!}',
-                                offset: 0,
-                                limit: 8,
-                                q: '');
-                            // prodController.getproduct(
-                            //     subCategoryId: index.toString(),
-                            //     offset: 0,
-                            //     limit: 8,
-                            //     q: '');
-                          },
-                          child: Row(
-                              crossAxisAlignment: CrossAxisAlignment.center,
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                Center(
+                  ),
+                  margin: EdgeInsets.only(
+                      left: Defaults.defaultPadding / 4,
+                      right: Defaults.defaultPadding / 1.5),
+                  child: Obx(
+                    () {
+                      return InkWell(
+                        onTap: () {
+                          subController.changevalue(
+                              subController.subcategorys[index].id!);
+                          prodController.offsetScroll = 0;
+                          prodController.subcategoryId =
+                              subController.subcategorys[index].id!;
+                          prodController.getproduct(
+                              subCategoryId:
+                                  '${subController.subcategorys[index].id!}',
+                              offset: 0,
+                              limit: 16,
+                              q: '');
+                          // prodController.getproduct(
+                          //     subCategoryId: index.toString(),
+                          //     offset: 0,
+                          //     limit: 8,
+                          //     q: '');
+                        },
+                        child: Row(
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Center(
+                                child: FittedBox(
+                                  fit: BoxFit.scaleDown,
                                   child: Text(
                                     subController.subcategorys[index].name
                                         .toString(),
                                     style: TextStyle(
-                                      color: subController.value.value ==
-                                              subController
-                                                  .subcategorys[index].id
-                                          ? AppColors.mainColor
-                                          : AppColors.greyColor,
-                                    ),
+                                        color: subController.idsub.value ==
+                                                subController
+                                                    .subcategorys[index].id
+                                            ? AppColors.mainColor
+                                            : AppColors.darkgreytextColor,
+                                        fontSize: size.width >= 600 ? 25 : 16),
                                   ),
                                 ),
-                              ]),
-                        );
-                      },
-                    ));
-              });
+                              ),
+                            ]),
+                      );
+                    },
+                  ));
             });
       }),
     );
