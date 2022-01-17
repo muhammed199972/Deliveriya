@@ -70,7 +70,8 @@ class Datasesrch extends SearchDelegate<String> {
               margin: EdgeInsets.symmetric(horizontal: Defaults.defaultPadding),
               child: StaggeredGridView.countBuilder(
                 shrinkWrap: true,
-                crossAxisCount: 3,
+                crossAxisCount:
+                    size.width <= 340 ? 2 : (size.width >= 600 ? 4 : 3),
                 itemCount: prodController.products.length,
                 itemBuilder: (BuildContext context, int index) {
                   var loadingcart = false.obs;
@@ -161,7 +162,8 @@ class Datasesrch extends SearchDelegate<String> {
                     EdgeInsets.symmetric(horizontal: Defaults.defaultPadding),
                 child: StaggeredGridView.countBuilder(
                   shrinkWrap: true,
-                  crossAxisCount: 3,
+                  crossAxisCount:
+                      size.width <= 340 ? 2 : (size.width >= 600 ? 4 : 3),
                   itemCount: prodController.products.length,
                   itemBuilder: (BuildContext context, int index) {
                     var loadingcart = false.obs;

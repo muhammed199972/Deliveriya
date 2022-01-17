@@ -499,8 +499,11 @@ class _FavoriteViewState extends State<FavoriteView> {
                                                   Defaults.defaultPadding),
                                           child: StaggeredGridView.countBuilder(
                                             shrinkWrap: true,
-                                            crossAxisCount:
-                                                size.width <= 350 ? 1 : 2,
+                                            crossAxisCount: size.width >= 600
+                                                ? 3
+                                                : size.width >= 340
+                                                    ? 2
+                                                    : 1,
                                             itemCount: favoriteController
                                                 .favorites[favoriteController
                                                     .idcategory.value]
@@ -556,40 +559,51 @@ class _FavoriteViewState extends State<FavoriteView> {
                                 image:
                                     AssetImage('assets/png/background.png'))),
                         child: Center(
-                          child: ListView(children: [
-                            Padding(
-                              padding: size.height > 550
-                                  ? const EdgeInsets.all(30)
-                                  : const EdgeInsets.all(10),
-                              child: SvgPicture.asset(
-                                'assets/svg/subscribe.svg',
-                                height: 280,
-                              ),
-                            ),
-                            Padding(
-                              padding: size.height > 550
-                                  ? const EdgeInsets.all(15)
-                                  : const EdgeInsets.all(5),
-                              child: SvgPicture.asset(
-                                  'assets/svg/No favorite to show.svg'),
-                            ),
-                            InkWell(
-                              onTap: () {
-                                Get.offAll(BottomBar(
-                                  fu: HomeView(),
-                                ));
-                              },
-                              child: Center(
-                                child: Text(
-                                  'Find your favorite',
-                                  style: TextStyle(
-                                      color: Colors.red,
-                                      decoration: TextDecoration.underline,
-                                      fontSize: size.width >= 600 ? 25 : 16),
+                          child: Column(
+                              //    padding: EdgeInsets.only(top: size.height / 13),
+                              children: [
+                                Expanded(
+                                  flex: 6,
+                                  child: Padding(
+                                    padding: size.height > 550
+                                        ? const EdgeInsets.all(30)
+                                        : const EdgeInsets.all(10),
+                                    child: SvgPicture.asset(
+                                      'assets/svg/subscribe.svg',
+                                      height: 280,
+                                    ),
+                                  ),
                                 ),
-                              ),
-                            )
-                          ]),
+                                Expanded(
+                                  child: Padding(
+                                    padding: size.height > 550
+                                        ? const EdgeInsets.all(15)
+                                        : const EdgeInsets.all(5),
+                                    child: SvgPicture.asset(
+                                        'assets/svg/No favorite to show.svg'),
+                                  ),
+                                ),
+                                Expanded(
+                                  child: InkWell(
+                                    onTap: () {
+                                      Get.offAll(BottomBar(
+                                        fu: HomeView(),
+                                      ));
+                                    },
+                                    child: Center(
+                                      child: Text(
+                                        'Find your favorite',
+                                        style: TextStyle(
+                                            color: Colors.red,
+                                            decoration:
+                                                TextDecoration.underline,
+                                            fontSize:
+                                                size.width >= 600 ? 25 : 16),
+                                      ),
+                                    ),
+                                  ),
+                                )
+                              ]),
                         ),
                       ),
                     )
@@ -650,7 +664,11 @@ class _FavoriteViewState extends State<FavoriteView> {
                                                   .countBuilder(
                                                 shrinkWrap: true,
                                                 crossAxisCount:
-                                                    size.width >= 600 ? 3 : 2,
+                                                    size.width >= 600
+                                                        ? 3
+                                                        : size.width >= 340
+                                                            ? 2
+                                                            : 1,
                                                 itemCount: prodController
                                                     .prods[favoriteController
                                                         .idcategory.value]
@@ -712,39 +730,47 @@ class _FavoriteViewState extends State<FavoriteView> {
                                 image:
                                     AssetImage('assets/png/background.png'))),
                         child: Center(
-                          child: ListView(
-                              padding: EdgeInsets.only(top: size.height / 13),
+                          child: Column(
+                              //    padding: EdgeInsets.only(top: size.height / 13),
                               children: [
-                                Padding(
-                                  padding: size.height > 550
-                                      ? const EdgeInsets.all(30)
-                                      : const EdgeInsets.all(10),
-                                  child: SvgPicture.asset(
-                                    'assets/svg/subscribe.svg',
-                                    height: 280,
+                                Expanded(
+                                  flex: 6,
+                                  child: Padding(
+                                    padding: size.height > 550
+                                        ? const EdgeInsets.all(30)
+                                        : const EdgeInsets.all(10),
+                                    child: SvgPicture.asset(
+                                      'assets/svg/subscribe.svg',
+                                      height: 280,
+                                    ),
                                   ),
                                 ),
-                                Padding(
-                                  padding: size.height > 550
-                                      ? const EdgeInsets.all(15)
-                                      : const EdgeInsets.all(5),
-                                  child: SvgPicture.asset(
-                                      'assets/svg/No favorite to show.svg'),
+                                Expanded(
+                                  child: Padding(
+                                    padding: size.height > 550
+                                        ? const EdgeInsets.all(15)
+                                        : const EdgeInsets.all(5),
+                                    child: SvgPicture.asset(
+                                        'assets/svg/No favorite to show.svg'),
+                                  ),
                                 ),
-                                InkWell(
-                                  onTap: () {
-                                    Get.offAll(BottomBar(
-                                      fu: HomeView(),
-                                    ));
-                                  },
-                                  child: Center(
-                                    child: Text(
-                                      'Find your favorite',
-                                      style: TextStyle(
-                                          color: Colors.red,
-                                          decoration: TextDecoration.underline,
-                                          fontSize:
-                                              size.width >= 600 ? 25 : 16),
+                                Expanded(
+                                  child: InkWell(
+                                    onTap: () {
+                                      Get.offAll(BottomBar(
+                                        fu: HomeView(),
+                                      ));
+                                    },
+                                    child: Center(
+                                      child: Text(
+                                        'Find your favorite',
+                                        style: TextStyle(
+                                            color: Colors.red,
+                                            decoration:
+                                                TextDecoration.underline,
+                                            fontSize:
+                                                size.width >= 600 ? 25 : 16),
+                                      ),
                                     ),
                                   ),
                                 )

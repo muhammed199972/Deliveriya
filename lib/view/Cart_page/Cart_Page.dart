@@ -119,37 +119,46 @@ class CartView extends StatelessWidget {
                               child: Center(
                                 child: Column(
                                     mainAxisAlignment: MainAxisAlignment.center,
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.center,
                                     children: [
-                                      Padding(
-                                        padding: size.height > 550
-                                            ? const EdgeInsets.all(30)
-                                            : const EdgeInsets.all(10),
-                                        child: SvgPicture.asset(
-                                            'assets/svg/empty-cart.svg'),
+                                      Expanded(
+                                        flex: 6,
+                                        child: Padding(
+                                          padding: size.height > 550
+                                              ? const EdgeInsets.all(30)
+                                              : const EdgeInsets.all(10),
+                                          child: SvgPicture.asset(
+                                              'assets/svg/empty-cart.svg'),
+                                        ),
                                       ),
-                                      Padding(
-                                        padding: size.height > 550
-                                            ? const EdgeInsets.all(15)
-                                            : const EdgeInsets.all(5),
-                                        child: SvgPicture.asset(
-                                            'assets/svg/Your cart is empty.svg'),
+                                      Expanded(
+                                        child: Padding(
+                                          padding: size.height > 550
+                                              ? const EdgeInsets.all(15)
+                                              : const EdgeInsets.all(5),
+                                          child: SvgPicture.asset(
+                                              'assets/svg/Your cart is empty.svg'),
+                                        ),
                                       ),
-                                      InkWell(
-                                        onTap: () {
-                                          Get.offAll(BottomBar(
-                                            fu: HomeView(),
-                                          ));
-                                        },
-                                        child: Center(
-                                          child: Text(
-                                            'Find your favorite',
-                                            style: TextStyle(
-                                                color: Colors.red,
-                                                decoration:
-                                                    TextDecoration.underline,
-                                                fontSize: size.width >= 600
-                                                    ? 25
-                                                    : 16),
+                                      Expanded(
+                                        child: InkWell(
+                                          onTap: () {
+                                            Get.offAll(BottomBar(
+                                              fu: HomeView(),
+                                            ));
+                                          },
+                                          child: Center(
+                                            child: Text(
+                                              'Find your favorite',
+                                              style: TextStyle(
+                                                  color: Colors.red,
+                                                  decoration:
+                                                      TextDecoration.underline,
+                                                  fontSize: size.width >= 600
+                                                      ? 25
+                                                      : 16),
+                                            ),
                                           ),
                                         ),
                                       )
@@ -183,36 +192,43 @@ class CartView extends StatelessWidget {
                                     crossAxisAlignment:
                                         CrossAxisAlignment.center,
                                     children: [
-                                      Padding(
-                                        padding: size.height > 550
-                                            ? const EdgeInsets.all(30)
-                                            : const EdgeInsets.all(10),
-                                        child: SvgPicture.asset(
-                                            'assets/svg/empty-cart.svg'),
+                                      Expanded(
+                                        flex: 6,
+                                        child: Padding(
+                                          padding: size.height > 550
+                                              ? const EdgeInsets.all(30)
+                                              : const EdgeInsets.all(10),
+                                          child: SvgPicture.asset(
+                                              'assets/svg/empty-cart.svg'),
+                                        ),
                                       ),
-                                      Padding(
-                                        padding: size.height > 550
-                                            ? const EdgeInsets.all(15)
-                                            : const EdgeInsets.all(5),
-                                        child: SvgPicture.asset(
-                                            'assets/svg/Your cart is empty.svg'),
+                                      Expanded(
+                                        child: Padding(
+                                          padding: size.height > 550
+                                              ? const EdgeInsets.all(15)
+                                              : const EdgeInsets.all(5),
+                                          child: SvgPicture.asset(
+                                              'assets/svg/Your cart is empty.svg'),
+                                        ),
                                       ),
-                                      InkWell(
-                                        onTap: () {
-                                          Get.offAll(BottomBar(
-                                            fu: HomeView(),
-                                          ));
-                                        },
-                                        child: Center(
-                                          child: Text(
-                                            'Find your favorite',
-                                            style: TextStyle(
-                                                color: Colors.red,
-                                                decoration:
-                                                    TextDecoration.underline,
-                                                fontSize: size.width >= 600
-                                                    ? 25
-                                                    : 16),
+                                      Expanded(
+                                        child: InkWell(
+                                          onTap: () {
+                                            Get.offAll(BottomBar(
+                                              fu: HomeView(),
+                                            ));
+                                          },
+                                          child: Center(
+                                            child: Text(
+                                              'Find your favorite',
+                                              style: TextStyle(
+                                                  color: Colors.red,
+                                                  decoration:
+                                                      TextDecoration.underline,
+                                                  fontSize: size.width >= 600
+                                                      ? 25
+                                                      : 16),
+                                            ),
                                           ),
                                         ),
                                       )
