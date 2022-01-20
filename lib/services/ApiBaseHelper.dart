@@ -25,10 +25,14 @@ class ApiBaseHelper {
         });
       }
 
-      responseJson = returnResponse.returnResponse(response);
+      returnResponse.returnResponse(response);
       return responseJson;
     } on SocketException {
       print('object');
+    } catch (e) {
+      print(
+          ',,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,llllllllllllllllllljjjjjjjjjjjj,,,');
+      print('jllllllllllllllllllllllllllllllll$e');
     }
   }
 }

@@ -20,7 +20,7 @@ class ReturnResponse {
     } else if (response.statusCode == statusCode.UNAUTHORIZED) {
       await authController.postrefreshToken();
       print('A bad request Please try again');
-      throw ('no token');
+      throw new Exception('This is my first custom exception');
     } else if (response.statusCode == statusCode.FORBIDDEN) {
       print('A bad request Please try again');
     } else if (response.statusCode == statusCode.NOT_FOUND) {
