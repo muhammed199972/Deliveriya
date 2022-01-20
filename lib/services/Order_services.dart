@@ -9,6 +9,7 @@ import 'package:delivery_food/model/DeletePutPost.dart';
 import 'package:delivery_food/model/Error.dart';
 import 'package:delivery_food/model/Img_History.dart';
 import 'package:delivery_food/model/Order_model.dart';
+import 'package:delivery_food/services/ApiBaseHelper.dart';
 import 'package:http/http.dart' as http;
 
 class OrderService {
@@ -23,105 +24,12 @@ class OrderService {
     Uri url = Uri.http('${statusCode.url1}', '/api/private/user/order',
         {'q': q, 'lang': statusCode.Lang});
 
-    try {
-      var response = await http
-          .get(url, headers: {'Authorization': 'Bearer ${statusCode.Token}'});
-      var responsebode = jsonDecode(response.body);
+    ApiBaseHelper apiBaseHelper = ApiBaseHelper();
+    var tt = apiBaseHelper.get(url, '');
+    print('kkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkk');
+    print(tt);
+    print('kkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkk');
 
-      if (response.statusCode == statusCode.OK ||
-          response.statusCode == statusCode.CREATED) {
-        status = OrderStatus.fromJson(responsebode['status']);
-
-        if (responsebode['response'] != null) {
-          for (var item in responsebode['response']) {
-            calendar.add(OrderResponse.fromJson(item));
-          }
-          apiResult.errorMassage = status.msg;
-          apiResult.codeError = status.code;
-          apiResult.hasError = false;
-          apiResult.data = calendar;
-        }
-      } else if (response.statusCode == statusCode.BAD_REQUEST) {
-        status = OrderStatus.fromJson(responsebode['status']);
-
-        error = ErrorResponse.fromJson(responsebode['errors'][0]);
-        apiResult.errorMassage = error.msg;
-        apiResult.codeError = status.code;
-
-        print('A bad request Please try again');
-      } else if (response.statusCode == statusCode.UNAUTHORIZED) {
-        status = OrderStatus.fromJson(responsebode['status']);
-
-        error = ErrorResponse.fromJson(responsebode['errors'][0]);
-        apiResult.errorMassage = error.msg;
-        apiResult.codeError = status.code;
-        apiResult.rfreshToken = false;
-        await authController.postrefreshToken();
-        print('A bad request Please try again');
-      } else if (response.statusCode == statusCode.FORBIDDEN) {
-        status = OrderStatus.fromJson(responsebode['status']);
-
-        error = ErrorResponse.fromJson(responsebode['errors'][0]);
-        apiResult.errorMassage = error.msg;
-        apiResult.codeError = status.code;
-
-        print('A bad request Please try again');
-      } else if (response.statusCode == statusCode.NOT_FOUND) {
-        status = OrderStatus.fromJson(responsebode['status']);
-
-        error = ErrorResponse.fromJson(responsebode['errors'][0]);
-        apiResult.errorMassage = error.msg;
-        apiResult.codeError = status.code;
-
-        print('Endpoint not found Please try again');
-      } else if (response.statusCode == statusCode.DUPLICATED_ENTRY) {
-        status = OrderStatus.fromJson(responsebode['status']);
-
-        error = ErrorResponse.fromJson(responsebode['errors'][0]);
-        apiResult.errorMassage = error.msg;
-        apiResult.codeError = status.code;
-
-        print('Input error Please try again');
-      } else if (response.statusCode == statusCode.VALIDATION_ERROR) {
-        status = OrderStatus.fromJson(responsebode['status']);
-
-        error = ErrorResponse.fromJson(responsebode['errors'][0]);
-        apiResult.errorMassage = error.msg;
-        apiResult.codeError = status.code;
-
-        print('Input error Please try again');
-      } else if (response.statusCode == statusCode.INTERNAL_SERVER_ERROR) {
-        status = OrderStatus.fromJson(responsebode['status']);
-
-        error = ErrorResponse.fromJson(responsebode['errors'][0]);
-        apiResult.errorMassage = error.msg;
-        apiResult.codeError = status.code;
-
-        print('Server error Please try again');
-      } else {
-        status = OrderStatus.fromJson(responsebode['status']);
-        error = ErrorResponse.fromJson(responsebode['errors'][0]);
-        apiResult.errorMassage = error.msg;
-        apiResult.codeError = status.code;
-
-        print(' error Please try again');
-      }
-    } on SocketException {
-      apiResult.errorMassage = 'Make sure you are connected to the internet';
-      apiResult.codeError = statusCode.connection;
-      apiResult.hasError = true;
-      print('Make sure you are connected to the internet');
-    } on FormatException {
-      apiResult.errorMassage = 'There is a problem with the admin';
-      apiResult.codeError = statusCode.parsing;
-      apiResult.hasError = true;
-      print('There is a problem with the admin');
-    } catch (e) {
-      apiResult.errorMassage = 'حدث خطأ غير متوقع';
-      apiResult.codeError = statusCode.connection;
-      apiResult.hasError = true;
-      print('${e}');
-    }
     return apiResult;
   }
 
